@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">likegreen</string>
+    <string name="homepage">首页</string>
+    <string name="note">日记</string>
+    <string name="find">发现</string>
+    <string name="mine">我的</string>
+    <string name="focus">关注</string>
+    <string name="recommended">推荐</string>
+    <string name="update">更新</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

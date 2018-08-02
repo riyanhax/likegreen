@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pywl.likegreen.activity.GuanggaoAndLiveActivity">
+    <ImageView
+        android:id="@+id/iv_guanggao_live_goback"
+        style="@style/paddinglift"
+        android:src="@drawable/wode_return"
+         />
+<!--    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/st_my"
+        android:layout_below="@id/ll_my"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        tl:tl_divider_color="#ffffff"
+        tl:tl_divider_padding="8dp"
+        tl:tl_divider_width="1dp"
+        tl:tl_indicator_color="#000000"
+        tl:tl_indicator_height="25dp"
+        tl:tl_indicator_width_equal_title="true"
+        tl:tl_tab_padding="16dp"
+        tl:tl_tab_space_equal="true"
+        tl:tl_textSelectColor="#ffffff"
+        tl:tl_textUnselectColor="#e7e7e7"
+        tl:tl_indicator_width="10dp"
+        />
+    <android.support.v4.view.ViewPager
+        android:layout_below="@id/st_my"
+        android:id="@+id/viewpager_my"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />-->
+
+</RelativeLayout>

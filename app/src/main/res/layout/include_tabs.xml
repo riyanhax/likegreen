@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_gravity="bottom"
+    >
+    <View
+        android:id="@+id/tab_line"
+        android:background="#6bffffff"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+ <LinearLayout
+
+     android:layout_width="match_parent"
+     android:layout_height="48dp"
+     android:orientation="horizontal">
+<LinearLayout
+
+    android:gravity="center"
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tab_homepage"
+        android:drawablePadding="4dp"
+        android:textColor="#3e3e3e"
+        android:drawableTop="@drawable/bt_nav_1"
+        android:text="@string/homepage"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout
+
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tab_note"
+            android:drawablePadding="4dp"
+            android:textColor="#3e3e3e"
+            android:drawableTop="@drawable/bt_nav_2"
+            android:text="@string/note"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/tab_add"
+            android:src="@drawable/add"
+            android:layout_width="38dp"
+            android:layout_height="38dp" />
+    </LinearLayout>
+    <LinearLayout
+
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tab_find"
+            android:drawablePadding="4dp"
+            android:textColor="#3e3e3e"
+            android:drawableTop="@drawable/bt_nav_3"
+            android:text="@string/find"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tab_mine"
+            android:drawablePadding="4dp"
+            android:textColor="#3e3e3e"
+            android:drawableTop="@drawable/bt_nav_4"
+            android:text="@string/mine"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+ </LinearLayout>
+</RelativeLayout>
