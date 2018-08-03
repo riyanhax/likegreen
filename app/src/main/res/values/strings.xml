@@ -7,6 +7,13 @@
     <string name="focus">关注</string>
     <string name="recommended">推荐</string>
     <string name="update">更新</string>
+    <string name="privateletter">私信</string>
+    <string name="shoppingcar">购物车</string>
+    <string name="order">订单</string>
+    <string name="coupons">优惠券</string>
+    <string name="audit">审核</string>
+    <string name="mycollection">我的收藏</string>
+    <string name="mygoods">我发布过的商品</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

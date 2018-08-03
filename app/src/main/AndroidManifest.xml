@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.PersonalDataActivity" />
-        <activity android:name=".activity.DirectMessagesActivity" />
         <activity android:name=".activity.GuanggaoAndLiveActivity"></activity>
     </application>
 

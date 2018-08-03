@@ -5,14 +5,15 @@ import android.support.v4.app.FragmentTabHost;
 import android.os.Bundle;
 import android.view.View;
 
+import com.pywl.likegreen.adapter.BaseActivity;
 import com.pywl.likegreen.fragment.home.HomeAddFragment;
 import com.pywl.likegreen.fragment.home.HomeFindFragment;
 import com.pywl.likegreen.fragment.home.HomeMyFragment;
 import com.pywl.likegreen.fragment.home.HomeNoteFragment;
 import com.pywl.likegreen.fragment.home.HomePageFragment;
-import com.pywl.likegreen.view.BaceActivity;
 
-public class MainActivity extends BaceActivity implements View.OnClickListener {
+
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";//测试url
     private Class<Fragment>[] mFragments = new Class[]{HomePageFragment.class, HomeNoteFragment.class, HomeAddFragment.class,
             HomeFindFragment.class,HomeMyFragment.class};
@@ -30,12 +31,12 @@ public class MainActivity extends BaceActivity implements View.OnClickListener {
         initTab();
     }
 
-    private void initData() {
+    protected void initData() {
 
 
     }
 
-    @Override
+
     public void initView() {
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);

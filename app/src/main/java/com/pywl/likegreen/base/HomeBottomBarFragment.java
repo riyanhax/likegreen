@@ -12,7 +12,6 @@ import com.pywl.likegreen.R;
 /**
  * Created by theWind on 2018/8/1.
  */
-
 public class HomeBottomBarFragment extends Fragment{
 
 
