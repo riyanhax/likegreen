@@ -58,7 +58,7 @@ dependencies {
     //圆形图片
     compile 'de.hdodenhof:circleimageview:2.1.0'
     //极光推送
-   // compile 'cn.jiguang.sdk:jpush:3.0.3'
+    // compile 'cn.jiguang.sdk:jpush:3.0.3'
     //compile 'cn.jiguang.sdk:jcore:1.1.1'
     // 七牛云存储
     compile 'com.qiniu:qiniu-android-sdk:7.3.3'

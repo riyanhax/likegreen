@@ -80,7 +80,7 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
                     }
                 })
                 .create()
-                .showAsDropDown(mMyMore,-70,20);
+                .showAsDropDown(mMyMore,-70,5);
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_menu,null);
         handleLogic(contentView);
 

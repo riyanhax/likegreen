@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.PersonalDataActivity" />
-        <activity android:name=".activity.GuanggaoAndLiveActivity"></activity>
+        <activity android:name=".activity.GuanggaoAndLiveActivity" />
+        <activity android:name=".activity.AuditAndLiveActivity"></activity>
     </application>
 
 </manifest>

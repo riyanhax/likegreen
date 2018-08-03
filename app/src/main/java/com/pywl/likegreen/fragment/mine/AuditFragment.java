@@ -11,12 +11,12 @@ import com.pywl.likegreen.R;
 
 /**
  * Created by theWind on 2018/8/1.
- * 我的页面下面的直播recycleView
+ * 广告视频 审核
  */
 
-public class MyLiveFragment extends Fragment {
+public class AuditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_live, container, false);
+        View view = inflater.inflate(R.layout.fragment_audit, container, false);
 
         return view;
     }
