@@ -2,31 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/rl_in_audit"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp">
         <ImageView
+            android:id="@+id/iv_in_audit_back"
             android:src="@drawable/more"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:layout_width="20dp"
             android:layout_height="20dp" />
         <TextView
+            android:id="@+id/tv_in_aduit"
+            android:layout_toRightOf="@id/iv_in_audit_back"
             android:textColor="@color/colorfocuse"
-            android:layout_gravity="right|center_vertical"
+            android:layout_centerVertical="true"
             android:text="审核中"
             android:textSize="15sp"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
-
-            android:layout_gravity="right|center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_unaudit"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <ImageView
+            android:id="@+id/iv_unaudit"
+            android:src="@drawable/group"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/tv_unaduit"
+            android:layout_toRightOf="@id/iv_unaudit"
+            android:textColor="#8c8b8b"
+            android:layout_centerVertical="true"
+            android:text="不通过"
+            android:textSize="15sp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.pywl.likegreen.activity.SystemSettingsActivity">
+    <RelativeLayout
+       style="@style/head">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return"
+            style="@style/paddinglift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/systemsetting"
+            android:textColor="@color/colorfocuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <View
+        android:background="#f6f6f6"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="个人信息"
+           style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="更改绑定手机号"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="修改密码"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <View
+        android:background="#f6f6f6"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="仅WiFi环境下观看视频和直播"
+            style="@style/systemtext" />
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/system_select"
+            android:layout_height="20dp"
+            android:layout_width="38dp"/>
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="数据和WiFi环境下观看视频和直播"
+            style="@style/systemtext" />
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/system_select"
+            android:layout_height="20dp"
+            android:layout_width="38dp"/>
+    </RelativeLayout>
+    <View
+        android:background="#f6f6f6"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
+</LinearLayout>

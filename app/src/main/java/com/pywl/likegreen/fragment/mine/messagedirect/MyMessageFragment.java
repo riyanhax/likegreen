@@ -1,4 +1,4 @@
-package com.pywl.likegreen.fragment.mine;
+package com.pywl.likegreen.fragment.mine.messagedirect;
 
 import android.content.Context;
 import android.net.Uri;

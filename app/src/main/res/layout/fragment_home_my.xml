@@ -33,6 +33,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/msg_driect"
             android:background="@drawable/my_yuanjiao"
             android:layout_marginLeft="8dp"
             android:layout_width="39dp"
@@ -45,11 +46,11 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/system_setting"
             android:background="@drawable/my_yuanjiao"
             android:layout_marginLeft="8dp"
             android:layout_width="35dp"
             android:layout_height="match_parent">
-
             <ImageView
                 android:layout_centerInParent="true"
                 android:layout_width="16dp"
@@ -129,7 +130,7 @@
         />
     <android.support.v4.view.ViewPager
         android:layout_below="@id/st_my"
-        android:id="@+id/viewpager_my"
+        android:id="@+id/viewpager_home_my"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
