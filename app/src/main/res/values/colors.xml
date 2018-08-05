@@ -6,5 +6,7 @@
     <color name="colorfocuse">#bbe417</color>
     <color name="white">#ffffff</color>
     <color name="linebackground">#e5e5e5</color>
+    <color name="maintextcolor">#3e3e3e</color>
+    <color name="green">#77c476</color>
 
 </resources>

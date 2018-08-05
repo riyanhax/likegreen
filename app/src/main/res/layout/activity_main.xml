@@ -1,123 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pywl.likegreen.MainActivity"
-    >
-    <android.support.v4.app.FragmentTabHost
-        android:id="@android:id/tabhost"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="48dp"
-       >
+    android:orientation="vertical">
+
         <FrameLayout
-            android:id="@android:id/tabcontent"
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:orientation="horizontal" />
-    </android.support.v4.app.FragmentTabHost>
+            android:layout_weight="1"></FrameLayout>
 
-    <include layout="@layout/include_tabs" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linebackground"/>
 
+        <RadioGroup
+            android:id="@+id/main_radio"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
+            <RadioButton
+                android:id="@+id/main_rbt_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/bt_nav_1"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/homepage"
+                android:textColor="@color/maintextcolor"
+                android:textSize="@dimen/sp_15"/>
 
+            <RadioButton
+                android:id="@+id/main_rbt_note"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/bt_nav_2"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/note"
+                android:textColor="#3e3e3e"
+                android:textSize="@dimen/sp_15"/>
+            <RadioButton
+                android:id="@+id/main_rbt_add"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/add"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_10" />
+            <RadioButton
+                android:id="@+id/main_rbt_find"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/bt_nav_3"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/find"
+                android:textSize="@dimen/sp_15"/>
 
-   <!-- <io.github.leibnik.wechatradiobar.WeChatRadioGroup xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/radiogroup"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-
-        >
-
-        <io.github.leibnik.wechatradiobar.WeChatRadioButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checked="true"
-            android:gravity="center"
-            android:paddingTop="3dp"
-            android:text="@string/homepage"
-            android:textColor="#555"
-            android:textSize="13sp"
-            app:defocus_icon="@drawable/home"
-            app:focus_color="#50ba26"
-            app:focus_icon="@drawable/home_xuanzhong"
-            />
-
-        <io.github.leibnik.wechatradiobar.WeChatRadioButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="3dp"
-            android:text="@string/note"
-            android:textColor="#555"
-            android:textSize="13sp"
-            app:defocus_icon="@drawable/riji"
-            app:focus_color="#50ba26"
-            app:focus_icon="@drawable/riji_xuanzhong"
-            />
-        <io.github.leibnik.wechatradiobar.WeChatRadioButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="3dp"
-            app:defocus_icon="@drawable/add"
-            app:focus_color="#50ba26"
-            app:focus_icon="@drawable/add"
-            />
-        <io.github.leibnik.wechatradiobar.WeChatRadioButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="3dp"
-            android:text="@string/find"
-            android:textColor="#555"
-            android:textSize="13sp"
-            app:defocus_icon="@drawable/message"
-            app:focus_color="#50ba26"
-            app:focus_icon="@drawable/message_xuanzhong"
-            />
-
-
-
-        <io.github.leibnik.wechatradiobar.WeChatRadioButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="3dp"
-            android:text="@string/mine"
-            android:textColor="#555"
-            android:textSize="13sp"
-            app:defocus_icon="@drawable/my"
-            app:focus_color="#50ba26"
-            app:focus_icon="@drawable/my_xuanzhong"
-            />
-    </io.github.leibnik.wechatradiobar.WeChatRadioGroup>
-
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_above="@id/radiogroup"
-        android:background="#6bffffff"
-        />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/line"
-        />-->
-</FrameLayout>
+            <RadioButton
+                android:id="@+id/main_rbt_mine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/bt_nav_4"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/mine"
+                android:textSize="15sp"/>
+        </RadioGroup>
+</LinearLayout>

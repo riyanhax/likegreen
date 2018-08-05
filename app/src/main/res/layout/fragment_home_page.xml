@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#77c476"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     xmlns:tl="http://schemas.android.com/tools">
-   <ImageView
-       android:id="@+id/iv_home_page_more"
-       android:layout_marginTop="23dp"
-       android:layout_marginLeft="20dp"
-       android:src="@drawable/more_home"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content" />
-
  <com.flyco.tablayout.SlidingTabLayout
      android:layout_centerHorizontal="true"
      android:id="@+id/st_home_page"
-     android:layout_width="wrap_content"
+     android:layout_width="match_parent"
      android:layout_height="20dp"
      android:background="#00000000"
      android:layout_marginTop="26dp"
@@ -38,12 +29,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-    <ImageView
-        android:id="@+id/iv_home_page_search"
-       android:layout_alignParentRight="true"
-       android:layout_marginTop="23dp"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+</LinearLayout>

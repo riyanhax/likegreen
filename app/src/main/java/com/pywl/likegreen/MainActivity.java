@@ -1,9 +1,14 @@
 package com.pywl.likegreen;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
+
+
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.pywl.likegreen.adapter.BaseActivity;
 import com.pywl.likegreen.fragment.home.HomeAddFragment;
@@ -13,117 +18,130 @@ import com.pywl.likegreen.fragment.home.HomeNoteFragment;
 import com.pywl.likegreen.fragment.home.HomePageFragment;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";//测试url
-    private Class<Fragment>[] mFragments = new Class[]{HomePageFragment.class, HomeNoteFragment.class, HomeAddFragment.class,
-            HomeFindFragment.class,HomeMyFragment.class};
-    private final int TAB_HOME = 0, TAB_NOTE = 1, TAB_ADD = 2, TAB_FIND = 3,TAB_MY=4;
-    private View[] mTabViews;
-    private FragmentTabHost mTabHost;
-    private int mSelectedIndex = 0;
+//    private Class<Fragment>[] mFragments = new Class[]{HomePageFragment.class, HomeNoteFragment.class, HomeAddFragment.class,
+//            HomeFindFragment.class, HomeMyFragment.class};
+    Fragment main_home, main_note, main_find, main_mine,main_add;
+    private RadioGroup main_radio;
+    private RadioButton main_rbt_home,main_rbt_add,main_rbt_mine,main_rbt_find,main_rbt_note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        initData();
-        initTab();
+        initFragment();
     }
+    private void initFragment() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-    protected void initData() {
-
-
-    }
-
-
-    public void initView() {
-        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
-        mTabHost.getTabWidget().setVisibility(View.GONE);
-        for (Class<Fragment> item : mFragments) {
-            mTabHost.addTab(mTabHost.newTabSpec(item.getName()).setIndicator(item.getName()), item, null);
+        if (main_home == null) {
+            main_home = new HomePageFragment();
+            transaction.add(R.id.fragment_container, main_home);
         }
-
-        mTabViews = new View[]{findViewById(R.id.tab_homepage), findViewById(R.id.tab_note), findViewById(R.id.tab_add),
-                findViewById(R.id.tab_find),findViewById(R.id.tab_mine)};
-        for (View tab : mTabViews) {
-            tab.setOnClickListener(this);
-        }
+        transaction.commitAllowingStateLoss();
     }
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tab_homepage: //首页
-                selectTab(TAB_HOME);
-                break;
-            case R.id.tab_note: //日记
-                selectTab(TAB_NOTE);
-                break;
-            case R.id.tab_add: //添加
-                selectTab(TAB_ADD);
-                break;
-            case R.id.tab_find: //发现
-                selectTab(TAB_FIND);
-                break;
-            case R.id.tab_mine: //我的
-                selectTab(TAB_MY);
-                break;
-            default:
-                break;
-        }
-    }
-    /**
-     * 初始化Tab
-     */
-    private void initTab() {
-        mTabViews[mSelectedIndex].setSelected(true);
-        selectTab(mSelectedIndex);
-    }
-    private void selectTab(int index) {
-        if (index >= 0 && mTabHost.getCurrentTab() != index) {
-            for (int i = 0; i < mTabViews.length; i++) {
-                mTabViews[i].setSelected(index == i);
-            }
-
-            mTabHost.setCurrentTab(index);
-               /* if (MineScene.isLogined()) { //登录状态
-                    mTabViews[i].setSelected(index == i);
-                } else { //未登录状态*/
-                   // if (index != TAB_MESSAGE) { // && index != TAB_PUBLISH
-                     //   mTabViews[i].setSelected(index == i);
-                  //  }
+    protected void initView() {
+        main_radio = findViewById(R.id.main_radio);
+        main_rbt_home = findViewById(R.id.main_rbt_home);
+        main_rbt_add = findViewById(R.id.main_rbt_add);
+        main_rbt_find = findViewById(R.id.main_rbt_find);
+        main_rbt_mine = findViewById(R.id.main_rbt_mine);
+        main_rbt_note = findViewById(R.id.main_rbt_note);
+        main_radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                hideAllFragment(transaction);
+                switch (checkedId) {
+                    case R.id.main_rbt_home:
+                        if (main_home == null) {
+                            main_home = new HomePageFragment();
+                            transaction.add(R.id.fragment_container, main_home);
+                        } else {
+                            transaction.show(main_home);
+                        }
+                        main_rbt_home.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        break;
+                    case R.id.main_rbt_note:
+                        if (main_note == null) {
+                            main_note = new HomeNoteFragment();
+                            transaction.add(R.id.fragment_container, main_note);
+                        } else {
+                            transaction.show(main_note);
+                        }
+                        main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_note.setTextColor(getResources().getColor(R.color.green));
+                        break;
+                    case R.id.main_rbt_add:
+                        if (main_add == null) {
+                            main_add = new HomeAddFragment();
+                            transaction.add(R.id.fragment_container, main_add);
+                        } else {
+                            transaction.show(main_add);
+                        }
+                        main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_add.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        break;
+                    case R.id.main_rbt_find:
+                        if (main_find == null) {
+                            main_find = new HomeFindFragment();
+                            transaction.add(R.id.fragment_container, main_find);
+                        } else {
+                            transaction.show(main_find);
+                        }
+                        main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_find.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        break;
+                    case R.id.main_rbt_mine:
+                        if (main_mine == null) {
+                            main_mine = new HomeMyFragment();
+                            transaction.add(R.id.fragment_container, main_mine);
+                        } else {
+                            transaction.show(main_mine);
+                        }
+                        main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        main_rbt_mine.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                        break;
                 }
+                transaction.commitAllowingStateLoss();
             }
+        });
+    }
 
- //           StatusBarUtil.setTransparentForImageView(this, null);
- //           if (index == TAB_MESSAGE) { //消息 发布需要判断登录  || index == TAB_PUBLISH
-//                if (MineScene.isLogined()) {
-//                    if (index == TAB_MESSAGE) showNewMessageDot(false);
-/*                    mTabHost.setCurrentTab(index);
-                } else {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-            } else {
-                mTabHost.setCurrentTab(index);
-            }
+    public void hideAllFragment(FragmentTransaction transaction) {
+        if (main_home != null) {
+            transaction.hide(main_home);
         }
-    }*/
+        if (main_find != null) {
+            transaction.hide(main_find);
+        }
+        if (main_mine != null) {
+            transaction.hide(main_mine);
+        }
+        if (main_add != null) {
+            transaction.hide(main_add);
+        }
+        if (main_note != null) {
+            transaction.hide(main_note);
+        }
+    }
+
 }
-/*
-    //定义底部标签图片大小
-    Drawable drawableFirst = getResources().getDrawable(R.drawable.selector_ic_first);
-    drawableFirst.setBounds(0, 0, 69, 69);//第一0是距左右边距离，第二0是距上下边距离，第三69长度,第四宽度
-            rbFirst.setCompoundDrawables(null, drawableFirst, null, null);//只放上面
-
-            Drawable drawableSearch = getResources().getDrawable(R.drawable.selector_ic_search);
-            drawableSearch.setBounds(0, 0, 69, 69);//第一0是距左右边距离，第二0是距上下边距离，第三69长度,第四宽度
-            rbSearch.setCompoundDrawables(null, drawableSearch, null, null);//只放上面
-
-            Drawable drawableMe = getResources().getDrawable(R.drawable.selector_ic_people);
-            drawableMe.setBounds(0, 0, 69, 69);//第一0是距左右边距离，第二0是距上下边距离，第三69长度,第四宽度
-            rbMe.setCompoundDrawables(null, drawableMe, null, null);//只放上面
-            }*/

@@ -40,8 +40,6 @@ public class HomePageFragment extends HomeBottomBarFragment {
         return view;
     }
 
-
-
     private void initView(View v){
          mStHomePage = (SlidingTabLayout)v.findViewById(R.id.st_home_page);
         mViewpager=(ViewPager)v.findViewById(R.id.viewpager_home_page);
@@ -51,7 +49,6 @@ public class HomePageFragment extends HomeBottomBarFragment {
         fragments.add(new FocuFragment());
         fragments.add(new RecommendedFragment());
         fragments.add(new TheNewFragment());
-        mStHomePage.setViewPager(mViewpager,items,getActivity(),fragments);
+        mStHomePage.setViewPager(mViewpager,items,(FragmentActivity) getActivity(),fragments);
     }
-
 }

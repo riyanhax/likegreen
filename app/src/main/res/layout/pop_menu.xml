@@ -15,6 +15,7 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       android:gravity="center"
+      android:clickable="true"
       >
       <ImageView
             style="@style/popiv"
