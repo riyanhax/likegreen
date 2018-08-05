@@ -35,10 +35,10 @@ public class MainActivity extends BaseActivity {
     }
     private void initFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
         if (main_home == null) {
             main_home = new HomePageFragment();
             transaction.add(R.id.fragment_container, main_home);
+            main_rbt_home.setTextColor(getResources().getColor(R.color.green));
         }
         transaction.commitAllowingStateLoss();
     }
@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
                             transaction.show(main_home);
                         }
                         main_rbt_home.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_home.setChecked(true);
                         main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
@@ -80,6 +81,7 @@ public class MainActivity extends BaseActivity {
                         main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_note.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_note.setChecked(true);
                         break;
                     case R.id.main_rbt_add:
                         if (main_add == null) {
@@ -90,6 +92,7 @@ public class MainActivity extends BaseActivity {
                         }
                         main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_add.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_add.setChecked(true);
                         main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
@@ -104,6 +107,7 @@ public class MainActivity extends BaseActivity {
                         main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_find.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_find.setChecked(true);
                         main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
                         break;
@@ -118,6 +122,7 @@ public class MainActivity extends BaseActivity {
                         main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
                         main_rbt_mine.setTextColor(getResources().getColor(R.color.green));
+                        main_rbt_mine.setChecked(true);
                         main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
                         break;
                 }
@@ -142,6 +147,11 @@ public class MainActivity extends BaseActivity {
         if (main_note != null) {
             transaction.hide(main_note);
         }
+        main_rbt_mine.setChecked(false);
+        main_rbt_add.setChecked(false);
+        main_rbt_find.setChecked(false);
+        main_rbt_home.setChecked(false);
+        main_rbt_note.setChecked(false);
     }
 
 }
