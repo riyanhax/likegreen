@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#fff"
     tools:context="com.pywl.likegreen.activity.SystemSettingsActivity">
     <RelativeLayout
        style="@style/head">
@@ -21,6 +22,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <View
         android:background="#cccccc"
         android:layout_width="match_parent"
@@ -98,5 +108,99 @@
         android:background="#f6f6f6"
         android:layout_width="match_parent"
         android:layout_height="5dp"/>
+    <RelativeLayout
+        android:id="@+id/my_to_promote"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="我要推广"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="消息推送"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="意见反馈"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="推荐给好友"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="清理缓存"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="版权说明"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="关于我们"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+        <View
+            android:background="#f6f6f6"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+        <TextView
 
+            android:textColor="#333333"
+            android:text="退出登录"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
 </LinearLayout>

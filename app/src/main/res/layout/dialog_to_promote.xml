@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_to_promote_circular">
+    <LinearLayout
+        android:id="@+id/ll_dialog_push"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:text="推广热线："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_promote_phone"
+            android:text="18038637318"
+            android:textColor="#bbe417"
+            android:layout_marginLeft="4dp"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_dialog2"
+       android:layout_below="@id/ll_dialog_push"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#404040"
+            android:text="咨询时间:"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="   9:  30-11:  30"
+                android:textSize="15sp"
+                android:textColor="#404040"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text=" 15:  30-17:  00"
+                android:textSize="15sp"
+                android:textColor="#404040"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="3dp"
+                android:textSize="11dp"
+                android:text="(周六日及节假日休息)"
+                android:textColor="#404040"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@id/ll_dialog2"
+        android:layout_marginTop="23dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38">
+    <TextView
+        android:id="@+id/tv_to_promote_cancel"
+        android:gravity="center"
+        android:background="@drawable/dialog_to_promote_circular_life"
+        android:text="取消"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/to_to_promte_consulting"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:background="@drawable/dialog_to_promote_circular_right"
+        android:text="立即咨询"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+</LinearLayout>
+</RelativeLayout>
