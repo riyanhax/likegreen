@@ -11,7 +11,7 @@ import com.pywl.likegreen.R;
 
 /**
  * Created by theWind on 2018/8/1.
- * 我的页面下面的直播recycleView
+ * 我的页面下面的直播
  */
 
 public class MyLiveFragment extends Fragment {

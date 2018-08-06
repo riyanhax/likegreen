@@ -1,5 +1,7 @@
 package com.pywl.likegreen.activity;
-
+/*
+* 广告视频","直播
+* */
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,6 @@ public class AuditAndLiveActivity extends AppCompatActivity {
 
     private void initView() {
         mStAuditLive=(SlidingTabLayout)findViewById(R.id.st_audit_live);
-        mViewPager=(ViewPager) findViewById(R.id.st_audit_live);
+        mViewPager=(ViewPager) findViewById(R.id.viewpager_my);
     }
 }

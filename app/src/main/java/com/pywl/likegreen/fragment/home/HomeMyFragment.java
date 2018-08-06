@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.example.zhouwei.library.CustomPopWindow;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.MainActivity;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.activity.AuditAndLiveActivity;
 import com.pywl.likegreen.activity.MyMessageAndDirectActivity;
 import com.pywl.likegreen.activity.SystemSettingsActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
@@ -73,7 +75,7 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
         fragments.add(new MyGardenFragment());
         fragments.add(new MyWeddingCardFragment());
         mStMy.setViewPager(mViewpagerMy, items, (FragmentActivity) getActivity(), fragments);
-        //mStMy.setViewPager(mViewpagerMy);
+
 
     }
 
@@ -91,22 +93,48 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
                 Intent intentMyMessageAndDirectActivity = new Intent(getActivity(), MyMessageAndDirectActivity.class);
                 startActivity(intentMyMessageAndDirectActivity);
                 break;
-            case R.id.pop_privateletter:
+            case R.id.pop_privateletter://私信
                 Toast.makeText(getActivity(), "私信", Toast.LENGTH_SHORT).show();
                 popupWindow.dismiss();
+                break;
+            case R.id.pop_audit://视频审核
+                Intent intentAuditAndLiveActivity = new Intent(getActivity(), AuditAndLiveActivity.class);
+                startActivity(intentAuditAndLiveActivity);
                 break;
         }
     }
 
     private void showPopwindow() {
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_menu, null);
+        //私信
         LinearLayout pop_privateletter = contentView.findViewById(R.id.pop_privateletter);
         pop_privateletter.setOnClickListener(this);
+        //审核
+        LinearLayout pop_audit = contentView.findViewById(R.id.pop_audit);
+        pop_audit.setOnClickListener(this);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
         popupWindow.setTouchable(true);
+        //设置半透明
+        WindowManager.LayoutParams lp = getActivity().getWindow()
+                .getAttributes();
+        lp.alpha = 0.4f;
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        getActivity().getWindow().setAttributes(lp);
+        //恢复正常
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getActivity().getWindow()
+                        .getAttributes();
+                lp.alpha = 1f;
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
         popupWindow.showAsDropDown(mMyMore, -70, 5);
     }
+
 }
 

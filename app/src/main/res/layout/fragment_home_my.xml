@@ -112,21 +112,24 @@
             </LinearLayout>
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/st_my"
+        android:background="@color/white"
         android:layout_below="@id/ll_my"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="35dp"
-        tl:tl_divider_color="#ffffff"
-        tl:tl_divider_padding="15dp"
+        tl:tl_divider_color="#dadada"
+        tl:tl_divider_padding="13dp"
         tl:tl_divider_width="1dp"
-        tl:tl_indicator_color="#000000"
-        tl:tl_indicator_height="1dp"
+        tl:tl_indicator_color="#bbe417"
+        tl:tl_indicator_height="2dp"
+        tl:tl_indicator_width="62dp"
         tl:tl_indicator_width_equal_title="true"
-        tl:tl_tab_padding="16dp"
+        tl:tl_tab_padding="5dp"
         tl:tl_tab_space_equal="true"
-        tl:tl_textSelectColor="#ffffff"
-        tl:tl_textUnselectColor="#e7e7e7"
+        tl:tl_textSelectColor="#bbe417"
+        tl:tl_textUnselectColor="#dadada"
+
         />
     <android.support.v4.view.ViewPager
         android:layout_below="@id/st_my"
@@ -135,9 +138,5 @@
         android:layout_height="match_parent"
         />
 
-
-
-
-    
 
 </RelativeLayout>

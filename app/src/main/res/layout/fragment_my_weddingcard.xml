@@ -1,9 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:text="weddingcard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <LinearLayout
+        android:id="@+id/ll_my_weddingcard"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_my_trailer"
+            android:layout_width="match_parent"
+            android:layout_height="59dp">
+            <ImageView
+                android:src="@drawable/sharinglife"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:id="@+id/iv_perlive"
+                android:layout_centerVertical="true"
+                android:layout_width="29dp"
+                android:layout_height="29dp" />
+            <TextView
+                android:layout_toRightOf="@id/iv_perlive"
+                android:text="@string/sharelift"
+                style="@style/systemtext" />
+            <ImageView
+                android:src="@drawable/back"
+                style="@style/systeimg" />
+        </RelativeLayout>
+        <include layout="@layout/layout_line"/>
+        <RelativeLayout
+            android:id="@+id/rl_my_playback"
+            android:layout_width="match_parent"
+            android:layout_height="59dp">
+            <ImageView
+                android:src="@drawable/topic"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:id="@+id/iv_playback"
+                android:layout_centerVertical="true"
+                android:layout_width="29dp"
+                android:layout_height="29dp" />
+            <TextView
+                android:layout_toRightOf="@id/iv_playback"
+                android:text="@string/jiontheme"
+                style="@style/systemtext" />
+            <ImageView
+                android:src="@drawable/back"
+                style="@style/systeimg" />
+        </RelativeLayout>
+        <include layout="@layout/layout_line"/>
+        <RelativeLayout
+            android:id="@+id/rl_my_air_on"
+            android:layout_width="match_parent"
+            android:layout_height="59dp">
+            <ImageView
+                android:src="@drawable/post"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:id="@+id/iv_air_on"
+                android:layout_centerVertical="true"
+                android:layout_width="29dp"
+                android:layout_height="29dp" />
+            <TextView
+                android:layout_toRightOf="@id/iv_air_on"
+                android:text="@string/longpost"
+                style="@style/systemtext" />
+            <ImageView
+                android:src="@drawable/back"
+                style="@style/systeimg" />
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:background="@color/enptyviewbackground"
+        android:layout_below="@id/ll_my_weddingcard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

@@ -6,13 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.adapter.MyDriectAdapter;
+
 
 public class MyDirectFragment extends Fragment {
-    private LRecyclerView mLrDirectMsg;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

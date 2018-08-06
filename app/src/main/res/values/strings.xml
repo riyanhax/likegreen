@@ -16,6 +16,21 @@
     <string name="mygoods">我发布过的商品</string>
     <string name="systemsetting">系统设置</string>
 
+    <string name="personaldata">个人资料</string>
+    <string name="headimg">头像</string>
+    <string name="nichen">昵称</string>
+    <string name="phone">手机号</string>
+    <string name="sagnetrue">个性签名</string>
+    <string name="shoppingaddress">收货地址</string>
+
+    <string name="trailer">预告</string>
+    <string name="playback">回放</string>
+    <string name="airon">即将开播</string>
+
+    <string name="sharelift">分享生活</string>
+    <string name="jiontheme">参与话题</string>
+    <string name="longpost">长帖子</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -22,7 +22,9 @@
         <activity android:name=".activity.GuanggaoAndLiveActivity" />
         <activity android:name=".activity.AuditAndLiveActivity" />
         <activity android:name=".activity.MyMessageAndDirectActivity" />
-        <activity android:name=".activity.SystemSettingsActivity"></activity>
+        <activity android:name=".activity.SystemSettingsActivity" />
+        <activity android:name=".activity.PlayBackActivity" />
+        <activity android:name=".activity.ShareLiftActivity"></activity>
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fff"
+    android:background="#ffffff"
     tools:context="com.pywl.likegreen.activity.SystemSettingsActivity">
     <RelativeLayout
        style="@style/head">
@@ -24,7 +24,7 @@
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -40,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"/>
     <RelativeLayout
+        android:id="@+id/system_personal_Data"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
@@ -185,22 +186,26 @@
             android:src="@drawable/back"
             style="@style/systeimg" />
     </RelativeLayout>
-        <View
-            android:background="#f6f6f6"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-        <TextView
+            <View
+                android:background="#f6f6f6"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"/>
+            <RelativeLayout
 
-            android:textColor="#333333"
-            android:text="退出登录"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:textColor="#333333"
+                    android:text="退出登录"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:background="#f6f6f6"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
 
-        </RelativeLayout>
     </LinearLayout>
 </ScrollView>
 </LinearLayout>

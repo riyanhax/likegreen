@@ -24,7 +24,7 @@ public class ToPRomoteDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_to_promote);
+        setContentView(R.layout.pop_to_promote);
         //按空白处不能取消动画
         setCanceledOnTouchOutside(true);
 
