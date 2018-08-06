@@ -66,6 +66,7 @@
                 android:drawableTop="@drawable/bt_nav_3"
                 android:gravity="center"
                 android:paddingTop="@dimen/dp_10"
+                android:textColor="#3e3e3e"
                 android:text="@string/find"
                 android:textSize="@dimen/sp_15"/>
 
@@ -77,7 +78,8 @@
                 android:button="@null"
                 android:drawableTop="@drawable/bt_nav_4"
                 android:gravity="center"
-                android:paddingTop="@dimen/dp_10"
+                android:paddingTop="10dp"
+                android:textColor="#3e3e3e"
                 android:text="@string/mine"
                 android:textSize="15sp"/>
         </RadioGroup>
