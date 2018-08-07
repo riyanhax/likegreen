@@ -20,6 +20,12 @@ android {
     dataBinding {
         enabled = true
     }
+    sourceSets {
+        main {
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['jniLibs']
+        }
+    }
 }
 
 dependencies {

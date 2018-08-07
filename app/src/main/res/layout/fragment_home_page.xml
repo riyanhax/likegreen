@@ -1,32 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#d4da16"
     xmlns:tl="http://schemas.android.com/tools">
- <com.flyco.tablayout.SlidingTabLayout
-     android:layout_centerHorizontal="true"
-     android:id="@+id/st_home_page"
-     android:layout_width="match_parent"
-     android:layout_height="20dp"
-     android:background="#00000000"
-     android:layout_marginTop="26dp"
-     tl:tl_divider_color="#ffffff"
-     tl:tl_divider_padding="8dp"
-     tl:tl_divider_width="2dp"
-     tl:tl_indicator_color="#000000"
-     tl:tl_indicator_height="1.5dp"
-     tl:tl_indicator_width_equal_title="true"
-     tl:tl_tab_padding="16dp"
-     tl:tl_tab_space_equal="true"
-     tl:tl_textSelectColor="#ffffff"
-     tl:tl_textUnselectColor="#e7e7e7"
-     />
-
-    <android.support.v4.view.ViewPager
-        android:layout_below="@id/st_home_page"
-        android:id="@+id/viewpager_home_page"
+    <LinearLayout
+        android:id="@+id/ll_home_live"
+        android:visibility="gone"
+        android:background="#000000"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-</LinearLayout>
+        android:layout_height="68dp"
+       >
+        <RelativeLayout
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/release"
+                android:id="@+id/iv_home_apply_live"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_width="@dimen/dp_38"
+                android:layout_height="@dimen/dp_38" />
+            <TextView
+                android:textColor="#b6b6b6"
+                android:textSize="@dimen/sp_10"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_below="@id/iv_home_apply_live"
+                android:text="申请直播"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/morelive"
+                android:id="@+id/iv_home_more_live"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_width="@dimen/dp_38"
+                android:layout_height="@dimen/dp_38" />
+            <TextView
+                android:textColor="#b6b6b6"
+                android:textSize="@dimen/sp_10"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_below="@id/iv_home_more_live"
+                android:text="更多直播"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_below="@id/ll_home_live"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_home_more_btn"
+            android:src="@drawable/more_home"
+            android:layout_marginTop="@dimen/dp_13"
+            android:layout_marginLeft="20dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <ImageView
+            android:src="@drawable/search"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_13"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20" />
+        <com.flyco.tablayout.SlidingTabLayout
+            android:layout_centerHorizontal="true"
+            android:id="@+id/st_home_page"
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="15dp"
+            tl:tl_divider_color="#ffffff"
+            tl:tl_divider_padding="1dp"
+            tl:tl_divider_width="1dp"
+            tl:tl_indicator_color="#000000"
+            tl:tl_tab_padding="2dp"
+            tl:tl_tab_space_equal="true"
+            tl:tl_textSelectColor="#ffffff"
+            tl:tl_textUnselectColor="#e7e7e7"
+            tl:tl_underline_height="0dp"
+
+            />
+
+        <android.support.v4.view.ViewPager
+            android:layout_below="@id/st_home_page"
+            android:id="@+id/viewpager_home_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

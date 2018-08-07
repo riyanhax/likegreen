@@ -67,6 +67,7 @@
                 android:gravity="center"
                 android:paddingTop="@dimen/dp_10"
                 android:text="@string/find"
+                android:textColor="#3e3e3e"
                 android:textSize="@dimen/sp_15"/>
 
             <RadioButton
@@ -79,6 +80,7 @@
                 android:gravity="center"
                 android:paddingTop="@dimen/dp_10"
                 android:text="@string/mine"
+                android:textColor="#3e3e3e"
                 android:textSize="15sp"/>
         </RadioGroup>
 </LinearLayout>
