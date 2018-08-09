@@ -105,6 +105,6 @@ dependencies {
     //Popwindow
     implementation 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
     //网易播放端
-    compile 'com.netease.nimlib:neliveplayer:1.9.0'
+   // compile 'com.netease.nimlib:neliveplayer:1.9.0'
     compile project(path: ':playerkit')
 }
