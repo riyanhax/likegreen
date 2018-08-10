@@ -20,9 +20,9 @@ android {
     dataBinding {
         enabled = true
     }
-    sourceSets{
-        main{
-            jniLibs.srcDirs=['libs']
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -66,8 +66,10 @@ dependencies {
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
 
     //下拉刷新RecyclerView
-    compile 'com.jcodecraeer:xrecyclerview:1.5.9'
+
+    //compile 'com.jcodecraeer:xrecyclerview:1.5.9'
     implementation 'com.android.support:recyclerview-v7:21.0.0'
+    implementation 'com.github.jdsjlzx:LRecyclerView:1.2.9'
 
     //图片加载
     implementation 'com.github.bumptech.glide:glide:3.7.0'
@@ -104,7 +106,12 @@ dependencies {
 
     //Popwindow
     implementation 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
+
     //网易播放端
-   // compile 'com.netease.nimlib:neliveplayer:1.9.0'
+
+    // compile 'com.netease.nimlib:neliveplayer:1.9.0'
     compile project(path: ':playerkit')
+
+    implementation files('libs/jcore-android-1.2.1.jar')
+    implementation files('libs/jmessage-sdk-android-2.6.1.jar')
 }

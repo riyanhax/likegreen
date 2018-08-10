@@ -1,10 +1,7 @@
 package com.pywl.likegreen.fragment.home;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -18,13 +15,10 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
 import com.pywl.likegreen.fragment.FocuFragment;
-import com.pywl.likegreen.fragment.RecommendedFragment;
+import com.pywl.likegreen.fragment.HomeLiveFragment;
 import com.pywl.likegreen.fragment.TheNewFragment;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
@@ -58,7 +52,8 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
     private void initData() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new FocuFragment());
-        fragments.add(new RecommendedFragment());
+        //fragments.add(new RecommendedFragment());
+        fragments.add(new HomeLiveFragment());
         fragments.add(new TheNewFragment());
         mStHomePage.setViewPager(mViewpager,items,(FragmentActivity) getActivity(),fragments);
         mStHomePage.setCurrentTab(1);

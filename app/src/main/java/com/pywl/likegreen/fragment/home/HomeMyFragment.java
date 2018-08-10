@@ -82,19 +82,22 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.my_more:
+            case R.id.my_more://点击。。。
                 showPopwindow();
                 break;
             case R.id.system_setting:
                 Intent intentSystemSetting = new Intent(getActivity(), SystemSettingsActivity.class);
                 startActivity(intentSystemSetting);
                 break;
-            case R.id.msg_driect:
+            case R.id.msg_driect://点击铃铛
                 Intent intentMyMessageAndDirectActivity = new Intent(getActivity(), MyMessageAndDirectActivity.class);
+                intentMyMessageAndDirectActivity.putExtra("HomeMyFragment",0);
                 startActivity(intentMyMessageAndDirectActivity);
                 break;
             case R.id.pop_privateletter://私信
-                Toast.makeText(getActivity(), "私信", Toast.LENGTH_SHORT).show();
+                Intent intentMyMessageAndDirectActivity2 = new Intent(getActivity(), MyMessageAndDirectActivity.class);
+                intentMyMessageAndDirectActivity2.putExtra("HomeMyFragment",1);
+                startActivity(intentMyMessageAndDirectActivity2);
                 popupWindow.dismiss();
                 break;
             case R.id.pop_audit://视频审核

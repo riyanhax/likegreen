@@ -1,5 +1,6 @@
 package com.pywl.likegreen.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,10 +30,13 @@ public class MyMessageAndDirectActivity extends AppCompatActivity {
         initData();
     }
     private void initData() {
+        Intent intent = getIntent();
+        int number = intent.getIntExtra("HomeMyFragment", 0);
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new MyMessageFragment());
         fragments.add(new MyDirectFragment());
         mStAuditLive.setViewPager(mViewPager,times,this,fragments);
+        mStAuditLive.setCurrentTab(number);
     }
 
     private void initView() {

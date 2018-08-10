@@ -1,17 +1,31 @@
 package com.pywl.likegreen.fragment.mine.messagedirect;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+
+import com.github.jdsjlzx.interfaces.OnItemClickListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 
 import com.pywl.likegreen.R;
 
+import com.pywl.likegreen.activity.ChatActivity;
+import com.pywl.likegreen.adapter.Myadapter;
+
+import java.util.ArrayList;
+/*
+* 私信页
+* */
 
 public class MyDirectFragment extends Fragment {
-
+    private LRecyclerView mDirectList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -24,20 +38,31 @@ public class MyDirectFragment extends Fragment {
 
 
 
-    private void initView(View view) {
-//        mLrDirectMsg = (LRecyclerView)view.findViewById(R.id.lr_my_direct_msg);
-//        View header = LayoutInflater.from(getActivity()).inflate(R.layout.layout_my_direct_msg_hand,
-//                (ViewGroup)findViewById(android.R.id.content), false);
-//        mDataAdapter = new MyDriectAdapter(this);
-//        mDataAdapter.setData(dataList);
-//
-//        mLRecyclerViewAdapter = new LRecyclerViewAdapter(mDataAdapter);
-//        mRecyclerView.setAdapter(mLRecyclerViewAdapter);
-//        mLrDirectMsg.addHeaderView(new SampleHeader(this));
-
+    private void initView(View v) {
+         mDirectList = (LRecyclerView)v.findViewById(R.id.direct_list);
     }
 
     private void initData() {
-        //mLrDirectMsg.addHeaderView(header);
+        ArrayList<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        mDirectList.setLayoutManager(new LinearLayoutManager(getActivity()));
+       // MyDirectAdapter myDirectAdapter = new MyDirectAdapter(list);
+
+        //mDirectList.setAdapter(myDirectAdapter);
+        Myadapter myadapter = new Myadapter(getActivity());
+        myadapter.setDataList(list);
+
+        LRecyclerViewAdapter mLRecyclerViewAdapter = new LRecyclerViewAdapter(myadapter);
+        mLRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                startActivity(intent);
+                Toast.makeText(getActivity(),"点击饿了"+position,Toast.LENGTH_SHORT).show();
+            }
+        });
+        mDirectList.setAdapter(mLRecyclerViewAdapter);
     }
 }

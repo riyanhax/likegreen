@@ -1,4 +1,4 @@
-package com.pywl.likegreen.fragment.home;
+package com.pywl.likegreen.fragment;
 
 import android.app.AlertDialog;
 import android.net.Uri;
@@ -74,6 +74,7 @@ public class HomeLiveFragment extends Fragment {
     }
     public final static String TAG = HomeLiveFragment.class.getSimpleName();
     private static final int SHOW_PROGRESS = 0x01;
+
     private ImageButton mPlayBack;
     private TextView mFileName; //文件名称
     private ImageView mAudioRemind; //播音频文件时提示
@@ -108,6 +109,7 @@ public class HomeLiveFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_live, container, false);
+        Log.i(TAG, "onCreate");
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //保持屏幕常亮
         //来电时观察者
        // PhoneCallStateObserver.getInstance().observeLocalPhoneObserver(localPhoneObserver, true);
@@ -181,7 +183,6 @@ public class HomeLiveFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Log.i(TAG, "onStart");
-
     }
 
     @Override
