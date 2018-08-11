@@ -108,12 +108,9 @@ dependencies {
     implementation 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
 
     //网易播放端
-
-    // compile 'com.netease.nimlib:neliveplayer:1.9.0'
     compile project(path: ':playerkit')
     implementation files('libs/jcore-android-1.2.1.jar')
     implementation files('libs/jmessage-sdk-android-2.6.1.jar')
 
-    //implementation project(path: ':chatui')
-
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
