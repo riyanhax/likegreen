@@ -31,6 +31,11 @@
     <string name="jiontheme">参与话题</string>
     <string name="longpost">长帖子</string>
 
+    <string name="aibum">相册</string>
+    <string name="shot">拍摄</string>
+    <string name="smallvideo">小视频</string>
+    <string name="edtexthint">   请输入消息...</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
