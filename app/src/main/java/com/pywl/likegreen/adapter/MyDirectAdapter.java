@@ -1,5 +1,6 @@
 package com.pywl.likegreen.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,50 +8,50 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.listener.OnItemClickListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import cn.jpush.im.android.api.model.Conversation;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by theWind on 2018/8/10.
+ * 私信adapter
  */
 
-public class MyDirectAdapter extends RecyclerView.Adapter<MyDirectAdapter.MyViewHolder> {
-    ArrayList<String> mData=new ArrayList<String>();
-    public MyDirectAdapter(ArrayList<String> data){
-        this.mData=data;
-    }
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_direct_msg, null);
-        return new MyViewHolder(view);
+public class MyDirectAdapter extends ListBaseAdapter<Conversation> {
+    private LayoutInflater mLayoutInflater;
+
+    public MyDirectAdapter(Context context) {
+        mLayoutInflater = LayoutInflater.from(context);
+        mContext = context;
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        String s = mData.get(position);
-        holder.mTvMyDirectWord.setText(s);
-
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(mLayoutInflater.inflate(R.layout.item_my_direct_msg, parent, false));
     }
 
     @Override
-    public int getItemCount() {
-        return mData.size();
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Conversation conversation = mDataList.get(position);
+
+        ViewHolder viewHolder = (ViewHolder) holder;
+
     }
 
-    private OnItemClickListener mOnItemClickListener;//声明接口
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
-    }
+    private class ViewHolder extends RecyclerView.ViewHolder {
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView mTvMyDirectWord;
-        public MyViewHolder(View itemView) {
+        private TextView directMsg;
+        private TextView userName;
+        private TextView directData;
+        private CircleImageView headIcon;
+
+        public ViewHolder(View itemView) {
             super(itemView);
-            mTvMyDirectWord = (TextView)itemView.findViewById(R.id.tv_mydirect_word_item);
+            directMsg = (TextView) itemView.findViewById(R.id.tv_mydirect_word_item);
+            userName = (TextView) itemView.findViewById(R.id.tv_mydirect_username_item);
+            headIcon = (CircleImageView) itemView.findViewById(R.id.iv_my_direct_headicon_item);
+            directData = (TextView) itemView.findViewById(R.id.tv_mydirect_date_item);
         }
     }
-
 }

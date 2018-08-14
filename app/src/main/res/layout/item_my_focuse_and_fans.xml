@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="85dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ci_focuse_head"
+        android:layout_marginLeft="@dimen/dp_20"
+       android:layout_centerVertical="true"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40" />
+    <LinearLayout
+        android:layout_toRightOf="@id/ci_focuse_head"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_focuse_username"
+            android:text="cicici"
+            android:textSize="@dimen/sp_15"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_focuse_word"
+            android:text="cicici"
+            android:textSize="@dimen/sp_12"
+            android:textColor="#999999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/my_home_focuse_btn"
+        android:gravity="center"
+        android:background="@drawable/my_focuse"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="#ffffff"
+        android:text="关注"
+        android:layout_width="63dp"
+        android:layout_height="25dp" />
+    <View
+        android:background="@color/enptyviewbackground"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</RelativeLayout>

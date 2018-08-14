@@ -1,6 +1,5 @@
 package com.pywl.likegreen.activity;
 
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,16 +9,12 @@ import android.widget.TextView;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.chat.Constants;
-import com.pywl.likegreen.chat.EmotionInputDetector;
-import com.pywl.likegreen.chat.MessageCenter;
-import com.pywl.likegreen.chat.MessageInfo;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.UserInfo;
 
 /*
 聊天界面
@@ -32,11 +27,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mChatSpeak,mChatMore;
     private boolean isSpeaking=false;
     private boolean isMore=false;
-    private List<MessageInfo> messageInfos;//聊天数据
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        JMessageClient.registerEventReceiver(this);
         initView();
         initData();
         handleIncomeAction();
@@ -67,18 +63,17 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         mSpeaking.setOnClickListener(this);
     }
     private void initData() {
+        UserInfo myInfo = JMessageClient.getMyInfo();
+        //单聊
 
-      /*  mDetector = EmotionInputDetector.with(this)
-                .setEmotionView(emotionLayout)
-                //.setViewPager(viewpager)
-                .bindToContent(mChatList)
-                .bindToEditText(mChatWord)
-                .bindToEmotionButton(emotionButton)
-                .bindToAddButton(emotionAdd)
-                .bindToSendButton(emotionSend)
-                .bindToVoiceButton(emotionVoice)
-                .bindToVoiceText(voiceText)
-                .build();*/
+
+/*        mConv = JMessageClient.getSingleConversation(mTargetId, mTargetAppKey);
+        if (mConv == null) {
+            mConv = Conversation.createSingleConversation(mTargetId, mTargetAppKey);
+        }
+        mChatAdapter = new ChattingListAdapter(mContext, mConv, longClickListener);*/
+
+
     }
     private void handleIncomeAction() {
         Bundle bundle = getIntent().getExtras();
@@ -86,7 +81,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        MessageCenter.handleIncoming(bundle, getIntent().getType(), this);
+
     }
 
     @Override
@@ -143,68 +138,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
      * 构造聊天数据
      */
     private void LoadData() {
-/*        messageInfos = new ArrayList<>();
 
-        MessageInfo messageInfo = new MessageInfo();
-        messageInfo.setContent("你好，欢迎使用Rance的聊天界面框架");
-        messageInfo.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
-        messageInfo.setType(Constants.CHAT_ITEM_TYPE_LEFT);
-        messageInfo.setHeader("http://img0.imgtn.bdimg.com/it/u=401967138,750679164&fm=26&gp=0.jpg");
-        messageInfos.add(messageInfo);
-
-        MessageInfo messageInfo1 = new MessageInfo();
-        messageInfo1.setFilepath("http://www.trueme.net/bb_midi/welcome.wav");
-        messageInfo1.setVoiceTime(3000);
-        messageInfo1.setFileType(Constants.CHAT_FILE_TYPE_VOICE);
-        messageInfo1.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
-        messageInfo1.setSendState(Constants.CHAT_ITEM_SEND_SUCCESS);
-        messageInfo1.setHeader("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-        messageInfos.add(messageInfo1);
-
-        MessageInfo messageInfo2 = new MessageInfo();
-        messageInfo2.setFilepath("http://img4.imgtn.bdimg.com/it/u=1800788429,176707229&fm=21&gp=0.jpg");
-        messageInfo2.setFileType(Constants.CHAT_FILE_TYPE_IMAGE);
-        messageInfo2.setType(Constants.CHAT_ITEM_TYPE_LEFT);
-        messageInfo2.setHeader("http://img0.imgtn.bdimg.com/it/u=401967138,750679164&fm=26&gp=0.jpg");
-        messageInfos.add(messageInfo2);
-
-        MessageInfo messageInfo3 = new MessageInfo();
-        messageInfo3.setContent("[微笑][色][色][色]");
-        messageInfo3.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
-        messageInfo3.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
-        messageInfo3.setSendState(Constants.CHAT_ITEM_SEND_ERROR);
-        messageInfo3.setHeader("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-        messageInfos.add(messageInfo3);
-
-        chatAdapter.addAll(messageInfos);
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void MessageEventBus(final MessageInfo messageInfo) {
-        messageInfo.setHeader("http://img.dongqiudi.com/uploads/avatar/2014/10/20/8MCTb0WBFG_thumb_1413805282863.jpg");
-        messageInfo.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
-        messageInfo.setSendState(Constants.CHAT_ITEM_SENDING);
-        messageInfos.add(messageInfo);
-        chatAdapter.notifyItemInserted(messageInfos.size() - 1);
-//        chatAdapter.add(messageInfo);
-        chatList.scrollToPosition(chatAdapter.getItemCount() - 1);
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                messageInfo.setSendState(Constants.CHAT_ITEM_SEND_SUCCESS);
-                chatAdapter.notifyDataSetChanged();
-            }
-        }, 2000);
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                MessageInfo message = new MessageInfo();
-                message.setContent("这是模拟消息回复");
-                message.setType(Constants.CHAT_ITEM_TYPE_LEFT);
-                message.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
-                message.setHeader("http://img0.imgtn.bdimg.com/it/u=401967138,750679164&fm=26&gp=0.jpg");
-                messageInfos.add(message);
-                chatAdapter.notifyItemInserted(messageInfos.size() - 1);
-                chatList.scrollToPosition(chatAdapter.getItemCount() - 1);
-            }
-        }, 3000);*/
+    @Override
+    public void onDestroy() {
+        //注销消息接收
+        JMessageClient.unRegisterEventReceiver(this);
+        super.onDestroy();
     }
 }

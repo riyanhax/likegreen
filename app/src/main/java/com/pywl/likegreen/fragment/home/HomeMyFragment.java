@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zhouwei.library.CustomPopWindow;
@@ -25,6 +26,8 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.MainActivity;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.activity.AuditAndLiveActivity;
+import com.pywl.likegreen.activity.MyFansActivity;
+import com.pywl.likegreen.activity.MyFocuseActivity;
 import com.pywl.likegreen.activity.MyMessageAndDirectActivity;
 import com.pywl.likegreen.activity.SystemSettingsActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
@@ -47,7 +50,7 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
     private View mMyMore, mSystemSetting, mMsgDriect;
     private String[] items = new String[]{"视频", "直播", "花园", "喜帖"};
     private PopupWindow popupWindow;
-
+    private TextView mMyfocuse,mMyfans;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,9 +66,14 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
         mMyMore = v.findViewById(R.id.my_more);//弹popuwindow
         mSystemSetting = v.findViewById(R.id.system_setting);//系统设置
         mMsgDriect = v.findViewById(R.id.msg_driect);//消息私信
+        mMyfocuse = (TextView)v.findViewById(R.id.my_home_focuse);//关注
+        mMyfans = (TextView)v.findViewById(R.id.my_home_fans);//关注
+
         mMyMore.setOnClickListener(this);
         mSystemSetting.setOnClickListener(this);
         mMsgDriect.setOnClickListener(this);
+        mMyfocuse.setOnClickListener(this);
+        mMyfans.setOnClickListener(this);
     }
 
     private void initData() {
@@ -103,6 +111,14 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
             case R.id.pop_audit://视频审核
                 Intent intentAuditAndLiveActivity = new Intent(getActivity(), AuditAndLiveActivity.class);
                 startActivity(intentAuditAndLiveActivity);
+                break;
+            case R.id.my_home_focuse://我的关注
+                Intent intentMyFocuseActivity = new Intent(getActivity(), MyFocuseActivity.class);
+                startActivity(intentMyFocuseActivity);
+                break;
+            case R.id.my_home_fans://我的粉丝
+                Intent intentMyFansActivity = new Intent(getActivity(), MyFansActivity.class);
+                startActivity(intentMyFansActivity);
                 break;
         }
     }

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -33,13 +34,22 @@ import com.netease.neliveplayer.playerkit.sdk.view.AdvanceSingleTextureView;
 import com.netease.neliveplayer.playerkit.sdk.view.AdvanceSurfaceView;
 import com.netease.neliveplayer.sdk.NEDefinitionData;
 import com.netease.neliveplayer.sdk.NELivePlayer;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.ne.Observer;
 import com.pywl.likegreen.ne.PhoneCallStateObserver;
 import com.pywl.likegreen.service.PlayerService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import cn.jpush.im.android.api.ChatRoomManager;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.RequestCallback;
+import cn.jpush.im.android.api.model.ChatRoomInfo;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.api.BasicCallback;
 
 
 /**
@@ -48,7 +58,9 @@ import java.util.Locale;
  */
 
 public class HomeLiveFragment extends Fragment {
-
+    private EditText mLiveSay;//输入框
+    private TextView mRoomCount;//在线人数
+    private long roomId=10101698;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -111,6 +123,7 @@ public class HomeLiveFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_live, container, false);
         Log.i(TAG, "onCreate");
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //保持屏幕常亮
+        //JMessageClient.registerEventReceiver(this);//注册im监听器
         //来电时观察者
        // PhoneCallStateObserver.getInstance().observeLocalPhoneObserver(localPhoneObserver, true);
         initView(view);
@@ -123,7 +136,8 @@ public class HomeLiveFragment extends Fragment {
 
     private void initView(View v) {
          textureView = v.findViewById(R.id.live_texture);
-
+        mLiveSay=(EditText)v.findViewById(R.id.et_live_say);//输入框
+        mRoomCount=(TextView)v.findViewById(R.id.tv_live_room_count);//在线人数
     }
     private void initData() {
         mUri = Uri.parse(mVideoPath);
@@ -136,7 +150,31 @@ public class HomeLiveFragment extends Fragment {
         } else {
             mHardware = false;
         }
+        JMessageClient.login("fjjpydc", "84915190qw", new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+
+            }
+        });
+        //进入聊天室
+        ChatRoomManager.enterChatRoom(roomId, new RequestCallback<Conversation>() {
+            @Override
+            public void gotResult(int i, String s, Conversation conversation) {
+                String result = null != conversation ? conversation.toString() : null;
+                Log.v("nihaoma",result);
+            }
+        });
+        //查询聊天室信息
+        ChatRoomManager.getChatRoomInfos(Collections.singleton(roomId), new RequestCallback<List<ChatRoomInfo>>() {
+            @Override
+            public void gotResult(int i, String s, List<ChatRoomInfo> chatRoomInfos) {
+                chatRoomInfos.size();
+
+                Log.v("nihaoma",chatRoomInfos.size()+"111");
+            }
+        });
     }
+
     private void initPlayer() {
         VideoOptions options = new VideoOptions();
         options.autoSwitchDefinition = false;
@@ -229,7 +267,13 @@ public class HomeLiveFragment extends Fragment {
         super.onDestroy();
         Log.i(TAG, "onDestroy");
         releasePlayer();
+        //退出聊天室
+        ChatRoomManager.leaveChatRoom(roomId, new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
 
+            }
+        });
     }
 
 

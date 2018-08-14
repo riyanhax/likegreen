@@ -46,6 +46,7 @@
     <style name="head">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
+        <item name="android:background">@color/white</item>
     </style>
     <style name="systemtext">
         <item name="android:layout_width">wrap_content</item>
@@ -62,4 +63,23 @@
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_alignParentRight">true</item>
     </style>
+<!--1111111111chatdemo导入的11111111111-->
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="jmui_default_dialog_style">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:radius">5dp</item>
+    </style>
+    <!--1111111111chatdemo导入的11111111111-->
 </resources>

@@ -111,6 +111,9 @@ dependencies {
     compile project(path: ':playerkit')
     implementation files('libs/jcore-android-1.2.1.jar')
     implementation files('libs/jmessage-sdk-android-2.6.1.jar')
-
     compile 'org.greenrobot:eventbus:3.0.0'
+
+    //数据库
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    implementation files('libs/universal-image-loader-1.9.5.jar')
 }
