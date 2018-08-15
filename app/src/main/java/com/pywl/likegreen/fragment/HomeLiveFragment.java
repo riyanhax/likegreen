@@ -57,10 +57,11 @@ import cn.jpush.im.api.BasicCallback;
  * 首页直播fragment
  */
 
-public class HomeLiveFragment extends Fragment {
+public class HomeLiveFragment extends Fragment implements View.OnClickListener {
     private EditText mLiveSay;//输入框
     private TextView mRoomCount;//在线人数
     private long roomId=10101698;
+    private View mLiveGift;//礼物
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -138,6 +139,8 @@ public class HomeLiveFragment extends Fragment {
          textureView = v.findViewById(R.id.live_texture);
         mLiveSay=(EditText)v.findViewById(R.id.et_live_say);//输入框
         mRoomCount=(TextView)v.findViewById(R.id.tv_live_room_count);//在线人数
+       mLiveGift = v.findViewById(R.id.iv_live_gift);//礼物
+        mLiveGift.setOnClickListener(this);
     }
     private void initData() {
         mUri = Uri.parse(mVideoPath);
@@ -150,12 +153,7 @@ public class HomeLiveFragment extends Fragment {
         } else {
             mHardware = false;
         }
-        JMessageClient.login("fjjpydc", "84915190qw", new BasicCallback() {
-            @Override
-            public void gotResult(int i, String s) {
 
-            }
-        });
         //进入聊天室
         ChatRoomManager.enterChatRoom(roomId, new RequestCallback<Conversation>() {
             @Override
@@ -476,4 +474,22 @@ public class HomeLiveFragment extends Fragment {
 
         }
     };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_live_gift://礼物
+                JMessageClient.login("fjjpydc", "84915190qw", new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                            if (i==0){
+                                Log.v("nihaoma","登录成功");
+                            }else {
+                                Log.v("nihaoma","登录失败");
+                            }
+                    }
+                });
+                break;
+        }
+    }
 }

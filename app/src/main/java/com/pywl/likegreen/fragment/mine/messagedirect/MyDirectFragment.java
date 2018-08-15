@@ -42,15 +42,16 @@ import cn.jpush.im.android.api.model.UserInfo;
 * 私信页
 * */
 
-public class MyDirectFragment extends JGBaseFragment {
+public class MyDirectFragment extends Fragment {
     private static final int REFRESH_CONVERSATION_LIST = 0x3000;
     private static final int DISMISS_REFRESH_HEADER = 0x3001;
     private static final int ROAM_COMPLETED = 0x3002;
+    private static final int SETDATA = 0x3003;
     private LRecyclerView mDirectList;
     private HandlerThread mThread;
     private BackgroundHandler mBackgroundHandler;
     private View view;
-
+    private ArrayList<Conversation> list;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,29 +71,35 @@ public class MyDirectFragment extends JGBaseFragment {
     }
 
     private void initData() {
+        setListData();
+
+
+    }
+    private void setListData(){
         List<Conversation> conversationList = JMessageClient.getConversationList();
-        ArrayList<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
+        mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(SETDATA,conversationList));
+    }
+    private void initList(List<Conversation> conversationList){
+        list = new ArrayList<>();
+        list.addAll(conversationList);
         mDirectList.setLayoutManager(new LinearLayoutManager(getActivity()));
         MyDirectAdapter myadapter = new MyDirectAdapter(getActivity());
-        //myadapter.setDataList(list);
-
+        myadapter.setDataList(list);
         LRecyclerViewAdapter mLRecyclerViewAdapter = new LRecyclerViewAdapter(myadapter);
         mLRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                startActivity(intent);
+                if (list!=null){
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    intent.putExtra("MyDirectFragment",list.get(position).getTargetId());
+                    startActivity(intent);
+                }
+
 
             }
         });
         mDirectList.setAdapter(mLRecyclerViewAdapter);
-
     }
-
-
     /**
      * 收到消息
      */
@@ -123,10 +130,6 @@ public class MyDirectFragment extends JGBaseFragment {
             }
     }
 
-    @Override
-    public void handlerMsg(android.os.Message msg) {
-
-    }
     /**
      * 接收离线消息
      *
@@ -195,6 +198,10 @@ public class MyDirectFragment extends JGBaseFragment {
                 case ROAM_COMPLETED:
                     conv = (Conversation) msg.obj;
 
+                    break;
+                case SETDATA:
+                    List<Conversation> conversationList= (List<Conversation>) msg.obj;
+                    initList(conversationList);
                     break;
             }
         }

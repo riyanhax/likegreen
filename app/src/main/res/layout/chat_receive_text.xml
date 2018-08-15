@@ -11,7 +11,8 @@
         android:layout_gravity="center"
         android:background="@drawable/chat_time_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_gravity="left"
@@ -23,13 +24,13 @@
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_width="@dimen/dp_44"
             android:layout_height="@dimen/dp_44" />
-        <ImageButton
-            android:id="@+id/ib_chat_receice_word"
+        <TextView
+            android:id="@+id/ib_chat_send_word"
             android:layout_marginLeft="5dp"
             android:background="@drawable/chat_background"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            />
     </LinearLayout>
 </LinearLayout>

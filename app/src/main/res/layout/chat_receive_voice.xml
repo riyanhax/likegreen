@@ -23,8 +23,8 @@
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_width="@dimen/dp_44"
             android:layout_height="@dimen/dp_44" />
-        <ImageButton
-            android:id="@+id/ib_chat_receice_voice"
+        <TextView
+            android:id="@+id/ib_chat_send_voice"
             android:layout_marginLeft="5dp"
             android:background="@drawable/chat_background"
             android:layout_gravity="center"
