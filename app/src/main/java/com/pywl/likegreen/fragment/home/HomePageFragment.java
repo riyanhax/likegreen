@@ -16,7 +16,11 @@ import com.pywl.likegreen.R;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
 import com.pywl.likegreen.fragment.FocuFragment;
 import com.pywl.likegreen.fragment.HomeLiveFragment;
+import com.pywl.likegreen.fragment.PreviewFragment;
+import com.pywl.likegreen.fragment.RecommendedFragment;
+import com.pywl.likegreen.fragment.ReviewFragment;
 import com.pywl.likegreen.fragment.TheNewFragment;
+import com.pywl.likegreen.fragment.mine.LiveFragment;
 
 import java.util.ArrayList;
 
@@ -29,10 +33,14 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
     private ImageView mIvHomeMoreBtn;
     private  SlidingTabLayout mStHomePage;//
     private ViewPager mViewpager;
-    private String[] items=new String[]{"关注","推荐","最新"};
+    private String[] itemsRecommend=new String[]{"关注","推荐","最新"};
+    private String[] itemsLive=new String[]{"回顾","直播中","预告"};
 
-    private boolean isShow=false;
-    private View mLlHomeLive;
+    private boolean isShow=true;
+    private View mLlHomeLive,mRlMoreLive;
+    private boolean isLive=true;
+    private ArrayList<Fragment> fragmentsRecom;//推荐
+    private ArrayList<Fragment> fragmentsLive;//直播
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,14 +56,16 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
         mIvHomeMoreBtn=(ImageView)v.findViewById(R.id.iv_home_more_btn);//打开直播的按钮
         mIvHomeMoreBtn.setOnClickListener(this);
         mLlHomeLive = v.findViewById(R.id.ll_home_live);//显示直播进入界面
+        mRlMoreLive = v.findViewById(R.id.rl_morelive);//更多直播
+        mRlMoreLive.setOnClickListener(this);
     }
     private void initData() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new FocuFragment());
-        //fragments.add(new RecommendedFragment());
-        fragments.add(new HomeLiveFragment());
-        fragments.add(new TheNewFragment());
-        mStHomePage.setViewPager(mViewpager,items,(FragmentActivity) getActivity(),fragments);
+        fragmentsRecom = new ArrayList<>();
+        fragmentsRecom.add(new FocuFragment());
+        fragmentsRecom.add(new RecommendedFragment());
+
+        fragmentsRecom.add(new TheNewFragment());
+        mStHomePage.setViewPager(mViewpager,itemsRecommend,(FragmentActivity) getActivity(),fragmentsRecom);
         mStHomePage.setCurrentTab(1);
 
     }
@@ -66,20 +76,47 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
             case R.id.iv_home_more_btn:
                 showLiveBtn(isShow);
                 break;
+            case R.id.rl_morelive://更多直播
+                showLiveORRecom(isLive);
+                showLiveBtn(isShow);
+                isShow=!isShow;
+                break;
         }
     }
 
+    private void showLiveORRecom(boolean on) {
+        if (on){
+            fragmentsLive = new ArrayList<>();
+            fragmentsLive.add(new ReviewFragment());
+            fragmentsLive.add(new HomeLiveFragment());
+            fragmentsLive.add(new PreviewFragment());
+            mStHomePage.setViewPager(mViewpager,itemsLive,(FragmentActivity) getActivity(),fragmentsLive);
+            mStHomePage.setCurrentTab(1);
+            Log.v("nihaoma",isShow+"3333333333"+isLive);
+            isLive=false;
+
+        }else {
+            Log.v("nihaoma",isShow+"444444444444"+isLive);
+            fragmentsRecom = new ArrayList<>();
+            fragmentsRecom.add(new FocuFragment());
+            fragmentsRecom.add(new RecommendedFragment());
+            fragmentsRecom.add(new TheNewFragment());
+            mStHomePage.setViewPager(mViewpager,itemsRecommend,(FragmentActivity) getActivity(),fragmentsRecom);
+            mStHomePage.setCurrentTab(1);
+            isLive=true;
+        }
+    }
 
 
     private void showLiveBtn(boolean on) {
         if (on){
             mIvHomeMoreBtn.setImageResource(R.drawable.dropdownmore);
-            mLlHomeLive.setVisibility(View.GONE);
+            mLlHomeLive.setVisibility(View.VISIBLE);
             isShow=false;
             Log.v("nihaoma",isShow+"111111111111111111111111111111");
         }else {
             mIvHomeMoreBtn.setImageResource(R.drawable.more_home);
-            mLlHomeLive.setVisibility(View.VISIBLE);
+            mLlHomeLive.setVisibility(View.GONE);
             isShow=true;
             Log.v("nihaoma",isShow+"2222222222222222222222222222222222222");
         }
