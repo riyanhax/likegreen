@@ -40,6 +40,18 @@
     <string name="shot">拍摄</string>
     <string name="smallvideo">小视频</string>
     <string name="edtexthint">   请输入消息...</string>
+
+    <string name="share">分享到</string>
+    <string name="xilvfriends">喜绿好友</string>
+    <string name="criclefriends">朋友圈</string>
+    <string name="weixin">微信</string>
+    <string name="QQ">QQ好友</string>
+    <string name="weibo">微博</string>
+    <string name="report">举报</string>
+    <string name="coyplink">复制链接</string>
+    <string name="keeploction">保存到本地</string>
+    <string name="unlike">不感兴趣</string>
+
     <string name="jmui_symbol_second">\"</string>
     <!--11111111111demo导入的1111111111111-->
     <string name="jmui_time_format_year_month_day">yyyy年-MM月-dd日</string>
