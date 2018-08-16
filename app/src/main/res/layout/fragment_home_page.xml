@@ -56,15 +56,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_gotolive"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/morelive"
+                android:id="@+id/iv_home_goto_live"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_width="@dimen/dp_38"
+                android:layout_height="@dimen/dp_38" />
+            <TextView
+                android:textColor="#b6b6b6"
+                android:textSize="@dimen/sp_10"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_below="@id/iv_home_goto_live"
+                android:text="主播"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </LinearLayout>
-
-
-
 
     <RelativeLayout
         android:layout_below="@id/ll_home_live"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_home_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
         <ImageView
             android:id="@+id/iv_home_more_btn"
             android:src="@drawable/more_home"
@@ -82,27 +106,17 @@
         <com.flyco.tablayout.SlidingTabLayout
             android:layout_centerHorizontal="true"
             android:id="@+id/st_home_page"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginTop="15dp"
-            tl:tl_divider_color="#ffffff"
-            tl:tl_divider_padding="1dp"
-            tl:tl_divider_width="1dp"
-            tl:tl_indicator_color="#000000"
-            tl:tl_tab_padding="2dp"
-            tl:tl_tab_space_equal="true"
             tl:tl_textSelectColor="#ffffff"
             tl:tl_textUnselectColor="#e7e7e7"
-            tl:tl_underline_height="0dp"
-
+            tl:tl_divider_padding="5dp"
+            app:tl_divider_color="@color/white"
+            app:tl_divider_width="@dimen/dp_1"
+            app:tl_indicator_height="0dp"
             />
 
-        <android.support.v4.view.ViewPager
-            android:layout_below="@id/st_home_page"
-            android:id="@+id/viewpager_home_page"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
     </RelativeLayout>
 
 </RelativeLayout>

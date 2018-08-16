@@ -137,10 +137,10 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
 
     private void initView(View v) {
          textureView = v.findViewById(R.id.live_texture);
-        mLiveSay=(EditText)v.findViewById(R.id.et_live_say);//输入框
+/*        mLiveSay=(EditText)v.findViewById(R.id.et_live_say);//输入框
         mRoomCount=(TextView)v.findViewById(R.id.tv_live_room_count);//在线人数
        mLiveGift = v.findViewById(R.id.iv_live_gift);//礼物
-        mLiveGift.setOnClickListener(this);
+        mLiveGift.setOnClickListener(this);*/
     }
     private void initData() {
         mUri = Uri.parse(mVideoPath);
@@ -477,7 +477,7 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+/*        switch (view.getId()){
             case R.id.iv_live_gift://礼物
                 JMessageClient.login("fjjpydc", "84915190qw", new BasicCallback() {
                     @Override
@@ -490,6 +490,6 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
                     }
                 });
                 break;
-        }
+        }*/
     }
 }

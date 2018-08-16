@@ -1,5 +1,6 @@
 package com.pywl.likegreen.fragment.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.activity.LivingActivity;
+import com.pywl.likegreen.activity.SetAnchorActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
 import com.pywl.likegreen.fragment.FocuFragment;
 import com.pywl.likegreen.fragment.HomeLiveFragment;
@@ -34,13 +38,15 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
     private  SlidingTabLayout mStHomePage;//
     private ViewPager mViewpager;
     private String[] itemsRecommend=new String[]{"关注","推荐","最新"};
-    private String[] itemsLive=new String[]{"回顾","直播中","预告"};
+
 
     private boolean isShow=true;
     private View mLlHomeLive,mRlMoreLive;
     private boolean isLive=true;
     private ArrayList<Fragment> fragmentsRecom;//推荐
     private ArrayList<Fragment> fragmentsLive;//直播
+
+    private View mGotoLive;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,6 +64,9 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
         mLlHomeLive = v.findViewById(R.id.ll_home_live);//显示直播进入界面
         mRlMoreLive = v.findViewById(R.id.rl_morelive);//更多直播
         mRlMoreLive.setOnClickListener(this);
+
+        mGotoLive=v.findViewById(R.id.rl_gotolive);
+        mGotoLive.setOnClickListener(this);
     }
     private void initData() {
         fragmentsRecom = new ArrayList<>();
@@ -77,33 +86,15 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
                 showLiveBtn(isShow);
                 break;
             case R.id.rl_morelive://更多直播
-                showLiveORRecom(isLive);
+                Intent intent = new Intent(getActivity(), LivingActivity.class);
+                startActivity(intent);
                 showLiveBtn(isShow);
-                isShow=!isShow;
+                //isShow=!isShow;
                 break;
-        }
-    }
-
-    private void showLiveORRecom(boolean on) {
-        if (on){
-            fragmentsLive = new ArrayList<>();
-            fragmentsLive.add(new ReviewFragment());
-            fragmentsLive.add(new HomeLiveFragment());
-            fragmentsLive.add(new PreviewFragment());
-            mStHomePage.setViewPager(mViewpager,itemsLive,(FragmentActivity) getActivity(),fragmentsLive);
-            mStHomePage.setCurrentTab(1);
-            Log.v("nihaoma",isShow+"3333333333"+isLive);
-            isLive=false;
-
-        }else {
-            Log.v("nihaoma",isShow+"444444444444"+isLive);
-            fragmentsRecom = new ArrayList<>();
-            fragmentsRecom.add(new FocuFragment());
-            fragmentsRecom.add(new RecommendedFragment());
-            fragmentsRecom.add(new TheNewFragment());
-            mStHomePage.setViewPager(mViewpager,itemsRecommend,(FragmentActivity) getActivity(),fragmentsRecom);
-            mStHomePage.setCurrentTab(1);
-            isLive=true;
+            case R.id.rl_gotolive:
+                Intent intentSetAnchorActivity = new Intent(getActivity(), SetAnchorActivity.class);
+                startActivity(intentSetAnchorActivity);
+                break;
         }
     }
 

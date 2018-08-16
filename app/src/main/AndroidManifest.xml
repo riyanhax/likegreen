@@ -163,9 +163,11 @@
         <service android:name=".service.PlayerService" />
 
         <activity android:name=".activity.ChatActivity" />
-
         <activity android:name=".activity.MyFocuseActivity" />
-        <activity android:name=".activity.MyFansActivity"></activity>
+        <activity android:name=".activity.MyFansActivity" />
+        <activity android:name=".activity.LivingActivity" />
+        <activity android:name=".activity.SetAnchorActivity"/>
+        <activity android:name=".activity.LiveStreamingActivity"/>
     </application>
 
 </manifest>

@@ -1,1 +1,1 @@
-include ':app', ':playerkit'
+include ':app', ':playerkit', ':STMobileJNI'
