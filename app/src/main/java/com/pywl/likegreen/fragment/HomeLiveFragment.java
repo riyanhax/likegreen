@@ -209,6 +209,7 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
     // 接收聊天室消息
     public void onEventMainThread(ChatRoomMessageEvent event) {
 
+
         List<cn.jpush.im.android.api.model.Message> msgs = event.getMessages();
         Log.v("nihaoma","3444444444"+msgs.toString());
         for (cn.jpush.im.android.api.model.Message msg : msgs) {
