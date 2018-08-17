@@ -30,7 +30,7 @@
         />
     <View
         android:background="#f6f6f6"
-        android:layout_below="@id/st_audit_live"
+        android:layout_below="@id/st_message_direct"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <android.support.v4.view.ViewPager
