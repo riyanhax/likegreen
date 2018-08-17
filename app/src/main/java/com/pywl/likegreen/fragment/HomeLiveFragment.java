@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.netease.neliveplayer.playerkit.common.log.LogUtil;
 import com.netease.neliveplayer.playerkit.sdk.LivePlayer;
 import com.netease.neliveplayer.playerkit.sdk.LivePlayerObserver;
 import com.netease.neliveplayer.playerkit.sdk.PlayerManager;
@@ -46,7 +52,9 @@ import java.util.Locale;
 
 import cn.jpush.im.android.api.ChatRoomManager;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.CreateGroupCallback;
 import cn.jpush.im.android.api.callback.RequestCallback;
+import cn.jpush.im.android.api.event.ChatRoomMessageEvent;
 import cn.jpush.im.android.api.model.ChatRoomInfo;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.api.BasicCallback;
@@ -57,11 +65,15 @@ import cn.jpush.im.api.BasicCallback;
  * 首页直播fragment
  */
 
-public class HomeLiveFragment extends Fragment implements View.OnClickListener {
+public class HomeLiveFragment extends Fragment implements View.OnClickListener, View.OnKeyListener {
+    public final static String TAG = HomeLiveFragment.class.getSimpleName();
+    private static final int SHOW_PROGRESS = 0x01;
+    private static final int TOTAL_ROOM_COUNT = 2;
     private EditText mLiveSay;//输入框
     private TextView mRoomCount;//在线人数
-    private long roomId=10101698;
+    private long roomId=10101698L;
     private View mLiveGift;//礼物
+    private LRecyclerView mAudienceSay;//聊天列表
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -72,9 +84,15 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
                     msg = obtainMessage(SHOW_PROGRESS);
                     sendMessageDelayed(msg, 1000 - (position % 1000));
                     break;
+                case TOTAL_ROOM_COUNT:
+                    int count = (int) msg.obj;
+                    setTotalMemberCount(count);
+                    break;
             }
         }
     };
+
+
     private long setProgress() {
         if (player == null)
             return 0;
@@ -85,8 +103,7 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
         }
         return position;
     }
-    public final static String TAG = HomeLiveFragment.class.getSimpleName();
-    private static final int SHOW_PROGRESS = 0x01;
+
 
     private ImageButton mPlayBack;
     private TextView mFileName; //文件名称
@@ -127,20 +144,86 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
         //JMessageClient.registerEventReceiver(this);//注册im监听器
         //来电时观察者
        // PhoneCallStateObserver.getInstance().observeLocalPhoneObserver(localPhoneObserver, true);
+
+        intoChatRoom();
         initView(view);
         initData();
         initPlayer();
         return view;
     }
 
+    private void intoChatRoom() {
+        //登录
+        JMessageClient.login("fjjpydc1", "84915190qw", new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if (i==0){
+                    Log.v("nihaoma","登录成功");
+                }else {
+                    Log.v("nihaoma","登录失败");
+                }
+            }
+        });
+/*      //创建群聊
+        JMessageClient.createGroup("", "", new CreateGroupCallback() {
+            @Override
+            public void gotResult(int i, String s, long l) {
+                Log.v("nihaoma",i+"?"+s+"?"+l);
+                Conversation groupConversation = JMessageClient.getGroupConversation(l);
+                if (groupConversation!=null){
+                    Log.v("nihaoma",groupConversation.toString());
+                }
+            }
+        });*/
 
+        //获取这个appkey下的聊天室
+        ChatRoomManager.getChatRoomListByApp(0, 8, new RequestCallback<List<ChatRoomInfo>>() {
+            @Override
+            public void gotResult(int i, String s, List<ChatRoomInfo> chatRoomInfos) {
+                Log.v("nihaoma",i+"?"+s+chatRoomInfos.toString());
+            }
+        });
+        //进入聊天室
+        ChatRoomManager.enterChatRoom(roomId, new RequestCallback<Conversation>() {
+            @Override
+            public void gotResult(int i, String s, Conversation conversation) {
+                String result = null != conversation ? conversation.toString() : null;
+                Log.v("nihaoma",i+"?"+s+"22222222"+result);
+
+            }
+        });
+        //查询聊天室信息
+        ChatRoomManager.getChatRoomInfos(Collections.singleton(roomId), new RequestCallback<List<ChatRoomInfo>>() {
+            @Override
+            public void gotResult(int i, String s, List<ChatRoomInfo> chatRoomInfos) {
+                Message msg = Message.obtain();
+                msg.what=TOTAL_ROOM_COUNT;
+                msg.obj=chatRoomInfos.get(0).getTotalMemberCount();
+                mHandler.sendMessage(msg);
+            }
+        });
+        //获取聊天室会话
+        Conversation conversation = JMessageClient.getChatRoomConversation(roomId);
+
+    }
+    // 接收聊天室消息
+    public void onEventMainThread(ChatRoomMessageEvent event) {
+        List<cn.jpush.im.android.api.model.Message> msgs = event.getMessages();
+        Log.v("nihaoma","3444444444"+msgs.toString());
+        for (cn.jpush.im.android.api.model.Message msg : msgs) {
+            //这个页面仅仅展示聊天室会话的消息
+            Log.v("nihaoma","333333"+msg.toString());
+        }
+    }
 
     private void initView(View v) {
-         textureView = v.findViewById(R.id.live_texture);
-/*        mLiveSay=(EditText)v.findViewById(R.id.et_live_say);//输入框
+        textureView = v.findViewById(R.id.live_texture);
+        mLiveSay=(EditText)v.findViewById(R.id.et_live_say);//输入框
+        mLiveSay.setOnKeyListener(this);//设置回车键监听
         mRoomCount=(TextView)v.findViewById(R.id.tv_live_room_count);//在线人数
-       mLiveGift = v.findViewById(R.id.iv_live_gift);//礼物
-        mLiveGift.setOnClickListener(this);*/
+        mLiveGift = v.findViewById(R.id.iv_live_gift);//礼物
+        mLiveGift.setOnClickListener(this);
+        mAudienceSay=(LRecyclerView)v.findViewById(R.id.living_room_audience_say);
     }
     private void initData() {
         mUri = Uri.parse(mVideoPath);
@@ -154,24 +237,11 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
             mHardware = false;
         }
 
-        //进入聊天室
-        ChatRoomManager.enterChatRoom(roomId, new RequestCallback<Conversation>() {
-            @Override
-            public void gotResult(int i, String s, Conversation conversation) {
-                String result = null != conversation ? conversation.toString() : null;
-                Log.v("nihaoma",result);
-            }
-        });
-        //查询聊天室信息
-        ChatRoomManager.getChatRoomInfos(Collections.singleton(roomId), new RequestCallback<List<ChatRoomInfo>>() {
-            @Override
-            public void gotResult(int i, String s, List<ChatRoomInfo> chatRoomInfos) {
-                chatRoomInfos.size();
-
-                Log.v("nihaoma",chatRoomInfos.size()+"111");
-            }
-        });
+       /* new LRecyclerViewAdapter();
+        mAudienceSay.setAdapter();
+*/
     }
+
 
     private void initPlayer() {
         VideoOptions options = new VideoOptions();
@@ -199,11 +269,11 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
         intentToStartBackgroundPlay();
 
         start();
-
+        //设置全屏
         if (surfaceView == null) {
-            player.setupRenderView(textureView, VideoScaleMode.FIT);
+            player.setupRenderView(textureView, VideoScaleMode.FILL);
         } else {
-            player.setupRenderView(surfaceView, VideoScaleMode.FIT);
+            player.setupRenderView(surfaceView, VideoScaleMode.FILL);
         }
     }
     private void start() {
@@ -477,19 +547,53 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-/*        switch (view.getId()){
+        switch (view.getId()){
             case R.id.iv_live_gift://礼物
-                JMessageClient.login("fjjpydc", "84915190qw", new BasicCallback() {
-                    @Override
-                    public void gotResult(int i, String s) {
-                            if (i==0){
-                                Log.v("nihaoma","登录成功");
-                            }else {
-                                Log.v("nihaoma","登录失败");
-                            }
-                    }
-                });
+
                 break;
-        }*/
+        }
+    }
+
+    public void setTotalMemberCount(int count) {
+        mRoomCount.setText(String.valueOf(count));
+    }
+    //回车键监听
+    @Override
+    public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
+
+            if (KeyEvent.KEYCODE_ENTER == keyCode && KeyEvent.ACTION_DOWN == keyEvent.getAction()) {
+                //处理事件
+                String userInput = mLiveSay.getText().toString();
+                if(TextUtils.isEmpty(userInput)){
+                    LogUtil.e("nihaoma", "IME_ACTION_SEARCH input is null");
+                    return true;
+                }
+                userInput = userInput.trim();
+                sendRoomMsg(userInput);
+                return true;
+            }
+        }
+        return false;
+    }
+    //发送消息
+    private void sendRoomMsg(String userInput){
+        // 发送聊天室消息
+        Conversation conv = JMessageClient.getChatRoomConversation(roomId);
+        if (null == conv) {
+            conv = Conversation.createChatRoomConversation(roomId);
+        }
+        cn.jpush.im.android.api.model.Message msg = conv.createSendTextMessage(userInput);//实际聊天室可以支持所有类型的消息发送，demo为了简便，仅仅实现了文本类型的消息发送
+        msg.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int responseCode, String responseMessage) {
+                if (0 == responseCode) {
+                   // Log.v("nihaoma",responseCode+"1111?"+responseMessage);
+                } else {
+                    Toast.makeText(getActivity(),"发送失败",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        JMessageClient.sendMessage(msg);
     }
 }

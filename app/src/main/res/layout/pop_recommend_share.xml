@@ -101,7 +101,7 @@
                 android:layout_width="@dimen/dp_44"
                 android:layout_height="@dimen/dp_44"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/qq_shipin" />
+                android:src="@drawable/qq_share" />
 
             <TextView
                 android:layout_width="wrap_content"

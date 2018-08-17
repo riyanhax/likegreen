@@ -69,7 +69,7 @@
         </RelativeLayout>
         <ImageView
             android:layout_marginTop="@dimen/dp_6"
-            android:src="@drawable/shoppingcart"
+            android:src="@drawable/shoppingcart_home"
             android:layout_gravity="center"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36" />
@@ -78,6 +78,13 @@
             android:layout_width="match_parent"
             android:layout_height="179dp"/>
     </LinearLayout>
+    <com.github.jdsjlzx.recyclerview.LRecyclerView
+        android:id="@+id/living_room_audience_say"
+        android:layout_above="@id/ll_live_heng"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
   <LinearLayout
         android:id="@+id/ll_live_heng"
         android:layout_marginBottom="@dimen/dp_20"
@@ -125,7 +132,7 @@
                 android:id="@+id/tv_live_room_count"
                 android:layout_gravity="center"
                 android:textSize="9sp"
-                android:textColor="#ffffff"
+                android:textColor="#bbe417"
                 android:text="1111"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

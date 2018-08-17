@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#38630d"
+    tools:context="com.pywl.likegreen.activity.LoginActivity">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginTop="@dimen/dp_56"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_denglu"
+        android:layout_width="133dp"
+        android:layout_height="133dp" />
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/login_edtext_bg"
+        android:layout_width="271dp"
+        android:layout_height="41dp">
+        <ImageView
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/shoujihao"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_15" />
+        <EditText
+            android:gravity="center_vertical"
+            android:textColorHint="@color/white"
+            android:hint="请输入手机号码"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:focusable="true"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/login_edtext_bg"
+        android:layout_width="271dp"
+        android:layout_height="41dp">
+        <ImageView
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/mima"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_15" />
+        <EditText
+            android:gravity="center_vertical"
+            android:textColorHint="@color/white"
+            android:hint="请输入密码"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:focusable="true"
+            android:background="@null"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp_22"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="271dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/sp_12"
+            android:textColor="#fffefe"
+            android:text="忘记密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/sp_12"
+            android:textColor="#bbe417"
+            android:layout_alignParentRight="true"
+            android:text="注册会员"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <TextView
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_18"
+        android:gravity="center"
+        android:text="登录"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="@drawable/login_btn_bg"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="244dp"
+        android:layout_height="35dp" />
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <View
+            android:background="#b9b195"
+            android:layout_gravity="center_vertical"
+            android:layout_width="65dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:layout_marginLeft="@dimen/dp_3"
+            android:text="其他登录方式"
+            android:textColor="#b9b195"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginLeft="@dimen/dp_3"
+            android:background="#b9b195"
+            android:layout_gravity="center_vertical"
+            android:layout_width="65dp"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+    
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/weixin"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45" />
+            <ImageView
+                android:layout_marginLeft="@dimen/dp_15"
+                android:src="@drawable/qq"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45" />
+            <ImageView
+                android:layout_marginLeft="@dimen/dp_15"
+                android:src="@drawable/weibo"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/sp_10"
+            android:text="我已阅读并同意"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_10"
+            android:text="《喜绿用户协议条款》"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -166,8 +166,9 @@
         <activity android:name=".activity.MyFocuseActivity" />
         <activity android:name=".activity.MyFansActivity" />
         <activity android:name=".activity.LivingActivity" />
-        <activity android:name=".activity.SetAnchorActivity"/>
-        <activity android:name=".activity.LiveStreamingActivity"/>
+        <activity android:name=".activity.SetAnchorActivity" />
+        <activity android:name=".activity.LiveStreamingActivity" />
+        <activity android:name=".activity.LoginActivity"></activity>
     </application>
 
 </manifest>

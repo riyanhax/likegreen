@@ -18,22 +18,22 @@
 
         <ImageView
             android:id="@+id/live_net_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/info"
             android:layout_alignParentLeft="true"/>
 
         <ImageView
             android:id="@+id/live_flash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/flashstart"
             android:layout_centerInParent="true"/>
 
         <ImageView
             android:id="@+id/live_speed_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/speed"
             android:layout_alignParentRight="true"/>
 
@@ -133,39 +133,39 @@
 
         <ImageView
             android:id="@+id/live_camera_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/camera"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/camera_live"/>
 
         <ImageView
             android:id="@+id/live_capture_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/capture"/>
 
         <ImageView
             android:id="@+id/live_filter_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/filter"/>
 
         <ImageView
             android:id="@+id/live_music_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/music"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/music_live"/>
 
         <ImageView
             android:id="@+id/live_config_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/config"/>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/live_camera_change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_above="@id/live_btn_layout"
