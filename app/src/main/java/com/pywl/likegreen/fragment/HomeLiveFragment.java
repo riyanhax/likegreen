@@ -8,8 +8,10 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -42,10 +44,12 @@ import com.netease.neliveplayer.sdk.NEDefinitionData;
 import com.netease.neliveplayer.sdk.NELivePlayer;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.adapter.LivingRoomAudienceSayAdapter;
 import com.pywl.likegreen.ne.Observer;
 import com.pywl.likegreen.ne.PhoneCallStateObserver;
 import com.pywl.likegreen.service.PlayerService;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -53,10 +57,21 @@ import java.util.Locale;
 import cn.jpush.im.android.api.ChatRoomManager;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.CreateGroupCallback;
+import cn.jpush.im.android.api.callback.GetGroupMembersCallback;
+import cn.jpush.im.android.api.callback.GetUserInfoListCallback;
 import cn.jpush.im.android.api.callback.RequestCallback;
+import cn.jpush.im.android.api.content.CustomContent;
+import cn.jpush.im.android.api.content.EventNotificationContent;
+import cn.jpush.im.android.api.content.ImageContent;
+import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.content.VoiceContent;
+import cn.jpush.im.android.api.enums.ContentType;
+import cn.jpush.im.android.api.enums.ConversationType;
 import cn.jpush.im.android.api.event.ChatRoomMessageEvent;
+import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.ChatRoomInfo;
 import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 
 
@@ -69,11 +84,18 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
     public final static String TAG = HomeLiveFragment.class.getSimpleName();
     private static final int SHOW_PROGRESS = 0x01;
     private static final int TOTAL_ROOM_COUNT = 2;
+    private static final int SET_CHAT_DATA = 3;
     private EditText mLiveSay;//输入框
     private TextView mRoomCount;//在线人数
     private long roomId=10101698L;
     private View mLiveGift;//礼物
     private LRecyclerView mAudienceSay;//聊天列表
+    private String groupName=null;//群组名
+    private String groupDesc=null;//群组描述
+    private long  groupId=30041506L;
+    private Conversation conv;
+    private int offset=10;
+    private  ArrayList<cn.jpush.im.android.api.model.Message> msgList;//聊天数据列表
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -88,9 +110,21 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
                     int count = (int) msg.obj;
                     setTotalMemberCount(count);
                     break;
+                case SET_CHAT_DATA:
+                    List<cn.jpush.im.android.api.model.Message> data = (List<cn.jpush.im.android.api.model.Message>) msg.obj;
+                    setChatRecord(data);
+                    break;
             }
         }
     };
+    //设置聊天数据
+    private void setChatRecord( List<cn.jpush.im.android.api.model.Message> data) {
+        LivingRoomAudienceSayAdapter livingRoomAudienceSayAdapter = new LivingRoomAudienceSayAdapter(getActivity());
+        livingRoomAudienceSayAdapter.setDataList(data);
+        LRecyclerViewAdapter adapter = new LRecyclerViewAdapter(livingRoomAudienceSayAdapter);
+        mAudienceSay.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAudienceSay.setAdapter(adapter);
+    }
 
 
     private long setProgress() {
@@ -141,10 +175,10 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
         View view = inflater.inflate(R.layout.fragment_home_live, container, false);
         Log.i(TAG, "onCreate");
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //保持屏幕常亮
-        //JMessageClient.registerEventReceiver(this);//注册im监听器
+        JMessageClient.registerEventReceiver(this);//注册im监听器
         //来电时观察者
        // PhoneCallStateObserver.getInstance().observeLocalPhoneObserver(localPhoneObserver, true);
-
+        msgList = new ArrayList<>();
         intoChatRoom();
         initView(view);
         initData();
@@ -159,40 +193,61 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
             public void gotResult(int i, String s) {
                 if (i==0){
                     Log.v("nihaoma","登录成功");
+                    gointoRoom();
                 }else {
                     Log.v("nihaoma","登录失败");
                 }
             }
         });
-/*      //创建群聊
-        JMessageClient.createGroup("", "", new CreateGroupCallback() {
-            @Override
-            public void gotResult(int i, String s, long l) {
-                Log.v("nihaoma",i+"?"+s+"?"+l);
-                Conversation groupConversation = JMessageClient.getGroupConversation(l);
-                if (groupConversation!=null){
-                    Log.v("nihaoma",groupConversation.toString());
-                }
-            }
-        });*/
 
-        //获取这个appkey下的聊天室
+
+/*        //获取这个appkey下的聊天室
         ChatRoomManager.getChatRoomListByApp(0, 8, new RequestCallback<List<ChatRoomInfo>>() {
             @Override
             public void gotResult(int i, String s, List<ChatRoomInfo> chatRoomInfos) {
                 Log.v("nihaoma",i+"?"+s+chatRoomInfos.toString());
             }
-        });
-        //进入聊天室
-        ChatRoomManager.enterChatRoom(roomId, new RequestCallback<Conversation>() {
-            @Override
-            public void gotResult(int i, String s, Conversation conversation) {
-                String result = null != conversation ? conversation.toString() : null;
-                Log.v("nihaoma",i+"?"+s+"22222222"+result);
+        });*/
 
+
+    }
+
+    private void gointoRoom() {
+  /*      //创建群聊
+        JMessageClient.createPublicGroup(groupName, groupDesc, new CreateGroupCallback() {
+
+            @Override
+            public void gotResult(int i, String s, long id) {
+                Log.v("nihaoma",i+"<>"+s+"<>"+id);
+                //创建成功
+                if (i==0){
+                    groupId=id;
+                }
+            }
+        });*/
+       //创建群聊会话
+        conv = Conversation.createGroupConversation(groupId);
+        //获取会话列表
+        Conversation groupConversation = JMessageClient.getGroupConversation(groupId);
+        Log.v("nihaoma",groupConversation.toString());
+        //全部会话
+       // List<cn.jpush.im.android.api.model.Message> allMessage = groupConversation.getAllMessage();
+
+        //获取群成员
+        JMessageClient.getGroupMembers(groupId, new GetGroupMembersCallback() {
+            @Override
+            public void gotResult(int i, String s, List<UserInfo> list) {
+                for(UserInfo user:list){
+                    user.toString();
+                }
+                Message msg = Message.obtain();
+                msg.what=TOTAL_ROOM_COUNT;
+                msg.obj=list.size();
+                mHandler.sendMessage(msg);
             }
         });
-        //查询聊天室信息
+
+       /* //查询聊天室信息
         ChatRoomManager.getChatRoomInfos(Collections.singleton(roomId), new RequestCallback<List<ChatRoomInfo>>() {
             @Override
             public void gotResult(int i, String s, List<ChatRoomInfo> chatRoomInfos) {
@@ -202,19 +257,93 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
                 mHandler.sendMessage(msg);
             }
         });
-        //获取聊天室会话
+        //进入聊天室
+        ChatRoomManager.enterChatRoom(roomId, new RequestCallback<Conversation>() {
+            @Override
+            public void gotResult(int i, String s, Conversation conversation) {
+                String result = null != conversation ? conversation.toString() : null;
+                Log.v("nihaoma",i+"?"+s+"22222222"+result);
+            }
+        });*/
+
+       /* //获取聊天室会话
         Conversation conversation = JMessageClient.getChatRoomConversation(roomId);
-
+        Log.v("nihaoma",conversation.toString());*/
     }
-    // 接收聊天室消息
+
+/*    // 接收聊天室消息
     public void onEventMainThread(ChatRoomMessageEvent event) {
-
-
         List<cn.jpush.im.android.api.model.Message> msgs = event.getMessages();
         Log.v("nihaoma","3444444444"+msgs.toString());
         for (cn.jpush.im.android.api.model.Message msg : msgs) {
             //这个页面仅仅展示聊天室会话的消息
             Log.v("nihaoma","333333"+msg.toString());
+        }
+    }*/
+
+    //实时监听消息
+    public void onEvent(MessageEvent event){
+        cn.jpush.im.android.api.model.Message msg = event.getMessage();
+        if (msg.getTargetType()== ConversationType.group) {
+            //获取全部会话
+            if (conv==null){
+                conv= JMessageClient.getGroupConversation(groupId);
+            }
+            List<cn.jpush.im.android.api.model.Message> allMessage = conv.getAllMessage();
+            for(cn.jpush.im.android.api.model.Message ms2g:allMessage){
+                Log.v("nihaoma", "9999" + ms2g.toString());
+            }
+
+            Message obtain = Message.obtain();
+            obtain.what=SET_CHAT_DATA;
+            obtain.obj=allMessage;
+            mHandler.sendMessage(obtain);
+            switch (msg.getContentType()) {
+                case text:
+                    //处理文字消息
+                    TextContent textContent = (TextContent) msg.getContent();
+                    textContent.getText();
+                    Log.v("nihaoma", "?????" + textContent.getText());
+                    break;
+                case image:
+                    //处理图片消息
+                    ImageContent imageContent = (ImageContent) msg.getContent();
+                    imageContent.getLocalPath();//图片本地地址
+                    imageContent.getLocalThumbnailPath();//图片对应缩略图的本地地址
+                    break;
+                case voice:
+                    //处理语音消息
+                    VoiceContent voiceContent = (VoiceContent) msg.getContent();
+                    voiceContent.getLocalPath();//语音文件本地地址
+                    voiceContent.getDuration();//语音文件时长
+                    break;
+                case custom:
+                    //处理自定义消息
+                    CustomContent customContent = (CustomContent) msg.getContent();
+                    customContent.getNumberValue("custom_num"); //获取自定义的值
+                    customContent.getBooleanValue("custom_boolean");
+                    customContent.getStringValue("custom_string");
+                    break;
+                case eventNotification:
+                    //处理事件提醒消息
+                    EventNotificationContent eventNotificationContent = (EventNotificationContent) msg.getContent();
+                    switch (eventNotificationContent.getEventNotificationType()) {
+                        case group_member_added:
+                            //群成员加群事件
+
+                            break;
+                        case group_member_removed:
+                            //群成员被踢事件
+                            break;
+                        case group_member_exit:
+                            //群成员退群事件
+                            break;
+                        case group_info_updated://since 2.2.1
+                            //群信息变更事件
+                            break;
+                    }
+                    break;
+            }
         }
     }
 
@@ -225,7 +354,7 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
         mRoomCount=(TextView)v.findViewById(R.id.tv_live_room_count);//在线人数
         mLiveGift = v.findViewById(R.id.iv_live_gift);//礼物
         mLiveGift.setOnClickListener(this);
-        mAudienceSay=(LRecyclerView)v.findViewById(R.id.living_room_audience_say);
+        mAudienceSay=(LRecyclerView)v.findViewById(R.id.living_room_audience_say);//聊天框
     }
     private void initData() {
         mUri = Uri.parse(mVideoPath);
@@ -239,9 +368,8 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
             mHardware = false;
         }
 
-       /* new LRecyclerViewAdapter();
-        mAudienceSay.setAdapter();
-*/
+
+
     }
 
 
@@ -337,13 +465,21 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
         super.onDestroy();
         Log.i(TAG, "onDestroy");
         releasePlayer();
-        //退出聊天室
+/*        //退出聊天室
         ChatRoomManager.leaveChatRoom(roomId, new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
 
             }
-        });
+        });*/
+        //退群
+     /*   JMessageClient.adminDissolveGroup(groupId, new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+
+            }
+        });*/
+        JMessageClient.unRegisterEventReceiver(this);
     }
 
 
@@ -579,23 +715,44 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
         return false;
     }
     //发送消息
-    private void sendRoomMsg(String userInput){
-        // 发送聊天室消息
+    private void sendRoomMsg( String userInput){
+/*        // 发送聊天室消息
         Conversation conv = JMessageClient.getChatRoomConversation(roomId);
         if (null == conv) {
             conv = Conversation.createChatRoomConversation(roomId);
         }
-        cn.jpush.im.android.api.model.Message msg = conv.createSendTextMessage(userInput);//实际聊天室可以支持所有类型的消息发送，demo为了简便，仅仅实现了文本类型的消息发送
+        final  cn.jpush.im.android.api.model.Message msg = conv.createSendTextMessage(userInput);//实际聊天室可以支持所有类型的消息发送，demo为了简便，仅仅实现了文本类型的消息发送
         msg.setOnSendCompleteCallback(new BasicCallback() {
             @Override
             public void gotResult(int responseCode, String responseMessage) {
                 if (0 == responseCode) {
-                   // Log.v("nihaoma",responseCode+"1111?"+responseMessage);
+                    Log.v("nihaoma",responseCode+"1111?"+responseMessage);
                 } else {
+                    Log.v("nihaoma",responseCode+"#1111"+responseMessage);
+                    Toast.makeText(getActivity(),"发送失败",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        JMessageClient.sendMessage(msg);*/
+
+        //JMessageClient.createGroupTextMessage(groupId, userInput);
+        Conversation groupConversation = JMessageClient.getGroupConversation(groupId);
+        if (null==groupConversation){
+            groupConversation=  Conversation.createGroupConversation(groupId);
+        }
+        final  cn.jpush.im.android.api.model.Message msg = conv.createSendTextMessage(userInput);//实际聊天室可以支持所有类型的消息发送，demo为了简便，仅仅实现了文本类型的消息发送
+        msg.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int responseCode, String responseMessage) {
+                if (0 == responseCode) {
+                    Log.v("nihaoma",responseCode+"1111?"+responseMessage);
+                } else {
+                    Log.v("nihaoma",responseCode+"#1111"+responseMessage);
                     Toast.makeText(getActivity(),"发送失败",Toast.LENGTH_SHORT).show();
                 }
             }
         });
         JMessageClient.sendMessage(msg);
+
     }
 }
