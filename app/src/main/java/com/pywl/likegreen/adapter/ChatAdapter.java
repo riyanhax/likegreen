@@ -1,6 +1,7 @@
 package com.pywl.likegreen.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.jpush.im.android.api.callback.DownloadCompletionCallback;
+import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
@@ -75,10 +77,21 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mDataList!=null){
             Message msg = mDataList.get(position);
+            UserInfo userInfo = (UserInfo) msg.getTargetInfo();
             Log.v("nihaoma",mDataList.get(position).toString());
             if (holder instanceof TextViewHolder){
-                TextViewHolder textViewHolder= (TextViewHolder) holder;
+                final TextViewHolder textViewHolder= (TextViewHolder) holder;
                 textViewHolder.mSendWord.setText(((TextContent) msg.getContent()).getText());
+                //设置头像
+                userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+                    @Override
+                    public void gotResult(int i, String s, Bitmap bitmap) {
+                        if (bitmap!=null){
+                            textViewHolder.civSendHead.setImageBitmap(bitmap);
+                        }
+
+                    }
+                });
             }
             if (holder instanceof ImgViewHolder){
                 final ImgViewHolder imgViewHolder= (ImgViewHolder) holder;
@@ -179,6 +192,18 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
         private ImageView mSendVideo;
         private TextView mSendTime;
         public VideoViewHolder(View itemView) {
+            super(itemView);
+            civSendHead= (CircleImageView)itemView.findViewById(R.id.iv_chat_send_head);
+            mSendVideo=(ImageView)itemView.findViewById(R.id.iv_chat_send_video);
+            mSendTime=(TextView)itemView.findViewById(R.id.tv_chat_send_time);
+        }
+    }
+    //未完成
+    private class VoiceViewHolder extends RecyclerView.ViewHolder{
+        private CircleImageView civSendHead;
+        private ImageView mSendVideo;
+        private TextView mSendTime;
+        public VoiceViewHolder(View itemView) {
             super(itemView);
             civSendHead= (CircleImageView)itemView.findViewById(R.id.iv_chat_send_head);
             mSendVideo=(ImageView)itemView.findViewById(R.id.iv_chat_send_video);

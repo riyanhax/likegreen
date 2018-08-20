@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.enums.ContentType;
+import cn.jpush.im.android.api.enums.ConversationType;
+import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.UserInfo;
 
@@ -37,11 +40,13 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
     private Conversation conversation;
     private int mOffset=18;//历史对话
     private static final int DATALIST = 0x4000;
+    private  ArrayList<cn.jpush.im.android.api.model.Message> msgData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         JMessageClient.registerEventReceiver(this);
+        msgData = new ArrayList<>();
         initView();
         initData();
 
@@ -83,16 +88,20 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
         }
         //获取历史对话
         List<cn.jpush.im.android.api.model.Message> fromNewest = conversation.getMessagesFromNewest(0, mOffset);
-        Message msg = Message.obtain();
-        msg.what=DATALIST;
-        msg.obj=fromNewest;
-        handler.sendMessage(msg);
-        setList(fromNewest);
+        for(cn.jpush.im.android.api.model.Message data:fromNewest){
+            Message msg = Message.obtain();
+            msg.what=DATALIST;
+            msg.obj=data;
+            handler.sendMessage(msg);
+
+        }
+
     }
     //聊天列表
-    private void setList( List<cn.jpush.im.android.api.model.Message> fromNewest) {
+    private void setList( cn.jpush.im.android.api.model.Message fromNewest) {
+        msgData.add(fromNewest);
         ChatAdapter chatAdapter = new ChatAdapter(this,conversation);
-        chatAdapter.setDataList(fromNewest);
+        chatAdapter.setDataList(msgData);
         mChatList.setLayoutManager(new LinearLayoutManager(getParent()));
         LRecyclerViewAdapter adapter=new LRecyclerViewAdapter(chatAdapter);
         mChatList.setAdapter(adapter);
@@ -164,10 +173,20 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
     void handlermsg(Message msg) {
         switch (msg.what){
             case DATALIST:
-                List<cn.jpush.im.android.api.model.Message> fromNewest= (List<cn.jpush.im.android.api.model.Message>) msg.obj;
+                cn.jpush.im.android.api.model.Message fromNewest= (cn.jpush.im.android.api.model.Message) msg.obj;
                 setList(fromNewest);
                 break;
         }
 
+    }
+    public void onEvent(MessageEvent event) {
+        cn.jpush.im.android.api.model.Message message = event.getMessage();
+        //如果是单聊
+        if (message.getTargetType()== ConversationType.single){
+            Message msg = Message.obtain();
+            msg.what=DATALIST;
+            msg.obj=message;
+            handler.sendMessage(msg);
+        }
     }
 }
