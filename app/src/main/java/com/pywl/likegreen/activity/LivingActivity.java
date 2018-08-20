@@ -53,7 +53,6 @@ public class LivingActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.live_return_back:
-                Log.v("nihaoma" ,"888888888888888888888");
                 finish();
                 break;
         }

@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.pywl.likegreen.R;
 import cn.jpush.im.android.api.content.EventNotificationContent;
 import cn.jpush.im.android.api.JMessageClient;
@@ -22,6 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by theWind on 2018/8/17.
+ * 首页直播fragment，聊天室adapter，只发送文字
  */
 
 public class LivingRoomAudienceSayAdapter extends ListBaseAdapter<Message> {
@@ -30,6 +34,7 @@ public class LivingRoomAudienceSayAdapter extends ListBaseAdapter<Message> {
     public LivingRoomAudienceSayAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
         mContext = context;
+
     }
 
     @Override

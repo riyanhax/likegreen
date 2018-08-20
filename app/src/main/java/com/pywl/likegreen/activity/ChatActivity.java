@@ -41,7 +41,7 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        //JMessageClient.registerEventReceiver(this);
+        JMessageClient.registerEventReceiver(this);
         initView();
         initData();
 
