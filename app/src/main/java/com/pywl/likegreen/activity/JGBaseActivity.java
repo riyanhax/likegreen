@@ -14,7 +14,7 @@ import cn.jpush.im.android.api.JMessageClient;
  */
 
 public abstract class JGBaseActivity extends Activity {
-    Handler handler =new Handler(){
+    Handler mHandler =new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);

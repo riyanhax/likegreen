@@ -2,17 +2,20 @@ package com.pywl.likegreen.activity;
 
 import android.content.Intent;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.netease.neliveplayer.playerkit.common.log.LogUtil;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.ChatAdapter;
 
@@ -20,16 +23,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.enums.ContentType;
+
 import cn.jpush.im.android.api.enums.ConversationType;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
-import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
+
 
 /*
 聊天界面
 * */
-public class ChatActivity extends JGBaseActivity implements View.OnClickListener {
+public class ChatActivity extends JGBaseActivity implements View.OnClickListener, View.OnKeyListener {
+    private static final int SEND_MY_WORD = 0;
     private View mChatReturnBack,mChatAlbum,mChatShot,mChatShortVideo,mSpeaking,mRlEtChat,mLlChatMore;
     private TextView mChatName;//聊天姓名
     private LRecyclerView mChatList;//聊天列表
@@ -41,6 +46,7 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
     private int mOffset=18;//历史对话
     private static final int DATALIST = 0x4000;
     private  ArrayList<cn.jpush.im.android.api.model.Message> msgData;
+    private String   username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,11 +81,12 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
         mChatShot.setOnClickListener(this);
         mChatShortVideo.setOnClickListener(this);
         mSpeaking.setOnClickListener(this);
+        mChatWord.setOnKeyListener(this);
     }
     private void initData() {
        // UserInfo myInfo = JMessageClient.getMyInfo();
         Intent intent = getIntent();
-        String username = intent.getStringExtra("MyDirectFragment");
+        username = intent.getStringExtra("MyDirectFragment");
         mChatName.setText(username);
         //创建会话
         conversation = JMessageClient.getSingleConversation(username, getResources().getString(R.string.app_key));
@@ -92,8 +99,7 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
             Message msg = Message.obtain();
             msg.what=DATALIST;
             msg.obj=data;
-            handler.sendMessage(msg);
-
+            mHandler.sendMessage(msg);
         }
 
     }
@@ -173,6 +179,7 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
     void handlermsg(Message msg) {
         switch (msg.what){
             case DATALIST:
+            case SEND_MY_WORD:
                 cn.jpush.im.android.api.model.Message fromNewest= (cn.jpush.im.android.api.model.Message) msg.obj;
                 setList(fromNewest);
                 break;
@@ -186,7 +193,52 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
             Message msg = Message.obtain();
             msg.what=DATALIST;
             msg.obj=message;
-            handler.sendMessage(msg);
+            mHandler.sendMessage(msg);
         }
     }
+
+    @Override
+    public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
+            if (KeyEvent.KEYCODE_ENTER == keyCode && KeyEvent.ACTION_DOWN == keyEvent.getAction()) {
+                //处理事件
+                String userInput = mChatWord.getText().toString();
+                if(TextUtils.isEmpty(userInput)){
+                    LogUtil.e("nihaoma", "IME_ACTION_SEARCH input is null");
+                    return true;
+                }
+                userInput = userInput.trim();
+                sendMsg(userInput);
+                return true;
+            }
+        }
+        return false;
+    }
+    //发送消息
+    private void sendMsg(String userInput) {
+        // 发送聊天室消息
+        Conversation singleConversation = JMessageClient.getSingleConversation(username, getResources().getString(R.string.app_key));
+        if (singleConversation==null){
+            singleConversation= Conversation.createSingleConversation(username, getResources().getString(R.string.app_key));
+        }
+        final  cn.jpush.im.android.api.model.Message msg = singleConversation.createSendTextMessage(userInput);//实际聊天室可以支持所有类型的消息发送，demo为了简便，仅仅实现了文本类型的消息发送
+        Log.v("nihaoma","#1111"+msg.toString());
+        msg.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int responseCode, String responseMessage) {
+                if (0 == responseCode) {
+                    Log.v("nihaoma",responseCode+"1111?"+responseMessage);
+                } else {
+                    Log.v("nihaoma",responseCode+"#1111"+responseMessage);
+                    Toast.makeText(getApplicationContext(),"发送失败",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        JMessageClient.sendMessage(msg);
+        Message msgHandler = Message.obtain();
+        msgHandler.what=SEND_MY_WORD;
+        msgHandler.obj=msg;
+        mHandler.sendMessage(msgHandler);
+    }
+
 }

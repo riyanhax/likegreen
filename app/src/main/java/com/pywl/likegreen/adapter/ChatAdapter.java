@@ -72,7 +72,29 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
                     return null;
             }
     }
-
+    private View createViewByType(Message msg, int position,ViewGroup parent) {
+        // 会话类型
+        switch (msg.getContentType()) {
+            case text:
+                return getItemViewType(position) == TYPE_SEND_TXT ?
+                        mLayoutInflater.inflate(R.layout.chat_send_text,parent,false):
+                        mLayoutInflater.inflate(R.layout.chat_receive_text,parent,false);
+            case image:
+                return getItemViewType(position) == TYPE_SEND_IMAGE ?
+                        mLayoutInflater.inflate(R.layout.chat_send_img,parent,false):
+                        mLayoutInflater.inflate(R.layout.chat_receive_img,parent,false);
+            case voice:
+                return getItemViewType(position) == TYPE_SEND_VOICE ?
+                        mLayoutInflater.inflate(R.layout.chat_send_voice,parent,false):
+                        mLayoutInflater.inflate(R.layout.chat_receive_voice,parent,false);
+            case video:
+                return getItemViewType(position) == TYPE_SEND_VIDEO ?
+                        mLayoutInflater.inflate(R.layout.chat_send_video,parent,false):
+                        mLayoutInflater.inflate(R.layout.chat_receive_video,parent,false);
+            default:
+                return null;
+        }
+    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mDataList!=null){
@@ -81,6 +103,8 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
             Log.v("nihaoma",mDataList.get(position).toString());
             if (holder instanceof TextViewHolder){
                 final TextViewHolder textViewHolder= (TextViewHolder) holder;
+                String text = ((TextContent) msg.getContent()).getText();
+                Log.v("nihaoma","222"+text);
                 textViewHolder.mSendWord.setText(((TextContent) msg.getContent()).getText());
                 //设置头像
                 userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
@@ -113,29 +137,7 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
             }
         }
     }
-    private View createViewByType(Message msg, int position,ViewGroup parent) {
-        // 会话类型
-        switch (msg.getContentType()) {
-            case text:
-                return getItemViewType(position) == TYPE_SEND_TXT ?
-                        mLayoutInflater.inflate(R.layout.chat_send_text,parent,false):
-                        mLayoutInflater.inflate(R.layout.chat_receive_text,parent,false);
-            case image:
-                return getItemViewType(position) == TYPE_SEND_IMAGE ?
-                        mLayoutInflater.inflate(R.layout.chat_send_img,parent,false):
-                        mLayoutInflater.inflate(R.layout.chat_receive_img,parent,false);
-            case voice:
-                return getItemViewType(position) == TYPE_SEND_VOICE ?
-                        mLayoutInflater.inflate(R.layout.chat_send_voice,parent,false):
-                        mLayoutInflater.inflate(R.layout.chat_receive_voice,parent,false);
-            case video:
-                return getItemViewType(position) == TYPE_SEND_VIDEO ?
-                        mLayoutInflater.inflate(R.layout.chat_send_video,parent,false):
-                        mLayoutInflater.inflate(R.layout.chat_receive_video,parent,false);
-                default:
-                    return null;
-        }
-    }
+
     @Override
     public int getItemViewType(int position) {
         Message msg = mDataList.get(position);
