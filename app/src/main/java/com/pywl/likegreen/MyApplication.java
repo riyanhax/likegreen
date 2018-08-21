@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
+import com.aliyun.common.httpfinal.QupaiHttpFinal;
 import com.bumptech.glide.Glide;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -146,7 +147,7 @@ public class MyApplication extends Application {
         System.loadLibrary("live-openh264");
         System.loadLibrary("QuCore-ThirdParty");
         System.loadLibrary("QuCore");
-        //QupaiHttpFinal.getInstance().initOkHttpFinal();
+        QupaiHttpFinal.getInstance().initOkHttpFinal();
     }
 
 
