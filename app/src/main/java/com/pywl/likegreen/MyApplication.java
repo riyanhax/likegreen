@@ -142,7 +142,11 @@ public class MyApplication extends Application {
         //注册Notification点击的接收器
         //new NotificationClickEventReceiver(getApplicationContext());
        // initImagePicker();
-
+        //阿里云
+        System.loadLibrary("live-openh264");
+        System.loadLibrary("QuCore-ThirdParty");
+        System.loadLibrary("QuCore");
+        //QupaiHttpFinal.getInstance().initOkHttpFinal();
     }
 
 
@@ -157,6 +161,7 @@ public class MyApplication extends Application {
         super.attachBaseContext(base);
         //MultiDex.install(this);多路复用器
     }
+
     private void initOkGo() {
         //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
         HttpHeaders headers = new HttpHeaders();
