@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import cn.jpush.im.android.api.event.OfflineMessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 /*
 * 私信页
 * */
@@ -48,17 +50,39 @@ public class MyDirectFragment extends Fragment {
     private static final int ROAM_COMPLETED = 0x3002;
     private static final int SETDATA = 0x3003;
     private LRecyclerView mDirectList;
-    private HandlerThread mThread;
-    private BackgroundHandler mBackgroundHandler;
+
     private View view;
     private ArrayList<Conversation> list;
+    Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case REFRESH_CONVERSATION_LIST:
+                    Conversation conv= (Conversation) msg.obj;
+                    initList(conv);
+                    break;
+            }
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_my_direct_message, container, false);
-        mThread = new HandlerThread("MainActivity");
-        mThread.start();
-        mBackgroundHandler = new BackgroundHandler(mThread.getLooper());
+        JMessageClient.registerEventReceiver(this);
+        //登录
+        JMessageClient.login("fjjpydc1", "84915190qw", new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if (i==0){
+                    Log.v("nihaoma","登录成功");
+                    setListData();
+                }else {
+                    Log.v("nihaoma","登录失败");
+                }
+            }
+        });
+        list = new ArrayList<>();
        initView(view);
        initData();
         return view;
@@ -71,17 +95,16 @@ public class MyDirectFragment extends Fragment {
     }
 
     private void initData() {
-        setListData();
-
 
     }
     private void setListData(){
         List<Conversation> conversationList = JMessageClient.getConversationList();
-        mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(SETDATA,conversationList));
+        for(Conversation con:conversationList){
+            mHandler.sendMessage(mHandler.obtainMessage(REFRESH_CONVERSATION_LIST,con));
+        }
     }
-    private void initList(List<Conversation> conversationList){
-        list = new ArrayList<>();
-        list.addAll(conversationList);
+    private void initList(Conversation conversationList){
+        list.add(conversationList);
         mDirectList.setLayoutManager(new LinearLayoutManager(getActivity()));
         MyDirectAdapter myadapter = new MyDirectAdapter(getActivity());
         myadapter.setDataList(list);
@@ -126,7 +149,7 @@ public class MyDirectFragment extends Fragment {
                         }
                     }
                 });
-                mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conv));
+                mHandler.sendMessage(mHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conv));
             }
     }
 
@@ -138,7 +161,7 @@ public class MyDirectFragment extends Fragment {
     public void onEvent(OfflineMessageEvent event) {
         Conversation conv = event.getConversation();
         if (!conv.getTargetId().equals("feedback_Android")) {
-            mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conv));
+            mHandler.sendMessage(mHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conv));
         }
     }
 
@@ -147,7 +170,7 @@ public class MyDirectFragment extends Fragment {
      */
     public void onEvent(MessageRetractEvent event) {
         Conversation conversation = event.getConversation();
-        mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conversation));
+        mHandler.sendMessage(mHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conversation));
     }
 
     /**
@@ -165,46 +188,17 @@ public class MyDirectFragment extends Fragment {
     public void onEvent(ConversationRefreshEvent event) {
         Conversation conv = event.getConversation();
         if (!conv.getTargetId().equals("feedback_Android")) {
-            mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conv));
+            mHandler.sendMessage(mHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conv));
             //多端在线未读数改变时刷新
             if (event.getReason().equals(ConversationRefreshEvent.Reason.UNREAD_CNT_UPDATED)) {
-                mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conv));
+                mHandler.sendMessage(mHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conv));
             }
         }
     }
 
-
-    private class BackgroundHandler extends Handler {
-        public BackgroundHandler(Looper looper) {
-            super(looper);
-        }
-
-        @Override
-        public void handleMessage(android.os.Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case REFRESH_CONVERSATION_LIST:
-                    Conversation conv = (Conversation) msg.obj;
-
-                    break;
-                case DISMISS_REFRESH_HEADER:
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                    break;
-                case ROAM_COMPLETED:
-                    conv = (Conversation) msg.obj;
-
-                    break;
-                case SETDATA:
-                    List<Conversation> conversationList= (List<Conversation>) msg.obj;
-                    initList(conversationList);
-                    break;
-            }
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        JMessageClient.unRegisterEventReceiver(this);
     }
-
 }

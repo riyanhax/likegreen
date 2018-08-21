@@ -107,6 +107,10 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
                 //Glide.with(mContext).load(path).into(imgViewHolder.mSendImg);
 
             }
+            if (holder instanceof VoiceViewHolder){
+                VoiceViewHolder voiceViewHolder= (VoiceViewHolder) holder;
+
+            }
         }
     }
     private View createViewByType(Message msg, int position,ViewGroup parent) {
@@ -198,16 +202,5 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
             mSendTime=(TextView)itemView.findViewById(R.id.tv_chat_send_time);
         }
     }
-    //未完成
-    private class VoiceViewHolder extends RecyclerView.ViewHolder{
-        private CircleImageView civSendHead;
-        private ImageView mSendVideo;
-        private TextView mSendTime;
-        public VoiceViewHolder(View itemView) {
-            super(itemView);
-            civSendHead= (CircleImageView)itemView.findViewById(R.id.iv_chat_send_head);
-            mSendVideo=(ImageView)itemView.findViewById(R.id.iv_chat_send_video);
-            mSendTime=(TextView)itemView.findViewById(R.id.tv_chat_send_time);
-        }
-    }
+
 }
