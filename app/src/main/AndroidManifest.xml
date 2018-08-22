@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pywl.likegreen">
 
+
+    <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <!-- 111111111111111111111111111111 -->
     <permission
         android:name="com.pywl.likegreen.permission.JPUSH_MESSAGE"
