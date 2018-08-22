@@ -2,6 +2,8 @@ package com.pywl.likegreen;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.activeandroid.ActiveAndroid;
 import com.aliyun.common.httpfinal.QupaiHttpFinal;
@@ -39,7 +41,7 @@ import okhttp3.OkHttpClient;
  * Created by theWind on 2018/8/10.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     public static final String CONV_TITLE = "conv_title";
     public static final int IMAGE_MESSAGE = 1;
     public static final int TAKE_PHOTO_MESSAGE = 2;
@@ -158,7 +160,7 @@ public class MyApplication extends Application {
 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        //MultiDex.install(this);多路复用器
+        MultiDex.install(this);//多路复用器
     }
 
     private void initOkGo() {

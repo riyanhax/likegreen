@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    /*signingConfigs {
+        likegreenkey {
+            keyAlias 'key'
+            keyPassword '1234567'
+            storeFile file('f:/green.jks')
+            storePassword '1234567'
+        }
+    }*/
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.pywl.likegreen"
@@ -9,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -20,7 +29,6 @@ android {
     dataBinding {
         enabled = true
     }
-
     sourceSets {
         main {
             jni.srcDirs = []
@@ -36,28 +44,29 @@ android {
 }
 
 dependencies {
-
+    compile 'com.android.support:multidex:1.0.0'
     implementation 'com.android.support:design:27.1.1'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     /*configurations.all {
-        resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
-    }
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.google.android.gms:play-services-plus:15.0.1'
-    androidTestImplementation('com.android.support:support-annotations:26.1.0') {
-        force = true
-    }
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'*/
+            resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+        }
+        implementation 'com.android.support:support-v4:26.1.0'
+        implementation 'com.google.android.gms:play-services-plus:15.0.1'
+        androidTestImplementation('com.android.support:support-annotations:26.1.0') {
+            force = true
+        }
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation 'com.android.support:appcompat-v7:26.1.0'
+        implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'*/
 
     // compile 'com.github.leibnik:WechatRadioBar:1.2'//底部导航栏
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -68,8 +77,11 @@ dependencies {
     //Gson 库
 
     //下面两个是RxJava 和RxAndroid
+
     //implementation 'io.reactivex:rxjava:1.1.0'
+
     //implementation 'io.reactivex:rxandroid:1.1.0'
+
     //implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
     //转换器，请求结果转换成Model
@@ -129,8 +141,6 @@ dependencies {
     //网易播放端
     compile project(path: ':playerkit')
     compile project(path: ':STMobileJNI')
-
-
     implementation files('libs/jcore-android-1.2.1.jar')
     implementation files('libs/jmessage-sdk-android-2.6.1.jar')
     compile 'org.greenrobot:eventbus:3.0.0'
@@ -139,14 +149,13 @@ dependencies {
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     implementation files('libs/universal-image-loader-1.9.5.jar')
 
-//必须使用
+    //必须使用
     compile 'com.lzy.net:okgo:3.0.4'
 
-//以下三个选择添加，okrx和okrx2不能同时使用
+    //以下三个选择添加，okrx和okrx2不能同时使用
     compile 'com.lzy.net:okrx:1.0.2'
 
     //阿里云短视频需要用到的库
-
     compile 'com.google.code.findbugs:jsr305:3.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'pub.devrel:easypermissions:0.2.1'

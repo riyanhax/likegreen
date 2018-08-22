@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.aliyun.common.utils.StorageUtils;
 import com.aliyun.demo.recorder.AliyunVideoRecorder;
 import com.aliyun.struct.common.CropKey;
+import com.aliyun.struct.common.VideoQuality;
+import com.aliyun.struct.recorder.CameraType;
+import com.aliyun.struct.recorder.FlashType;
 import com.aliyun.struct.snap.AliyunSnapVideoParam;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.aliyun.Utils;
@@ -76,7 +79,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             eff_dirs[i + 1] = filter.getPath() + "/" + list[i];
         }
         AliyunSnapVideoParam recordParam = new AliyunSnapVideoParam.Builder()
-               /* //设置录制分辨率，目前支持360p，480p，540p，720p
+                //设置录制分辨率，目前支持360p，480p，540p，720p
                 .setResulutionMode(PROGRESS_360P)
                 //设置视频比例，目前支持1:1,3:4,9:16
                 .setRatioMode(AliyunSnapVideoParam.RATIO_MODE_9_16)
@@ -92,7 +95,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 .setVideQuality(VideoQuality.HD) //设置视频质量
                 .setGop(5) //设置关键帧间隔
                 .setVideoBitrate(2000) //设置视频码率，如果不设置则使用视频质量videoQulity参数计算出码率
-                .setSortMode(AliyunSnapVideoParam.SORT_MODE_VIDEO)//设置导入相册过滤选择视频*/
+                .setSortMode(AliyunSnapVideoParam.SORT_MODE_VIDEO)//设置导入相册过滤选择视频
                 .build();
         AliyunVideoRecorder.startRecordForResult(this,REQUEST_CROP,recordParam);
     }
