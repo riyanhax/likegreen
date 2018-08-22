@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
-import com.bumptech.glide.Glide;
+import com.aliyun.common.httpfinal.QupaiHttpFinal;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -15,7 +15,6 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.netease.LSMediaCapture.util.storage.StorageUtil;
-
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -146,7 +145,7 @@ public class MyApplication extends Application {
         System.loadLibrary("live-openh264");
         System.loadLibrary("QuCore-ThirdParty");
         System.loadLibrary("QuCore");
-        //QupaiHttpFinal.getInstance().initOkHttpFinal();
+        QupaiHttpFinal.getInstance().initOkHttpFinal();
     }
 
 

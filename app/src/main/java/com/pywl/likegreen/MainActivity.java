@@ -2,16 +2,16 @@ package com.pywl.likegreen;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.pywl.likegreen.activity.AddActivity;
 import com.pywl.likegreen.adapter.BaseActivity;
-import com.pywl.likegreen.fragment.home.HomeAddFragment;
 import com.pywl.likegreen.fragment.home.HomeFindFragment;
 import com.pywl.likegreen.fragment.home.HomeMyFragment;
 import com.pywl.likegreen.fragment.home.HomeNoteFragment;
@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
     Fragment main_home, main_note, main_find, main_mine,main_add;
     private RadioGroup main_radio;
     private RadioButton main_rbt_home,main_rbt_add,main_rbt_mine,main_rbt_find,main_rbt_note;
-
+    private FragmentTransaction transaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,83 +52,91 @@ public class MainActivity extends BaseActivity {
         main_radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                hideAllFragment(transaction);
-                switch (checkedId) {
-                    case R.id.main_rbt_home:
-                        if (main_home == null) {
-                            main_home = new HomePageFragment();
-                            transaction.add(R.id.fragment_container, main_home);
-                        } else {
-                            transaction.show(main_home);
-                        }
-                        main_rbt_home.setTextColor(getResources().getColor(R.color.green));
-                        main_rbt_home.setChecked(true);
-                        main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        break;
-                    case R.id.main_rbt_note:
-                        if (main_note == null) {
-                            main_note = new HomeNoteFragment();
-                            transaction.add(R.id.fragment_container, main_note);
-                        } else {
-                            transaction.show(main_note);
-                        }
-                        main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_note.setTextColor(getResources().getColor(R.color.green));
-                        main_rbt_note.setChecked(true);
-                        break;
-                    case R.id.main_rbt_add:
-                        if (main_add == null) {
-                            main_add = new HomeAddFragment();
-                            transaction.add(R.id.fragment_container, main_add);
-                        } else {
-                            transaction.show(main_add);
-                        }
-                        main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_add.setTextColor(getResources().getColor(R.color.green));
-                        main_rbt_add.setChecked(true);
-                        main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        break;
-                    case R.id.main_rbt_find:
-                        if (main_find == null) {
-                            main_find = new HomeFindFragment();
-                            transaction.add(R.id.fragment_container, main_find);
-                        } else {
-                            transaction.show(main_find);
-                        }
-                        main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_find.setTextColor(getResources().getColor(R.color.green));
-                        main_rbt_find.setChecked(true);
-                        main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        break;
-                    case R.id.main_rbt_mine:
-                        if (main_mine == null) {
-                            main_mine = new HomeMyFragment();
-                            transaction.add(R.id.fragment_container, main_mine);
-                        } else {
-                            transaction.show(main_mine);
-                        }
-                        main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        main_rbt_mine.setTextColor(getResources().getColor(R.color.green));
-                        main_rbt_mine.setChecked(true);
-                        main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
-                        break;
-                }
-                transaction.commitAllowingStateLoss();
+                setTab(checkedId);
             }
         });
+    }
+
+    private void setTab(@IdRes int checkedId) {
+        transaction = getSupportFragmentManager().beginTransaction();
+        hideAllFragment(transaction);
+        switch (checkedId) {
+            case R.id.main_rbt_home:
+                if (main_home == null) {
+                    main_home = new HomePageFragment();
+                    transaction.add(R.id.fragment_container, main_home);
+                } else {
+                    transaction.show(main_home);
+                }
+
+                main_rbt_home.setTextColor(getResources().getColor(R.color.green));
+                main_rbt_home.setChecked(true);
+                main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+
+                break;
+            case R.id.main_rbt_note:
+                if (main_note == null) {
+                    main_note = new HomeNoteFragment();
+                    transaction.add(R.id.fragment_container, main_note);
+                } else {
+                    transaction.show(main_note);
+                }
+                main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_note.setTextColor(getResources().getColor(R.color.green));
+                main_rbt_note.setChecked(true);
+                break;
+            case R.id.main_rbt_add:
+                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                startActivityForResult(intent,1);
+                /*if (main_add == null) {
+                    main_add = new HomeAddFragment();
+                    transaction.add(R.id.fragment_container, main_add);
+                } else {
+                    transaction.show(main_add);
+                }*/
+                main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_add.setTextColor(getResources().getColor(R.color.green));
+                main_rbt_add.setChecked(true);
+                main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                break;
+            case R.id.main_rbt_find:
+                if (main_find == null) {
+                    main_find = new HomeFindFragment();
+                    transaction.add(R.id.fragment_container, main_find);
+                } else {
+                    transaction.show(main_find);
+                }
+                main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_find.setTextColor(getResources().getColor(R.color.green));
+                main_rbt_find.setChecked(true);
+                main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                break;
+            case R.id.main_rbt_mine:
+                if (main_mine == null) {
+                    main_mine = new HomeMyFragment();
+                    transaction.add(R.id.fragment_container, main_mine);
+                } else {
+                    transaction.show(main_mine);
+                }
+                main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
+                main_rbt_mine.setTextColor(getResources().getColor(R.color.green));
+                main_rbt_mine.setChecked(true);
+                main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                break;
+        }
+        transaction.commitAllowingStateLoss();
     }
 
     public void hideAllFragment(FragmentTransaction transaction) {
@@ -154,4 +162,15 @@ public class MainActivity extends BaseActivity {
         main_rbt_note.setChecked(false);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //add页面结束后返回首页
+        if (resultCode==2){
+            if (requestCode==1){
+                main_rbt_home.setChecked(true);
+            }
+
+        }
+    }
 }
