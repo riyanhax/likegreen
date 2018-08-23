@@ -117,7 +117,7 @@ public class SetAnchorActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_set_anchor);
+        setContentView(R.layout.activity_myset_anchor);
         bPermission = checkPublishPermission();
         msgReceiver = new MsgReceiver();
         IntentFilter intentFilter = new IntentFilter();

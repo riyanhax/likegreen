@@ -2,15 +2,9 @@ package com.pywl.likegreen.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 
 
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.adapter.PlayBackAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*
 * 回放
@@ -20,7 +14,7 @@ public class PlayBackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_back);
+        setContentView(R.layout.activity_my_back);
         initView();
         initDate();
     }

@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -25,7 +24,7 @@ public class SystemSettingsActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_system_settings);
+        setContentView(R.layout.activity_system_mysettings);
         mContext=this;
         initView();
         initData();

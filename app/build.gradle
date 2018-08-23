@@ -165,4 +165,10 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile project(path: ':aliyunsdk')
     implementation(name: 'QuSdk-RC', ext: 'aar')
+    configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:appcompat-v7:24.2.1'
+            force 'com.android.support:design:24.2.1'
+        }
+    }
 }

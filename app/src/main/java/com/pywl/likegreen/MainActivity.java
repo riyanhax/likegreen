@@ -43,12 +43,12 @@ public class MainActivity extends BaseActivity {
         transaction.commitAllowingStateLoss();
     }
     protected void initView() {
-        main_radio = findViewById(R.id.main_radio);
-        main_rbt_home = findViewById(R.id.main_rbt_home);
-        main_rbt_add = findViewById(R.id.main_rbt_add);
-        main_rbt_find = findViewById(R.id.main_rbt_find);
-        main_rbt_mine = findViewById(R.id.main_rbt_mine);
-        main_rbt_note = findViewById(R.id.main_rbt_note);
+        main_radio = (RadioGroup) findViewById(R.id.main_radio);
+        main_rbt_home = (RadioButton) findViewById(R.id.main_rbt_home);
+        main_rbt_add = (RadioButton) findViewById(R.id.main_rbt_add);
+        main_rbt_find = (RadioButton) findViewById(R.id.main_rbt_find);
+        main_rbt_mine = (RadioButton) findViewById(R.id.main_rbt_mine);
+        main_rbt_note = (RadioButton) findViewById(R.id.main_rbt_note);
         main_radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
