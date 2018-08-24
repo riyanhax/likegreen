@@ -8,13 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aliyun.common.utils.StorageUtils;
-import com.aliyun.demo.recorder.AliyunVideoRecorder;
-import com.aliyun.struct.common.CropKey;
-import com.aliyun.struct.common.VideoQuality;
-import com.aliyun.struct.recorder.CameraType;
-import com.aliyun.struct.recorder.FlashType;
-import com.aliyun.struct.snap.AliyunSnapVideoParam;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.aliyun.Utils;
 
@@ -32,7 +25,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_add);
         initView();
         initData();
-        copyAssets();
+        //copyAssets();
     }
 
     private void initView() {
@@ -66,7 +59,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private static final int REQUEST_CROP = 2002;
 
     private void startShortVideo() {
-        String path = StorageUtils.getCacheDirectory(this).getAbsolutePath() + File.separator+ Utils.QU_NAME + File.separator;
+     /*   String path = StorageUtils.getCacheDirectory(this).getAbsolutePath() + File.separator+ Utils.QU_NAME + File.separator;
         File filter = new File(new File(path), "filter");
 
         String[] list = filter.list();
@@ -115,9 +108,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             }else if(resultCode == Activity.RESULT_CANCELED){
                 Toast.makeText(this,"用户取消录制",Toast.LENGTH_SHORT).show();
             }
-        }
+        }*/
     }
-    private void copyAssets() {
+  /*  private void copyAssets() {
         new AsyncTask() {
 
             @Override
@@ -146,7 +139,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         for (int i = 0; i < list.length; i++) {
             eff_dirs[i + 1] = filter.getPath() + "/" + list[i];
         }
-    }
+    }*/
     @Override
     public void onBackPressed() {
         setCallbackMain();

@@ -5,7 +5,7 @@ import android.content.Context;
 
 
 import com.activeandroid.ActiveAndroid;
-import com.aliyun.common.httpfinal.QupaiHttpFinal;
+
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -127,6 +127,15 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        System.loadLibrary("fdk-aac");
+        System.loadLibrary("live-openh264");
+        System.loadLibrary("QuCore-ThirdParty");
+        System.loadLibrary("QuCore");
+        System.loadLibrary("FaceAREngine");
+        System.loadLibrary("AliFaceAREngine");
+        com.aliyun.common.httpfinal.QupaiHttpFinal.getInstance().initOkHttpFinal();
+        com.aliyun.vod.common.httpfinal.QupaiHttpFinal.getInstance().initOkHttpFinal();
+
         context = getApplicationContext();
         StorageUtil.init(context, null);
 
@@ -144,9 +153,11 @@ public class MyApplication extends Application {
        // initImagePicker();
         //阿里云
        // System.loadLibrary("live-openh264");
-        System.loadLibrary("QuCore-ThirdParty");
-        System.loadLibrary("QuCore");
-        QupaiHttpFinal.getInstance().initOkHttpFinal();
+        //System.loadLibrary("QuCore-ThirdParty");
+        //System.loadLibrary("QuCore");
+        //QupaiHttpFinal.getInstance().initOkHttpFinal();
+
+
 
     }
 

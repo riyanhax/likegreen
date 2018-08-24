@@ -64,7 +64,7 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
     <!--111111111短视频11111111111-->
-    <style name="AliyunVideoUIStytle" >
+  <!--  <style name="AliyunVideoUIStytle" >
         <item name="qusnap_background_color">@color/color_bg</item> //背景主题色
         <item name="qusnap_tint_color">@color/tint_color</item> //录制进度条颜色
         <item name="qusnap_timeline_backgound_color">@color/timeline_backgound_color</item> //录制进度条背景色
@@ -94,7 +94,7 @@
         <item name="qusnap_crop_time_txt_color">@android:color/white</item> //裁剪视频时长文字颜色
         <item name="qusnap_crop_time_txt_size">15dp</item> //裁剪视频时长文字大小
         <item name="qusnap_crop_txt_visibility">visible</item> //裁剪视频时长文字显隐属性
-    </style>
+    </style>-->
 <!--1111111111chatdemo导入的11111111111-->
     <style name="text_title_small">
         <item name="android:layout_width">match_parent</item>

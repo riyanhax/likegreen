@@ -9,6 +9,14 @@ android {
             storePassword '1234567'
         }
     }*/
+    signingConfigs {
+        config {
+            keyAlias 'likegreen'
+            keyPassword '1234567'
+            storeFile file('D:/green.jks')
+            storePassword '1234567'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.pywl.likegreen"
@@ -18,6 +26,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+    /*    ndk {
+            abiFilters "armeabi-v7a"
+        }*/
+
     }
     buildTypes {
         release {
@@ -33,14 +45,23 @@ android {
         main {
             jni.srcDirs = []
             jniLibs.srcDirs = ['libs']
+            jniLibs.srcDir "src/main/jniLibs"
         }
     }
-    repositories {
+/*    repositories {
         flatDir {
-            dirs '../aliyunsdk/libs'
             dirs 'libs'
         }
-    }
+    }*/
+/*    splits {
+        abi {
+            enable true
+            reset()
+            include  'armeabi-v7a', 'arm64-v8a'
+            universalApk false
+        }
+    }*/
+
 }
 
 dependencies {
@@ -54,19 +75,19 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     /*configurations.all {
-            resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
-        }
-        implementation 'com.android.support:support-v4:26.1.0'
-        implementation 'com.google.android.gms:play-services-plus:15.0.1'
-        androidTestImplementation('com.android.support:support-annotations:26.1.0') {
-            force = true
-        }
-        implementation fileTree(include: ['*.jar'], dir: 'libs')
-        implementation 'com.android.support:appcompat-v7:26.1.0'
-        implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-        testImplementation 'junit:junit:4.12'
-        androidTestImplementation 'com.android.support.test:runner:1.0.2'
-        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'*/
+                    resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+                }
+                implementation 'com.android.support:support-v4:26.1.0'
+                implementation 'com.google.android.gms:play-services-plus:15.0.1'
+                androidTestImplementation('com.android.support:support-annotations:26.1.0') {
+                    force = true
+                }
+                implementation fileTree(include: ['*.jar'], dir: 'libs')
+                implementation 'com.android.support:appcompat-v7:26.1.0'
+                implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+                testImplementation 'junit:junit:4.12'
+                androidTestImplementation 'com.android.support.test:runner:1.0.2'
+                androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'*/
 
     // compile 'com.github.leibnik:WechatRadioBar:1.2'//底部导航栏
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -156,19 +177,25 @@ dependencies {
     compile 'com.lzy.net:okrx:1.0.2'
 
     //阿里云短视频需要用到的库
-    compile 'com.google.code.findbugs:jsr305:3.0.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'pub.devrel:easypermissions:0.2.1'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile 'com.squareup.okio:okio:1.12.0'
+
+    /*    compile 'com.google.code.findbugs:jsr305:3.0.0'
+            compile 'com.github.bumptech.glide:glide:3.7.0'
+            compile 'pub.devrel:easypermissions:0.2.1'
+            compile 'com.squareup.okhttp3:okhttp:3.2.0'
+            compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+            compile 'com.squareup.okio:okio:1.12.0'
+            compile 'com.google.code.gson:gson:2.8.0'
+            compile project(path: ':aliyunsdk')
+            implementation(name: 'QuSdk-RC', ext: 'aar')*/
     compile 'com.google.code.gson:gson:2.8.0'
-    compile project(path: ':aliyunsdk')
-    implementation(name: 'QuSdk-RC', ext: 'aar')
-    configurations.all {
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+/*    configurations.all {
         resolutionStrategy {
             force 'com.android.support:appcompat-v7:24.2.1'
             force 'com.android.support:design:24.2.1'
         }
-    }
+    }*/
+    implementation project(path: ':AliyunSdkRCE')
+
+
 }

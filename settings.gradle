@@ -1,1 +1,1 @@
-include ':app', ':playerkit', ':STMobileJNI', ':aliyunsdk'
+include ':app', ':playerkit', ':STMobileJNI', ':AliyunSdkRCE'

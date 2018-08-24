@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pywl.likegreen">
 
-
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <!-- 111111111111111111111111111111 -->
     <permission
@@ -172,10 +171,11 @@
         <activity android:name=".activity.SetAnchorActivity" />
         <activity android:name=".activity.LiveStreamingActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.AddActivity"></activity>
-        <!--阿里云-->
-        <!--导入相册选择界面相关的Activity-->
-        <activity android:name="com.aliyun.demo.crop.MediaActivity"
+        <activity android:name=".activity.AddActivity" />
+        <!-- 阿里云 -->
+        <!-- 导入相册选择界面相关的Activity -->
+        <!--
+            <activity android:name="com.aliyun.demo.crop.MediaActivity"
             android:theme="@style/AliyunVideoUIStytle"
             tools:replace="android:theme"
             android:screenOrientation="portrait">
@@ -184,13 +184,13 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <!--裁剪视频相关的Activity-->
+        &lt;!&ndash;裁剪视频相关的Activity&ndash;&gt;
         <activity android:name="com.aliyun.demo.crop.AliyunVideoCrop"
             android:theme="@style/AliyunVideoUIStytle"
             tools:replace="android:theme"
             android:screenOrientation="portrait">
         </activity>
-        <!--录制视频相关的Activity-->
+        &lt;!&ndash;录制视频相关的Activity&ndash;&gt;
         <activity android:name="com.aliyun.demo.recorder.AliyunVideoRecorder"
             android:theme="@style/AliyunVideoUIStytle"
             tools:replace="android:theme"
@@ -200,7 +200,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <!--阿里云-->
+        -->
+        <!-- 阿里云 -->
     </application>
 
 </manifest>
