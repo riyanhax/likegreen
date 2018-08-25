@@ -9,7 +9,8 @@ android {
             storePassword '1234567'
         }
     }*/
-    signingConfigs {
+
+   signingConfigs {
         config {
             keyAlias 'likegreen'
             keyPassword '1234567'
@@ -26,14 +27,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-    /*    ndk {
+        ndk {
             abiFilters "armeabi-v7a"
-        }*/
+        }
 
     }
     buildTypes {
         release {
             minifyEnabled false
+            //signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -61,6 +63,7 @@ android {
             universalApk false
         }
     }*/
+
 
 }
 
@@ -195,7 +198,7 @@ dependencies {
             force 'com.android.support:design:24.2.1'
         }
     }*/
-    implementation project(path: ':AliyunSdkRCE')
+    //implementation project(path: ':AliyunSdkRCE')
 
 
 }

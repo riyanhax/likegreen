@@ -127,14 +127,14 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        System.loadLibrary("fdk-aac");
+    /*    System.loadLibrary("fdk-aac");
         System.loadLibrary("live-openh264");
         System.loadLibrary("QuCore-ThirdParty");
         System.loadLibrary("QuCore");
         System.loadLibrary("FaceAREngine");
         System.loadLibrary("AliFaceAREngine");
         com.aliyun.common.httpfinal.QupaiHttpFinal.getInstance().initOkHttpFinal();
-        com.aliyun.vod.common.httpfinal.QupaiHttpFinal.getInstance().initOkHttpFinal();
+        com.aliyun.vod.common.httpfinal.QupaiHttpFinal.getInstance().initOkHttpFinal();*/
 
         context = getApplicationContext();
         StorageUtil.init(context, null);

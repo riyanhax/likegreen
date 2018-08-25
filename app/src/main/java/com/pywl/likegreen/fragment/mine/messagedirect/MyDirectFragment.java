@@ -29,8 +29,10 @@ import com.pywl.likegreen.chat.JGBaseFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.im.android.api.ContactManager;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
+import cn.jpush.im.android.api.event.ContactNotifyEvent;
 import cn.jpush.im.android.api.event.ConversationRefreshEvent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.MessageReceiptStatusChangeEvent;
@@ -95,8 +97,19 @@ public class MyDirectFragment extends Fragment {
     }
 
     private void initData() {
+        ContactManager.sendInvitationRequest("test1", null, "请添加", new BasicCallback() {
+            @Override
+            public void gotResult(int responseCode, String s) {
+                if (0 == responseCode) {
+                    //好友请求请求发送成功
+                } else {
+                    //好友请求发送失败
+                }
+            }
+        });
 
     }
+
     private void setListData(){
         List<Conversation> conversationList = JMessageClient.getConversationList();
         for(Conversation con:conversationList){
@@ -122,6 +135,33 @@ public class MyDirectFragment extends Fragment {
             }
         });
         mDirectList.setAdapter(mLRecyclerViewAdapter);
+    }
+    /*
+    好友请求消息
+    * */
+    public void onEvent(ContactNotifyEvent event) {
+        String reason = event.getReason();
+        String fromUsername = event.getFromUsername();
+        String appkey = event.getfromUserAppKey();
+
+        switch (event.getType()) {
+            case invite_received://收到好友邀请
+
+                //...
+                break;
+            case invite_accepted://对方接收了你的好友邀请
+
+                //...
+                break;
+            case invite_declined://对方拒绝了你的好友邀请
+                //...
+                break;
+            case contact_deleted://对方将你从好友中删除
+                //...
+                break;
+            default:
+                break;
+        }
     }
     /**
      * 收到消息

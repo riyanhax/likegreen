@@ -1,6 +1,8 @@
 package com.pywl.likegreen.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,12 +20,16 @@ import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.netease.neliveplayer.playerkit.common.log.LogUtil;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.ChatAdapter;
+import com.pywl.likegreen.takephoto.CameraActivity;
+import com.pywl.likegreen.takephoto.RequestCode;
+import com.pywl.likegreen.takephoto.camera.CameraView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
 
+import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.enums.ConversationType;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
@@ -35,6 +41,7 @@ import cn.jpush.im.api.BasicCallback;
 * */
 public class ChatActivity extends JGBaseActivity implements View.OnClickListener, View.OnKeyListener {
     private static final int SEND_MY_WORD = 0;
+    private static final int SEND_IMG_MSG = 1;
     private View mChatReturnBack,mChatAlbum,mChatShot,mChatShortVideo,mSpeaking,mRlEtChat,mLlChatMore;
     private TextView mChatName;//聊天姓名
     private LRecyclerView mChatList;//聊天列表
@@ -126,8 +133,11 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
                 showMore(isMore);
                 break;
             case R.id.ll_chat_album://相册
+
                 break;
             case R.id.ll_chat_shot://相机
+                Intent intent = new Intent(ChatActivity.this, CameraActivity.class);
+                startActivityForResult(intent,RequestCode.TAKE_PHOTO);
                 break;
             case R.id.ll_chat_shortvideo://小视频
                 break;
@@ -136,6 +146,32 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
 
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case RequestCode.TAKE_PHOTO:
+                if (data != null) {
+                    String name = data.getStringExtra("take_photo");
+                    Bitmap bitmap = BitmapFactory.decodeFile(name);
+                    ImageContent.createImageContentAsync(bitmap, new ImageContent.CreateImageContentCallback() {
+                        @Override
+                        public void gotResult(int responseCode, String responseMessage, ImageContent imageContent) {
+                            if (responseCode == 0) {
+                                cn.jpush.im.android.api.model.Message msg = conversation.createSendMessage(imageContent);
+                                Message message = Message.obtain();
+                                message.what=SEND_IMG_MSG;
+                                message.obj=msg;
+                                mHandler.handleMessage(message);
+                            }
+                        }
+                    });
+                }
+                break;
+        }
+    }
+
     //弹出视频，小视频拍照
     private void showMore(boolean in) {
         if (in){
@@ -180,6 +216,7 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
         switch (msg.what){
             case DATALIST:
             case SEND_MY_WORD:
+            case SEND_IMG_MSG:
                 cn.jpush.im.android.api.model.Message fromNewest= (cn.jpush.im.android.api.model.Message) msg.obj;
                 setList(fromNewest);
                 break;

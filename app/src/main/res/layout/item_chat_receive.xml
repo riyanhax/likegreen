@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_chat_send_time"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/dp_8"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/chat_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_gravity="left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_chat_send_head"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="@dimen/dp_44"
+            android:layout_height="@dimen/dp_44" />
+        <RelativeLayout
+            android:visibility="gone"
+            android:background="@drawable/chat_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/sp_18"
+            android:textColor="#333333"
+            android:id="@+id/ib_chat_send_word"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_8"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/ib_chat_send_img"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            />
+    </LinearLayout>
+</LinearLayout>

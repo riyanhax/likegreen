@@ -172,6 +172,7 @@
         <activity android:name=".activity.LiveStreamingActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.AddActivity" />
+        <activity android:name=".takephoto.CameraActivity"/>
         <!-- 阿里云 -->
         <!-- 导入相册选择界面相关的Activity -->
         <!--

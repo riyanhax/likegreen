@@ -6,8 +6,8 @@ package com.pywl.likegreen.aliyun;
 
 import android.content.Context;
 
-import com.aliyun.common.logger.Logger;
-import com.aliyun.common.utils.StorageUtils;
+
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +16,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -64,7 +65,7 @@ public class Utils {
                     copySelf(cxt,root + "/" + fileName);
                 }
             }else{
-                Logger.getDefaultLogger().d("copy...."+SD_DIR+root);
+
                 OutputStream myOutput = new FileOutputStream(SD_DIR+root);
                 InputStream myInput = cxt.getAssets().open(root);
                 byte[] buffer = new byte[1024 * 8];
