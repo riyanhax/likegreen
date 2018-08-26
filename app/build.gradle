@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    /*signingConfigs {
-        likegreenkey {
-            keyAlias 'key'
-            keyPassword '1234567'
-            storeFile file('f:/green.jks')
-            storePassword '1234567'
-        }
-    }*/
 
    signingConfigs {
         config {
@@ -27,9 +19,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        ndk {
-            abiFilters "armeabi-v7a"
-        }
+
 
     }
     buildTypes {
@@ -47,23 +37,14 @@ android {
         main {
             jni.srcDirs = []
             jniLibs.srcDirs = ['libs']
-            jniLibs.srcDir "src/main/jniLibs"
+           // jniLibs.srcDir "src/main/jniLibs"
         }
     }
-/*    repositories {
+    repositories {
         flatDir {
             dirs 'libs'
         }
-    }*/
-/*    splits {
-        abi {
-            enable true
-            reset()
-            include  'armeabi-v7a', 'arm64-v8a'
-            universalApk false
-        }
-    }*/
-
+    }
 
 }
 
@@ -148,7 +129,7 @@ dependencies {
     //compile 'cn.jiguang.sdk:jcore:1.1.1'
 
     // 七牛云存储
-    implementation 'com.qiniu:qiniu-android-sdk:7.3.3'
+    //implementation 'com.qiniu:qiniu-android-sdk:7.3.3'
 
     // 图片压缩
     implementation 'com.github.XConstantine:Luban:1.1.0'

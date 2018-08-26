@@ -73,6 +73,7 @@ public class MyDirectAdapter extends ListBaseAdapter<Conversation> {
     }
 
 
+
     private class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView directMsg;

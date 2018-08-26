@@ -25,6 +25,7 @@
             android:layout_width="@dimen/dp_44"
             android:layout_height="@dimen/dp_44" />
         <RelativeLayout
+            android:id="@+id/rl_chat_send_text"
             android:visibility="gone"
             android:background="@drawable/chat_background"
             android:layout_width="wrap_content"

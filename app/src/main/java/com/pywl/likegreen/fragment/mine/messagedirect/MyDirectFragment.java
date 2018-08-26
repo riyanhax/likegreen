@@ -73,7 +73,7 @@ public class MyDirectFragment extends Fragment {
          view = inflater.inflate(R.layout.fragment_my_direct_message, container, false);
         JMessageClient.registerEventReceiver(this);
         //登录
-        JMessageClient.login("fjjpydc1", "84915190qw", new BasicCallback() {
+        JMessageClient.login("fjjpydc", "84915190qw", new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
                 if (i==0){
