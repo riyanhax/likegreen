@@ -31,7 +31,7 @@
     <string name="trailer">预告</string>
     <string name="playback">回放</string>
     <string name="airon">即将开播</string>
-
+    <!--add页面-->
     <string name="sharelift">分享生活</string>
     <string name="jiontheme">参与话题</string>
     <string name="longpost">长帖子</string>
@@ -40,6 +40,14 @@
     <string name="equipment">应用设备</string>
     <string name="live">直播</string>
     <string name="shopping">购物</string>
+    <string name="filter">滤镜</string>
+    <string name="album">相册</string>
+    <string name="takephoto">单击拍照</string>
+    <string name="release">发布</string>
+    <string name="videotype">视频类型</string>
+    <string name="putongshortvideo">普通小视频</string>
+    <string name="advertvideo">广告视频</string>
+    <string name="nextstep">下一步</string>
 
     <string name="aibum">相册</string>
     <string name="shot">拍摄</string>

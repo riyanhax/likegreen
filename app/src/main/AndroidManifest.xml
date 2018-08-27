@@ -172,7 +172,7 @@
         <activity android:name=".activity.LiveStreamingActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.AddActivity" />
-        <activity android:name=".takephoto.CameraActivity"/>
+        <activity android:name=".takephoto.CameraActivity" />
         <!-- 阿里云 -->
         <!-- 导入相册选择界面相关的Activity -->
         <!--
@@ -203,6 +203,8 @@
         </activity>
         -->
         <!-- 阿里云 -->
+        <activity android:name=".activity.ShortCameraActivity" />
+        <activity android:name=".activity.VideoReleaseActivity"></activity>
     </application>
 
 </manifest>

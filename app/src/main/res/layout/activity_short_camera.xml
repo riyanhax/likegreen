@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ShortCameraActivity">
+    <RelativeLayout
+        android:id="@+id/rl_takephoto_sc_bg"
+        android:visibility="gone"
+        android:background="@drawable/home_live_edtext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="20dp">
+        <TextView
+            android:id="@+id/tv_takephoto_counttime"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_takephoto_head"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/takephote_close"
+            android:src="@drawable/videoclose"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16" />
+        <ImageView
+            android:layout_centerInParent="true"
+            android:src="@drawable/flashlight"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_18" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:src="@drawable/lensflip"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_16" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_takephoto_filter"
+        android:layout_marginBottom="@dimen/dp_21"
+        android:layout_marginLeft="@dimen/dp_35"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/filter_add_camera"
+            android:layout_width="@dimen/dp_27"
+            android:layout_height="@dimen/dp_27" />
+        <TextView
+            android:layout_gravity="center"
+            android:text="@string/filter"
+            android:textSize="12sp"
+            android:layout_marginTop="@dimen/dp_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_takephoto_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:src="@drawable/photograph"
+            android:layout_width="62dp"
+            android:layout_height="62dp" />
+        <TextView
+            android:id="@+id/tv_takephoto_str"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:text="@string/takephoto"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_takephoto_album"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dp_21"
+        android:layout_marginRight="@dimen/dp_35"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/album"
+            android:layout_width="@dimen/dp_27"
+            android:layout_height="@dimen/dp_27" />
+        <TextView
+            android:layout_gravity="center"
+            android:text="@string/album"
+            android:textSize="12sp"
+            android:layout_marginTop="@dimen/dp_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_takephoto_cancel"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/dp_45"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_35"
+        android:layout_toRightOf="@id/ll_takephoto_filter"
+        android:src="@drawable/delete"
+        android:layout_width="@dimen/dp_33"
+        android:layout_height="@dimen/dp_22" />
+    <ImageView
+        android:id="@+id/iv_takephoto_choose"
+        android:visibility="gone"
+        android:src="@drawable/nextstep"
+        android:layout_marginBottom="@dimen/dp_45"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/dp_35"
+        android:layout_toLeftOf="@id/ll_takephoto_album"
+        android:layout_width="@dimen/dp_27"
+        android:layout_height="@dimen/dp_27" />
+</RelativeLayout>

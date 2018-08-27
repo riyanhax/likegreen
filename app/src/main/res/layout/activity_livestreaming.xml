@@ -147,7 +147,7 @@
             android:id="@+id/live_filter_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/filter"/>
+            android:src="@drawable/filter_add_camera"/>
 
         <ImageView
             android:id="@+id/live_music_btn"

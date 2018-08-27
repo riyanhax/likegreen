@@ -16,6 +16,7 @@ import cn.jpush.im.android.api.callback.DownloadCompletionCallback;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.content.ImageContent;
+import cn.jpush.im.android.api.content.MessageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Message;
@@ -73,7 +74,7 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
 
             }else {
                 ReceiveHolder receiveHolder= (ReceiveHolder) holder;
-
+                chooseReceiveMsgType(receiveHolder, msg);
             }
         }
     }
@@ -98,7 +99,7 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
                 sendHolder.rlsendText.setVisibility(View.VISIBLE);
                 sendHolder.sendimg.setVisibility(View.GONE);
                 TextContent direst= (TextContent) msg.getContent();
-                sendHolder.sendword.setText(direst.toString());
+                sendHolder.sendword.setText(direst.getText());
                 break;
             case voice:
                 sendHolder.rlsendText.setVisibility(View.VISIBLE);
@@ -107,7 +108,66 @@ public class ChatAdapter extends ListBaseAdapter<Message> {
             case image:
                 sendHolder.rlsendText.setVisibility(View.GONE);
                 sendHolder.sendimg.setVisibility(View.VISIBLE);
+                ImageContent imageContent = (ImageContent) msg.getContent();
+                //先从本地拿缩咯图
+                String path = imageContent.getLocalThumbnailPath();
+                if (path == null){
+                        imageContent.downloadThumbnailImage(msg, new DownloadCompletionCallback() {
+                            @Override
+                            public void onComplete(int i, String s, File file) {
+                                Glide.with(mContext).load(file).into(sendHolder.sendimg);
+                            }
+                        });
+                }
+                break;
+            case video:
+                sendHolder.rlsendText.setVisibility(View.GONE);
+                sendHolder.sendimg.setVisibility(View.VISIBLE);
+                break;
 
+        }
+    }
+    private void chooseReceiveMsgType(final ReceiveHolder sendHolder, Message msg) {
+        JMessageClient.getUserInfo(msg.getTargetID(), new GetUserInfoCallback() {
+            @Override
+            public void gotResult(int i, String s, UserInfo userInfo) {
+                userInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
+                    @Override
+                    public void gotResult(int i, String s, Bitmap bitmap) {
+                        if (bitmap!=null){
+                            sendHolder.sendhead.setImageBitmap(bitmap);
+                        }
+                    }
+                });
+            }
+        });
+
+        switch (msg.getContentType()){
+            case text:
+                sendHolder.rlsendText.setVisibility(View.VISIBLE);
+
+                TextContent direst= (TextContent) msg.getContent();
+                sendHolder.sendword.setText(direst.getText());
+                sendHolder.sendimg.setVisibility(View.GONE);
+                break;
+            case voice:
+                sendHolder.rlsendText.setVisibility(View.VISIBLE);
+                sendHolder.sendimg.setVisibility(View.GONE);
+                break;
+            case image:
+                sendHolder.rlsendText.setVisibility(View.GONE);
+                sendHolder.sendimg.setVisibility(View.VISIBLE);
+                ImageContent imageContent = (ImageContent) msg.getContent();
+                //先从本地拿缩咯图
+                String path = imageContent.getLocalThumbnailPath();
+                if (path == null){
+                        imageContent.downloadThumbnailImage(msg, new DownloadCompletionCallback() {
+                            @Override
+                            public void onComplete(int i, String s, File file) {
+                                Glide.with(mContext).load(file).into(sendHolder.sendimg);
+                            }
+                        });
+                }
                 break;
             case video:
                 sendHolder.rlsendText.setVisibility(View.GONE);

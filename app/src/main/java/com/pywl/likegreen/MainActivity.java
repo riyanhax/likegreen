@@ -12,10 +12,15 @@ import android.widget.RadioGroup;
 
 import com.pywl.likegreen.activity.AddActivity;
 import com.pywl.likegreen.adapter.BaseActivity;
+import com.pywl.likegreen.bean.CallTab;
 import com.pywl.likegreen.fragment.home.HomeFindFragment;
 import com.pywl.likegreen.fragment.home.HomeMyFragment;
 import com.pywl.likegreen.fragment.home.HomeNoteFragment;
 import com.pywl.likegreen.fragment.home.HomePageFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 public class MainActivity extends BaseActivity {
@@ -30,6 +35,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
         initView();
         initFragment();
     }
@@ -172,5 +178,28 @@ public class MainActivity extends BaseActivity {
             }
 
         }
+    }
+    //接收eventbus事件
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setTab(CallTab callTab){
+        switch (callTab){
+            case MAIN:
+                main_rbt_home.setChecked(true);
+                break;
+            case NOTE:
+                main_rbt_note.setChecked(true);
+                break;
+            case MINE:
+                main_rbt_mine.setChecked(true);
+                break;
+            case FIND:
+                main_rbt_find.setChecked(true);
+                break;
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

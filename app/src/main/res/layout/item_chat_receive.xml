@@ -42,7 +42,7 @@
             />
         </RelativeLayout>
         <ImageView
-            android:id="@+id/ib_chat_send_img"
+            android:id="@+id/iv_chat_send_img"
             android:visibility="gone"
             android:layout_marginLeft="5dp"
             android:layout_gravity="center"

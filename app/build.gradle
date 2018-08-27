@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
 
-   signingConfigs {
+    signingConfigs {
         config {
             keyAlias 'likegreen'
             keyPassword '1234567'
@@ -37,7 +37,7 @@ android {
         main {
             jni.srcDirs = []
             jniLibs.srcDirs = ['libs']
-           // jniLibs.srcDir "src/main/jniLibs"
+            // jniLibs.srcDir "src/main/jniLibs"
         }
     }
     repositories {
@@ -59,19 +59,19 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     /*configurations.all {
-                    resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
-                }
-                implementation 'com.android.support:support-v4:26.1.0'
-                implementation 'com.google.android.gms:play-services-plus:15.0.1'
-                androidTestImplementation('com.android.support:support-annotations:26.1.0') {
-                    force = true
-                }
-                implementation fileTree(include: ['*.jar'], dir: 'libs')
-                implementation 'com.android.support:appcompat-v7:26.1.0'
-                implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-                testImplementation 'junit:junit:4.12'
-                androidTestImplementation 'com.android.support.test:runner:1.0.2'
-                androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'*/
+                        resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+                    }
+                    implementation 'com.android.support:support-v4:26.1.0'
+                    implementation 'com.google.android.gms:play-services-plus:15.0.1'
+                    androidTestImplementation('com.android.support:support-annotations:26.1.0') {
+                        force = true
+                    }
+                    implementation fileTree(include: ['*.jar'], dir: 'libs')
+                    implementation 'com.android.support:appcompat-v7:26.1.0'
+                    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+                    testImplementation 'junit:junit:4.12'
+                    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+                    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'*/
 
     // compile 'com.github.leibnik:WechatRadioBar:1.2'//底部导航栏
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -129,6 +129,7 @@ dependencies {
     //compile 'cn.jiguang.sdk:jcore:1.1.1'
 
     // 七牛云存储
+
     //implementation 'com.qiniu:qiniu-android-sdk:7.3.3'
 
     // 图片压缩
@@ -159,27 +160,6 @@ dependencies {
 
     //以下三个选择添加，okrx和okrx2不能同时使用
     compile 'com.lzy.net:okrx:1.0.2'
-
-    //阿里云短视频需要用到的库
-
-    /*    compile 'com.google.code.findbugs:jsr305:3.0.0'
-            compile 'com.github.bumptech.glide:glide:3.7.0'
-            compile 'pub.devrel:easypermissions:0.2.1'
-            compile 'com.squareup.okhttp3:okhttp:3.2.0'
-            compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-            compile 'com.squareup.okio:okio:1.12.0'
-            compile 'com.google.code.gson:gson:2.8.0'
-            compile project(path: ':aliyunsdk')
-            implementation(name: 'QuSdk-RC', ext: 'aar')*/
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-/*    configurations.all {
-        resolutionStrategy {
-            force 'com.android.support:appcompat-v7:24.2.1'
-            force 'com.android.support:design:24.2.1'
-        }
-    }*/
-    //implementation project(path: ':AliyunSdkRCE')
 
 
 }

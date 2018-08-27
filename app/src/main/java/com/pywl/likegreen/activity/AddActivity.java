@@ -48,8 +48,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.ll_add_shortvideo://短视频
-                startShortVideo();
-
+                Intent intentShortCameraActivity = new Intent(AddActivity.this, ShortCameraActivity.class);
+                startActivity(intentShortCameraActivity);
         }
     }
     private static final int PROGRESS_360P = 25;
@@ -59,6 +59,13 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private static final int REQUEST_CROP = 2002;
 
     private void startShortVideo() {
+
+
+
+
+
+
+
      /*   String path = StorageUtils.getCacheDirectory(this).getAbsolutePath() + File.separator+ Utils.QU_NAME + File.separator;
         File filter = new File(new File(path), "filter");
 
