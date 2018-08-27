@@ -29,9 +29,9 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
             super.handleMessage(msg);
             switch (msg.what) {
                 case SET_COUNT_TIME:
-                   countTime= (int) msg.obj;
-                    Log.v("nihaoma",""+countTime);
-                    mTvCountTime.setText(String.valueOf(countTime));
+                  int t= (int) msg.obj;
+                    Log.v("nihaoma",""+t);
+                    mTvCountTime.setText(String.valueOf(t));
                     break;
             }
         }
@@ -59,7 +59,7 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initData() {
-
+        setTime();
     }
 
     @Override
@@ -84,9 +84,10 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
             mTakePhotoStr.setVisibility(View.GONE);
             mTakePhotoscBg.setVisibility(View.VISIBLE);
             mTakePhotoBtn.setImageResource(R.drawable.recording);
-            setTime();
+
             mTakePhotoCancel.setVisibility(View.GONE);
             mTakePhotoChoose.setVisibility(View.GONE);
+
             ishide=false;
         }else {
             mTakePhotoHead.setVisibility(View.VISIBLE);
@@ -101,17 +102,19 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
             }else {
                 mTakePhotoCancel.setVisibility(View.VISIBLE);
                 mTakePhotoChoose.setVisibility(View.VISIBLE);
+
             }
 
             ishide=true;
         }
     }
-
+    private Thread threadTime;
+    private boolean threadStart;
     private void setTime() {
-            new Thread(new Runnable() {
+        threadTime= new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    while (true) {
+                    while (countTime<60) {
                         try {
                             countTime++;
                             Thread.sleep(1000);
@@ -124,8 +127,10 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
                         }
                     }
                 }
-            }).start();
+            });
+        threadTime.start();
         }
+
     }
 
 
