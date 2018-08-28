@@ -31,6 +31,26 @@
     <string name="trailer">预告</string>
     <string name="playback">回放</string>
     <string name="airon">即将开播</string>
+
+
+    <string name="admsg">广告信息</string>
+    <string name="goodsname">商品名称</string>
+    <string name="goodsdetails">描述商品简介</string>
+    <string name="goodsmasterpicture">商品主图</string>
+    <string name="goodspicture">商品图片</string>
+    <string name="plantdate">播种年月:</string>
+    <string name="state">状态:</string>
+    <string name="number">数量:</string>
+    <string name="unit">单位:</string>
+    <string name="unitprice">单价(元):</string>
+    <string name="totalprice">总价(元):</string>
+    <string name="contcats">联系人:</string>
+    <string name="contcatsphoto">联系电话:</string>
+    <string name="alipayname">支付宝姓名:</string>
+    <string name="alipaynumber">支付宝帐号:</string>
+    <string name="paymode">交易方式:</string>
+
+
     <!--add页面-->
     <string name="sharelift">分享生活</string>
     <string name="jiontheme">参与话题</string>

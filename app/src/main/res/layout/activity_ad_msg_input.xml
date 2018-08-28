@@ -1,9 +1,461 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".activity.AdMsgInputActivity">
+    <RelativeLayout
+        style="@style/head">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return"
+            style="@style/paddinglift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/admsg"
+            android:textColor="@color/colorfocuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:textColorHint="#d8d8d8"
+        android:hint="@string/goodsname"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_42" />
+    <View
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:background="@color/enptyviewbackground"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <EditText
+        android:gravity="top"
+        android:textColorHint="#d8d8d8"
+        android:hint="@string/goodsdetails"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100" />
+    <View
+        android:background="#f6f6f6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:layout_marginTop="@dimen/dp_13"
+        android:text="@string/goodsmasterpicture"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:textSize="13sp"
+        android:textColor="#404040"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="205dp" />
+    <View
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="#f6f6f6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:layout_marginTop="@dimen/dp_13"
+        android:text="@string/goodspicture"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:textSize="13sp"
+        android:textColor="#404040"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+
+        </LinearLayout>
+        <View
+            android:layout_marginTop="@dimen/dp_12"
+            android:background="#f6f6f6"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/plantdate"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/state"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/number"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/unit"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/unitprice"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/totalprice"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="#f6f6f6"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/contcats"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/contcatsphoto"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/alipayname"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+
+                android:text="@string/alipaynumber"
+                style="@style/admsginputtext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <RelativeLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+                android:layout_centerVertical="true"
+                android:text="@string/paymode"
+                style="@style/admsginputtext" />
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow"
+                android:layout_width="9dp"
+                android:layout_height="@dimen/dp_15" />
+        </RelativeLayout>
+        <View
+            android:background="#f6f6f6"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+                android:text="是否提交保证金"
+                style="@style/admsginputtext" />
+           <RadioGroup
+               android:layout_gravity="center_vertical"
+               android:orientation="horizontal"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+               <RadioButton
+                   android:textColor="#404040"
+                   android:layout_marginLeft="10dp"
+                   android:drawablePadding="4dp"
+                   android:text="是"
+                   android:checked="true"
+                   android:button="@null"
+                   android:drawableLeft="@drawable/bt_video_type"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <RadioButton
+                   android:textColor="#404040"
+                   android:layout_marginLeft="30dp"
+                   android:drawablePadding="4dp"
+                   android:text="否"
+                   android:button="@null"
+                   android:drawableLeft="@drawable/bt_video_type"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+           </RadioGroup>
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42">
+            <TextView
+                android:text="是否上传身份信息"
+                style="@style/admsginputtext" />
+            <RadioGroup
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:textColor="#404040"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="4dp"
+                    android:text="是"
+                    android:checked="true"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/bt_video_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RadioButton
+                    android:textColor="#404040"
+                    android:layout_marginLeft="30dp"
+                    android:drawablePadding="4dp"
+                    android:text="否"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/bt_video_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+            <TextView
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="(此信息仅限喜绿官方查看)"
+                android:textColor="#cccccc"
+                android:layout_gravity="center_vertical"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="77dp">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
+            <TextView
+                android:text="是否上传商家信息"
+                style="@style/admsginputtext" />
+            <RadioGroup
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:textColor="#404040"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="4dp"
+                    android:text="是"
+                    android:checked="true"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/bt_video_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RadioButton
+                    android:textColor="#404040"
+                    android:layout_marginLeft="30dp"
+                    android:drawablePadding="4dp"
+                    android:text="否"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/bt_video_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+            <TextView
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="(此信息仅限喜绿官方查看)"
+                android:textColor="#cccccc"
+                android:layout_gravity="center_vertical"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <RelativeLayout
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="130dp">
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/bt_video_type"
+                    android:layout_width="@dimen/dp_13"
+                    android:layout_height="@dimen/dp_13" />
+                <TextView
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="承诺以上信息真实可靠"
+                    android:textColor="#cccccc"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18"
+                android:gravity="center"
+                android:text="发布"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/login_btn_bg"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
