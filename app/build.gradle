@@ -113,7 +113,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
 
-
     //数据存储
 
     //compile 'org.litepal.android:core:1.5.1'
@@ -160,7 +159,7 @@ dependencies {
     //以下三个选择添加，okrx和okrx2不能同时使用
     compile 'com.lzy.net:okrx:1.0.2'
     //jiecao
-    implementation  'cn.jzvd:jiaozivideoplayer:6.2.12'
+    implementation 'cn.jzvd:jiaozivideoplayer:6.2.12'
     //网易上传sdk
     compile project(path: ':vcloudnosupload')
 }

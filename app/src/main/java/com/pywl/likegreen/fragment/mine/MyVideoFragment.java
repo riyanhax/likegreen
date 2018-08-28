@@ -1,7 +1,9 @@
 package com.pywl.likegreen.fragment.mine;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 
 
 import com.github.jdsjlzx.interfaces.OnItemClickListener;
@@ -64,6 +68,8 @@ public class MyVideoFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
     }
 
 
