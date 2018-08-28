@@ -2,16 +2,13 @@ package com.pywl.likegreen.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.aliyun.Utils;
 
-import java.io.File;
 
 /*
 * 加号

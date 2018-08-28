@@ -37,6 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <ImageView
+                android:id="@+id/iv_select_video"
+                android:scaleType="fitXY"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_alignParentRight="true"
                 android:layout_width="104dp"

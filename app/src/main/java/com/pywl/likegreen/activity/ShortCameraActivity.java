@@ -115,6 +115,7 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
                 @Override
                 public void run() {
                     while (countTime<60) {
+                        if (!ishide){
                         try {
                             countTime++;
                             Thread.sleep(1000);
@@ -126,7 +127,7 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
                             e.printStackTrace();
                         }
                     }
-                }
+                }}
             });
         threadTime.start();
         }
