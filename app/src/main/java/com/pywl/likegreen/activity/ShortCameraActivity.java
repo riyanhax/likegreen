@@ -1,28 +1,62 @@
 package com.pywl.likegreen.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.AssetFileDescriptor;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.netease.transcoding.record.MediaRecord;
+import com.netease.transcoding.record.MessageHandler;
+import com.netease.vcloud.video.effect.VideoEffect;
+import com.netease.vcloud.video.render.NeteaseView;
 import com.pywl.likegreen.R;
+
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 /*
 * 发布短视频点进来的照相机
 * */
-public class ShortCameraActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShortCameraActivity extends AppCompatActivity implements MessageHandler,View.OnClickListener {
+    private String appkey="4edf106797fe7de29d4cffc6bf073691";
+
+
     private static final int SET_COUNT_TIME = 0;
     private  View mTakePhotoHead,mTakePhotofilter,mTakePhotoAlbum,mTakePhotoscBg,mTakePhotoStr,mTakePhotoCancel,mTakePhotoChoose;//顶部一栏,滤镜,拍照按钮,相册,读秒
-   private  ImageView mTakePhotoBtn;
+   private  ImageView mTakePhotoBtn,switchCamera,flashBtn;//录像按钮，切换前后摄像头
     private boolean ishide=true;
     private int countTime=0;
     private TextView mTvCountTime;
+    private NeteaseView videoView;
+
+    //伴音广播
+    private audioMixVolumeMsgReceiver audioMixVolumeMsgReceiver;
+    long clickTime = 0L;
+    /**
+     * SDK 相关参数
+     **/
+    private MediaRecord mMediaRecord = null;
+    private volatile boolean mRecording = false;
+    private DateFormat formatter_file_name = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault());
     Handler mHandler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -39,9 +73,38 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_livestreaming);
+        //应用运行时，保持屏幕高亮，不锁屏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.screenBrightness = 0.7f;
+        getWindow().setAttributes(params);
         setContentView(R.layout.activity_short_camera);
+
+        //以下为SDK调用主要步骤，请用户参考使用
+        //1、创建录制实例
+        MediaRecord.MediaRecordPara mediaRecordPara = new MediaRecord.MediaRecordPara();
+        mediaRecordPara.setAppKey(appkey);  //APPKEY
+        mediaRecordPara.setContext(getApplicationContext()); //APP上下文
+        mediaRecordPara.setMessageHandler(this); //消息回调
+        mMediaRecord = new MediaRecord(mediaRecordPara);
+
+        boolean frontCamera = true; // 是否前置摄像头
+        boolean scale_16x9 = false; //是否强制16:9
         initView();
         initData();
+        //2、 预览参数设置
+        MediaRecord.VideoQuality videoQuality = MediaRecord.VideoQuality.SUPER_HIGH; //视频模板（SUPER_HIGH 1280*720、SUPER 960*540、HIGH 640*480、MEDIUM 480*360）
+        mMediaRecord.startVideoPreview(videoView, frontCamera, videoQuality, scale_16x9);
+        mMediaRecord.setBeautyLevel(5); //磨皮强度为5,共5档，0为关闭
+        mMediaRecord.setFilterStrength(0.5f); //滤镜强度
+        mMediaRecord.setFilterType(VideoEffect.FilterType.clean);
+        //伴音
+        audioMixVolumeMsgReceiver = new audioMixVolumeMsgReceiver();
+        IntentFilter audioMixVolumeIntentFilter = new IntentFilter();
+        audioMixVolumeIntentFilter.addAction("AudioMixVolume");
+        audioMixVolumeIntentFilter.addAction("AudioMix");
+        registerReceiver(audioMixVolumeMsgReceiver, audioMixVolumeIntentFilter);
     }
 
     private void initView() {
@@ -53,10 +116,18 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
          mTakePhotoBtn.setOnClickListener(this);
          mTakePhotoStr = findViewById(R.id.tv_takephoto_str);//点击拍照字
          mTakePhotoCancel = findViewById(R.id.iv_takephoto_cancel);//取消
-         mTakePhotoChoose = findViewById(R.id.iv_takephoto_choose);//确认
+         mTakePhotoChoose = findViewById(R.id.iv_takephoto_choose);//确认//录制完成
          mTakePhotoChoose.setOnClickListener(this);
          mTvCountTime = (TextView)findViewById(R.id.tv_takephoto_counttime);
+         videoView=(NeteaseView)findViewById(R.id.videoview);
+         switchCamera = (ImageView)findViewById(R.id.iv_switch_camera);//切换前后摄像头
+        switchCamera.setOnClickListener(this);
+        flashBtn = (ImageView) findViewById(R.id.iv_flash_btn);//闪光灯
+        flashBtn.setOnClickListener(this);
     }
+
+
+
 
     private void initData() {
         setTime();
@@ -68,10 +139,17 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
             case R.id.iv_takephoto_btn:
                 hideView(ishide);
                 break;
-            case R.id.iv_takephoto_choose:
+            case R.id.iv_takephoto_choose://录制完成  确认
                 Intent intentVideoReleaseActivity = new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);
                 startActivity(intentVideoReleaseActivity);
+
                 finish();
+                break;
+            case R.id.iv_switch_camera:   //切换前后摄像头
+                switchCamera();
+                break;
+            case R.id.iv_flash_btn://闪光灯
+                flashCamera();
                 break;
         }
     }
@@ -84,10 +162,9 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
             mTakePhotoStr.setVisibility(View.GONE);
             mTakePhotoscBg.setVisibility(View.VISIBLE);
             mTakePhotoBtn.setImageResource(R.drawable.recording);
-
             mTakePhotoCancel.setVisibility(View.GONE);
             mTakePhotoChoose.setVisibility(View.GONE);
-
+            mMediaRecord.startRecord(Environment.getExternalStorageDirectory() + "/transcode/" + formatter_file_name.format(new Date()) + ".mp4");
             ishide=false;
         }else {
             mTakePhotoHead.setVisibility(View.VISIBLE);
@@ -102,9 +179,8 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
             }else {
                 mTakePhotoCancel.setVisibility(View.VISIBLE);
                 mTakePhotoChoose.setVisibility(View.VISIBLE);
-
             }
-
+            mMediaRecord.stopRecord();
             ishide=true;
         }
     }
@@ -132,6 +208,176 @@ public class ShortCameraActivity extends AppCompatActivity implements View.OnCli
         threadTime.start();
         }
 
+
+    //用于接收Service发送的消息，伴音音量
+    public class audioMixVolumeMsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            //音量
+            float audioMixVolumeMsg = intent.getFloatExtra("AudioMixVolumeMSG", -1);
+            if(audioMixVolumeMsg != -1 && mMediaRecord != null){
+                mMediaRecord.setMusicVolume(audioMixVolumeMsg);
+            }
+
+            //伴音文件
+            int audioMixMsg = intent.getIntExtra("AudioMixMSG", 0);
+            String fileName = intent.getStringExtra("AudioMixFilePathMSG");
+
+            //伴音开关的控制
+            if(audioMixMsg == 1)
+            {
+                if(mMediaRecord != null) {
+                    try{
+                        AssetFileDescriptor descriptor = context.getAssets().openFd("mixAudio/"+ fileName);
+                        FileDescriptor fd = descriptor.getFileDescriptor();
+                        mMediaRecord.startPlayMusic(fd,descriptor.getStartOffset(),descriptor.getLength(),false);
+                        mMediaRecord.setMusicVolume(0.2f);
+//                        mMediaRecord.musicSeekTo(1000); //伴音seek
+                    }
+                    catch(Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+            else if (audioMixMsg == 2)
+            {
+                if(mMediaRecord != null){
+                    mMediaRecord.resumePlayMusic();
+                }
+            }
+            else if(audioMixMsg == 3)
+            {
+                if(mMediaRecord != null){
+                    mMediaRecord.pausePlayMusic();
+                }
+            }
+            else if(audioMixMsg == 4)
+            {
+                if(mMediaRecord != null){
+                    mMediaRecord.stopPlayMusic();
+                }
+            }
+        }
     }
+    //切换前后摄像头
+    private void switchCamera() {
+        if (mMediaRecord != null) {
+            mMediaRecord.switchCamera();
+        }
+    }
+    private boolean mFlashOn = false;
+    private void flashCamera(){
+        if(mMediaRecord != null){
+            mFlashOn = !mFlashOn;
+            mMediaRecord.setCameraFlashPara(mFlashOn);
+        }
+    }
+    //处理SDK抛上来的异常和事件，用户需要在这里监听各种消息，进行相应的处理。
+    @Override
+    public void handleMessage(int msg, Object object) {
+        switch (msg) {
+            case MSG_INIT_RECORD_VERIFY_ERROR:
+                showToast("鉴权失败，请检查APPkey");
+                finish();
+                break;
+            case MSG_START_PREVIEW_FINISHED:
+                Log.d("nihaoma","开启预览成功");
+                break;
+            case MSG_START_CAMERA_ERROR:
+                showToast("开启相机失败，请检查相机权限");
+                finish();
+                break;
+            case MSG_START_AUDIO_ERROR:
+                showToast("开启录音失败，请检查麦克风权限");
+                finish();
+                break;
+            case MSG_START_RECORD_ERROR:
+                showToast("开启录制失败");
+                break;
+            case MSG_START_RECORD_FINISHED:
+                showToast("录制已开启");
+                mRecording = true;
+                break;
+            case MSG_STOP_RECORD_FINISHED:
+                if(!(Boolean) object){
+                    showToast("录制停止失败，删除录制文件");
+                }else {
+                    showToast("录制已停止");
+                }
+                mRecording = false;
+                break;
+            case MSG_SWITCH_CAMERA_FINISHED:
+                showToast("相机切换成功");
+                break;
+            case MSG_CAMERA_NOT_SUPPORT_FLASH:
+                showToast("不支持闪光灯");
+                break;
+            case MSG_START_CAPTURE_FINISHED:
+                final Bitmap bitmap = (Bitmap) object;
+                new Thread() {
+                    public void run(){
+                        if(bitmap != null){
+                            FileOutputStream outStream = null;
+                            String screenShotFilePath = Environment.getExternalStorageDirectory() + "/transcode/" +
+                                    formatter_file_name.format(new Date()) + "_" +
+                                    bitmap.getWidth() + "x" + bitmap.getHeight() +
+                                    ".png";
+                            try {
+                                outStream = new FileOutputStream(String.format(screenShotFilePath));
+                                bitmap.compress(Bitmap.CompressFormat.PNG,100,outStream);
+                                showToast("截图已保存到：" + screenShotFilePath);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }finally {
+                                if(outStream != null){
+                                    try {
+                                        outStream.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }.start();
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    private Toast mToast;
+    private void showToast(final String text) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mToast == null) {
+                    mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                }
+                mToast.setText(text);
+                mToast.show();
+            }
+        });
+    }
+    @Override
+    protected void onDestroy() {
+
+        if(mMediaRecord != null){
+            if(mRecording){
+                mMediaRecord.stopRecord();
+            }
+            mMediaRecord.stopVideoPreview();
+            mMediaRecord.destroyVideoPreview();
+            mMediaRecord.unInit();
+        }
+        unregisterReceiver(audioMixVolumeMsgReceiver);
+        super.onDestroy();
+    }
+}
 
 

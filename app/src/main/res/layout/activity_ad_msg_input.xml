@@ -300,6 +300,7 @@
                android:orientation="horizontal"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content">
+
                <RadioButton
                    android:textColor="#404040"
                    android:layout_marginLeft="10dp"
@@ -312,7 +313,7 @@
                    android:layout_height="wrap_content" />
                <RadioButton
                    android:textColor="#404040"
-                   android:layout_marginLeft="30dp"
+                   android:layout_marginLeft="15dp"
                    android:drawablePadding="4dp"
                    android:text="否"
                    android:button="@null"
@@ -350,7 +351,7 @@
                     android:layout_height="wrap_content" />
                 <RadioButton
                     android:textColor="#404040"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="15dp"
                     android:drawablePadding="4dp"
                     android:text="否"
                     android:button="@null"
@@ -359,7 +360,7 @@
                     android:layout_height="wrap_content" />
             </RadioGroup>
             <TextView
-                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_7"
                 android:text="(此信息仅限喜绿官方查看)"
                 android:textColor="#cccccc"
                 android:layout_gravity="center_vertical"
@@ -402,7 +403,7 @@
                     android:layout_height="wrap_content" />
                 <RadioButton
                     android:textColor="#404040"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="15dp"
                     android:drawablePadding="4dp"
                     android:text="否"
                     android:button="@null"
@@ -411,7 +412,7 @@
                     android:layout_height="wrap_content" />
             </RadioGroup>
             <TextView
-                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_7"
                 android:text="(此信息仅限喜绿官方查看)"
                 android:textColor="#cccccc"
                 android:layout_gravity="center_vertical"

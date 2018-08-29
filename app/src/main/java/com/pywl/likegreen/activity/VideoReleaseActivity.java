@@ -187,6 +187,8 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
                     finish();
                 }else {
                     Log.v("nihaoma","广告视频");
+                    Intent intentAdMsgInputActivity = new Intent(VideoReleaseActivity.this, AdMsgInputActivity.class);
+                    startActivity(intentAdMsgInputActivity);
                 }
                 break;
             case R.id.iv_select_video://点击图片选取视频
