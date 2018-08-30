@@ -21,13 +21,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.util.Synthetic;
 import com.netease.transcoding.TranscodingAPI;
 import com.netease.transcoding.TranscodingNative;
 import com.netease.transcoding.record.MediaRecord;
 import com.netease.transcoding.record.MessageHandler;
 import com.netease.vcloud.video.effect.VideoEffect;
 import com.netease.vcloud.video.render.NeteaseView;
+import com.netease.vcloudnosupload.util.FileUtil;
 import com.pywl.likegreen.R;
 
 import java.io.FileDescriptor;
@@ -56,7 +56,9 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
 
 
     private static final int SET_COUNT_TIME = 0;
-    private  View mTakePhotoHead,mTakePhotofilter,mTakePhotoAlbum,mTakePhotoscBg,mTakePhotoStr,mTakePhotoCancel,mTakePhotoChoose;//顶部一栏,滤镜,拍照按钮,相册,读秒
+    private static final int ShortVideoProcess_CHOOSE = 100;
+    private  View mTakePhotoHead,mTakePhotofilter,mTakePhotoAlbum, mTakePhotoSecond,
+            mTakePhotoStr,mTakePhotoCancel,mTakePhotoChoose, musicChoose, voiceBtn;//顶部一栏,滤镜,拍照按钮,相册,读秒，音乐,声音
    private  ImageView mTakePhotoBtn,switchCamera,flashBtn;//录像按钮，切换前后摄像头
     private boolean ishide=true;
     private int countTime=0;//录像时间
@@ -132,7 +134,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
          mTakePhotoHead = findViewById(R.id.rl_takephoto_head);//顶部一栏
          mTakePhotofilter = findViewById(R.id.ll_takephoto_filter);//滤镜
          mTakePhotoAlbum = findViewById(R.id.ll_takephoto_album);//相册
-         mTakePhotoscBg = findViewById(R.id.rl_takephoto_sc_bg);//读秒
+         mTakePhotoSecond = findViewById(R.id.rl_takephoto_sc_bg);//读秒
          mTakePhotoBtn = (ImageView)findViewById(R.id.iv_takephoto_btn);//拍照
          mTakePhotoBtn.setOnClickListener(this);
          mTakePhotoStr = findViewById(R.id.tv_takephoto_str);//点击拍照字
@@ -145,6 +147,10 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         switchCamera.setOnClickListener(this);
         flashBtn = (ImageView) findViewById(R.id.iv_flash_btn);//闪光灯
         flashBtn.setOnClickListener(this);
+        musicChoose = findViewById(R.id.iv_music_svideo);//背景音乐选择
+        musicChoose.setOnClickListener(this);
+        voiceBtn = findViewById(R.id.iv_voice_svideo);//声音
+        voiceBtn.setOnClickListener(this);
     }
 
 
@@ -176,6 +182,12 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
             case R.id.iv_flash_btn://闪光灯
                 flashCamera();
                 break;
+            case R.id.iv_music_svideo://音乐
+                openFileChoose(ShortVideoProcess_CHOOSE);
+                break;
+            case R.id.iv_voice_svideo://声音
+
+                break;
         }
     }
 
@@ -186,21 +198,22 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
             mTakePhotofilter.setVisibility(View.GONE);
             mTakePhotoAlbum.setVisibility(View.GONE);
             mTakePhotoStr.setVisibility(View.GONE);
-            mTakePhotoscBg.setVisibility(View.VISIBLE);
+            mTakePhotoSecond.setVisibility(View.VISIBLE);
             mTakePhotoBtn.setImageResource(R.drawable.recording);
             mTakePhotoCancel.setVisibility(View.GONE);
             mTakePhotoChoose.setVisibility(View.GONE);
+            musicChoose.setVisibility(View.GONE);
+            voiceBtn.setVisibility(View.GONE);
             videoFilePath =Environment.getExternalStorageDirectory() + "/transcode/" + formatter_file_name.format(new Date()) + ".mp4";
             videoFiles.add(videoFilePath);//视频文件传到提交界面
             mMediaRecord.startRecord(videoFilePath);
-
             ishide=false;
         }else {
             mTakePhotoHead.setVisibility(View.VISIBLE);
             mTakePhotofilter.setVisibility(View.VISIBLE);
             mTakePhotoAlbum.setVisibility(View.VISIBLE);
             mTakePhotoStr.setVisibility(View.VISIBLE);
-            mTakePhotoscBg.setVisibility(View.GONE);
+            mTakePhotoSecond.setVisibility(View.GONE);
             mTakePhotoBtn.setImageResource(R.drawable.photograph);
             if (countTime==0){
                 mTakePhotoCancel.setVisibility(View.GONE);
@@ -208,7 +221,10 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
             }else {
                 mTakePhotoCancel.setVisibility(View.VISIBLE);
                 mTakePhotoChoose.setVisibility(View.VISIBLE);
-
+                musicChoose.setVisibility(View.VISIBLE);
+                voiceBtn.setVisibility(View.VISIBLE);
+                switchCamera.setVisibility(View.GONE);
+                flashBtn.setVisibility(View.GONE);
             }
             mMediaRecord.stopRecord();
             ishide=true;
@@ -448,8 +464,12 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
     }
     private int videoWidth=720;//拼接宽
     private int videoHeight=1280;//拼接高
-    private int fadeTime=500;//多文件拼接淡入淡出时间
+    private int fadeTime=200;//多文件拼接淡入淡出时间
     private int adjustVolume=1;//视频音量调节系数0-2
+    private String outPutVideoPath;//合并文件输出路径
+    private String mAudioMerge_file;//混音文件路径
+    private Float mAudioMerge_audio_volume=0.3f;//伴音音量
+    private int mAudioMerge_fade_time=2000;//伴音开始时间
     //合成视频
     private void syntheticVideo(ArrayList<String> list) {
         TranscodingAPI.TranSource tranSource = new TranscodingAPI.TranSource();
@@ -460,11 +480,21 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         tranSource.setAudioVolume(adjustVolume);
         tranSource.setMergeWidth(videoWidth);
         tranSource.setMergeHeight(videoHeight);
+        TranscodingAPI.TranscodePara transcodePara = new TranscodingAPI.TranscodePara();
         //输出路径
         TranscodingAPI.TranOut tranOut = new TranscodingAPI.TranOut();
-        tranOut.setFilePath(Environment.getExternalStorageDirectory() + "/相机/"+formatter_file_name.format(new Date()) + ".mp4");
-        TranscodingAPI.TranscodePara transcodePara = new TranscodingAPI.TranscodePara();
+        outPutVideoPath=Environment.getExternalStorageDirectory() + "/相机/"+formatter_file_name.format(new Date()) + ".mp4";
+        tranOut.setFilePath(outPutVideoPath);
+        //伴音
+        if (mAudioMerge_file!=null) {
+            TranscodingAPI.TranMixAudio tranMixAudio = new TranscodingAPI.TranMixAudio();
+            tranMixAudio.setFilePath(mAudioMerge_file);
+            tranMixAudio.setMixVolume(mAudioMerge_audio_volume);
+            tranMixAudio.setFadeDuration(mAudioMerge_fade_time);
+            transcodePara.setMixAudio(tranMixAudio);
+        }
         transcodePara.setSource(tranSource);  //必须
+
         transcodePara.setOut(tranOut); //必须
 
 /*        //以下参数为非必须参数，用户可根据需要决定设置哪些参数
@@ -549,14 +579,64 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                         showToast("短视频处理失败，媒体文件不支持，或参数设置错误");
                         break;
                     default:
-                        showToast("转码已完成");
+                        showToast("视频处理已完成");
                         break;
                 }
-
+                startUploadActivity();
             }
         }.execute(transcodePara);
     }
 
+    private void startUploadActivity() {
+        if (outPutVideoPath!=null){
+        Intent intentVideoReleaseActivity = new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);
+        intentVideoReleaseActivity.putExtra("ShortCameraActivity",outPutVideoPath);
+        startActivity(intentVideoReleaseActivity);
+        finish();
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK || data.getData() == null) {
+            return;
+        }
+        String path = FileUtil.getPath(this, data.getData());
+        switch (requestCode){
+
+            case ShortVideoProcess_CHOOSE:      //混音文件
+                String substring = path.substring(path.length() - 4);
+                if (substring.equals(".mp3")||substring.equals(".m4a")){
+                    mAudioMerge_file=path;
+                    int start=path.lastIndexOf("/");
+                    int end=path.lastIndexOf(".");
+                    if(start!=-1 && end!=-1){
+                        String substring1 = path.substring(start+1, end);
+                        showToast("选择了音乐："+substring1);
+                    }
+
+                }else {
+                    showToast("请选择音乐文件");
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    //文件选择
+   private void openFileChoose(int requestCode){
+
+        Intent intent = new Intent();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
+            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        }else {
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+        }
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        startActivityForResult(intent, requestCode);
+    }
 }
 
 

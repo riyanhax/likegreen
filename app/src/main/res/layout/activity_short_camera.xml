@@ -24,7 +24,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+
     <RelativeLayout
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+
+            android:id="@+id/iv_music_svideo"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/music_svideo"
+            android:visibility="gone"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_16" />
+        <ImageView
+            android:id="@+id/iv_voice_svideo"
+            android:layout_toLeftOf="@id/iv_music_svideo"
+            android:layout_marginRight="@dimen/dp_17"
+            android:src="@drawable/voice_svideo"
+            android:visibility="gone"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_16" />
+    </RelativeLayout>
+    <RelativeLayout
+
         android:id="@+id/rl_takephoto_head"
         android:layout_marginRight="@dimen/dp_20"
         android:layout_marginLeft="@dimen/dp_20"
