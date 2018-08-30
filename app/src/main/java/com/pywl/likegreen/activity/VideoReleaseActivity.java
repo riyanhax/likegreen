@@ -49,6 +49,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     private View mNextStep;//下一步
     private RadioGroup mVideoType;
     private ImageView   mSelsctVideo;
+    private String mVideoPath;
     private AcceleratorConfig acceleratorConf = new AcceleratorConfig();
     private NOSUpload nosUpload = NOSUpload.getInstace(VideoReleaseActivity.this);
     private NOSUpload.UploadExecutor executor = null;
@@ -124,10 +125,13 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initData() {
-
+        Intent intent = getIntent();
+        mVideoPath = intent.getStringExtra("ShortCameraActivity");
+        setVideoImg(mVideoPath);
     }
 
-    private void setVideoImg() {
+    private void setVideoImg(String path) {
+        mFile = new File(path);
         if (mFile!=null) {
             RequestOptions requestOptions = RequestOptions.frameOf(1);
             requestOptions.set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST);
@@ -209,8 +213,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
             return;
         }
         String path = VideoFileUtil.getPath(VideoReleaseActivity.this, data.getData());
-        mFile = new File(path);
-        setVideoImg();
+        setVideoImg(path);
     }
 
 
