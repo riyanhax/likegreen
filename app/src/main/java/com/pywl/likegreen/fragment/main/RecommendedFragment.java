@@ -69,8 +69,8 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
 
     private void initView(View v) {
         //分享
-        mIvRecommendShare = v.findViewById(R.id.iv_recommend_share);
-        mIvRecommendShare.setOnClickListener(this);
+      /*  mIvRecommendShare = v.findViewById(R.id.iv_recommend_share);
+        mIvRecommendShare.setOnClickListener(this);*/
         //视频
         mViewPager = v.findViewById(R.id.recommend_viewpager);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -132,9 +132,9 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.iv_recommend_share:
+            /*case R.id.iv_recommend_share:
                 showPopuWindow(view);
-                break;
+                break;*/
         }
     }
 

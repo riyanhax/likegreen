@@ -10,7 +10,7 @@
             android:id="@+id/recommend_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>-->
-    <LinearLayout
+ <!--   <LinearLayout
         android:layout_marginBottom="@dimen/dp_13"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -131,6 +131,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-</LinearLayout>
+</LinearLayout>-->
 
 </RelativeLayout>
