@@ -54,7 +54,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import java.util.ArrayList;
+
 
 import static com.netease.LSMediaCapture.lsMediaCapture.StreamType.AUDIO;
 import static com.netease.LSMediaCapture.lsMediaCapture.StreamType.AV;
@@ -71,7 +73,7 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 	private ImageView startPauseResumeBtn;
 	private TextView mFpsView;
 	private final int MSG_FPS = 1000;
-	private String mliveStreamingURL = null;
+	private String mliveStreamingURL = null;//直播地址
     private String mMixAudioFilePath = null;
 	private File mMP3AppFileDirectory = null;
 	private Handler mHandler;
@@ -142,16 +144,7 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 		WindowManager.LayoutParams params = getWindow().getAttributes();
 		params.screenBrightness = 0.7f;
 		getWindow().setAttributes(params);
-
-
         //从直播设置页面获取推流URL和分辨率信息
-		SetAnchorActivity.PublishParam publishParam = (SetAnchorActivity.PublishParam) getIntent().getSerializableExtra("data");
-
-        mliveStreamingURL = publishParam.pushUrl;
-		mUseFilter = publishParam.useFilter & !mVideoCallback;
-		mNeedWater = publishParam.watermark;
-		mNeedGraffiti = publishParam.graffitiOn;
-
 		m_liveStreamingOn = false;
 		m_tryToStopLivestreaming = false;
 
@@ -161,33 +154,33 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 		lsMediaCapturePara.setContext(getApplicationContext()); //设置SDK上下文（建议使用ApplicationContext）
 		lsMediaCapturePara.setMessageHandler(this); //设置SDK消息回调
 		lsMediaCapturePara.setLogLevel(lsLogUtil.LogLevel.INFO); //日志级别
-		lsMediaCapturePara.setUploadLog(publishParam.uploadLog);//是否上传SDK日志
+		lsMediaCapturePara.setUploadLog(false);//是否上传SDK日志
 		mLSMediaCapture = new lsMediaCapture(lsMediaCapturePara);
 
         //2、设置直播参数
 		mLiveStreamingPara = new lsMediaCapture.LiveStreamingPara();
-		mLiveStreamingPara.setStreamType(publishParam.streamType); // 推流类型 AV、AUDIO、VIDEO
-		mLiveStreamingPara.setFormatType(publishParam.formatType); // 推流格式 RTMP、MP4、RTMP_AND_MP4
-		mLiveStreamingPara.setRecordPath(publishParam.recordPath);//formatType 为 MP4 或 RTMP_AND_MP4 时有效
-		mLiveStreamingPara.setQosOn(publishParam.qosEnable);
+		mLiveStreamingPara.setStreamType(lsMediaCapture.StreamType.AV); // 推流类型 AV、AUDIO、VIDEO
+		mLiveStreamingPara.setFormatType( lsMediaCapture.FormatType.RTMP); // 推流格式 RTMP、MP4、RTMP_AND_MP4
+		mLiveStreamingPara.setRecordPath("MP4");//formatType 为 MP4 或 RTMP_AND_MP4 时有效
+		mLiveStreamingPara.setQosOn(true);
 //		mLiveStreamingPara.setSyncTimestamp(true,false);//（直播答题使用）网易云透传时间戳，不依赖CDN方式，不需要额外开通(必须包含视频流)
 //		mLiveStreamingPara.setStreamTimestampPassthrough(true); //（直播答题使用）网易云透传时间戳，但完全透传功能需要联系网易云开通，支持纯音频
 
 
         //3、 预览参数设置
         NeteaseView videoView = (NeteaseView) findViewById(R.id.videoview);
-		boolean frontCamera = publishParam.frontCamera; // 是否前置摄像头
-		boolean mScale_16x9 = publishParam.isScale_16x9; //是否强制16:9
-		if(publishParam.streamType != AUDIO){ //开启预览画面
-			lsMediaCapture.VideoQuality videoQuality = publishParam.videoQuality; //视频模板（SUPER_HIGH 1280*720、SUPER 960*540、HIGH 640*480、MEDIUM 480*360、LOW 352*288）
+		boolean frontCamera = true; // 是否前置摄像头
+		boolean mScale_16x9 = true; //是否强制16:9
+		 //开启预览画面
+			lsMediaCapture.VideoQuality videoQuality =lsMediaCapture.VideoQuality.SUPER_HIGH; //视频模板（SUPER_HIGH 1280*720、SUPER 960*540、HIGH 640*480、MEDIUM 480*360、LOW 352*288）
 			mLSMediaCapture.startVideoPreview(videoView,frontCamera,mUseFilter,videoQuality,mScale_16x9);
-		}
+
 
 		m_startVideoCamera = true;
 		if(mUseFilter){ //demo中默认设置为干净滤镜
 			mLSMediaCapture.setBeautyLevel(5); //磨皮强度为5,共5档，0为关闭
 			mLSMediaCapture.setFilterStrength(0.5f); //滤镜强度
-			mLSMediaCapture.setFilterType(publishParam.filterType);
+			mLSMediaCapture.setFilterType(VideoEffect.FilterType.clean);
 		}
 
 		// SDK 默认提供 /** 标清 480*360 */MEDIUM, /** 高清 640*480 */HIGH,
@@ -340,13 +333,13 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 
 		//4、发送统计数据到网络信息界面（Demo层实现，用户不需要添加该操作）
 		staticsHandle();
-        if(publishParam.streamType != AUDIO){
+
             //显示本地绘制帧率 (测试用)
             mHandler.sendEmptyMessageDelayed(MSG_FPS,1000);
-        }
+
 
 		//5、Demo控件的初始化（Demo层实现，用户不需要添加该操作）
-		buttonInit();
+		//buttonInit();
 
 		//伴音相关操作，获取设备音频播放service
 		mAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -628,7 +621,7 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 	private Thread mThread;
 	//按钮初始化
 	public void buttonInit() {
-
+/*
         //网络信息按钮初始化
         View networkInfoBtn = findViewById(R.id.live_net_info);
         networkInfoBtn.setOnClickListener(new OnClickListener() {
@@ -936,7 +929,7 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 			default:
 				break;
 
-		}
+		}*/
 	}
 
 	private NetWorkInfoDialog netWorkInfoDialog;
@@ -1523,8 +1516,13 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
         m_tryToStopLivestreaming = true;      
     }
 
+    @Override
+    public void onClick(View view) {
 
-	//用于接收Service发送的消息，伴音开关
+    }
+
+
+    //用于接收Service发送的消息，伴音开关
 	 public class MsgReceiver extends BroadcastReceiver {
   
         @Override

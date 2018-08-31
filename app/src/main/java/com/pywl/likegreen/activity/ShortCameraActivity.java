@@ -76,7 +76,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
      **/
     private MediaRecord mMediaRecord = null;
     private volatile boolean mRecording = false;
-    private DateFormat formatter_file_name = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault());
+    private DateFormat formatter_file_name = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
 
 
     Handler mHandler=new Handler(){
@@ -204,7 +204,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
             mTakePhotoChoose.setVisibility(View.GONE);
             musicChoose.setVisibility(View.GONE);
             voiceBtn.setVisibility(View.GONE);
-            videoFilePath =Environment.getExternalStorageDirectory() + "/transcode/" + formatter_file_name.format(new Date()) + ".mp4";
+            videoFilePath =Environment.getExternalStorageDirectory() + "/transcode/video_" + formatter_file_name.format(new Date()) + ".mp4";
             videoFiles.add(videoFilePath);//视频文件传到提交界面
             mMediaRecord.startRecord(videoFilePath);
             ishide=false;
@@ -483,7 +483,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         TranscodingAPI.TranscodePara transcodePara = new TranscodingAPI.TranscodePara();
         //输出路径
         TranscodingAPI.TranOut tranOut = new TranscodingAPI.TranOut();
-        outPutVideoPath=Environment.getExternalStorageDirectory() + "/相机/"+formatter_file_name.format(new Date()) + ".mp4";
+        outPutVideoPath=Environment.getExternalStorageDirectory() + "/相机/video_"+formatter_file_name.format(new Date()) + ".mp4";
         tranOut.setFilePath(outPutVideoPath);
         //伴音
         if (mAudioMerge_file!=null) {

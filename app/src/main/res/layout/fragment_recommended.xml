@@ -2,6 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <com.pywl.likegreen.view.VerticalViewPager
+        android:id="@+id/recommend_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+       <!-- <me.kaelaela.verticalviewpager.VerticalViewPager
+            android:id="@+id/recommend_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>-->
     <LinearLayout
         android:layout_marginBottom="@dimen/dp_13"
         android:layout_alignParentBottom="true"
@@ -124,4 +132,5 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>
+
 </RelativeLayout>

@@ -49,6 +49,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:support-v4:26.+'
     compile 'com.android.support:multidex:1.0.0'
     implementation 'com.android.support:design:27.1.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -103,7 +104,6 @@ dependencies {
 
     //下拉刷新RecyclerView
 
-    //compile 'com.jcodecraeer:xrecyclerview:1.5.9'
     implementation 'com.android.support:recyclerview-v7:21.0.0'
     implementation 'com.github.jdsjlzx:LRecyclerView:1.2.9'
 
@@ -127,10 +127,6 @@ dependencies {
     // compile 'cn.jiguang.sdk:jpush:3.0.3'
 
     //compile 'cn.jiguang.sdk:jcore:1.1.1'
-
-    // 七牛云存储
-
-    //implementation 'com.qiniu:qiniu-android-sdk:7.3.3'
 
     // 图片压缩
     implementation 'com.github.XConstantine:Luban:1.1.0'
@@ -167,4 +163,5 @@ dependencies {
     //网易上传sdk
     compile project(path: ':vcloudnosupload')
 
+    implementation 'me.kaelaela:verticalviewpager:1.0.0@aar'
 }

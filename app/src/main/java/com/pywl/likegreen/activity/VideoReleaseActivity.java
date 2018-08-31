@@ -133,7 +133,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     private void setVideoImg(String path) {
         mFile = new File(path);
         if (mFile!=null) {
-            RequestOptions requestOptions = RequestOptions.frameOf(1);
+            RequestOptions requestOptions = RequestOptions.frameOf(2);//选择第几贞做封面
             requestOptions.set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST);
             requestOptions.transform(new BitmapTransformation() {
                 @Override

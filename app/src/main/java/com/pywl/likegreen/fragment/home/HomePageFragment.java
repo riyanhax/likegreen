@@ -13,18 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.flyco.tablayout.SlidingTabLayout;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.activity.LiveStreamingActivity;
 import com.pywl.likegreen.activity.LivingActivity;
 import com.pywl.likegreen.activity.SetAnchorActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
-import com.pywl.likegreen.fragment.FocuFragment;
-import com.pywl.likegreen.fragment.HomeLiveFragment;
-import com.pywl.likegreen.fragment.PreviewFragment;
-import com.pywl.likegreen.fragment.RecommendedFragment;
-import com.pywl.likegreen.fragment.ReviewFragment;
-import com.pywl.likegreen.fragment.TheNewFragment;
-import com.pywl.likegreen.fragment.mine.LiveFragment;
+import com.pywl.likegreen.fragment.main.FocuFragment;
+import com.pywl.likegreen.fragment.main.RecommendedFragment;
+import com.pywl.likegreen.fragment.main.TheNewFragment;
 
 import java.util.ArrayList;
 
@@ -91,8 +87,8 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
                 showLiveBtn(isShow);
                 //isShow=!isShow;
                 break;
-            case R.id.rl_gotolive:
-                Intent intentSetAnchorActivity = new Intent(getActivity(), SetAnchorActivity.class);
+            case R.id.rl_gotolive://打开直播
+                Intent intentSetAnchorActivity = new Intent(getActivity(), LiveStreamingActivity.class);
                 startActivity(intentSetAnchorActivity);
                 break;
         }

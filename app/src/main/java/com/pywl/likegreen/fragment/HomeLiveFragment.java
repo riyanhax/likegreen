@@ -164,7 +164,7 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
     private LivePlayer player;
     private MediaInfo mediaInfo;
 
-    private String mVideoPath="http://flvee0d5105.live.126.net/live/697e719fa8314e329d27421b7dad681e.flv?netease=flvee0d5105.live.126.net"; //文件路径
+    private String mVideoPath="http://jdvod6w938ryc.vod.126.net/jdvod6w938ryc/ea89570d-7298-47f9-8ea9-030fe1b5eeef.mp4"; //文件路径
     //private String mVideoPath="http://jdvod6w938ryc.vod.126.net/jdvod6w938ryc/ea89570d-7298-47f9-8ea9-030fe1b5eeef.mp4"; //文件路径
     private String mDecodeType="software";//解码类型，硬解或软解
     private String mMediaType="livestream"; //媒体类型
@@ -778,4 +778,8 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
 */
 
     }
+
+
+
+
 }

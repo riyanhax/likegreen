@@ -23,7 +23,7 @@ public class MyLiveActivity extends AppCompatActivity {
         String url = intent.getStringExtra("MyVideoFragment");
         JZVideoPlayerStandard videoPlayer = (JZVideoPlayerStandard)findViewById(R.id.video_player);
 
-        videoPlayer.startFullscreen(this, JZVideoPlayerStandard.class,url, "嫂子辛苦了");
+        videoPlayer.startFullscreen(this, JZVideoPlayerStandard.class,url, "");
     }
     @Override
     public void onBackPressed() {
