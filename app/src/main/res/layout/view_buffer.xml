@@ -3,17 +3,12 @@
     android:layout_width="match_parent"
     android:id="@+id/render_layout"
     android:layout_height="match_parent">
-  <com.netease.neliveplayer.playerkit.sdk.view.AdvanceSingleTextureView
-        android:id="@+id/live_texture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
-<!--  <com.netease.neliveplayer.playerkit.sdk.view.AdvanceSurfaceView
-         android:id="@+id/live_texture"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="center" />-->
+
+    <com.pili.pldroid.player.widget.PLVideoView
+        android:id="@+id/plv_videoview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
     <LinearLayout
         android:id="@+id/buffering_prompt"
         android:layout_width="wrap_content"

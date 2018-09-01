@@ -28,6 +28,8 @@ import com.netease.neliveplayer.playerkit.sdk.view.AdvanceSingleTextureView;
 import com.netease.neliveplayer.playerkit.sdk.view.AdvanceSurfaceView;
 import com.netease.neliveplayer.sdk.NEDefinitionData;
 import com.netease.neliveplayer.sdk.NELivePlayer;
+import com.pili.pldroid.player.PLMediaPlayer;
+import com.pili.pldroid.player.widget.PLVideoView;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.view.VerticalViewPager;
 
@@ -48,15 +50,11 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
     private View mIvRecommendShare;
     private PopupWindow popupWindow;
 
-
-
     private VerticalViewPager mViewPager;
     private VodPagerAdapter mPagerAdapter;
-    private AdvanceSingleTextureView surfaceView; //或者使用 AdvanceMultiTextureView
-   // private AdvanceSurfaceView surfaceView; //或者使用 AdvanceMultiTextureView
+    private PLVideoView surfaceView; //或者使用 AdvanceMultiTextureView
+
     private int mCurrentPosition = 0;
-    private VodPlayer player;
-    private PlayerInfo playerInfo;
     private List<String> mLiveUrlList;
     @Nullable
     @Override
@@ -87,10 +85,10 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
                 Log.i(TAG, "mVerticalViewPager, onPageSelected position = " + position);
                 mCurrentPosition = position;
                 // 滑动界面，首先让之前的播放器暂停，并seek到0
-                Log.i(TAG, "滑动后，让之前的播放器暂停，player = " + player);
-                if (player != null) {
-                    player.seekTo(0);
-                    player.pause();
+                Log.i(TAG, "滑动后，让之前的播放器暂停，player = " );
+                if (surfaceView != null) {
+                    surfaceView.seekTo(0);
+                    surfaceView.pause();
                 }
             }
         });
@@ -105,13 +103,9 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
                 }
 
                 ViewGroup viewGroup = (ViewGroup) page;
-                surfaceView = (AdvanceSingleTextureView) viewGroup.findViewById(R.id.live_texture);
-                //surfaceView = (AdvanceSurfaceView) viewGroup.findViewById(R.id.live_texture);
-                playerInfo = mPagerAdapter.findPlayerInfo(mCurrentPosition);
-                if (playerInfo != null) {
-                    playerInfo.vodPlayer.start();
-                    player = playerInfo.vodPlayer;
-                }
+                surfaceView = (PLVideoView) viewGroup.findViewById(R.id.plv_videoview);
+                surfaceView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
+                surfaceView.start();
             }
         });
 
@@ -150,7 +144,9 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
     @Override
     public void onPause() {
         super.onPause();
-
+        if (surfaceView!=null){
+            surfaceView.pause();
+        }
         Log.i(TAG, "onPause");
     }
 
@@ -172,18 +168,19 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
+        if (surfaceView!=null){
+            surfaceView.start();
+        }
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPagerAdapter.destroy();
-        if (player != null) {
-            player.registerPlayerObserver(playerObserver, false);
-            player.setupRenderView(null, VideoScaleMode.NONE);
-            player.stop();
-            player = null;
+
+        if (surfaceView != null) {
+            surfaceView.stopPlayback();
+            surfaceView = null;
         }
     }
 
@@ -191,10 +188,8 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
 
 
     public class VodPagerAdapter extends PagerAdapter {
-        private ArrayList<PlayerInfo> playerInfoList = new ArrayList<>();
         private List<String> liveUrlList;
-
-
+        private PLVideoView playView;
         public VodPagerAdapter(List<String> liveUrlList) {
             this.liveUrlList = liveUrlList;
         }
@@ -219,212 +214,31 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
 
 
             // 获取此player
-            PlayerInfo playerInfo = instantiatePlayerInfo(position);
-            AdvanceSingleTextureView playView = (AdvanceSingleTextureView) view.findViewById(R.id.live_texture);
-            //AdvanceSurfaceView playView = (AdvanceSurfaceView) view.findViewById(R.id.live_texture);
-            playerInfo.playerView = playView;
-            playerInfo.vodPlayer.setupRenderView(playView, VideoScaleMode.FULL);
+            playView = (PLVideoView) view.findViewById(R.id.plv_videoview);
+            playView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
+            playView.setVideoPath(liveUrlList.get(position));
+            playView.start();
+            Log.v("nihaoma","2222222222222"+position);
             container.addView(view);
-
             return view;
         }
 
-        protected PlayerInfo instantiatePlayerInfo(int position) {
-            Log.i(TAG, "instantiatePlayerInfo " + position);
-            PlayerInfo playerInfo = new PlayerInfo();
-            VideoOptions options = new VideoOptions();
-            options.bufferStrategy = VideoBufferStrategy.ANTI_JITTER;
-            options.loopCount = -1;
-            VodPlayer vodPlayer = PlayerManager.buildVodPlayer(getContext(), liveUrlList.get(position), options);
-            vodPlayer.registerPlayerObserver(playerObserver, true);
-            vodPlayer.start();
-            playerInfo.playURL = liveUrlList.get(position);
-            playerInfo.vodPlayer = vodPlayer;
-            playerInfo.position = position;
-            playerInfoList.add(playerInfo);
-            return playerInfo;
-        }
+
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             Log.i(TAG, "destroyItem" + position);
-            destroyPlayerInfo(position);
+
+            playView.pause();
+            playView.stopPlayback();
+            playView=null;
             container.removeView((View) object);
         }
 
-        public void destroy() {
-            for (int i = 0; i < playerInfoList.size(); i++) {
-                PlayerInfo playerInfo = findPlayerInfo(i);
-                if (playerInfo == null || playerInfo.vodPlayer == null) {
-                    return;
-                }
-                playerInfo.vodPlayer.stop();
-                playerInfo.vodPlayer = null;
-            }
-            playerInfoList.clear();
-            playerInfoList = null;
-
-        }
-
-
-        public void destroyPlayerInfo(int position) {
-            PlayerInfo playerInfo = findPlayerInfo(position);
-            if (playerInfo == null || playerInfo.vodPlayer == null) {
-                return;
-            }
-            playerInfo.vodPlayer.stop();
-            playerInfo.vodPlayer = null;
-            playerInfoList.remove(playerInfo);
-
-            Log.i(TAG, "destroyPlayerInfo " + position);
-        }
-
-        public void pausePlayerInfo(int position) {
-            PlayerInfo playerInfo = findPlayerInfo(position);
-            if (playerInfo == null || playerInfo.vodPlayer == null) {
-                return;
-            }
-            if (playerInfo.vodPlayer.isPlaying()) {
-                playerInfo.vodPlayer.pause();
-                Log.i(TAG, "pausePlayerInfo " + position);
-            }
-
-        }
-
-
-        public PlayerInfo findPlayerInfo(int position) {
-            for (int i = 0; i < playerInfoList.size(); i++) {
-                PlayerInfo playerInfo = playerInfoList.get(i);
-                if (playerInfo.position == position) {
-                    return playerInfo;
-                }
-            }
-            return null;
-        }
 
     }
 
 
-    private class PlayerInfo {
-        public VodPlayer vodPlayer;
-        public String playURL;
-        public View playerView;
-        public int position;
-    }
-
-    private VodPlayerObserver playerObserver = new VodPlayerObserver() {
-        @Override
-        public void onCurrentPlayProgress(long currentPosition, long duration, float percent, long cachedPosition) {
-
-        }
-
-        @Override
-        public void onSeekCompleted() {
-            Log.i(TAG, "onSeekCompleted");
-        }
-
-        @Override
-        public void onCompletion() {
-
-        }
-
-        @Override
-        public void onNetStateBad() {
-
-        }
-
-        @Override
-        public void onDecryption(int ret) {
-            Log.i(TAG, "onDecryption ret = " + ret);
-        }
-
-        @Override
-        public void onPreparing() {
-
-        }
-
-        @Override
-        public void onPrepared(MediaInfo info) {
-            Log.i(TAG, "MediaInfo info = " + info);
-        }
-
-        @Override
-        public void onError(int code, int extra) {
-            AlertDialog.Builder build = new AlertDialog.Builder(getContext());
-            build.setTitle("播放错误").setMessage("错误码：" + code)
-                    .setPositiveButton("确定", null)
-                    .setCancelable(false)
-                    .show();
-        }
-
-        @Override
-        public void onFirstVideoRendered() {
-            Log.i(TAG, "onFirstVideoRendered ");
-            for (int i = 0; i < mLiveUrlList.size(); i++) {
-                if (i != mCurrentPosition) {
-                    mPagerAdapter.pausePlayerInfo(i);
-                }
-            }
-        }
-
-        @Override
-        public void onFirstAudioRendered() {
-            Log.i(TAG, "onFirstAudioRendered ");
-
-        }
-
-        @Override
-        public void onBufferingStart() {
-//                mBuffer.setVisibility(View.VISIBLE);
-
-        }
-
-        @Override
-        public void onBufferingEnd() {
-//                mBuffer.setVisibility(View.GONE);
-
-        }
-
-        @Override
-        public void onBuffering(int percent) {
-            Log.d(TAG, "缓冲中..." + percent + "%");
-        }
-
-        @Override
-        public void onHardwareDecoderOpen() {
-
-        }
-
-        @Override
-        public void onStateChanged(StateInfo stateInfo) {
-
-        }
-
-        @Override
-        public void onParseDefinition(List<NEDefinitionData> data) {
-            showToast("解析到多个清晰度");
-        }
-
-        @Override
-        public void onAutoSwitchDefinition(NEDefinitionData.DefinitionType definitionType) {
-            showToast("自动切换到清晰度" + definitionType);
-        }
-
-        @Override
-        public void onHttpResponseInfo(int code, String header) {
-            Log.i(TAG, "onHttpResponseInfo,code:" + code + " header:" + header);
-        }
-
-        @Override
-        public void onVideoFrameFilter(final NELivePlayer.NEVideoRawData videoRawData) {
-
-        }
-
-        @Override
-        public void onAudioFrameFilter(final NELivePlayer.NEAudioRawData audioRawData) {
-
-        }
-    };
 
     private void showToast(String msg) {
         Log.d(TAG, "showToast" + msg);
