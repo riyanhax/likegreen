@@ -1,9 +1,7 @@
 package com.pywl.likegreen.fragment.mine;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +9,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 
 
+import com.github.jdsjlzx.ItemDecoration.GridItemDecoration;
+import com.github.jdsjlzx.ItemDecoration.SpacesItemDecoration;
 import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
@@ -68,8 +66,9 @@ public class MyVideoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
+        int spacing = getResources().getDimensionPixelSize(R.dimen.dp_2);
+        mRecyclerView.addItemDecoration(SpacesItemDecoration.newInstance
+                (spacing,spacing, 3, R.color.enptyviewbackground));
     }
 
 

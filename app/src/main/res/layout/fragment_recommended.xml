@@ -2,7 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.pywl.likegreen.view.VerticalViewPager
+        <com.github.jdsjlzx.recyclerview.LRecyclerView
+            android:id="@+id/video_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+   <com.pywl.likegreen.view.VerticalViewPager
         android:id="@+id/recommend_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
