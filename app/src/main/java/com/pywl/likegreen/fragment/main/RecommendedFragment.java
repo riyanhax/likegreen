@@ -118,7 +118,6 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
 /*        mVideoList.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-
                 PLVideoView videoView = (PLVideoView)view.findViewById(R.id.plv_videoview);
                 if (videoView!=null){
                 videoView.start();

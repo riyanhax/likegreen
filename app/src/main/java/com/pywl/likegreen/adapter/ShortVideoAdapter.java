@@ -24,9 +24,11 @@ public class ShortVideoAdapter extends ListBaseAdapter<String> {
     private LayoutInflater mLayoutInflater;
     private DisplayImageOptions mDisplayImageOptions;
     private ViewHolder mCurViewHolder;
-    public ShortVideoAdapter(Context context) {
+    private Videoconcllor videoconcllor;
+    public ShortVideoAdapter(Context context ) {
         mLayoutInflater = LayoutInflater.from(context);
         mContext = context;
+       // this.videoconcllor=videoconcllor;
        /* mDisplayImageOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.defualt_bg)            //加载图片时的图片
                 .showImageForEmptyUri(R.drawable.defualt_bg)         //没有图片资源时的默认图片
@@ -55,19 +57,22 @@ public class ShortVideoAdapter extends ListBaseAdapter<String> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(mLayoutInflater.inflate(R.layout.item_shortvideo, parent, false));
     }
-
+    private ViewHolder viewHolder;
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mDataList!=null){
-            ViewHolder viewHolder= (ViewHolder) holder;
+            viewHolder= (ViewHolder) holder;
             viewHolder.videoPath=mDataList.get(position);
             viewHolder.videoView.setVideoPath(mDataList.get(position));
             viewHolder.videoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
             viewHolder.videoView.setLooping(true);
-        }
 
+        }
     }
 
+    public interface Videoconcllor{
+        public void videostart(ViewHolder viewHolder);
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
