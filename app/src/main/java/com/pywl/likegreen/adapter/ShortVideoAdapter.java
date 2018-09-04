@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+
 import com.pili.pldroid.player.widget.PLVideoView;
 import com.pywl.likegreen.R;
 
@@ -24,7 +25,7 @@ public class ShortVideoAdapter extends ListBaseAdapter<String> {
     private LayoutInflater mLayoutInflater;
     private DisplayImageOptions mDisplayImageOptions;
     private ViewHolder mCurViewHolder;
-    private Videoconcllor videoconcllor;
+    private VideoController videocontorller;
     public ShortVideoAdapter(Context context ) {
         mLayoutInflater = LayoutInflater.from(context);
         mContext = context;
@@ -66,20 +67,28 @@ public class ShortVideoAdapter extends ListBaseAdapter<String> {
             viewHolder.videoView.setVideoPath(mDataList.get(position));
             viewHolder.videoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
             viewHolder.videoView.setLooping(true);
-
+            viewHolder.videoView.start();
+            videocontorller.videostart(viewHolder,position);
+            videocontorller.videoStop(viewHolder);
+            viewHolder.holderRootView.setTag(position);
         }
     }
-
-    public interface Videoconcllor{
-        public void videostart(ViewHolder viewHolder);
+    public void startVideo(VideoController videocontorller){
+        this.videocontorller=videocontorller;
+    }
+    public interface VideoController{
+        public void videostart(ViewHolder viewHolder,int position);
+        public void videoStop(ViewHolder viewHolder);
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private PLVideoView videoView;
+        public PLVideoView videoView;
         private String videoPath;
+        View holderRootView;
         public ViewHolder(View v) {
             super(v);
+             holderRootView=v;
              videoView = (PLVideoView)v.findViewById(R.id.plv_videoview);
         }
     }
