@@ -26,6 +26,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void initView() {
+
          mClose = findViewById(R.id.rl_add_close);//关闭
          mClose.setOnClickListener(this);
          mShortVideo = findViewById(R.id.ll_add_shortvideo);//短视频
