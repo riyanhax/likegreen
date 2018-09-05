@@ -181,6 +181,7 @@
             android:name=".activity.MyLiveActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
+
         <!-- 直传统计监控服务：默认情况下120秒发送一次统计信息，没有数据则不发送，非独立进程 -->
         <service android:name="com.netease.cloud.nos.android.service.MonitorService" />
 

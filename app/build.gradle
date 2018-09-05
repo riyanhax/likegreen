@@ -45,7 +45,12 @@ android {
             dirs 'libs'
         }
     }
-
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -166,4 +171,8 @@ dependencies {
     implementation files('libs/pldroid-player-1.4.0.jar')
     implementation 'com.qiniu:happy-dns:0.2.+'
     implementation 'com.qiniu.pili:pili-android-qos:0.8.+'
+
+    compile 'cn.qssq666:video-player-manager:0.6'
+    //权限
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 }

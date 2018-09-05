@@ -2,6 +2,7 @@ package com.pywl.likegreen;
 
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -17,6 +18,7 @@ import com.pywl.likegreen.fragment.home.HomeFindFragment;
 import com.pywl.likegreen.fragment.home.HomeMyFragment;
 import com.pywl.likegreen.fragment.home.HomeNoteFragment;
 import com.pywl.likegreen.fragment.home.HomePageFragment;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -24,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 
 public class MainActivity extends BaseActivity {
+    final RxPermissions rxPermissions = new RxPermissions(this);
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";//测试url
 //    private Class<Fragment>[] mFragments = new Class[]{HomePageFragment.class, HomeNoteFragment.class, HomeAddFragment.class,
 //            HomeFindFragment.class, HomeMyFragment.class};
@@ -38,7 +41,11 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         initView();
         initFragment();
+        initPermissions();
     }
+
+
+
     private void initFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (main_home == null) {
@@ -201,5 +208,16 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void initPermissions() {
+        rxPermissions.request(
+                Manifest.permission.INTERNET,
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_PHONE_STATE)
+                .subscribe();
     }
 }

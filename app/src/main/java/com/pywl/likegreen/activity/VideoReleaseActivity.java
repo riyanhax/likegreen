@@ -186,6 +186,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
                     startActivity(intentMain);
                     EventBus.getDefault().post(CallTab.MINE);
                     uploadInit();
+
                     finish();
                 }else {
                     Log.v("nihaoma","广告视频");

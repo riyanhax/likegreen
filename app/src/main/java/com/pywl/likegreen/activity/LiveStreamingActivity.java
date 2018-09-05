@@ -73,7 +73,7 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 	private ImageView startPauseResumeBtn;
 	private TextView mFpsView;
 	private final int MSG_FPS = 1000;
-	private String mliveStreamingURL = null;//直播地址
+	private String mliveStreamingURL = "rtmp://pee0d5105.live.126.net/live/697e719fa8314e329d27421b7dad681e?wsSecret=20e529c424f3e2c6a793f07b56577ce2&wsTime=1536131135";//直播地址
     private String mMixAudioFilePath = null;
 	private File mMP3AppFileDirectory = null;
 	private Handler mHandler;
@@ -339,7 +339,7 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 
 
 		//5、Demo控件的初始化（Demo层实现，用户不需要添加该操作）
-		//buttonInit();
+		buttonInit();
 
 		//伴音相关操作，获取设备音频播放service
 		mAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -587,14 +587,14 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 						break;
 
 					case MSG_FPS:  //本地显示帧率用（用户不需要处理）
-						if(mLSMediaCapture != null){
+					/*	if(mLSMediaCapture != null){
 							mFpsView.setText("sdk: " + mLSMediaCapture.getSDKVersion() +
 									"\ncamera size: " + mLSMediaCapture.getCameraWidth() + "x" + mLSMediaCapture.getCameraHeight() +
 									"\ncamera fps: " + mLSMediaCapture.getCameraFps() +
 									"\ntarget fps: " + mLSMediaCapture.getDecimatedFps() +
 									"\nrender fps: " + mLSMediaCapture.getRenderFps());
 							sendEmptyMessageDelayed(MSG_FPS,2000);
-						}
+						}*/
 						break;
 
 					default:
@@ -621,6 +621,49 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 	private Thread mThread;
 	//按钮初始化
 	public void buttonInit() {
+		//开始直播按钮初始化
+		startPauseResumeBtn = (ImageView) findViewById(R.id.live_start_btn);
+		startPauseResumeBtn.setOnClickListener(new OnClickListener() {
+			public void onClick(View v)
+			{
+				long time = System.currentTimeMillis();
+				if(time - clickTime < 1000){
+					return;
+				}
+				clickTime = time;
+				startPauseResumeBtn.setClickable(false);
+				if(!m_liveStreamingOn)
+				{
+					//8、初始化直播推流
+					if(mThread != null){
+						showToast("正在开启直播，请稍后。。。");
+						return;
+					}
+					showToast("初始化中。。。");
+					mThread = new Thread(){
+						public void run(){
+							//正常网络下initLiveStream 1、2s就可完成，当网络很差时initLiveStream可能会消耗5-10s，因此另起线程防止UI卡住
+							if(!startAV()){
+								showToast("直播开启失败，请仔细检查推流地址, 正在退出当前界面。。。");
+								mHandler.postDelayed(new Runnable() {
+									@Override
+									public void run() {
+										LiveStreamingActivity.this.finish();
+									}
+								},5000);
+							}
+							mThread = null;
+						}
+					};
+					mThread.start();
+					startPauseResumeBtn.setImageResource(R.drawable.stop);
+				}else {
+					showToast("停止直播中，请稍等。。。");
+					stopAV();
+					startPauseResumeBtn.setImageResource(R.drawable.restart);
+				}
+			}
+		});
 /*
         //网络信息按钮初始化
         View networkInfoBtn = findViewById(R.id.live_net_info);
@@ -669,49 +712,7 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 		});
 
 
-		//开始直播按钮初始化
-		startPauseResumeBtn = (ImageView) findViewById(R.id.live_start_btn);
-		startPauseResumeBtn.setOnClickListener(new OnClickListener() {
-			public void onClick(View v)
-			{
-				long time = System.currentTimeMillis();
-				if(time - clickTime < 1000){
-					return;
-				}
-				clickTime = time;
-				startPauseResumeBtn.setClickable(false);
-				if(!m_liveStreamingOn)
-				{
-					//8、初始化直播推流
-					if(mThread != null){
-						showToast("正在开启直播，请稍后。。。");
-						return;
-					}
-					showToast("初始化中。。。");
-					mThread = new Thread(){
-						public void run(){
-							//正常网络下initLiveStream 1、2s就可完成，当网络很差时initLiveStream可能会消耗5-10s，因此另起线程防止UI卡住
-							if(!startAV()){
-								showToast("直播开启失败，请仔细检查推流地址, 正在退出当前界面。。。");
-								mHandler.postDelayed(new Runnable() {
-									@Override
-									public void run() {
-										LiveStreamingActivity.this.finish();
-									}
-								},5000);
-							}
-							mThread = null;
-						}
-					};
-					mThread.start();
-					startPauseResumeBtn.setImageResource(R.drawable.stop);
-				}else {
-					showToast("停止直播中，请稍等。。。");
-					stopAV();
-					startPauseResumeBtn.setImageResource(R.drawable.restart);
-				}
-			}
-		});
+
 
 
 		//切换前后摄像头按钮初始化
