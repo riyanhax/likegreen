@@ -115,24 +115,29 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
         mVideoList.setAdapter(lRecyclerViewAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
         startCurVideoView();
-/*        mVideoList.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+        mVideoList.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
+                mShortVideoListAdapter.startVideo(new ShortVideoAdapter.VideoController() {
+                    @Override
+                    public void videostart(ShortVideoAdapter.ViewHolder viewHolder, int position) {
+                        String s = mLiveUrlList.get(position);
+                        viewHolder.videoView.setVideoPath(s);
+                        viewHolder.videoView.start();
+                    }
 
-                PLVideoView videoView = (PLVideoView)view.findViewById(R.id.plv_videoview);
-                if (videoView!=null){
-                videoView.start();
-                }
+                    @Override
+                    public void videoStop(ShortVideoAdapter.ViewHolder viewHolder) {
+
+                    }
+                });
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-                PLVideoView videoView = (PLVideoView)view.findViewById(R.id.plv_videoview);
-                if (videoView!=null) {
-                    videoView.stopPlayback();
-                }
+
             }
-        });*/
+        });
     }
     @Override
     public void onPause() {
