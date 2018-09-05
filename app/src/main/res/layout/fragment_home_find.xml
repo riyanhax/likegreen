@@ -23,7 +23,7 @@
             android:layout_marginRight="@dimen/dp_20"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/news_riji"
+            android:src="@drawable/equipment_81"
             android:layout_width="@dimen/dp_16"
             android:layout_height="@dimen/dp_16" />
         <com.flyco.tablayout.SlidingTabLayout
