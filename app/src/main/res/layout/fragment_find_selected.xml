@@ -2,9 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     android:layout_height="match_parent">
-    <TextView
-        android:text="jingxuan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+   <com.flyco.tablayout.SlidingTabLayout
+       android:id="@+id/st_find_selected"
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/dp_30"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_find_selected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

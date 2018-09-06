@@ -142,7 +142,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/dp_35"
         android:layout_toRightOf="@id/ll_takephoto_filter"
-        android:src="@drawable/delete"
+        android:src="@drawable/delete_short_camer"
         android:layout_width="@dimen/dp_33"
         android:layout_height="@dimen/dp_22" />
     <ImageView

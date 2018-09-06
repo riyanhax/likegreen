@@ -3,11 +3,19 @@ package com.pywl.likegreen;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -38,11 +46,13 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         EventBus.getDefault().register(this);
         initView();
         initFragment();
         initPermissions();
     }
+
 
 
 
@@ -81,7 +91,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(main_home);
                 }
-
+                main_radio.setBackgroundColor(Color.TRANSPARENT);
                 main_rbt_home.setTextColor(getResources().getColor(R.color.green));
                 main_rbt_home.setChecked(true);
                 main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
@@ -97,6 +107,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(main_note);
                 }
+                main_radio.setBackgroundColor(Color.WHITE);
                 main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
@@ -127,6 +138,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(main_find);
                 }
+                main_radio.setBackgroundColor(Color.WHITE);
                 main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_find.setTextColor(getResources().getColor(R.color.green));
@@ -141,6 +153,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(main_mine);
                 }
+                main_radio.setBackgroundColor(Color.WHITE);
                 main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_add.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
@@ -220,4 +233,8 @@ public class MainActivity extends BaseActivity {
                 Manifest.permission.READ_PHONE_STATE)
                 .subscribe();
     }
+
+
+
+
 }

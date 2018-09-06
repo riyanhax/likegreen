@@ -70,6 +70,9 @@
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_alignParentRight">true</item>
     </style>
+
+
+
     <!--111111111短视频11111111111-->
   <!--  <style name="AliyunVideoUIStytle" >
         <item name="qusnap_background_color">@color/color_bg</item> //背景主题色

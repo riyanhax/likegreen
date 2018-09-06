@@ -70,7 +70,6 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
         fragmentsRecom = new ArrayList<>();
         fragmentsRecom.add(new FocuFragment());
         fragmentsRecom.add(new RecommendedFragment2());
-
         fragmentsRecom.add(new TheNewFragment());
         mStHomePage.setViewPager(mViewpager,itemsRecommend,(FragmentActivity) getActivity(),fragmentsRecom);
         mStHomePage.setCurrentTab(1);

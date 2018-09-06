@@ -68,6 +68,13 @@
     <string name="putongshortvideo">普通小视频</string>
     <string name="advertvideo">广告视频</string>
     <string name="nextstep">下一步</string>
+    <string name="creatplant">创建植物</string>
+    <string name="wancheng">完成</string>
+    <string name="plantmachine">智能种植机</string>
+    <string name="plantlight">植物补光灯</string>
+    <string name="longpostpictrue">图片</string>
+
+
 
     <string name="aibum">相册</string>
     <string name="shot">拍摄</string>

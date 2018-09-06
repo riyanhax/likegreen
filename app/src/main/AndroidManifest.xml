@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pywl.likegreen">
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <!-- 111111111111111111111111111111 -->
@@ -146,10 +147,9 @@
             android:value="562e6d561813d1b4fa7771bb" />
 
         <!-- 11111111111111111111111111111111111111 -->
-        <activity android:name=".LaunchActivity">
-
-        </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".LaunchActivity" />
+        <activity android:name=".MainActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -195,7 +195,9 @@
         </receiver>
 
         <activity android:name=".activity.AdMsgInputActivity" />
-
+        <activity android:name=".activity.PlantDiaryActivity" />
+        <activity android:name=".activity.EquipmentActivity" />
+        <activity android:name=".activity.LongPostActivity"></activity>
     </application>
 
 </manifest>

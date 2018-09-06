@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tab_forum"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_30"
+        android:layout_height="@dimen/dp_20"
         android:background="#f3f3f3"
         app:tl_divider_width="0dp"
         app:tl_indicator_height="0dp"
@@ -17,10 +18,11 @@
         app:tl_textSelectColor="#2d2d2d"
         app:tl_textUnselectColor="#b4b4b4"/>
 
+
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_forum"
         android:background="#000000"
-        android:layout_below="@id/tab_forum"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</RelativeLayout>
+</LinearLayout>

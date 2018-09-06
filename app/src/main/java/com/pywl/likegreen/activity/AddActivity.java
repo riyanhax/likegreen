@@ -31,6 +31,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
          mClose.setOnClickListener(this);
          mShortVideo = findViewById(R.id.ll_add_shortvideo);//短视频
          mShortVideo.setOnClickListener(this);
+         findViewById(R.id.ll_add_plantdiary).setOnClickListener(this);//种植
+         findViewById(R.id.ll_add_equipment).setOnClickListener(this);//应用设备
+         findViewById(R.id.ll_add_longpost).setOnClickListener(this);//长贴子
     }
 
     private void initData() {
@@ -48,6 +51,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.ll_add_shortvideo://短视频
                 Intent intentShortCameraActivity = new Intent(AddActivity.this, ShortCameraActivity.class);
                 startActivity(intentShortCameraActivity);
+                break;
+            case R.id.ll_add_plantdiary://种植日记
+                Intent intentPlantDiaryActivity = new Intent(AddActivity.this, PlantDiaryActivity.class);
+                startActivity(intentPlantDiaryActivity);
+                break;
+            case R.id.ll_add_equipment://应用设备
+                Intent intentEquipmentActivity = new Intent(AddActivity.this, EquipmentActivity.class);
+                startActivity(intentEquipmentActivity);
+                break;
+            case R.id.ll_add_longpost://长贴子
+                Intent intentLongPostActivity = new Intent(AddActivity.this, LongPostActivity.class);
+                startActivity(intentLongPostActivity);
+                break;
         }
     }
     private static final int PROGRESS_360P = 25;
