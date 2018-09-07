@@ -60,9 +60,11 @@
                     android:layout_width="@dimen/dp_21"
                     android:layout_height="@dimen/dp_18" />
                 <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/dp_5"
                     android:gravity="center"
                     android:textSize="@dimen/sp_8"
-                    android:text="  15w"
+                    android:text="15w"
                     android:textColor="#040404"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

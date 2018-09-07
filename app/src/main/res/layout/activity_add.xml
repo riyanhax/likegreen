@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="#ffffff"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:background="#60ffffff"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_marginRight="@dimen/dp_25"
             android:layout_marginLeft="@dimen/dp_25"
@@ -283,5 +280,4 @@
            android:layout_width="match_parent"
            android:layout_height="@dimen/dp_1"/>
 
-    </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

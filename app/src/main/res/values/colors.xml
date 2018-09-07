@@ -14,7 +14,8 @@
     <color name="title_grey">#CED9E7</color>
     <color name="text_yellow_color">#FFC024</color>
 
-        <!--短视频-->
+    <color name="transparent_background">#50000000</color>
+    <!--短视频-->
     <color name="tint_color">#EF4B81</color>
     <color name="timeline_background_del_color">#ffcc0000</color>
     <color name="timeline_backgound_color">#D8D8D8</color>

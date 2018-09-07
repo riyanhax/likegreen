@@ -16,7 +16,7 @@ public class ForumTopicFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_find_forum, container, false);
+        View view = inflater.inflate(R.layout.fragment_find_topic, container, false);
         return view;
     }
 }

@@ -71,6 +71,15 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
+        <style name="Transparent">
+            <item name="android:windowBackground">
+                @color/transparent_background
+            </item>
+            <item name="android:windowNoTitle">true</item>
+            <item name="android:windowIsTranslucent">true</item>
+
+        </style>
+
 
 
     <!--111111111短视频11111111111-->

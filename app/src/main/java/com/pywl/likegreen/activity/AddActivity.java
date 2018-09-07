@@ -19,6 +19,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setTheme(R.style.Transparent);
         setContentView(R.layout.activity_add);
         initView();
         initData();
