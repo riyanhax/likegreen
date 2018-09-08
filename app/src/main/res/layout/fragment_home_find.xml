@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
+    android:orientation="vertical"
     android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/rl_riji"
@@ -15,12 +16,38 @@
             android:layout_width="@dimen/dp_16"
             android:layout_height="@dimen/dp_16" />
         <ImageView
+            android:id="@+id/iv_find_equipment"
             android:layout_marginRight="@dimen/dp_20"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/equipment_81"
             android:layout_width="@dimen/dp_16"
             android:layout_height="@dimen/dp_16" />
+        <ImageView
+            android:id="@+id/iv_find_shopping"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/shoppingcart_find"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_16" />
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/st_home_find"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            tl:tl_divider_color="#e2e2e2"
+            tl:tl_divider_padding="20dp"
+            tl:tl_divider_width="1dp"
+            tl:tl_indicator_color="#bbe417"
+            tl:tl_indicator_height="2dp"
+            tl:tl_indicator_width_equal_title="true"
+            tl:tl_tab_padding="16dp"
+            tl:tl_tab_space_equal="true"
+            tl:tl_textSelectColor="#bbe417"
+            tl:tl_textUnselectColor="#8b8b8b"
+            />
     </RelativeLayout>
 
 <!--    <RadioGroup
@@ -76,26 +103,24 @@
         android:layout_below="@id/rl_riji"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>-->
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/st_home_find"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_48"
-        tl:tl_divider_color="#e2e2e2"
-        tl:tl_divider_padding="20dp"
-        tl:tl_divider_width="1dp"
-        tl:tl_indicator_color="#bbe417"
-        tl:tl_indicator_height="2dp"
-        tl:tl_indicator_width_equal_title="true"
-        tl:tl_tab_padding="16dp"
-        tl:tl_tab_space_equal="true"
-        tl:tl_textSelectColor="#bbe417"
-        tl:tl_textUnselectColor="#8b8b8b"
-        />
-    <android.support.v4.view.ViewPager
+
+    <View
+        android:id="@+id/view_line"
         android:layout_below="@id/rl_riji"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/enptyviewbackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"/>
+
+    <android.support.v4.view.ViewPager
+        android:layout_below="@id/view_line"
+
         android:id="@+id/viewpager_home_find"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+    <include
+        android:id="@+id/find_downview"
+        android:visibility="gone"
+        layout="@layout/include_equipment_downview"/>
 </RelativeLayout>

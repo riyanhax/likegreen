@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_below="@id/view_line"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="110dp">
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_marginLeft="@dimen/dp_44"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#4a4a4a"
+            android:textSize="15sp"
+            android:text="@string/equipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:src="@drawable/equipment_find"
+            android:layout_width="@dimen/dp_22"
+            android:layout_height="@dimen/dp_13" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_marginRight="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:background="@drawable/my_focuse_together"
+            android:layout_width="122dp"
+            android:layout_height="@dimen/dp_34">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/planter"
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_22" />
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:text="@string/plantmachine"
+                android:textSize="13sp"
+                android:textColor="#3e3e3e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/my_focuse_together"
+            android:layout_width="122dp"
+            android:layout_height="@dimen/dp_34">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/plantlightinglamp"
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_22" />
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:text="@string/plantlight"
+                android:textSize="13sp"
+                android:textColor="#3e3e3e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+    <View
+        android:id="@+id/view_transparent"
+        android:background="#50ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
