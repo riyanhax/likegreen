@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.pywl.likegreen.activity.MyFocuseActivity;
 import com.pywl.likegreen.activity.MyMessageAndDirectActivity;
 import com.pywl.likegreen.activity.SystemSettingsActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
+
 import com.pywl.likegreen.fragment.mine.MyGardenFragment;
 import com.pywl.likegreen.fragment.mine.MyLiveFragment;
 import com.pywl.likegreen.fragment.mine.MyVideoFragment;
@@ -68,7 +70,7 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
         mMsgDriect = v.findViewById(R.id.msg_driect);//消息私信
         mMyfocuse = (TextView)v.findViewById(R.id.my_home_focuse);//关注
         mMyfans = (TextView)v.findViewById(R.id.my_home_fans);//关注
-
+        v.findViewById(R.id.tv_huozanshu).setOnClickListener(this);//获赞数
         mMyMore.setOnClickListener(this);
         mSystemSetting.setOnClickListener(this);
         mMsgDriect.setOnClickListener(this);
@@ -120,7 +122,38 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
                 Intent intentMyFansActivity = new Intent(getActivity(), MyFansActivity.class);
                 startActivity(intentMyFansActivity);
                 break;
+            case R.id.tv_huozanshu:
+                showDianZanShuPop();
+                break;
         }
+    }
+
+    private void showDianZanShuPop() {
+        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_huo_zan, null);
+
+        PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setTouchable(true);
+        //设置半透明
+        WindowManager.LayoutParams lp = getActivity().getWindow()
+                .getAttributes();
+        lp.alpha = 0.4f;
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        getActivity().getWindow().setAttributes(lp);
+        //恢复正常
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getActivity().getWindow()
+                        .getAttributes();
+                lp.alpha = 1f;
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
+        popupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+
     }
 
     private void showPopwindow() {

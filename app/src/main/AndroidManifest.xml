@@ -148,8 +148,7 @@
 
         <!-- 11111111111111111111111111111111111111 -->
         <activity android:name=".LaunchActivity" />
-        <activity android:name=".MainActivity"
-            >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -197,7 +196,10 @@
         <activity android:name=".activity.AdMsgInputActivity" />
         <activity android:name=".activity.PlantDiaryActivity" />
         <activity android:name=".activity.EquipmentActivity" />
-        <activity android:name=".activity.LongPostActivity"></activity>
+        <activity android:name=".activity.LongPostActivity" />
+        <activity android:name=".activity.LivePreViewActivity" />
+        <activity android:name=".activity.LivePlayBackActivity" />
+        <activity android:name=".activity.LiveNowActivity"></activity>
     </application>
 
 </manifest>

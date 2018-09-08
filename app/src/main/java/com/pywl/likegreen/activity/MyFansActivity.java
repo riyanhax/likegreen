@@ -2,6 +2,7 @@ package com.pywl.likegreen.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
@@ -22,6 +23,12 @@ public class MyFansActivity extends AppCompatActivity {
 
     private void initView() {
         mList=(LRecyclerView)findViewById(R.id.fans_list);
+        findViewById(R.id.myfans_return).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
     private void initData() {
         MyFocuseAdapter myFocuseAdapter = new MyFocuseAdapter(this);

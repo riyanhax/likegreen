@@ -10,6 +10,7 @@
     <RelativeLayout
         style="@style/head">
         <ImageView
+            android:id="@+id/focuse_return"
             android:layout_centerVertical="true"
             android:src="@drawable/wode_return"
             style="@style/paddinglift"

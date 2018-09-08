@@ -101,12 +101,14 @@
             android:textSize="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
+        <EditText
+            android:maxLength="32"
+            android:background="@null"
             android:layout_marginTop="@dimen/dp_10"
-            android:textColor="#d8d8d8"
-            android:text="这是什么植物呢"
+            android:textColorHint="#d8d8d8"
+            android:hint="这是什么植物呢"
             android:textSize="13sp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <View
@@ -126,6 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:maxLength="280"
             android:gravity="top"
             android:layout_marginTop="@dimen/dp_10"
             android:textColor="#3d3d3d"

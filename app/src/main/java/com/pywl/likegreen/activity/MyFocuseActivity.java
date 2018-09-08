@@ -17,6 +17,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 
 public class MyFocuseActivity extends AppCompatActivity {
     private LRecyclerView mList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,13 @@ public class MyFocuseActivity extends AppCompatActivity {
 
     private void initView() {
        mList = (LRecyclerView)findViewById(R.id.focuse_list);
+      findViewById(R.id.focuse_return).setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              finish();
+          }
+      });
+
     }
 
     private void initData() {
