@@ -16,8 +16,13 @@
     <string name="coupons">优惠券</string>
     <string name="audit">审核</string>
     <string name="mycollection">我的收藏</string>
-    <string name="mygoods">我发布过的商品</string>
+    <string name="mygoods">我发布的商品</string>
     <string name="systemsetting">系统设置</string>
+    <string name="salein">出售中</string>
+    <string name="saledown">已下架</string>
+    <string name="share">分享</string>
+    <string name="editv">编辑</string>
+    <string name="deletev">删除</string>
 
     <string name="personaldata">个人资料</string>
     <string name="headimg">头像</string>
@@ -81,7 +86,7 @@
     <string name="smallvideo">小视频</string>
     <string name="edtexthint">   请输入消息...</string>
 
-    <string name="share">分享到</string>
+    <string name="shareto">分享到</string>
     <string name="xilvfriends">喜绿好友</string>
     <string name="criclefriends">朋友圈</string>
     <string name="weixin">微信</string>

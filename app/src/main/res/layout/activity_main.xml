@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@drawable/add"
+
                 android:gravity="center"
                 android:paddingTop="@dimen/dp_10" />
             <RadioButton
@@ -90,4 +90,12 @@
                 android:text="@string/mine"
                 android:textSize="15sp"/>
         </RadioGroup>
+    <ImageView
+        android:id="@+id/iv_mian_add"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/add"
+        android:layout_width="@dimen/dp_38"
+        android:layout_height="@dimen/dp_38" />
 </RelativeLayout>

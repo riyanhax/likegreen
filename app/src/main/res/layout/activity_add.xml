@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#ffffff"
+    android:background="#90ffffff"
     android:layout_height="match_parent">
 
         <RelativeLayout
@@ -263,12 +263,13 @@
 
      <RelativeLayout
          android:id="@+id/rl_add_close"
+         android:background="@color/white"
          android:layout_alignParentBottom="true"
          android:layout_width="match_parent"
          android:layout_height="@dimen/dp_48">
          <ImageView
              android:id="@+id/iv_add_close"
-             android:src="@drawable/close"
+             android:src="@drawable/close_add"
              android:layout_centerInParent="true"
              android:layout_width="14dp"
              android:layout_height="@dimen/dp_14" />

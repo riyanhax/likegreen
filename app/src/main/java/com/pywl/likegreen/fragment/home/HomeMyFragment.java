@@ -30,6 +30,8 @@ import com.pywl.likegreen.activity.AuditAndLiveActivity;
 import com.pywl.likegreen.activity.MyFansActivity;
 import com.pywl.likegreen.activity.MyFocuseActivity;
 import com.pywl.likegreen.activity.MyMessageAndDirectActivity;
+import com.pywl.likegreen.activity.MyProductsReleaseActivity;
+import com.pywl.likegreen.activity.PersonalDataActivity;
 import com.pywl.likegreen.activity.SystemSettingsActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
 
@@ -40,6 +42,8 @@ import com.pywl.likegreen.fragment.mine.MyWeddingCardFragment;
 import com.pywl.likegreen.utils.HomeGetFragmentUtil;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by theWind on 2018/8/1.
@@ -53,6 +57,7 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
     private String[] items = new String[]{"视频", "直播", "花园", "喜帖"};
     private PopupWindow popupWindow;
     private TextView mMyfocuse,mMyfans;
+    private CircleImageView headIcon;//头像
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,11 +76,13 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
         mMyfocuse = (TextView)v.findViewById(R.id.my_home_focuse);//关注
         mMyfans = (TextView)v.findViewById(R.id.my_home_fans);//关注
         v.findViewById(R.id.tv_huozanshu).setOnClickListener(this);//获赞数
+        headIcon =(CircleImageView) v.findViewById(R.id.iv_my_head);//头像
         mMyMore.setOnClickListener(this);
         mSystemSetting.setOnClickListener(this);
         mMsgDriect.setOnClickListener(this);
         mMyfocuse.setOnClickListener(this);
         mMyfans.setOnClickListener(this);
+        headIcon.setOnClickListener(this);
     }
 
     private void initData() {
@@ -122,8 +129,17 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
                 Intent intentMyFansActivity = new Intent(getActivity(), MyFansActivity.class);
                 startActivity(intentMyFansActivity);
                 break;
-            case R.id.tv_huozanshu:
+            case R.id.tv_huozanshu://点赞数
                 showDianZanShuPop();
+                break;
+            case R.id.pop_mygoods: //我发布的商品
+                Intent intentMyProductsReleaseActivity = new Intent(getActivity(), MyProductsReleaseActivity.class);
+                startActivity(intentMyProductsReleaseActivity);
+                popupWindow.dismiss();
+                break;
+            case R.id.iv_my_head://头像
+                Intent intentPersonalDataActivity = new Intent(getActivity(), PersonalDataActivity.class);
+                startActivity(intentPersonalDataActivity);
                 break;
         }
     }
@@ -164,6 +180,9 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
         //审核
         LinearLayout pop_audit = contentView.findViewById(R.id.pop_audit);
         pop_audit.setOnClickListener(this);
+        //我发布的商品
+        LinearLayout pop_goods = contentView.findViewById(R.id.pop_mygoods);
+        pop_goods.setOnClickListener(this);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);

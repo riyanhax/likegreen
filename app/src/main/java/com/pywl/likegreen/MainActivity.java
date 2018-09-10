@@ -6,20 +6,30 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.pywl.likegreen.activity.AddActivity;
+import com.pywl.likegreen.activity.EquipmentActivity;
+import com.pywl.likegreen.activity.LongPostActivity;
+import com.pywl.likegreen.activity.PlantDiaryActivity;
+import com.pywl.likegreen.activity.ShortCameraActivity;
 import com.pywl.likegreen.adapter.BaseActivity;
 import com.pywl.likegreen.bean.CallTab;
 import com.pywl.likegreen.fragment.home.HomeFindFragment;
@@ -33,7 +43,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     final RxPermissions rxPermissions = new RxPermissions(this);
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";//测试url
 //    private Class<Fragment>[] mFragments = new Class[]{HomePageFragment.class, HomeNoteFragment.class, HomeAddFragment.class,
@@ -42,6 +52,7 @@ public class MainActivity extends BaseActivity {
     private RadioGroup main_radio;
     private RadioButton main_rbt_home,main_rbt_add,main_rbt_mine,main_rbt_find,main_rbt_note;
     private FragmentTransaction transaction;
+    private PopupWindow popupWindow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +83,14 @@ public class MainActivity extends BaseActivity {
         main_rbt_find = (RadioButton) findViewById(R.id.main_rbt_find);
         main_rbt_mine = (RadioButton) findViewById(R.id.main_rbt_mine);
         main_rbt_note = (RadioButton) findViewById(R.id.main_rbt_note);
+        main_rbt_add.setOnClickListener(this);
         main_radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 setTab(checkedId);
             }
         });
+        findViewById(R.id.iv_mian_add).setOnClickListener(this);
     }
 
     private void setTab(@IdRes int checkedId) {
@@ -115,22 +128,23 @@ public class MainActivity extends BaseActivity {
                 main_rbt_note.setTextColor(getResources().getColor(R.color.green));
                 main_rbt_note.setChecked(true);
                 break;
-            case R.id.main_rbt_add:
-                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-                startActivityForResult(intent,1);
+           // case R.id.main_rbt_add:
+                /*Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                startActivityForResult(intent,1);*/
                 /*if (main_add == null) {
                     main_add = new HomeAddFragment();
                     transaction.add(R.id.fragment_container, main_add);
                 } else {
                     transaction.show(main_add);
                 }*/
-                main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
+               // showPopupWindow();
+                /*main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_add.setTextColor(getResources().getColor(R.color.green));
                 main_rbt_add.setChecked(true);
                 main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
-                main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
-                break;
+                main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));*/
+               // break;
             case R.id.main_rbt_find:
                 if (main_find == null) {
                     main_find = new HomeFindFragment();
@@ -165,6 +179,8 @@ public class MainActivity extends BaseActivity {
         transaction.commitAllowingStateLoss();
     }
 
+
+
     public void hideAllFragment(FragmentTransaction transaction) {
         if (main_home != null) {
             transaction.hide(main_home);
@@ -176,7 +192,7 @@ public class MainActivity extends BaseActivity {
             transaction.hide(main_mine);
         }
         if (main_add != null) {
-            transaction.hide(main_add);
+           // transaction.hide(main_add);
         }
         if (main_note != null) {
             transaction.hide(main_note);
@@ -233,8 +249,65 @@ public class MainActivity extends BaseActivity {
                 Manifest.permission.READ_PHONE_STATE)
                 .subscribe();
     }
+    private void showPopupWindow() {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.activity_add, null);
+        contentView.findViewById(R.id.rl_add_close).setOnClickListener(this);//关闭
+        contentView.findViewById(R.id.ll_add_shortvideo).setOnClickListener(this);//短视频
+        contentView.findViewById(R.id.ll_add_plantdiary).setOnClickListener(this);//种植
+        contentView.findViewById(R.id.ll_add_equipment).setOnClickListener(this);//应用设备
+        contentView.findViewById(R.id.ll_add_longpost).setOnClickListener(this);//长贴子
+        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        //设置为失去焦点 方便监听返回键的监听
+        popupWindow.setFocusable(false);
 
+        // 如果想要popupWindow 遮挡住状态栏可以加上这句代码
+        popupWindow.setClippingEnabled(false);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setOutsideTouchable(false);
 
+        popupWindow.showAtLocation(main_rbt_add, Gravity.NO_GRAVITY, 0, 0);
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (popupWindow!=null){
+            popupWindow.dismiss();
+        }else {
+            super.onBackPressed();
+        }
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_mian_add:
+                showPopupWindow();
+                break;
+            case R.id.rl_add_close://关闭
+                popupWindow.dismiss();
+
+                break;
+            case R.id.ll_add_shortvideo://短视频
+                Intent intentShortCameraActivity = new Intent(MainActivity.this, ShortCameraActivity.class);
+                startActivity(intentShortCameraActivity);
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_add_plantdiary://种植日记
+                Intent intentPlantDiaryActivity = new Intent(MainActivity.this, PlantDiaryActivity.class);
+                startActivity(intentPlantDiaryActivity);
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_add_equipment://应用设备
+                Intent intentEquipmentActivity = new Intent(MainActivity.this, EquipmentActivity.class);
+                startActivity(intentEquipmentActivity);
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_add_longpost://长贴子
+                Intent intentLongPostActivity = new Intent(MainActivity.this, LongPostActivity.class);
+                startActivity(intentLongPostActivity);
+                popupWindow.dismiss();
+                break;
+        }
+    }
 }

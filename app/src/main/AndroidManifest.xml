@@ -199,7 +199,8 @@
         <activity android:name=".activity.LongPostActivity" />
         <activity android:name=".activity.LivePreViewActivity" />
         <activity android:name=".activity.LivePlayBackActivity" />
-        <activity android:name=".activity.LiveNowActivity"></activity>
+        <activity android:name=".activity.LiveNowActivity" />
+        <activity android:name=".activity.MyProductsReleaseActivity"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="12dp"
-        android:text="@string/share"
+        android:text="@string/shareto"
         android:textColor="#8d8d8d"
         android:textSize="@dimen/sp_12" />
 

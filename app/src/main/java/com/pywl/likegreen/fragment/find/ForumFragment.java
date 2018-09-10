@@ -78,6 +78,8 @@ public class ForumFragment extends Fragment {
 
             }
         });
+        //默认选中
+        tabLayout.getTabAt(2).select();
     }
     public class MyPagerAdapter extends FragmentPagerAdapter{
         private String [] items;
