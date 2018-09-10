@@ -3,29 +3,23 @@ package com.pywl.likegreen;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.pywl.likegreen.activity.AddActivity;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.pywl.likegreen.activity.EquipmentActivity;
 import com.pywl.likegreen.activity.LongPostActivity;
 import com.pywl.likegreen.activity.PlantDiaryActivity;
@@ -46,8 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     final RxPermissions rxPermissions = new RxPermissions(this);
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";//测试url
-//    private Class<Fragment>[] mFragments = new Class[]{HomePageFragment.class, HomeNoteFragment.class, HomeAddFragment.class,
-//            HomeFindFragment.class, HomeMyFragment.class};
+
     Fragment main_home, main_note, main_find, main_mine,main_add;
     private RadioGroup main_radio;
     private RadioButton main_rbt_home,main_rbt_add,main_rbt_mine,main_rbt_find,main_rbt_note;
@@ -132,7 +125,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 /*Intent intent = new Intent(getApplicationContext(), AddActivity.class);
                 startActivityForResult(intent,1);*/
                 /*if (main_add == null) {
-                    main_add = new HomeAddFragment();
+
                     transaction.add(R.id.fragment_container, main_add);
                 } else {
                     transaction.show(main_add);
@@ -250,7 +243,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 .subscribe();
     }
     private void showPopupWindow() {
-        View contentView = LayoutInflater.from(this).inflate(R.layout.activity_add, null);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.pop_add, null);
+
         contentView.findViewById(R.id.rl_add_close).setOnClickListener(this);//关闭
         contentView.findViewById(R.id.ll_add_shortvideo).setOnClickListener(this);//短视频
         contentView.findViewById(R.id.ll_add_plantdiary).setOnClickListener(this);//种植
@@ -259,7 +253,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //设置为失去焦点 方便监听返回键的监听
         popupWindow.setFocusable(false);
-
         // 如果想要popupWindow 遮挡住状态栏可以加上这句代码
         popupWindow.setClippingEnabled(false);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -309,5 +302,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 popupWindow.dismiss();
                 break;
         }
+    }
+    private void popupWindowDissmiss(){
+
+        popupWindow.dismiss();
     }
 }

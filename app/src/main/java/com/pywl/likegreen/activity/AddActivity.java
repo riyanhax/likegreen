@@ -1,6 +1,5 @@
 package com.pywl.likegreen.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -21,7 +20,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
 
         setTheme(R.style.Transparent);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.pop_add);
         initView();
         initData();
         //copyAssets();

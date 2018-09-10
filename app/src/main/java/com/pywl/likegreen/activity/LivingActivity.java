@@ -1,19 +1,17 @@
 package com.pywl.likegreen.activity;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.fragment.HomeLiveFragment;
-import com.pywl.likegreen.fragment.PreviewFragment;
-import com.pywl.likegreen.fragment.ReviewFragment;
+import com.pywl.likegreen.fragment.live.HomeLiveFragment;
+import com.pywl.likegreen.fragment.live.PreviewFragment;
+import com.pywl.likegreen.fragment.live.ReviewFragment;
 
 import java.util.ArrayList;
 /*

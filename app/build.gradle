@@ -175,4 +175,8 @@ dependencies {
     compile 'cn.qssq666:video-player-manager:0.6'
     //权限
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    //动画
+    compile 'com.android.support:support-compat:25.1.1'
+    compile 'com.daimajia.easing:library:2.0@aar'
+    compile 'com.daimajia.androidanimations:library:2.3@aar'
 }

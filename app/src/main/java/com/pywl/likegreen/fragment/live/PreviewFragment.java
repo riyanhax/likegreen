@@ -1,4 +1,4 @@
-package com.pywl.likegreen.fragment;
+package com.pywl.likegreen.fragment.live;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
