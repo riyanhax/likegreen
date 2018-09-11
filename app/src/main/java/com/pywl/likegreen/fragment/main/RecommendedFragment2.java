@@ -43,10 +43,7 @@ public class RecommendedFragment2 extends Fragment {
     }
 
     private void initView(View view) {
-        ImageLoaderConfiguration configuration = ImageLoaderConfiguration
 
-                .createDefault(getContext());
-        ImageLoader.getInstance().init(configuration);
 
 
         playerManager = new SingleVideoPlayerManager<VideoModel>(new PlayerItemChangeListener() {
@@ -77,7 +74,7 @@ public class RecommendedFragment2 extends Fragment {
             }
         };
         recyclerView = (RecyclerView) view.findViewById(R.id.video_list);
-        adapter = new HomeCustomAdapter();
+        adapter = new HomeCustomAdapter(getActivity());
         List<VideoModel> list = new ArrayList<>();
         list.add(new VideoModel().setImage("http://m9pic.mm999.com/topic/201804/20180427092549414.jpg").setPath("http://m9pic.mm999.com/video/201804/20180427092550022.mp4").setName("测试1"));
         list.add(new VideoModel().setImage("http://image.so.com/v?q=%E9%A3%8E%E6%99%AF%E7%BC%A9&src=srp&correct=%E9%A3%8E%E6%99%AF%E7%BC%A9&cmsid=40fdc799be0c989382e64df91dd94916&cmran=0&cmras=0&cn=0&gn=0&kn=0#multiple=0&gsrc=1&dataindex=6&id=040657b966c686607f29b0770877758c&currsn=0&jdx=6&fsn=60").setPath("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/1BrIAtvV_1818587477_shd.mp4").setName("测试2"));
@@ -114,7 +111,6 @@ public class RecommendedFragment2 extends Fragment {
                 autoPlayVideo(recyclerView);
                 Log.w(TAG, "V" + left + ",top:" + top + ",right:" + right + ",bottom:" + bottom + ",oldLeft:" + oldLeft + ",oldTop:" + oldTop + ",oldRight:" + oldRight);
                 recyclerView.removeOnLayoutChangeListener(this);
-
 
             }
         });

@@ -101,7 +101,8 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
             conversation= Conversation.createSingleConversation(username, getResources().getString(R.string.app_key));
         }
         //获取历史对话
-        List<cn.jpush.im.android.api.model.Message> fromNewest = conversation.getMessagesFromNewest(0, mOffset);
+       // List<cn.jpush.im.android.api.model.Message> fromNewest = conversation.getMessagesFromNewest(0, mOffset);
+        List<cn.jpush.im.android.api.model.Message> fromNewest = conversation.getMessagesFromOldest(0, mOffset);
         for(cn.jpush.im.android.api.model.Message data:fromNewest){
             Message msg = Message.obtain();
             msg.what=DATALIST;

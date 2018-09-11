@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.fragment.live.HomeLiveFragment;
+import com.pywl.likegreen.fragment.live.HomeLiveFragment2;
 import com.pywl.likegreen.fragment.live.PreviewFragment;
 import com.pywl.likegreen.fragment.live.ReviewFragment;
 
 import java.util.ArrayList;
 /*
-* 嵌套直播页面的fragment
+* 嵌套直播页面
 * */
 public class LivingActivity extends AppCompatActivity implements View.OnClickListener {
     private String[] itemsLive=new String[]{"回顾","直播中","预告"};
@@ -41,7 +42,7 @@ public class LivingActivity extends AppCompatActivity implements View.OnClickLis
     private void initData() {
         fragmentsLive = new ArrayList<>();
         fragmentsLive.add(new ReviewFragment());
-        fragmentsLive.add(new HomeLiveFragment());
+        fragmentsLive.add(new HomeLiveFragment2());
         fragmentsLive.add(new PreviewFragment());
         mHomeLive.setViewPager(mViewpager,itemsLive,this,fragmentsLive);
         mHomeLive.setCurrentTab(1);

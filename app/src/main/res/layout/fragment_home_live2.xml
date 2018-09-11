@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/lr_home_live_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
- <!--  <FrameLayout
+    <com.pywl.likegreen.view.VerticalViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.pywl.likegreen.view.VerticalViewPager>
+<!--    <FrameLayout
         android:id="@+id/render_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -144,4 +144,4 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>-->
-</RelativeLayout>
+</FrameLayout>

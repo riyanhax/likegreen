@@ -46,6 +46,9 @@ import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.LivingRoomAudienceSayAdapter;
 import com.pywl.likegreen.adapter.live.HomeLiveAdapter;
 import com.pywl.likegreen.bean.LivingRoomMsgBean;
+import com.pywl.likegreen.fragment.main.HomeCustomAdapter;
+import com.pywl.likegreen.fragment.main.VideoModel;
+import com.pywl.likegreen.fragment.main.VideoViewHolder;
 import com.pywl.likegreen.ne.Observer;
 import com.pywl.likegreen.ne.PhoneCallStateObserver;
 import com.pywl.likegreen.service.PlayerService;
@@ -69,11 +72,11 @@ import cn.jpush.im.api.BasicCallback;
  * 首页直播播放端fragment
  */
 
-public class HomeLiveFragment extends Fragment implements View.OnClickListener, View.OnKeyListener {
+public class HomeLiveFragment2 extends Fragment implements View.OnClickListener, View.OnKeyListener {
 
-
-    private LRecyclerView mRecyclerView;
-    public final static String TAG = HomeLiveFragment.class.getSimpleName();
+    private HomeLiveAdapter homeLiveAdapter;
+    private RecyclerView mRecyclerView;
+    public final static String TAG = HomeLiveFragment2.class.getSimpleName();
     private static final int SHOW_PROGRESS = 0x01;
     private static final int TOTAL_ROOM_COUNT = 2;
     private static final int SET_CHAT_DATA = 3;
@@ -182,8 +185,8 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
         //livingRoomMsgBean = new LivingRoomMsgBean();
        // intoChatRoom();
         initView(view);
-        initData();
-        initPlayer();
+       // initData();
+        //initPlayer();
         return view;
     }
 
@@ -293,38 +296,77 @@ public class HomeLiveFragment extends Fragment implements View.OnClickListener, 
 
 
     private void initView(View v) {
-/*       ArrayList<String> strings = new ArrayList<>();
+       ArrayList<String> strings = new ArrayList<>();
         strings.add(mVideoPath);
         strings.add(mVideoPath2);
         strings.add(mVideoPath3);
-        mRecyclerView =(LRecyclerView) v.findViewById(R.id.lr_home_live);
+        mRecyclerView =(RecyclerView) v.findViewById(R.id.lr_home_live_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        HomeLiveAdapter homeLiveAdapter = new HomeLiveAdapter(getActivity());
+        homeLiveAdapter = new HomeLiveAdapter(getActivity());
         homeLiveAdapter.setDataList(strings);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mRecyclerView);
-        LRecyclerViewAdapter lRecyclerViewAdapter = new LRecyclerViewAdapter(homeLiveAdapter);
-        mRecyclerView.setAdapter(lRecyclerViewAdapter);
-       mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+        mRecyclerView.setAdapter(homeLiveAdapter);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onChildViewAttachedToWindow(View view) {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int actualCurrentPosition = 0;
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    //第一次没法解决
+                    autoPlayVideo(recyclerView);
 
+                }
             }
 
+
+        });
+        mRecyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
-            public void onChildViewDetachedFromWindow(View view) {
-
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                autoPlayVideo(mRecyclerView);
+                mRecyclerView.removeOnLayoutChangeListener(this);
             }
-        });*/
+        });
 
-
-       textureView = v.findViewById(R.id.live_texture);
+ /*      textureView = v.findViewById(R.id.live_texture);
         mLiveSay=(EditText)v.findViewById(R.id.et_live_say);//输入框
         mLiveSay.setOnKeyListener(this);//设置回车键监听
         mRoomCount=(TextView)v.findViewById(R.id.tv_live_room_count);//在线人数
         mLiveGift = v.findViewById(R.id.iv_live_gift);//礼物
         mLiveGift.setOnClickListener(this);
-        mAudienceSay=(LRecyclerView)v.findViewById(R.id.living_room_audience_say);//聊天框
+        mAudienceSay=(LRecyclerView)v.findViewById(R.id.living_room_audience_say);//聊天框*/
+    }
+
+
+    private int count=-1;
+    private void autoPlayVideo(RecyclerView view) {
+
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
+        int position = linearLayoutManager.findFirstCompletelyVisibleItemPosition();//完全可见
+        if (position < 0 || position >= homeLiveAdapter.getList().size()) {
+            Log.w(TAG, "position 无法寻找:" + position);
+            return;
+        } else {
+            Log.w(TAG, "position 正常:" + position);
+        }
+
+
+        String videoPath = homeLiveAdapter.getList().get(position);
+
+        HomeLiveAdapter.MyHolder viewHolder = (HomeLiveAdapter.MyHolder) view.findViewHolderForLayoutPosition(position);
+        if (viewHolder == null) {
+            return;
+        }
+           /* if (count!=position){
+                HomeLiveAdapter.stoplive();
+                count=position;
+            }else {*/
+                HomeLiveAdapter.play(videoPath,viewHolder);
+            //}
+
     }
     private void initData() {
         mUri = Uri.parse(mVideoPath);

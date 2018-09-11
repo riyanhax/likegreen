@@ -266,7 +266,7 @@
          android:background="@color/white"
          android:layout_alignParentBottom="true"
          android:layout_width="match_parent"
-         android:layout_height="@dimen/dp_48">
+         android:layout_height="@dimen/dp_60">
          <ImageView
              android:id="@+id/iv_add_close"
              android:src="@drawable/close_add"
@@ -275,7 +275,7 @@
              android:layout_height="@dimen/dp_14" />
      </RelativeLayout>
        <View
-           android:layout_marginBottom="@dimen/dp_48"
+           android:layout_marginBottom="@dimen/dp_60"
            android:layout_alignParentBottom="true"
            android:background="@color/enptyviewbackground"
            android:layout_width="match_parent"

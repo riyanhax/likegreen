@@ -1,5 +1,6 @@
 package com.pywl.likegreen.fragment.main;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.MediaPlayer;
@@ -39,7 +40,10 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<VideoViewHolder> {
     }
 
     List<VideoModel> list;
-
+    private Context mContext;
+    public HomeCustomAdapter(Context context){
+        mContext=context;
+    }
     @NonNull
     @Override
     public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,8 +56,8 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<VideoViewHolder> {
 
         final VideoModel videoModel = list.get(position);
         holder.tvTitle.setText(videoModel.getName());
-        ImageLoader.getInstance().displayImage(videoModel.getImage(), holder.ivBg);
-
+        //ImageLoader.getInstance().displayImage(videoModel.getImage(), holder.ivBg);
+        Glide.with(mContext).load(videoModel.getImage()).into(holder.ivBg);
 
         holder.viewPlayerMask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,10 +66,12 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<VideoViewHolder> {
                 if (isplay){
                 Toast.makeText(v.getContext(), "你点击了播放", Toast.LENGTH_SHORT).show();
                 play(playMnager,v, videoModel, holder);
+                    holder.btnPlay.setVisibility(View.GONE);
                     isplay=false;
                 }else {
                     playMnager.onPause();
                     Toast.makeText(v.getContext(), "播放停止", Toast.LENGTH_SHORT).show();
+                    holder.btnPlay.setVisibility(View.VISIBLE);
                     isplay=true;
                 }
             }
@@ -102,6 +108,7 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<VideoViewHolder> {
               /*  if (loop) {
                     holder.videoPlayerView.restart();
                 }*/
+                holder.viewPlayerMask.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -160,6 +167,7 @@ public class HomeCustomAdapter extends RecyclerView.Adapter<VideoViewHolder> {
 
                 holder.ivBg.setVisibility(View.VISIBLE);
                 holder.btnPlay.setVisibility(View.VISIBLE);
+                holder.viewPlayerMask.setVisibility(View.VISIBLE);
 
             }
 

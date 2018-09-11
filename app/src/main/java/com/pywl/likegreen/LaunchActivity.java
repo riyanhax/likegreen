@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 public class LaunchActivity extends AppCompatActivity {
 
@@ -11,17 +12,17 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        Integer time = 2000;    //设置等待时间，单位为毫秒
-        Handler handler = new Handler();
-        //当计时结束时，跳转至主界面
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(LaunchActivity.this, MainActivity.class));
-                LaunchActivity.this.finish();
-            }
-        }, time);
-       // Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
-      //  startActivity(intent);
+
+
+        new Handler().postDelayed(r, 2000); //设置2秒钟后切换到下个Activity
     }
+
+    Runnable r = new Runnable() {
+        public void run() {
+            Intent intent = new Intent();
+            intent.setClass(LaunchActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    };
 }

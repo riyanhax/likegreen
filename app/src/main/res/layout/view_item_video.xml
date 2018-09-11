@@ -23,8 +23,9 @@
         android:id="@+id/btn_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
         android:clickable="false"
+        android:src="@drawable/zanting"
         />
 
 
@@ -70,6 +71,8 @@
 
     <View
         android:id="@+id/video_player_mask"
+
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
