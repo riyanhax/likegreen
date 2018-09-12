@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +34,8 @@ import com.netease.neliveplayer.playerkit.common.log.LogUtil;
 import com.netease.neliveplayer.playerkit.sdk.LivePlayer;
 import com.netease.neliveplayer.playerkit.sdk.LivePlayerObserver;
 import com.netease.neliveplayer.playerkit.sdk.PlayerManager;
+import com.netease.neliveplayer.playerkit.sdk.VodPlayer;
+import com.netease.neliveplayer.playerkit.sdk.VodPlayerObserver;
 import com.netease.neliveplayer.playerkit.sdk.constant.CauseCode;
 import com.netease.neliveplayer.playerkit.sdk.model.MediaInfo;
 import com.netease.neliveplayer.playerkit.sdk.model.StateInfo;
@@ -45,13 +49,12 @@ import com.netease.neliveplayer.sdk.NELivePlayer;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.LivingRoomAudienceSayAdapter;
 import com.pywl.likegreen.adapter.live.HomeLiveAdapter;
+import com.pywl.likegreen.adapter.live.HomeLiveAdapter3;
 import com.pywl.likegreen.bean.LivingRoomMsgBean;
-import com.pywl.likegreen.fragment.main.HomeCustomAdapter;
-import com.pywl.likegreen.fragment.main.VideoModel;
-import com.pywl.likegreen.fragment.main.VideoViewHolder;
 import com.pywl.likegreen.ne.Observer;
 import com.pywl.likegreen.ne.PhoneCallStateObserver;
 import com.pywl.likegreen.service.PlayerService;
+import com.pywl.likegreen.view.VerticalViewPager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,11 +75,11 @@ import cn.jpush.im.api.BasicCallback;
  * 首页直播播放端fragment
  */
 
-public class HomeLiveFragment2 extends Fragment implements View.OnClickListener, View.OnKeyListener {
+public class HomeLiveFragment1 extends Fragment implements View.OnClickListener, View.OnKeyListener {
 
-    private HomeLiveAdapter homeLiveAdapter;
+    private HomeLiveAdapter3 homeLiveAdapter;
     private RecyclerView mRecyclerView;
-    public final static String TAG = HomeLiveFragment2.class.getSimpleName();
+    public final static String TAG = HomeLiveFragment1.class.getSimpleName();
     private static final int SHOW_PROGRESS = 0x01;
     private static final int TOTAL_ROOM_COUNT = 2;
     private static final int SET_CHAT_DATA = 3;
@@ -99,11 +102,6 @@ public class HomeLiveFragment2 extends Fragment implements View.OnClickListener,
         public void handleMessage(Message msg) {
             long position;
             switch (msg.what) {
-                case SHOW_PROGRESS:
-                    position = setProgress();
-                    msg = obtainMessage(SHOW_PROGRESS);
-                    sendMessageDelayed(msg, 1000 - (position % 1000));
-                    break;
                 case TOTAL_ROOM_COUNT:
                     int count = (int) msg.obj;
                     setTotalMemberCount(count);
@@ -127,18 +125,6 @@ public class HomeLiveFragment2 extends Fragment implements View.OnClickListener,
     }
 
 
-    private long setProgress() {
-        if (player == null)
-            return 0;
-
-        int position = (int) player.getCurrentPosition();
-        if (mCurrentTime != null) {
-            mCurrentTime.setText(stringForTime(position));
-        }
-        return position;
-    }
-
-
     private ImageButton mPlayBack;
     private TextView mFileName; //文件名称
     private ImageView mAudioRemind; //播音频文件时提示
@@ -152,8 +138,8 @@ public class HomeLiveFragment2 extends Fragment implements View.OnClickListener,
     private TextView mEndTime;
     private TextView mCurrentTime;
 
-    private AdvanceSurfaceView surfaceView;
-    private AdvanceSingleTextureView textureView;
+    private AdvanceSingleTextureView surfaceView;
+
 
     private LivePlayer player;
     private MediaInfo mediaInfo;
@@ -175,7 +161,7 @@ public class HomeLiveFragment2 extends Fragment implements View.OnClickListener,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_live, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_live1, container, false);
         Log.i(TAG, "onCreate");
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //保持屏幕常亮
         JMessageClient.registerEventReceiver(this);//注册im监听器
@@ -292,191 +278,104 @@ public class HomeLiveFragment2 extends Fragment implements View.OnClickListener,
             mHandler.sendMessage(obtain);
         }
     }
-
-
-
+    private boolean mShouldPlay=true;
+    private HomeLiveAdapter1 mShortVideoListAdapter;
+    private ArrayList<String> mItemList;
+    private int mCurrentPosition =  -1;
+    private RecyclerView mVideoList;
     private void initView(View v) {
-       ArrayList<String> strings = new ArrayList<>();
-        strings.add(mVideoPath);
-        strings.add(mVideoPath2);
-        strings.add(mVideoPath3);
-        mRecyclerView =(RecyclerView) v.findViewById(R.id.lr_home_live_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        homeLiveAdapter = new HomeLiveAdapter(getActivity());
-        homeLiveAdapter.setDataList(strings);
+        mItemList= new ArrayList<>();
+        mItemList.add(mVideoPath);
+        mItemList.add(mVideoPath2);
+        mItemList.add(mVideoPath3);
+        mVideoList = v.findViewById(R.id.video_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mVideoList.setLayoutManager(layoutManager);
+        mVideoList.setHasFixedSize(true);
+
         PagerSnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(mRecyclerView);
-        mRecyclerView.setAdapter(homeLiveAdapter);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                int actualCurrentPosition = 0;
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    //第一次没法解决
-                    autoPlayVideo(recyclerView);
+        snapHelper.attachToRecyclerView(mVideoList);
 
+        mShortVideoListAdapter = new HomeLiveAdapter1(mItemList);
+        mVideoList.setAdapter(mShortVideoListAdapter);
+        mVideoList.addOnScrollListener(mOnScrollListener);
+
+        if (mShouldPlay) {
+            mVideoList.post(new Runnable() {
+               @Override
+                public void run() {
+                    startCurVideoView();
+                    mShouldPlay = false;
                 }
-            }
-
-
-        });
-        mRecyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
-                autoPlayVideo(mRecyclerView);
-                mRecyclerView.removeOnLayoutChangeListener(this);
-            }
-        });
-
- /*      textureView = v.findViewById(R.id.live_texture);
-        mLiveSay=(EditText)v.findViewById(R.id.et_live_say);//输入框
-        mLiveSay.setOnKeyListener(this);//设置回车键监听
-        mRoomCount=(TextView)v.findViewById(R.id.tv_live_room_count);//在线人数
-        mLiveGift = v.findViewById(R.id.iv_live_gift);//礼物
-        mLiveGift.setOnClickListener(this);
-        mAudienceSay=(LRecyclerView)v.findViewById(R.id.living_room_audience_say);//聊天框*/
-    }
-
-
-    private int count=-1;
-    private void autoPlayVideo(RecyclerView view) {
-
-
-        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
-        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-        int position = linearLayoutManager.findFirstCompletelyVisibleItemPosition();//完全可见
-        if (position < 0 || position >= homeLiveAdapter.getList().size()) {
-            Log.w(TAG, "position 无法寻找:" + position);
-            return;
-        } else {
-            Log.w(TAG, "position 正常:" + position);
+            });
         }
-
-
-        String videoPath = homeLiveAdapter.getList().get(position);
-
-        HomeLiveAdapter.MyHolder viewHolder = (HomeLiveAdapter.MyHolder) view.findViewHolderForLayoutPosition(position);
-        if (viewHolder == null) {
-            return;
-        }
-           /* if (count!=position){
-                HomeLiveAdapter.stoplive();
-                count=position;
-            }else {*/
-                HomeLiveAdapter.play(videoPath,viewHolder);
-            //}
-
-    }
-    private void initData() {
-        mUri = Uri.parse(mVideoPath);
-        if (mMediaType != null && mMediaType.equals("localaudio")) { //本地音频文件采用软件解码
-            mDecodeType = "software";
-        }
-
-        if (mDecodeType != null && mDecodeType.equals("hardware")) {
-            mHardware = true;
-        } else {
-            mHardware = false;
-        }
-
-
-
-    }
-
-
-    private void initPlayer() {
-        VideoOptions options = new VideoOptions();
-        options.autoSwitchDefinition = false;
-        options.hardwareDecode = mHardware;
-
-        /**
-         * isPlayLongTimeBackground 控制退到后台或者锁屏时是否继续播放，开发者可根据实际情况灵活开发,我们的示例逻辑如下：
-         * 使用软件解码：
-         * isPlayLongTimeBackground 为 false 时，直播进入后台停止播放，进入前台重新拉流播放
-         * isPlayLongTimeBackground 为 true 时，直播进入后台不做处理，继续播放,
-         *
-         * 使用硬件解码：
-         * 直播进入后台停止播放，进入前台重新拉流播放
-         */
-        options.isPlayLongTimeBackground = !isPauseInBackgroud;
-
-//        if (isTimestampEnable) {
-//            options.isSyncOpen = true;
-//        }
-
-        options.bufferStrategy = VideoBufferStrategy.LOW_LATENCY;
-        player = PlayerManager.buildLivePlayer(getActivity(), mVideoPath, options);
-
-        intentToStartBackgroundPlay();
-
-        start();
-        //设置全屏
-        if (surfaceView == null) {
-            player.setupRenderView(textureView, VideoScaleMode.FILL);
-        } else {
-            player.setupRenderView(surfaceView, VideoScaleMode.FILL);
-        }
-    }
-    private void start() {
-        player.registerPlayerObserver(playerObserver, true);
-
-//        player.registerPlayerCurrentSyncTimestampListener(pullIntervalTime, mOnCurrentSyncTimestampListener, true);
-//        player.registerPlayerCurrentSyncContentListener(mOnCurrentSyncContentListener, true);
-
-        player.start();
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume");
-        if (player != null) {
-            player.onActivityResume(true);
-        }
-    }
-
-   @Override
-   public void onPause() {
+    public void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause");
-
+        if (mShortVideoListAdapter != null) {
+            mShortVideoListAdapter.pauseCurVideoView();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.i(TAG, "onStop");
-
-        enterBackgroundPlay();
-        if (player != null) {
-            player.onActivityStop(true);
+        if (mShortVideoListAdapter != null) {
+            mShortVideoListAdapter.stopCurVideoView();
         }
     }
 
 
-/*    @Override
-    public void onBackPressed() {
-        Log.i(TAG, "onBackPressed");
-        mBackPressed = true;
-        finish();
-        releasePlayer();
 
-        super.onBackPressed();
-    }*/
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                startCurVideoView();
+            }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+        }
+    };
+
+    private void startCurVideoView() {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) mVideoList.getLayoutManager();
+        int visibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+
+        if (visibleItemPosition >= 0 && mCurrentPosition != visibleItemPosition) {
+            mShortVideoListAdapter.stopCurVideoView();
+            mCurrentPosition = visibleItemPosition;
+            View holderView = mVideoList.findViewWithTag(mCurrentPosition);
+            if (holderView != null) {
+                HomeLiveAdapter1.ViewHolder viewHolder = (HomeLiveAdapter1.ViewHolder) mVideoList.getChildViewHolder(holderView);
+                mShortVideoListAdapter.setCurViewHolder(viewHolder);
+                mShortVideoListAdapter.startCurVideoView();
+            }
+        }
+    }
+
+
+
+
+    private void initData() {
+
+    }
+
+
+
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy");
-        releasePlayer();
+
 /*        //退出聊天室
         ChatRoomManager.leaveChatRoom(roomId, new BasicCallback() {
             @Override
@@ -492,191 +391,6 @@ public class HomeLiveFragment2 extends Fragment implements View.OnClickListener,
             }
         });*/
         JMessageClient.unRegisterEventReceiver(this);
-    }
-
-
-    private void releasePlayer() {
-        if (player == null) {
-            return;
-        }
-
-        Log.i(TAG, "releasePlayer");
-
-        player.registerPlayerObserver(playerObserver, false);
-
-//        player.registerPlayerCurrentSyncTimestampListener(0, null, false);
-//        player.registerPlayerCurrentSyncContentListener(null, false);
-
-        PhoneCallStateObserver.getInstance().observeLocalPhoneObserver(localPhoneObserver, false);
-        player.setupRenderView(null, VideoScaleMode.NONE);
-        textureView.releaseSurface();
-        textureView = null;
-        player.stop();
-        player = null;
-        intentToStopBackgroundPlay();
-        mHandler.removeCallbacksAndMessages(null);
-
-    }
-    //这里直播可以用 LivePlayerObserver 点播用 VodPlayerObserver
-    private LivePlayerObserver playerObserver = new LivePlayerObserver() {
-
-        @Override
-        public void onPreparing() {
-
-        }
-
-        @Override
-        public void onPrepared(MediaInfo info) {
-            mediaInfo = info;
-        }
-
-        @Override
-        public void onError(int code, int extra) {
-            mBuffer.setVisibility(View.INVISIBLE);
-            if(code == CauseCode.CODE_VIDEO_PARSER_ERROR) {
-                showToast("视频解析出错");
-            }else {
-                AlertDialog.Builder build = new AlertDialog.Builder(getActivity());
-                build.setTitle("播放错误").setMessage("错误码：" + code)
-                        .setPositiveButton("确定", null)
-                        .setCancelable(false)
-                        .show();
-            }
-
-        }
-
-        @Override
-        public void onFirstVideoRendered() {
-            showToast("视频第一帧已解析");
-
-        }
-
-        @Override
-        public void onFirstAudioRendered() {
-//            showToast("音频第一帧已解析");
-
-        }
-
-        @Override
-        public void onBufferingStart() {
-            mBuffer.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void onBufferingEnd() {
-            mBuffer.setVisibility(View.GONE);
-        }
-
-        @Override
-        public void onBuffering(int percent) {
-            Log.d(TAG, "缓冲中..." + percent + "%");
-        }
-
-        @Override
-        public void onHardwareDecoderOpen() {
-
-        }
-
-        @Override
-        public void onStateChanged(StateInfo stateInfo) {
-
-        }
-
-        @Override
-        public void onParseDefinition(List<NEDefinitionData> data) {
-            showToast("解析到多个清晰度");
-
-        }
-
-        @Override
-        public void onAutoSwitchDefinition(NEDefinitionData.DefinitionType definitionType) {
-            showToast("自动切换到清晰度" + definitionType);
-
-        }
-
-        @Override
-        public void onVideoFrameFilter(NELivePlayer.NEVideoRawData videoRawData) {
-
-        }
-
-        @Override
-        public void onAudioFrameFilter(NELivePlayer.NEAudioRawData audioRawData) {
-
-        }
-
-        @Override
-        public void onHttpResponseInfo(int code, String header) {
-            Log.i(TAG, "onHttpResponseInfo,code:" + code + " header:" + header);
-        }
-    };
-
-    /**
-     * 时间戳回调
-     */
-    private NELivePlayer.OnCurrentSyncTimestampListener mOnCurrentSyncTimestampListener = new NELivePlayer.OnCurrentSyncTimestampListener() {
-        @Override
-        public void onCurrentSyncTimestamp(long timestamp) {
-            Log.v(TAG, "OnCurrentSyncTimestampListener,onCurrentSyncTimestamp:" + timestamp);
-
-        }
-    };
-
-    private NELivePlayer.OnCurrentSyncContentListener mOnCurrentSyncContentListener = new NELivePlayer.OnCurrentSyncContentListener() {
-        @Override
-        public void onCurrentSyncContent(List<String> content) {
-            StringBuffer sb = new StringBuffer();
-            for (String str : content) {
-                sb.append(str + "\r\n");
-            }
-            showToast("onCurrentSyncContent,收到同步信息:" + sb.toString());
-            Log.v(TAG, "onCurrentSyncContent,收到同步信息:" + sb.toString());
-        }
-    };
-
-    private void showToast(String msg) {
-        Log.d(TAG, "showToast" + msg);
-        try {
-            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-        } catch (Throwable th) {
-            th.printStackTrace(); // fuck oppo
-        }
-    }
-    /**
-     * 处理service后台播放逻辑
-     */
-    private void intentToStartBackgroundPlay() {
-        if (!mHardware && !isPauseInBackgroud) {
-            PlayerService.intentToStart(getActivity());
-        }
-    }
-
-    private void intentToStopBackgroundPlay() {
-        if (!mHardware && !isPauseInBackgroud) {
-            PlayerService.intentToStop(getActivity());
-            player = null;
-        }
-    }
-
-
-    private void enterBackgroundPlay() {
-        if (!mHardware && !isPauseInBackgroud) {
-            PlayerService.setMediaPlayer(player);
-        }
-    }
-
-    private void stopBackgroundPlay() {
-        if (!mHardware && !isPauseInBackgroud) {
-            PlayerService.setMediaPlayer(null);
-        }
-    }
-    private static String stringForTime(long position) {
-        int totalSeconds = (int) ((position / 1000.0) + 0.5);
-
-        int seconds = totalSeconds % 60;
-        int minutes = (totalSeconds / 60) % 60;
-        int hours = totalSeconds / 3600;
-
-        return String.format(Locale.US, "%02d:%02d:%02d", hours, minutes, seconds).toString();
     }
 
     //处理与电话逻辑

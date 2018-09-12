@@ -25,7 +25,6 @@ import com.netease.neliveplayer.sdk.NEDefinitionData;
 import com.netease.neliveplayer.sdk.NELivePlayer;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.ListBaseAdapter;
-import com.pywl.likegreen.ne.PhoneCallStateObserver;
 
 
 import java.io.IOException;
@@ -127,7 +126,6 @@ public class HomeLiveAdapter extends ListBaseAdapter<String> {
     public static void stoplive(){
         if (player!=null){
             player.registerPlayerObserver(playerObserver, false);
-
             player.setupRenderView(null, VideoScaleMode.NONE);
             mTextureView.releaseSurface();
             mTextureView = null;

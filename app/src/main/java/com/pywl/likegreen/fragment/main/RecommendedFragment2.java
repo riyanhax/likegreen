@@ -80,7 +80,7 @@ public class RecommendedFragment2 extends Fragment {
         list.add(new VideoModel().setImage("http://image.so.com/v?q=%E9%A3%8E%E6%99%AF%E7%BC%A9&src=srp&correct=%E9%A3%8E%E6%99%AF%E7%BC%A9&cmsid=40fdc799be0c989382e64df91dd94916&cmran=0&cmras=0&cn=0&gn=0&kn=0#multiple=0&gsrc=1&dataindex=6&id=040657b966c686607f29b0770877758c&currsn=0&jdx=6&fsn=60").setPath("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/1BrIAtvV_1818587477_shd.mp4").setName("测试2"));
         list.add(new VideoModel().setImage("http://image.so.com/v?q=%E9%A3%8E%E6%99%AF%E7%BC%A9&src=srp&correct=%E9%A3%8E%E6%99%AF%E7%BC%A9&cmsid=40fdc799be0c989382e64df91dd94916&cmran=0&cmras=0&cn=0&gn=0&kn=0#multiple=0&gsrc=1&dataindex=33&id=03e2f792ddf64cc77c8b3d5c8d31a845&currsn=0&jdx=33&fsn=60").setPath("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/FmdVOTqd_1818586962_shd.mp4").setName("测试3"));
         list.add(new VideoModel().setImage("http://image.so.com/v?q=%E9%A3%8E%E6%99%AF%E7%BC%A9&src=srp&correct=%E9%A3%8E%E6%99%AF%E7%BC%A9&cmsid=40fdc799be0c989382e64df91dd94916&cmran=0&cmras=0&cn=0&gn=0&kn=0#multiple=0&gsrc=1&dataindex=37&id=78735e1239adbb1e16d886ce781e0ba7&currsn=0&jdx=37&fsn=60").setPath("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/wq1e35cQ_1818588221_shd.mp4").setName("测试4"));
-        list.add(new VideoModel().setImage("http://m9pic.mm999.com/topic/201804/20180427092549414.jpg").setPath("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/7eSdPRKt_1818589543_shd.mp4").setName("测试5"));
+        list.add(new VideoModel().setImage("http://m9pic.mm999.com/topic/201804/20180427092549414.jpg").setPath("rtmp://vee0d5105.live.126.net/live/697e719fa8314e329d27421b7dad681e").setName("测试5"));
 
         adapter.setList(list);
 

@@ -3,10 +3,10 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.pywl.likegreen.view.VerticalViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.pywl.likegreen.view.VerticalViewPager>
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/video_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
 <!--    <FrameLayout
         android:id="@+id/render_layout"
         android:layout_width="match_parent"

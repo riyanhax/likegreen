@@ -16,12 +16,9 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.activity.LiveStreamingActivity;
 import com.pywl.likegreen.activity.LivingActivity;
-import com.pywl.likegreen.activity.SetAnchorActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
 import com.pywl.likegreen.fragment.main.FocuFragment;
-import com.pywl.likegreen.fragment.main.RecommendedFragment;
 import com.pywl.likegreen.fragment.main.RecommendedFragment2;
-import com.pywl.likegreen.fragment.main.RecommendedFragment3;
 import com.pywl.likegreen.fragment.main.TheNewFragment;
 
 import java.util.ArrayList;
@@ -89,6 +86,7 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
                 //isShow=!isShow;
                 break;
             case R.id.rl_gotolive://打开直播
+
                 Intent intentSetAnchorActivity = new Intent(getActivity(), LiveStreamingActivity.class);
                 startActivity(intentSetAnchorActivity);
                 showLiveBtn(isShow);

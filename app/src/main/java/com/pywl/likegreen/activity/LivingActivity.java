@@ -9,8 +9,7 @@ import android.widget.ImageView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.fragment.live.HomeLiveFragment;
-import com.pywl.likegreen.fragment.live.HomeLiveFragment2;
+import com.pywl.likegreen.fragment.live.HomeLiveFragment1;
 import com.pywl.likegreen.fragment.live.PreviewFragment;
 import com.pywl.likegreen.fragment.live.ReviewFragment;
 
@@ -42,7 +41,7 @@ public class LivingActivity extends AppCompatActivity implements View.OnClickLis
     private void initData() {
         fragmentsLive = new ArrayList<>();
         fragmentsLive.add(new ReviewFragment());
-        fragmentsLive.add(new HomeLiveFragment2());
+        fragmentsLive.add(new HomeLiveFragment1());
         fragmentsLive.add(new PreviewFragment());
         mHomeLive.setViewPager(mViewpager,itemsLive,this,fragmentsLive);
         mHomeLive.setCurrentTab(1);
