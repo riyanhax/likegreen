@@ -1,4 +1,4 @@
-package com.pywl.likegreen.activity;
+package com.pywl.likegreen.activity.mine;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;

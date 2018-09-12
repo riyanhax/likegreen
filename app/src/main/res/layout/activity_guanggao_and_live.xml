@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pywl.likegreen.activity.GuanggaoAndLiveActivity">
+    tools:context="com.pywl.likegreen.activity.mine.GuanggaoAndLiveActivity">
     <ImageView
         android:id="@+id/iv_guanggao_live_goback"
         style="@style/paddinglift"

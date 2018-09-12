@@ -312,6 +312,16 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mShortVideoListAdapter != null) {
+            mShortVideoListAdapter.startCurVideoView();
+        } else {
+            mShouldPlay = true;
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         if (mShortVideoListAdapter != null) {
@@ -327,7 +337,13 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
         }
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mShortVideoListAdapter != null) {
+            mShortVideoListAdapter.stopCurVideoView();
+        }
+    }
 
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
         @Override

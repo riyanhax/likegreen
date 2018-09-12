@@ -7,11 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,26 +16,22 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.zhouwei.library.CustomPopWindow;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.pywl.likegreen.MainActivity;
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.activity.AuditAndLiveActivity;
-import com.pywl.likegreen.activity.MyFansActivity;
-import com.pywl.likegreen.activity.MyFocuseActivity;
-import com.pywl.likegreen.activity.MyMessageAndDirectActivity;
+import com.pywl.likegreen.activity.mine.AuditAndLiveActivity;
+import com.pywl.likegreen.activity.mine.MyFansActivity;
+import com.pywl.likegreen.activity.mine.MyFocuseActivity;
+import com.pywl.likegreen.activity.mine.MyMessageAndDirectActivity;
 import com.pywl.likegreen.activity.MyProductsReleaseActivity;
-import com.pywl.likegreen.activity.PersonalDataActivity;
-import com.pywl.likegreen.activity.SystemSettingsActivity;
+import com.pywl.likegreen.activity.mine.PersonalDataActivity;
+import com.pywl.likegreen.activity.mine.SystemSettingsActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
 
 import com.pywl.likegreen.fragment.mine.MyGardenFragment;
 import com.pywl.likegreen.fragment.mine.MyLiveFragment;
 import com.pywl.likegreen.fragment.mine.MyVideoFragment;
 import com.pywl.likegreen.fragment.mine.MyWeddingCardFragment;
-import com.pywl.likegreen.utils.HomeGetFragmentUtil;
 
 import java.util.ArrayList;
 

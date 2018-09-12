@@ -1,7 +1,6 @@
 package com.pywl.likegreen.fragment.mine;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,13 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.github.jdsjlzx.ItemDecoration.GridItemDecoration;
 import com.github.jdsjlzx.ItemDecoration.SpacesItemDecoration;
 import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.activity.MyLiveActivity;
+import com.pywl.likegreen.activity.mine.MyVideoActivity;
 import com.pywl.likegreen.adapter.MyVideoAdapter;
 import com.pywl.likegreen.bean.VideoBean;
 
@@ -61,7 +59,7 @@ public class MyVideoFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 VideoBean videoBean = list.get(position);
-                Intent intent = new Intent(getContext(), MyLiveActivity.class);
+                Intent intent = new Intent(getContext(), MyVideoActivity.class);
                 intent.putExtra("MyVideoFragment",videoBean.getVideoUrl());
                 startActivity(intent);
             }

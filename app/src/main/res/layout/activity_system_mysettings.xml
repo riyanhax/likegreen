@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="com.pywl.likegreen.activity.SystemSettingsActivity">
+    tools:context="com.pywl.likegreen.activity.mine.SystemSettingsActivity">
     <RelativeLayout
        style="@style/head">
         <ImageView

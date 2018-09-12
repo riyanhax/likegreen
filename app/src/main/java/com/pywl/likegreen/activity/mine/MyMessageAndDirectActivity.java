@@ -1,4 +1,4 @@
-package com.pywl.likegreen.activity;
+package com.pywl.likegreen.activity.mine;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;

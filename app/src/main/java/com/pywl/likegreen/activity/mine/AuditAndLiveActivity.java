@@ -1,4 +1,4 @@
-package com.pywl.likegreen.activity;
+package com.pywl.likegreen.activity.mine;
 /*
 * 广告视频","直播
 * */

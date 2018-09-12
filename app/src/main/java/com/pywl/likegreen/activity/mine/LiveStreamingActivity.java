@@ -1,4 +1,4 @@
-package com.pywl.likegreen.activity;
+package com.pywl.likegreen.activity.mine;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -16,7 +16,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -24,9 +23,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,8 +55,6 @@ import java.util.ArrayList;
 
 
 import static com.netease.LSMediaCapture.lsMediaCapture.StreamType.AUDIO;
-import static com.netease.LSMediaCapture.lsMediaCapture.StreamType.AV;
-import static com.netease.LSMediaCapture.lsMediaCapture.StreamType.VIDEO;
 
 
 //由于直播推流的URL地址较长，可以直接在代码中的mliveStreamingURL设置直播推流的URL

@@ -155,31 +155,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PersonalDataActivity" />
-        <activity android:name=".activity.GuanggaoAndLiveActivity" />
-        <activity android:name=".activity.AuditAndLiveActivity" />
-        <activity android:name=".activity.MyMessageAndDirectActivity" />
-        <activity android:name=".activity.SystemSettingsActivity" />
-        <activity android:name=".activity.PlayBackActivity" />
+        <activity android:name=".activity.mine.PersonalDataActivity" />
+        <activity android:name=".activity.mine.GuanggaoAndLiveActivity" />
+        <activity android:name=".activity.mine.AuditAndLiveActivity" />
+        <activity android:name=".activity.mine.MyMessageAndDirectActivity" />
+        <activity android:name=".activity.mine.SystemSettingsActivity" />
+        <activity android:name=".activity.mine.PlayBackActivity" />
         <activity android:name=".activity.ShareLiftActivity" />
 
         <service android:name=".service.PlayerService" />
 
         <activity android:name=".activity.ChatActivity" />
-        <activity android:name=".activity.MyFocuseActivity" />
-        <activity android:name=".activity.MyFansActivity" />
-        <activity android:name=".activity.LivingActivity" />
+        <activity android:name=".activity.mine.MyFocuseActivity" />
+        <activity android:name=".activity.mine.MyFansActivity" />
+        <activity android:name=".activity.mian.LivingActivity" />
         <activity android:name=".activity.SetAnchorActivity" />
-        <activity android:name=".activity.LiveStreamingActivity" />
+        <activity android:name=".activity.mine.LiveStreamingActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.AddActivity" />
         <activity android:name=".takephoto.CameraActivity" />
         <activity android:name=".activity.ShortCameraActivity" />
         <activity android:name=".activity.VideoReleaseActivity" />
         <activity
-            android:name=".activity.MyLiveActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:name=".activity.mine.MyVideoActivity"
+            android:theme="@style/AppThemeFullscreen" />
 
         <!-- 直传统计监控服务：默认情况下120秒发送一次统计信息，没有数据则不发送，非独立进程 -->
         <service android:name="com.netease.cloud.nos.android.service.MonitorService" />
@@ -193,13 +192,13 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.AdMsgInputActivity" />
+        <activity android:name=".activity.mine.AdMsgInputActivity" />
         <activity android:name=".activity.PlantDiaryActivity" />
         <activity android:name=".activity.EquipmentActivity" />
         <activity android:name=".activity.LongPostActivity" />
-        <activity android:name=".activity.LivePreViewActivity" />
-        <activity android:name=".activity.LivePlayBackActivity" />
-        <activity android:name=".activity.LiveNowActivity" />
+        <activity android:name=".activity.mine.LivePreViewActivity" />
+        <activity android:name=".activity.mine.LivePlayBackActivity" />
+        <activity android:name=".activity.mine.LiveNowActivity" />
         <activity android:name=".activity.MyProductsReleaseActivity" />
     </application>
 

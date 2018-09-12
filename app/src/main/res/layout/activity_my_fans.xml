@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/enptyviewbackground"
     android:orientation="vertical"
-    tools:context="com.pywl.likegreen.activity.MyFansActivity">
+    tools:context="com.pywl.likegreen.activity.mine.MyFansActivity">
     <RelativeLayout
         style="@style/head">
         <ImageView

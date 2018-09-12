@@ -1,4 +1,4 @@
-package com.pywl.likegreen.activity;
+package com.pywl.likegreen.activity.mine;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.MyFocuseAdapter;
-
+/*
+* 我的粉丝
+* */
 public class MyFansActivity extends AppCompatActivity {
     private LRecyclerView mList;
     @Override

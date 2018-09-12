@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.activity.LiveNowActivity;
-import com.pywl.likegreen.activity.LivePlayBackActivity;
-import com.pywl.likegreen.activity.LivePreViewActivity;
+import com.pywl.likegreen.activity.mine.LiveNowActivity;
+import com.pywl.likegreen.activity.mine.LivePlayBackActivity;
+import com.pywl.likegreen.activity.mine.LivePreViewActivity;
 
 /**
  * Created by theWind on 2018/8/1.

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LivePreViewActivity">
+    tools:context=".activity.mine.LivePreViewActivity">
     <com.github.jdsjlzx.recyclerview.LRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

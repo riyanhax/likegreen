@@ -25,6 +25,7 @@ import com.netease.LSMediaCapture.lsMediaCapture;
 import com.netease.LSMediaCapture.util.string.StringUtil;
 import com.netease.vcloud.video.effect.VideoEffect;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.activity.mine.LiveStreamingActivity;
 
 import java.io.Serializable;
 import java.text.DateFormat;

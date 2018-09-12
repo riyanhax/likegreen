@@ -15,7 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,6 +27,7 @@ import com.netease.vcloudnosupload.NOSUploadHandler;
 
 import com.pywl.likegreen.MainActivity;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.activity.mine.AdMsgInputActivity;
 import com.pywl.likegreen.bean.CallTab;
 import com.pywl.likegreen.utils.VideoFileUtil;
 
