@@ -31,6 +31,7 @@ import com.pywl.likegreen.fragment.home.HomeMyFragment;
 import com.pywl.likegreen.fragment.home.HomeNoteFragment;
 import com.pywl.likegreen.fragment.home.HomePageFragment;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.umeng.socialize.UMShareAPI;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -200,6 +201,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //QQ分享
+        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
         //add页面结束后返回首页
         if (resultCode==2){
             if (requestCode==1){

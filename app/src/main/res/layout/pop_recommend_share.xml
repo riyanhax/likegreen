@@ -44,6 +44,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_share_weixin_circleo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_27"
@@ -67,7 +68,7 @@
         </LinearLayout>
 
         <LinearLayout
-
+            android:id="@+id/ll_share_weixin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_27"
@@ -114,6 +115,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_share_weibo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_27"
@@ -215,6 +217,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_share_uninterested"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_27"
@@ -260,6 +263,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/ll_share_colse"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="34dp"

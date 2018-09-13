@@ -16,6 +16,8 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.netease.LSMediaCapture.util.storage.StorageUtil;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -151,16 +153,17 @@ public class MyApplication extends Application {
         //注册Notification点击的接收器
         //new NotificationClickEventReceiver(getApplicationContext());
        // initImagePicker();
-        //阿里云
-       // System.loadLibrary("live-openh264");
-        //System.loadLibrary("QuCore-ThirdParty");
-        //System.loadLibrary("QuCore");
-        //QupaiHttpFinal.getInstance().initOkHttpFinal();
-
-
+        //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
+        UMConfigure.init(this, "5b99e1bb8f4a9d343a0001e7", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
+                "");
 
     }
+    //配置分享
+    {
+        PlatformConfig.setWeixin("com.pywl.likegreen", "3720d66b6c355f6b7b8ce9fe2270f827");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
 
+    }
 
 
     @Override

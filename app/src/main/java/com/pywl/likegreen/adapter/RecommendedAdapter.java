@@ -1,6 +1,7 @@
 package com.pywl.likegreen.adapter;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +16,11 @@ import android.widget.PopupWindow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.widget.PLVideoTextureView;
+import com.pywl.likegreen.MainActivity;
 import com.pywl.likegreen.R;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 
@@ -24,8 +29,8 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     private ArrayList<String> mItemList;
     private ViewHolder mCurViewHolder;
     private DisplayImageOptions mDisplayImageOptions;
-    private Context mContext;
-    public RecommendedAdapter(Context comtext,ArrayList<String> arrayList) {
+    private Activity mContext;
+    public RecommendedAdapter(Activity comtext, ArrayList<String> arrayList) {
         mItemList = arrayList;
         mContext=comtext;
         mDisplayImageOptions = new DisplayImageOptions.Builder()
@@ -44,12 +49,69 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
             case R.id.iv_recommend_share:
                 showSharePop(view);
                 break;
+            case R.id.ll_share_weixin_circleo:
+                new ShareAction(mContext)
+                        .setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)//朋友圈
+                        .withText("hello")//分享内容
+                        .setCallback(umShareListener)//回调监听器
+                        .share();
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_share_weixin:
+                new ShareAction(mContext)
+                        .setPlatform(SHARE_MEDIA.WEIXIN)//微信
+                        .withText("hello")//分享内容
+                        .setCallback(umShareListener)//回调监听器
+                        .share();
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_share_weibo:
+                new ShareAction(mContext)
+                        .setPlatform(SHARE_MEDIA.SINA)//微博
+                        .withText("hello")//分享内容
+                        .setCallback(umShareListener)//回调监听器
+                        .share();
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_share_colse:
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_share_uninterested:
+                popupWindow.dismiss();
+                break;
         }
     }
+   private  UMShareListener umShareListener= new UMShareListener() {
 
+       @Override
+       public void onStart(SHARE_MEDIA share_media) {
+
+       }
+
+       @Override
+       public void onResult(SHARE_MEDIA share_media) {
+
+       }
+
+       @Override
+       public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+       }
+
+       @Override
+       public void onCancel(SHARE_MEDIA share_media) {
+
+       }
+   };
+    private PopupWindow popupWindow;
     private void showSharePop(View view) {
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_recommend_share, null);
-        PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        contentView.findViewById(R.id.ll_share_weixin_circleo).setOnClickListener(this);//朋友圈
+        contentView.findViewById(R.id.ll_share_weixin).setOnClickListener(this);//朋友圈
+        contentView.findViewById(R.id.ll_share_weibo).setOnClickListener(this);//微博
+        contentView.findViewById(R.id.ll_share_colse).setOnClickListener(this);//关闭
+        contentView.findViewById(R.id.ll_share_uninterested).setOnClickListener(this);//不感兴趣
+        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
         popupWindow.setTouchable(true);
