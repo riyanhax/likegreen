@@ -1,4 +1,4 @@
-package com.pywl.likegreen.fragment.live;
+package com.pywl.likegreen.adapter;
 
 
 import android.content.Context;
@@ -7,10 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-
-
 import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.widget.PLVideoTextureView;
 import com.pywl.likegreen.R;
@@ -18,13 +15,12 @@ import com.pywl.likegreen.R;
 import java.util.ArrayList;
 
 
-
-public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.ViewHolder> {
+public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.ViewHolder> {
     private ArrayList<String> mItemList;
     private ViewHolder mCurViewHolder;
     private DisplayImageOptions mDisplayImageOptions;
 
-    public HomeLiveAdapter1(ArrayList<String> arrayList) {
+    public RecommendedAdapter(ArrayList<String> arrayList) {
         mItemList = arrayList;
         mDisplayImageOptions = new DisplayImageOptions.Builder()
                 /*.showImageOnLoading(R.drawable.defualt_bg)            //加载图片时的图片
@@ -36,17 +32,34 @@ public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.View
                 .build();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+   public class ViewHolder extends RecyclerView.ViewHolder {
         PLVideoTextureView videoView;
         String videoPath;
         View holderRootView;
-
+       View topView;
+       View pausePlayImage;
         public ViewHolder(View itemView) {
             super(itemView);
             holderRootView = itemView;
-            videoView = (PLVideoTextureView) itemView.findViewById(R.id.video_texture_view);
+            videoView = (PLVideoTextureView)itemView.findViewById(R.id.video_texture_view);
             videoView.setAVOptions(createAVOptions());
             videoView.setDisplayAspectRatio(PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT);
+            View loadingView = itemView.findViewById(R.id.loading_view);
+            videoView.setBufferingIndicator(loadingView);
+            topView = itemView.findViewById(R.id.top_view);
+            pausePlayImage = itemView.findViewById(R.id.image_pause_play);
+            topView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (videoView.isPlaying()) {
+                        videoView.pause();
+                        pausePlayImage.setVisibility(View.VISIBLE);
+                    } else {
+                        videoView.start();
+                        pausePlayImage.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
     }
 
@@ -54,7 +67,7 @@ public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.View
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contactView = inflater.inflate(R.layout.item_home_live1, parent, false);
+        View contactView = inflater.inflate(R.layout.item_recommended, parent, false);
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
@@ -70,13 +83,14 @@ public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.View
 
     @Override
     public int getItemCount() {
+        int size = mItemList.size();
         return mItemList.size();
     }
 
     @Override
     public void onViewAttachedToWindow(ViewHolder holder) {
         mCurViewHolder = holder;
-
+        holder.pausePlayImage.setVisibility(View.GONE);
     }
 
     @Override
@@ -93,7 +107,7 @@ public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.View
         if (mCurViewHolder != null && !mCurViewHolder.videoView.isPlaying()) {
             mCurViewHolder.videoView.setVideoPath(mCurViewHolder.videoPath);
             mCurViewHolder.videoView.start();
-
+            mCurViewHolder.pausePlayImage.setVisibility(View.GONE);
         }
     }
 
@@ -113,10 +127,12 @@ public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.View
         AVOptions options = new AVOptions();
         // the unit of timeout is ms
         options.setInteger(AVOptions.KEY_PREPARE_TIMEOUT, 10 * 1000);
-        options.setInteger(AVOptions.KEY_LIVE_STREAMING, 1);
+        options.setInteger(AVOptions.KEY_LIVE_STREAMING, 0);
         // 1 -> hw codec enable, 0 -> disable [recommended]
-        options.setInteger(AVOptions.KEY_MEDIACODEC, AVOptions.MEDIA_CODEC_AUTO);
-        options.setInteger(AVOptions.KEY_LOG_LEVEL, 0);
+        options.setInteger(AVOptions.KEY_MEDIACODEC, AVOptions.MEDIA_CODEC_SW_DECODE);
+        options.setInteger(AVOptions.KEY_PREFER_FORMAT, AVOptions.PREFER_FORMAT_MP4);
+        boolean disableLog = false;
+        options.setInteger(AVOptions.KEY_LOG_LEVEL, disableLog ? 5 : 0);
         return options;
     }
 

@@ -18,6 +18,7 @@ import com.pywl.likegreen.activity.mine.LiveStreamingActivity;
 import com.pywl.likegreen.activity.mian.LivingActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
 import com.pywl.likegreen.fragment.main.FocuFragment;
+import com.pywl.likegreen.fragment.main.RecommendedFragment;
 import com.pywl.likegreen.fragment.main.RecommendedFragment2;
 import com.pywl.likegreen.fragment.main.TheNewFragment;
 
@@ -66,7 +67,7 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
     private void initData() {
         fragmentsRecom = new ArrayList<>();
         fragmentsRecom.add(new FocuFragment());
-        fragmentsRecom.add(new RecommendedFragment2());
+        fragmentsRecom.add(new RecommendedFragment());
         fragmentsRecom.add(new TheNewFragment());
         mStHomePage.setViewPager(mViewpager,itemsRecommend,(FragmentActivity) getActivity(),fragmentsRecom);
         mStHomePage.setCurrentTab(1);

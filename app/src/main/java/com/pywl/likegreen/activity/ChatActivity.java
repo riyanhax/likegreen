@@ -3,8 +3,10 @@ package com.pywl.likegreen.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,7 +24,7 @@ import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.ChatAdapter;
 import com.pywl.likegreen.takephoto.CameraActivity;
 import com.pywl.likegreen.takephoto.RequestCode;
-import com.pywl.likegreen.takephoto.camera.CameraView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +56,7 @@ public class ChatActivity extends JGBaseActivity implements View.OnClickListener
     private static final int DATALIST = 0x4000;
     private  ArrayList<cn.jpush.im.android.api.model.Message> msgData;
     private String   username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
