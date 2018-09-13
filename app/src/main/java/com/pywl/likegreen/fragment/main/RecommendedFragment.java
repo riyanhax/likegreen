@@ -82,7 +82,7 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mVideoList);
 
-        mShortVideoListAdapter = new RecommendedAdapter(mItemList);
+        mShortVideoListAdapter = new RecommendedAdapter(getActivity(),mItemList);
         mVideoList.setAdapter(mShortVideoListAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
 

@@ -182,7 +182,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_6"
                 android:text="@string/coyplink"
@@ -201,17 +201,17 @@
                 android:layout_width="@dimen/dp_45"
                 android:layout_height="@dimen/dp_45"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/keep" />
+                android:src="@drawable/keep_share" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_6"
                 android:maxLines="1"
                 android:text="@string/keeploction"
                 android:textColor="#8d8d8d"
-                android:textSize="11sp" />
+                android:textSize="10.5sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -229,7 +229,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_6"
                 android:text="@string/unlike"
@@ -265,7 +265,7 @@
         android:layout_height="34dp"
         android:background="#25000000">
         <ImageView
-            android:src="@drawable/close"
+            android:src="@drawable/commentclose"
             android:layout_centerInParent="true"
             android:layout_width="14dp"
             android:layout_height="14dp" />

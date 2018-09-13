@@ -2,10 +2,15 @@ package com.pywl.likegreen.adapter;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.pili.pldroid.player.AVOptions;
@@ -15,13 +20,14 @@ import com.pywl.likegreen.R;
 import java.util.ArrayList;
 
 
-public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.ViewHolder> {
+public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.ViewHolder> implements View.OnClickListener {
     private ArrayList<String> mItemList;
     private ViewHolder mCurViewHolder;
     private DisplayImageOptions mDisplayImageOptions;
-
-    public RecommendedAdapter(ArrayList<String> arrayList) {
+    private Context mContext;
+    public RecommendedAdapter(Context comtext,ArrayList<String> arrayList) {
         mItemList = arrayList;
+        mContext=comtext;
         mDisplayImageOptions = new DisplayImageOptions.Builder()
                 /*.showImageOnLoading(R.drawable.defualt_bg)            //加载图片时的图片
                 .showImageForEmptyUri(R.drawable.defualt_bg)         //没有图片资源时的默认图片
@@ -32,12 +38,31 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                 .build();
     }
 
-   public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_recommend_share:
+                showSharePop(view);
+                break;
+        }
+    }
+
+    private void showSharePop(View view) {
+        View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_recommend_share, null);
+        PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         PLVideoTextureView videoView;
         String videoPath;
         View holderRootView;
-       View topView;
-       View pausePlayImage;
+        View topView;
+        View pausePlayImage;
+        View mShare;
         public ViewHolder(View itemView) {
             super(itemView);
             holderRootView = itemView;
@@ -60,6 +85,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                     }
                 }
             });
+            mShare=itemView.findViewById(R.id.iv_recommend_share);
         }
     }
 
@@ -77,8 +103,8 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         String videoItem = mItemList.get(position);
         holder.videoPath = videoItem;
         holder.holderRootView.setTag(position);
-
         holder.videoView.setLooping(true);
+        holder.mShare.setOnClickListener(this);
     }
 
     @Override
