@@ -69,7 +69,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="lKdUshQy0zEwZvCh0KhEMKiQEs3uvZI2" >
+        </meta-data>
         <!-- 11111111111111111111111111111111111111 -->
         <meta-data
             android:name="AA_DB_NAME"

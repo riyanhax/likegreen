@@ -29,7 +29,7 @@
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_30">
             <TextView
-                android:textSize="@dimen/sp_18"
+                android:textSize="@dimen/sp_14"
                 android:text="@string/wancheng"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <LinearLayout
+
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_width="wrap_content"
@@ -51,6 +52,7 @@
             android:layout_width="@dimen/dp_9"
             android:layout_height="@dimen/dp_11" />
         <TextView
+            android:id="@+id/tv_plant_location"
             android:layout_marginLeft="@dimen/dp_11"
             android:textColor="#3d3d3d"
             android:text="所在位置"

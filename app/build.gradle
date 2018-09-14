@@ -170,4 +170,5 @@ dependencies {
     //PushSDK
     compile 'com.umeng.sdk:push:4.2.0'
     implementation files('libs/umeng-share-core-6.9.3.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
 }

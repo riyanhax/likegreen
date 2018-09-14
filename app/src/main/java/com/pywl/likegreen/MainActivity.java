@@ -23,6 +23,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.pywl.likegreen.activity.EquipmentActivity;
 import com.pywl.likegreen.activity.LongPostActivity;
 import com.pywl.likegreen.activity.PlantDiaryActivity;
+import com.pywl.likegreen.activity.ShareLiftActivity;
 import com.pywl.likegreen.activity.ShortCameraActivity;
 import com.pywl.likegreen.adapter.BaseActivity;
 import com.pywl.likegreen.bean.CallTab;
@@ -253,6 +254,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         contentView.findViewById(R.id.ll_add_plantdiary).setOnClickListener(this);//种植
         contentView.findViewById(R.id.ll_add_equipment).setOnClickListener(this);//应用设备
         contentView.findViewById(R.id.ll_add_longpost).setOnClickListener(this);//长贴子
+        contentView.findViewById(R.id.ll_add_sharelife).setOnClickListener(this);//分享生活
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //设置为失去焦点 方便监听返回键的监听
         popupWindow.setFocusable(false);
@@ -302,6 +304,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.ll_add_longpost://长贴子
                 Intent intentLongPostActivity = new Intent(MainActivity.this, LongPostActivity.class);
                 startActivity(intentLongPostActivity);
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_add_sharelife://分享生活
+                Intent intentShareLiftActivity = new Intent(MainActivity.this, ShareLiftActivity.class);
+                startActivity(intentShareLiftActivity);
                 popupWindow.dismiss();
                 break;
         }
