@@ -70,6 +70,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
         String city;
         String district;
         String street;
+        int locType;
         @Override
         public void onReceiveLocation(BDLocation location){
             //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
@@ -81,6 +82,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
             city= location.getCity();    //获取城市
              district = location.getDistrict();    //获取区县
             street = location.getStreet();    //获取街道信息
+            locType = location.getLocType();
         }
     }
 }
