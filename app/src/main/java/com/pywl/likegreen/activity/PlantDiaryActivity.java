@@ -1,25 +1,38 @@
 package com.pywl.likegreen.activity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.pywl.likegreen.Manifest;
 import com.pywl.likegreen.R;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 /*
 * 种植日记
 * */
 public class PlantDiaryActivity extends AppCompatActivity implements View.OnClickListener {
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
-    private TextView location;
+    private TextView location,plantData;
+    private ImageView imgPicker;
+    private ArrayList<ImageItem> images = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +51,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
 //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
 //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
         //注册监听函数
+
         initView();
         initData();
     }
@@ -46,10 +60,17 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
 
     private void initView() {
         location= (TextView)findViewById(R.id.tv_plant_location);
+        plantData= (TextView)findViewById(R.id.tv_plant_data);
+        imgPicker= (ImageView)findViewById(R.id.iv_plant_imgpicker);
+        findViewById(R.id.tv_plant_wancheng).setOnClickListener(this);
         location.setOnClickListener(this);
+        imgPicker.setOnClickListener(this);
     }
     private void initData() {
-
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 ");// HH:mm:ss
+        //获取当前时间
+        Date date = new Date(System.currentTimeMillis());
+        plantData.setText("默认日期"+simpleDateFormat.format(date));
     }
 
     @Override
@@ -57,9 +78,22 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId()){
             case R.id.tv_plant_location:
                 mLocationClient.start();
-                if (myListener.province!=null)
-                location.setText(myListener.province+"."+myListener.city+"."+myListener.district);
+                if (myListener.province!=null){
+                    location.setText(myListener.province+"."+myListener.city+"."+myListener.district);
+                }
+
                 Log.v("nihaoma",myListener.addr+"00   @"+myListener.city+"@"+myListener.district+"@"+myListener.street);
+                break;
+            case  R.id.tv_plant_wancheng:
+                Intent intentShareLiftActivity = new Intent(PlantDiaryActivity.this, ShareLiftActivity.class);
+                startActivity(intentShareLiftActivity);
+                break;
+            case R.id.iv_plant_imgpicker:
+
+                Intent intent = new Intent(this, ImageGridActivity.class);
+                intent.putExtra(ImageGridActivity.EXTRAS_IMAGES,images);
+                //ImagePicker.getInstance().setSelectedImages(images);
+                startActivityForResult(intent, 100);
                 break;
         }
     }
@@ -83,6 +117,18 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
              district = location.getDistrict();    //获取区县
             street = location.getStreet();    //获取街道信息
             locType = location.getLocType();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            if (data != null && requestCode == 100) {
+                images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                Log.v("nihaoma",images.toString());
+            } else {
+                Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

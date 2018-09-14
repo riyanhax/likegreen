@@ -29,6 +29,7 @@
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_30">
             <TextView
+                android:id="@+id/tv_plant_wancheng"
                 android:textSize="@dimen/sp_14"
                 android:text="@string/wancheng"
                 android:layout_centerInParent="true"
@@ -61,11 +62,14 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <ImageView
+        android:id="@+id/iv_plant_imgpicker"
+        android:src="@drawable/img"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_width="@dimen/dp_80"
         android:layout_height="@dimen/dp_80" />
     <View
+        android:layout_marginTop="@dimen/dp_20"
         android:background="@color/enptyviewbackground"
         android:layout_width="wrap_content"
         android:layout_height="5dp"/>
@@ -75,14 +79,14 @@
         android:layout_height="@dimen/dp_50">
         <ImageView
             android:layout_gravity="center_vertical"
-            android:src="@drawable/weizhi"
-            android:layout_width="@dimen/dp_9"
-            android:layout_height="@dimen/dp_11" />
+            android:src="@drawable/rili"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_plant_data"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dp_11"
             android:textColor="#d8d8d8"
-            android:text="默认日期2018.06.29"
             android:textSize="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
