@@ -18,7 +18,7 @@ import java.util.ArrayList;
 * 嵌套直播页面
 * */
 public class LivingActivity extends AppCompatActivity implements View.OnClickListener {
-    private String[] itemsLive=new String[]{"回顾","直播中","预告"};
+    private String[] itemsLive=new String[]{"回顾","直播中","预告"};//123
     private SlidingTabLayout mHomeLive;
     private ViewPager mViewpager;
     private ArrayList<Fragment> fragmentsLive;
