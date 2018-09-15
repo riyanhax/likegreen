@@ -39,6 +39,8 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
+import jiguang.chat.entity.NotificationClickEventReceiver;
+import jiguang.chat.utils.SharePreferenceManager;
 import okhttp3.OkHttpClient;
 
 /**
@@ -150,11 +152,11 @@ public class MyApplication extends Application {
 
         JMessageClient.init(getApplicationContext(), true);
         JMessageClient.setDebugMode(true);
-
+        SharePreferenceManager.init(getApplicationContext(), JCHAT_CONFIGS);
         //设置Notification的模式
         JMessageClient.setNotificationFlag(JMessageClient.FLAG_NOTIFY_WITH_SOUND | JMessageClient.FLAG_NOTIFY_WITH_LED | JMessageClient.FLAG_NOTIFY_WITH_VIBRATE);
         //注册Notification点击的接收器
-        //new NotificationClickEventReceiver(getApplicationContext());
+        new NotificationClickEventReceiver(getApplicationContext());
        // initImagePicker();
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
         UMConfigure.init(this, "5b99e1bb8f4a9d343a0001e7", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,

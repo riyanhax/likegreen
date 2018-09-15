@@ -22,6 +22,19 @@ android {
         multiDexEnabled true
 
 
+
+//        ndk {
+//            //选择要添加的对应cpu类型的.so库。
+//            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+//            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+//        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.pywl.likegreen",
+                JPUSH_APPKEY : "cee9f4368174507ce3308bfa", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
     }
     buildTypes {
         release {
@@ -105,7 +118,7 @@ dependencies {
     implementation 'com.github.jdsjlzx:LRecyclerView:1.5.0'
 
     //图片加载
-    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
 
     //圆形图片
@@ -126,8 +139,10 @@ dependencies {
     //网易播放端
     api project(path: ':playerkit')
     implementation project(path: ':STMobileJNI')
-    implementation files('libs/jcore-android-1.2.1.jar')
-    implementation files('libs/jmessage-sdk-android-2.6.1.jar')
+
+    //    implementation files('libs/jcore-android-1.2.1.jar')
+
+    //    implementation files('libs/jmessage-sdk-android-2.6.1.jar')
     implementation 'org.greenrobot:eventbus:3.0.0'
 
     //数据库
@@ -148,7 +163,7 @@ dependencies {
     implementation 'me.kaelaela:verticalviewpager:1.0.0@aar'
 
     //七牛播放器
-    implementation files('libs/pldroid-player-2.1.4.jar')
+    api files('libs/pldroid-player-2.1.4.jar')
     implementation 'cn.qssq666:video-player-manager:0.6'
 
     //权限
@@ -173,4 +188,15 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     //图片选择
     implementation 'com.lzy.widget:imagepicker:0.6.1'
+
+    //极光
+    implementation 'cn.jiguang.sdk:jmessage:2.7.0'
+
+    // 此处以JMessage 2.7.0 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:1.2.3'
+  //  implementation 'com.github.chrisbanes.photoview:library:1.2.4'
+
+    // 此处以JCore 1.2.3 版本为例。
+
+
 }

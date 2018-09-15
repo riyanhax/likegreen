@@ -15,6 +15,8 @@ import com.pywl.likegreen.fragment.mine.messagedirect.MyMessageFragment;
 
 import java.util.ArrayList;
 
+import cn.jiguang.api.JCoreInterface;
+
 /*
 * 消息和私信页
 * */
@@ -42,5 +44,16 @@ public class MyMessageAndDirectActivity extends AppCompatActivity {
     private void initView() {
         mStAuditLive=(SlidingTabLayout)findViewById(R.id.st_message_direct);
         mViewPager=(ViewPager) findViewById(R.id.viewpager_message_direct);
+    }
+    @Override
+    protected void onPause() {
+        JCoreInterface.onPause(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        JCoreInterface.onResume(this);
+        super.onResume();
     }
 }
