@@ -173,4 +173,8 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     //图片选择
     implementation 'com.lzy.widget:imagepicker:0.6.1'
+    //PhotoView
+    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
+    //时间选择器
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
 }

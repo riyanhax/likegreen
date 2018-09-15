@@ -10,6 +10,7 @@
     <RelativeLayout
         style="@style/head">
         <ImageView
+            android:id="@+id/iv_return"
             android:layout_centerVertical="true"
             android:src="@drawable/wode_return"
             style="@style/paddinglift"
@@ -22,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_longpost_release"
             android:layout_marginRight="@dimen/dp_20"
             android:textColor="#afafaf"
             android:textSize="@dimen/sp_13"
@@ -74,6 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_25">
     <LinearLayout
+        android:id="@+id/ll_longpost_photo"
         android:layout_alignParentRight="true"
         android:background="@drawable/longpost_ed_bg"
         android:layout_width="wrap_content"
@@ -105,16 +108,20 @@
                 android:src="@drawable/weizhi"
                 android:layout_width="@dimen/dp_10"
                 android:layout_height="@dimen/dp_12" />
-            <EditText
+            <TextView
+                android:id="@+id/tv_longpost_location"
+                android:gravity="center"
                 android:paddingRight="@dimen/dp_7"
-                android:background="@null"
                 android:layout_marginLeft="@dimen/dp_3"
-                android:textColor="#000000"
+                android:textColor="#b3b3b3"
                 android:textSize="@dimen/sp_14"
-                android:textColorHint="#b3b3b3"
-                android:hint="你在哪里?"
+                android:text="你在哪里?"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
         </LinearLayout>
     </RelativeLayout>
+    <com.pywl.likegreen.view.MultiImageView
+        android:id="@+id/iv_longpost_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

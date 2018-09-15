@@ -23,6 +23,8 @@
     <string name="share">分享</string>
     <string name="editv">编辑</string>
     <string name="deletev">删除</string>
+    <string name="submission">提交</string>
+
 
     <string name="personaldata">个人资料</string>
     <string name="headimg">头像</string>
@@ -51,7 +53,7 @@
     <string name="unitprice">单价(元):</string>
     <string name="totalprice">总价(元):</string>
     <string name="contcats">联系人:</string>
-    <string name="contcatsphoto">联系电话:</string>
+    <string name="contcatsphone">联系电话:</string>
     <string name="alipayname">支付宝姓名:</string>
     <string name="alipaynumber">支付宝帐号:</string>
     <string name="paymode">交易方式:</string>

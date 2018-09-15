@@ -61,10 +61,11 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </RelativeLayout>
-    <LinearLayout
+    <com.pywl.likegreen.view.MultiImageView
+        android:id="@+id/iv_note_photo"
         android:background="@color/enptyviewbackground"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_150"/>
+        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:background="@drawable/my_focuse_together"
         android:layout_marginTop="@dimen/dp_10"

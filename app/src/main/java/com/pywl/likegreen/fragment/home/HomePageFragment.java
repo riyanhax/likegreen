@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.activity.mian.ApplyLiveActivity;
 import com.pywl.likegreen.activity.mine.LiveStreamingActivity;
 import com.pywl.likegreen.activity.mian.LivingActivity;
 import com.pywl.likegreen.base.HomeBottomBarFragment;
@@ -60,9 +61,9 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
         mLlHomeLive = v.findViewById(R.id.ll_home_live);//显示直播进入界面
         mRlMoreLive = v.findViewById(R.id.rl_morelive);//更多直播
         mRlMoreLive.setOnClickListener(this);
-
         mGotoLive=v.findViewById(R.id.rl_gotolive);
         mGotoLive.setOnClickListener(this);
+        v.findViewById(R.id.rl_apply_live).setOnClickListener(this);
     }
     private void initData() {
         fragmentsRecom = new ArrayList<>();
@@ -86,8 +87,12 @@ public class HomePageFragment extends HomeBottomBarFragment implements View.OnCl
                 showLiveBtn(isShow);
                 //isShow=!isShow;
                 break;
+            case R.id.rl_apply_live://申请直播
+                Intent intentApplyLiveActivity = new Intent(getActivity(), ApplyLiveActivity.class);
+                startActivity(intentApplyLiveActivity);
+                showLiveBtn(isShow);
+                break;
             case R.id.rl_gotolive://打开直播
-
                 Intent intentSetAnchorActivity = new Intent(getActivity(), LiveStreamingActivity.class);
                 startActivity(intentSetAnchorActivity);
                 showLiveBtn(isShow);

@@ -36,7 +36,7 @@ public class NoteFocusFragment extends Fragment {
         strings.add("1");
         strings.add("1");
         strings.add("1");
-        strings.add("1");
+
         LRecyclerView recyclerView =(LRecyclerView) view.findViewById(R.id.lr_note_hot);
         NoteHotAdapter noteHotAdapter = new NoteHotAdapter(getContext());
         noteHotAdapter.setDataList(strings);
