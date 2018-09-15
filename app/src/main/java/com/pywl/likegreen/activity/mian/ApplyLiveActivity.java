@@ -34,6 +34,7 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+
             case R.id.iv_return:
                 finish();
                 break;
