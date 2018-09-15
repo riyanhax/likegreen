@@ -146,7 +146,7 @@
         <!-- Required. AppKey copied from Portal -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="562e6d561813d1b4fa7771bb" />
+            android:value="cee9f4368174507ce3308bfa" />
 
         <!-- 11111111111111111111111111111111111111 -->
         <activity android:name=".LaunchActivity" />

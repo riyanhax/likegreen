@@ -14,10 +14,14 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+<<<<<<< Updated upstream
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.pywl.likegreen.Manifest;
+=======
+
+>>>>>>> Stashed changes
 import com.pywl.likegreen.R;
 
 import java.text.SimpleDateFormat;

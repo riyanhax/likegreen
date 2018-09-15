@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
+
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     final RxPermissions rxPermissions = new RxPermissions(this);
@@ -57,6 +61,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initView();
         initFragment();
         initPermissions();
+
+        JMessageClient.login("12345678911", "123456", new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                Log.i("asdf",""+i);
+            }
+        });
+
     }
 
 
