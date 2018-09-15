@@ -21,8 +21,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-
-
 //        ndk {
 //            //选择要添加的对应cpu类型的.so库。
 //            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
@@ -30,9 +28,9 @@ android {
 //        }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : "com.pywl.likegreen",
+                JPUSH_PKGNAME: "com.pywl.likegreen",
                 JPUSH_APPKEY : "cee9f4368174507ce3308bfa", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
 
     }
@@ -191,12 +189,9 @@ dependencies {
 
     //极光
     implementation 'cn.jiguang.sdk:jmessage:2.7.0'
-
-    // 此处以JMessage 2.7.0 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.2.3'
-  //  implementation 'com.github.chrisbanes.photoview:library:1.2.4'
-
-    // 此处以JCore 1.2.3 版本为例。
+   //极光ui
+    implementation 'cn.jiguang.imui:messagelist:0.7.4'
 
 
 }

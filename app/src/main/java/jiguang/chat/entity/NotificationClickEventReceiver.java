@@ -37,7 +37,7 @@ public class NotificationClickEventReceiver {
             String appKey = msg.getFromAppKey();
             ConversationType type = msg.getTargetType();
             Conversation conv;
-//            Intent notificationIntent = new Intent(mContext, ChatActivity.class);
+//            Intent notificationIntent = new Intent(mContext, ChatAct2ivity.class);
 //            if (type == ConversationType.single) {
 //                conv = JMessageClient.getSingleConversation(targetId, appKey);
 //                notificationIntent.putExtra(MyApplication.TARGET_ID, targetId);

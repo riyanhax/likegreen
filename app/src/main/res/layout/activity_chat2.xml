@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/enptyviewbackground"
+
+    tools:context="com.pywl.likegreen.activity.ChatAct2ivity">
+     <RelativeLayout
+         android:id="@+id/rl_chat_head"
+         android:background="@color/white"
+        style="@style/head">
+        <ImageView
+            android:id="@+id/chat_return_back"
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return"
+            style="@style/paddinglift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_chat_name"
+            android:layout_centerInParent="true"
+            android:text="聊天人姓名"
+            android:textColor="@color/colorfocuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+         <ImageView
+             android:src="@drawable/data"
+             style="@style/paddingright"
+             android:layout_centerVertical="true"
+             android:layout_alignParentRight="true"
+             android:layout_width="@dimen/dp_14"
+             android:layout_height="@dimen/dp_15" />
+    </RelativeLayout>
+    <com.github.jdsjlzx.recyclerview.LRecyclerView
+        android:id="@+id/lr_chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <RelativeLayout
+        android:id="@+id/rl_chat"
+        android:layout_alignParentBottom="true"
+        android:background="#e9e9e9"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <RelativeLayout
+            android:id="@+id/rl_et_chat"
+            android:layout_toLeftOf="@id/iv_chat_speak"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText
+                android:textColor="#000000"
+                android:id="@+id/et_chat"
+                android:textSize="@dimen/sp_14"
+                android:textColorHint="#b3b3b3"
+                android:hint="   请输入消息..."
+                android:background="@drawable/ricular_chat_edittext"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_9"
+                android:layout_width="match_parent"
+                android:layout_height="29dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_chat_speaking"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_29"
+            android:layout_marginRight="@dimen/dp_9"
+            android:background="@drawable/ricular_chat_edittext"
+            android:layout_marginLeft="20dp"
+            android:layout_toLeftOf="@id/iv_chat_speak"
+            android:layout_centerVertical="true">
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/hope_speaking"
+                    android:src="@drawable/recordingvoice"
+                    android:layout_width="@dimen/dp_11"
+                    android:layout_height="@dimen/dp_16" />
+                <TextView
+                    android:id="@+id/hope_speaking"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="#424242"
+                    android:text="按住录入语音"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+        </RelativeLayout>
+      
+        <ImageView
+            android:id="@+id/iv_chat_speak"
+            android:layout_marginRight="9dp"
+            android:layout_toLeftOf="@id/iv_more_chat"
+            android:src="@drawable/voice_chat"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24" />
+        <ImageView
+            android:id="@+id/iv_more_chat"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/more_liaotian"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24" />
+    </RelativeLayout>
+    <View
+        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:id="@+id/ll_chat_more"
+        android:visibility="gone"
+        android:background="#e9e9e9"
+        android:layout_width="match_parent"
+        android:layout_height="87dp">
+        <LinearLayout
+            android:id="@+id/ll_chat_album"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_17"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/album_chat"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/sp_12"
+                android:textColor="#6b6b6b"
+                android:text="@string/aibum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_chat_shot"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_17"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/shot"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/sp_12"
+                android:textColor="#6b6b6b"
+                android:text="@string/shot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_chat_shortvideo"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_17"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/shortvideo"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/sp_12"
+                android:textColor="#6b6b6b"
+                android:text="@string/smallvideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

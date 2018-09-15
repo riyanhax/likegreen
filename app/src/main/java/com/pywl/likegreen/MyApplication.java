@@ -99,6 +99,7 @@ public class MyApplication extends Application {
 
     public static final String DRAFT = "draft";
     public static final String GROUP_ID = "groupId";
+    public static final String message_tyoe = "messagetype";
     public static final String POSITION = "position";
     public static final String MsgIDs = "msgIDs";
     public static final String NAME = "name";

@@ -6,9 +6,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import com.pywl.likegreen.R;
-import com.pywl.likegreen.MyApplication;
 
+import com.pywl.likegreen.MyApplication;
+import com.pywl.likegreen.R;
+import com.pywl.likegreen.chat.ChatActivity;
 import com.pywl.likegreen.chat.adapter.ConversationListAdapter;
 import com.pywl.likegreen.fragment.mine.messagedirect.MyDirectFragment;
 import com.pywl.likegreen.fragment.mine.messagedirect.widget.ConversationListView;
@@ -32,7 +33,7 @@ import jiguang.chat.utils.SortTopConvList;
  */
 
 public class ConversationListController implements
-        AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener ,View.OnClickListener{
+        AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnClickListener {
 
     private ConversationListView mConvListView;
     private MyDirectFragment mContext;
@@ -124,19 +125,23 @@ public class ConversationListController implements
                 }
                 long groupId = ((GroupInfo) conv.getTargetInfo()).getGroupID();
                 intent.putExtra(MyApplication.GROUP_ID, groupId);
+                String type= conv.getType().name();
+                intent.putExtra(MyApplication.message_tyoe, type);
                 intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
-//                intent.setClass(mContext.getActivity(), ChatActivity.class);
-//                mContext.getActivity().startActivity(intent);
+                intent.setClass(mContext.getActivity(), ChatActivity.class);
+                mContext.getActivity().startActivity(intent);
                 return;
                 //单聊
             } else {
-                String targetId = ((UserInfo) conv.getTargetInfo()).getUserName();
+                String targetId = ((UserInfo) conv.getTargetInfo()).getUserName();//
+                String type= conv.getType().name();
+                intent.putExtra(MyApplication.message_tyoe, type);
                 intent.putExtra(MyApplication.TARGET_ID, targetId);
                 intent.putExtra(MyApplication.TARGET_APP_KEY, conv.getTargetAppKey());
                 intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
             }
-//            intent.setClass(mContext.getActivity(), ChatActivity.class);
-//            mContext.getContext().startActivity(intent);
+            intent.setClass(mContext.getActivity(), ChatActivity.class);
+            mContext.getContext().startActivity(intent);
 
         }
     }
