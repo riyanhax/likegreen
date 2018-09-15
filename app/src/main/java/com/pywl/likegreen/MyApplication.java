@@ -6,6 +6,8 @@ import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
 
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.view.CropImageView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -16,6 +18,7 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.netease.LSMediaCapture.util.storage.StorageUtil;
+import com.pywl.likegreen.utils.GildeImageLoader;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
@@ -155,8 +158,9 @@ public class MyApplication extends Application {
        // initImagePicker();
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
         UMConfigure.init(this, "5b99e1bb8f4a9d343a0001e7", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
-                "");
-
+                "99d7736e3d082f22eb2186d50014ed4b");
+        UMConfigure.setLogEnabled(true);
+        initImgPicker();
     }
     //配置分享
     {
@@ -164,7 +168,19 @@ public class MyApplication extends Application {
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
 
     }
-
+    private void initImgPicker(){
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new GildeImageLoader());   //设置图片加载器
+        imagePicker.setShowCamera(true);  //显示拍照按钮
+        imagePicker.setCrop(false);        //允许裁剪（单选才有效）
+        imagePicker.setSaveRectangle(true); //是否按矩形区域保存
+        imagePicker.setSelectLimit(3);    //选中数量限制
+        imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
+        imagePicker.setFocusWidth(800);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setFocusHeight(800);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
+        imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
+    }
 
     @Override
     public void onTerminate() {

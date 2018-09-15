@@ -270,10 +270,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onBackPressed() {
         if (popupWindow!=null){
             popupWindow.dismiss();
-        }else {
-            super.onBackPressed();
         }
-
+            super.onBackPressed();
     }
 
     @Override

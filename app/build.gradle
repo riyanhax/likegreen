@@ -124,7 +124,7 @@ dependencies {
     implementation 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
 
     //网易播放端
-    implementation project(path: ':playerkit')
+    api project(path: ':playerkit')
     implementation project(path: ':STMobileJNI')
     implementation files('libs/jcore-android-1.2.1.jar')
     implementation files('libs/jmessage-sdk-android-2.6.1.jar')
@@ -144,7 +144,7 @@ dependencies {
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.12'
 
     //网易上传sdk
-    implementation project(path: ':vcloudnosupload')
+    api project(path: ':vcloudnosupload')
     implementation 'me.kaelaela:verticalviewpager:1.0.0@aar'
 
     //七牛播放器
@@ -171,4 +171,6 @@ dependencies {
     implementation 'com.umeng.sdk:push:4.2.0'
     implementation files('libs/umeng-share-core-6.9.3.jar')
     implementation files('libs/BaiduLBS_Android.jar')
+    //图片选择
+    implementation 'com.lzy.widget:imagepicker:0.6.1'
 }

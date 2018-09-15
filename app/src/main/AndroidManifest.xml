@@ -71,7 +71,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="lKdUshQy0zEwZvCh0KhEMKiQEs3uvZI2" >
+            android:value="9dP8WSLNKYXFDrM5bfeMPwYOY1M0vYMY" >
         </meta-data>
         <!-- 11111111111111111111111111111111111111 -->
         <meta-data
