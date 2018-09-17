@@ -10,6 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/STMobileJNI" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/chatinput" />
+            <option value="$PROJECT_DIR$/messagelist" />
             <option value="$PROJECT_DIR$/playerkit" />
             <option value="$PROJECT_DIR$/vcloudnosupload" />
           </set>

@@ -133,7 +133,7 @@
     <string name="group_notification">[群组消息]</string>
     <string name="type_custom">[自定义消息]</string>
     <!--11111111111demo导入的1111111111111-->
-<!--  chat-->
+    <!--  chat-->
     <string name="network_disconnected_hint">当前网络不可用, 请检查您的网络设置</string>
     <string name="somebody_at_me">[有人@我]</string>
     <string name="jmui_delete_conv">删除该聊天</string>

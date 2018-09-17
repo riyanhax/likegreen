@@ -71,7 +71,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="9dP8WSLNKYXFDrM5bfeMPwYOY1M0vYMY" />
+            android:value="9dP8WSLNKYXFDrM5bfeMPwYOY1M0vYMY"></meta-data>
         <!-- 11111111111111111111111111111111111111 -->
         <meta-data
             android:name="AA_DB_NAME"
@@ -167,7 +167,7 @@
 
         <service android:name=".service.PlayerService" />
 
-        <activity android:name=".activity.ChatActivity" />
+        <activity android:name=".activity.ChatAct2ivity" />
         <activity android:name=".activity.mine.MyFocuseActivity" />
         <activity android:name=".activity.mine.MyFansActivity" />
         <activity android:name=".activity.mian.LivingActivity" />
@@ -208,12 +208,13 @@
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+
         <activity
             android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
@@ -240,8 +241,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="o5PxuQQEjeqbqXoc" />
+                <data android:scheme="1106613662" />
             </intent-filter>
         </activity>
         <activity
@@ -249,8 +249,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 友盟 -->
+        <activity android:name=".chat.ChatActivity"></activity>
         <activity android:name=".activity.PhtotViewActivity" />
         <activity android:name=".activity.mian.ApplyLiveActivity"></activity>
+
     </application>
 
 </manifest>
