@@ -1,8 +1,5 @@
 package com.pywl.likegreen.chat.bean;
 
-import com.pywl.likegreen.chat.bean.DefaultUser;
-
-import java.util.HashMap;
 import java.util.UUID;
 
 import cn.jiguang.imui.commons.models.IMessage;
@@ -14,12 +11,12 @@ public class MyMessage implements IMessage {
     private long id;
     private String text;
     private String timeString;
-    private int type;
+    private MessageType type;
     private IUser user;
-    private String contentFile;
+    private String mediaFilePath;
     private long duration;
 
-    public MyMessage(String text, int type) {
+    public MyMessage(String text, MessageType type) {
         this.text = text;
         this.type = type;
         this.id = UUID.randomUUID().getLeastSignificantBits();
@@ -43,7 +40,7 @@ public class MyMessage implements IMessage {
     }
 
     public void setMediaFilePath(String path) {
-        this.contentFile = path;
+        this.mediaFilePath = path;
     }
 
     public void setDuration(long duration) {
@@ -53,16 +50,6 @@ public class MyMessage implements IMessage {
     @Override
     public long getDuration() {
         return duration;
-    }
-
-    @Override
-    public String getProgress() {
-        return null;
-    }
-
-    @Override
-    public HashMap<String, String> getExtras() {
-        return null;
     }
 
     public void setTimeString(String timeString) {
@@ -75,13 +62,8 @@ public class MyMessage implements IMessage {
     }
 
     @Override
-    public int getType() {
+    public MessageType getType() {
         return type;
-    }
-
-    @Override
-    public MessageStatus getMessageStatus() {
-        return null;
     }
 
     @Override
@@ -91,6 +73,6 @@ public class MyMessage implements IMessage {
 
     @Override
     public String getMediaFilePath() {
-        return contentFile;
+        return mediaFilePath;
     }
 }
