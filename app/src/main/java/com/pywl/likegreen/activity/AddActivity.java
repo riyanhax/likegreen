@@ -62,7 +62,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 startActivity(intentEquipmentActivity);
                 break;
             case R.id.ll_add_longpost://长贴子
-                Intent intentLongPostActivity = new Intent(AddActivity.this, LongPostActivity.class);
+                Intent intentLongPostActivity = new Intent(AddActivity.this, WriteLongPostActivity.class);
                 startActivity(intentLongPostActivity);
                 break;
         }

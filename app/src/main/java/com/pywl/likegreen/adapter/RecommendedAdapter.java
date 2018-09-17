@@ -21,6 +21,7 @@ import com.pywl.likegreen.R;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMWeb;
 
 import java.util.ArrayList;
 
@@ -58,11 +59,16 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                 popupWindow.dismiss();
                 break;
             case R.id.ll_share_weixin:
+                UMWeb web = new UMWeb("www.baidu.com");
+                web.setTitle("This is music title");//标题
+                // web.setThumb(thumb);  //缩略图
+                web.setDescription("my description");//描述
                 new ShareAction(mContext)
                         .setPlatform(SHARE_MEDIA.WEIXIN)//微信
-                        .withText("hello")//分享内容
+                        .withMedia(web)
                         .setCallback(umShareListener)//回调监听器
                         .share();
+
                 popupWindow.dismiss();
                 break;
             case R.id.ll_share_weibo:

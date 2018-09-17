@@ -30,6 +30,7 @@ import com.netease.vcloud.video.render.NeteaseView;
 import com.netease.vcloudnosupload.util.FileUtil;
 import com.pywl.likegreen.R;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,7 +55,7 @@ import static com.netease.transcoding.TranscodingAPI.TRAN_SOURCE_NO_VIDEO_OR_AUD
 public class ShortCameraActivity extends AppCompatActivity implements MessageHandler,View.OnClickListener {
     public static int APPLY_LIVE=0;
     private String appkey="4edf106797fe7de29d4cffc6bf073691";
-
+    private String fromActivity;
 
     private static final int SET_COUNT_TIME = 0;
     private static final int ShortVideoProcess_CHOOSE = 100;
@@ -89,6 +90,11 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                   int t= (int) msg.obj;
                     Log.v("nihaoma",""+t);
                     mTvCountTime.setText(String.valueOf(t));
+                    if (t==15){
+                        hideView(ishide);
+                        mTakePhotoBtn.setClickable(false);
+
+                    }
                     break;
             }
         }
@@ -103,6 +109,9 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         params.screenBrightness = 0.7f;
         getWindow().setAttributes(params);
         setContentView(R.layout.activity_short_camera);
+        //判断哪里开启
+        Intent intent = getIntent();
+        fromActivity = intent.getStringExtra("ApplyLiveActivity");
 
         //以下为SDK调用主要步骤，请用户参考使用
         //1、创建录制实例
@@ -132,13 +141,14 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
 
     private void initView() {
          mTakePhotoHead = findViewById(R.id.rl_takephoto_head);//顶部一栏
-         mTakePhotofilter = findViewById(R.id.ll_takephoto_filter);//滤镜
+         //mTakePhotofilter = findViewById(R.id.ll_takephoto_filter);//滤镜
          mTakePhotoAlbum = findViewById(R.id.ll_takephoto_album);//相册
          mTakePhotoSecond = findViewById(R.id.rl_takephoto_sc_bg);//读秒
          mTakePhotoBtn = (ImageView)findViewById(R.id.iv_takephoto_btn);//拍照
          mTakePhotoBtn.setOnClickListener(this);
          mTakePhotoStr = findViewById(R.id.tv_takephoto_str);//点击拍照字
          mTakePhotoCancel = findViewById(R.id.iv_takephoto_cancel);//取消
+         mTakePhotoCancel.setOnClickListener(this);
          mTakePhotoChoose = findViewById(R.id.iv_takephoto_choose);//确认//录制完成
          mTakePhotoChoose.setOnClickListener(this);
          mTvCountTime = (TextView)findViewById(R.id.tv_takephoto_counttime);
@@ -149,8 +159,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         flashBtn.setOnClickListener(this);
         musicChoose = findViewById(R.id.iv_music_svideo);//背景音乐选择
         musicChoose.setOnClickListener(this);
-        voiceBtn = findViewById(R.id.iv_voice_svideo);//声音
-        voiceBtn.setOnClickListener(this);
+        findViewById(R.id.takephote_close).setOnClickListener(this);//关闭按钮
     }
 
 
@@ -185,8 +194,18 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
             case R.id.iv_music_svideo://音乐
                 openFileChoose(ShortVideoProcess_CHOOSE);
                 break;
-            case R.id.iv_voice_svideo://声音
-
+            case R.id.takephote_close://关闭按钮
+                finish();
+                break;
+            case R.id.iv_takephoto_cancel://删除
+                countTime=0;
+                mTvCountTime.setText("0");
+                hideView(false);
+                for(String file: videoFiles){
+                    File videoPath = new File(file);
+                    videoPath.delete();
+                }
+                videoFiles= new ArrayList<>();
                 break;
         }
     }
@@ -195,7 +214,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
     private void hideView(boolean b) {
         if (b){
             mTakePhotoHead.setVisibility(View.GONE);
-            mTakePhotofilter.setVisibility(View.GONE);
+           // mTakePhotofilter.setVisibility(View.GONE);
             mTakePhotoAlbum.setVisibility(View.GONE);
             mTakePhotoStr.setVisibility(View.GONE);
             mTakePhotoSecond.setVisibility(View.VISIBLE);
@@ -203,14 +222,14 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
             mTakePhotoCancel.setVisibility(View.GONE);
             mTakePhotoChoose.setVisibility(View.GONE);
             musicChoose.setVisibility(View.GONE);
-            voiceBtn.setVisibility(View.GONE);
+           // voiceBtn.setVisibility(View.GONE);
             videoFilePath =Environment.getExternalStorageDirectory() + "/transcode/video_" + formatter_file_name.format(new Date()) + ".mp4";
             videoFiles.add(videoFilePath);//视频文件传到提交界面
             mMediaRecord.startRecord(videoFilePath);
             ishide=false;
         }else {
             mTakePhotoHead.setVisibility(View.VISIBLE);
-            mTakePhotofilter.setVisibility(View.VISIBLE);
+           // mTakePhotofilter.setVisibility(View.VISIBLE);
             mTakePhotoAlbum.setVisibility(View.VISIBLE);
             mTakePhotoStr.setVisibility(View.VISIBLE);
             mTakePhotoSecond.setVisibility(View.GONE);
@@ -222,7 +241,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                 mTakePhotoCancel.setVisibility(View.VISIBLE);
                 mTakePhotoChoose.setVisibility(View.VISIBLE);
                 musicChoose.setVisibility(View.VISIBLE);
-                voiceBtn.setVisibility(View.VISIBLE);
+               // voiceBtn.setVisibility(View.VISIBLE);
                 switchCamera.setVisibility(View.GONE);
                 flashBtn.setVisibility(View.GONE);
             }
@@ -582,9 +601,20 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                         showToast("视频处理已完成");
                         break;
                 }
-                startUploadActivity();
+                if (fromActivity.equals("ApplyLiveActivity")){
+                    resultApplyLive();
+                }else {
+                    startUploadActivity();
+                }
+
             }
         }.execute(transcodePara);
+    }
+
+    private void resultApplyLive() {
+        Intent intent = new Intent();
+        intent.putExtra("videoPath",outPutVideoPath);
+        setResult(APPLY_LIVE,intent);
     }
 
     private void startUploadActivity() {
@@ -592,7 +622,6 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         Intent intentVideoReleaseActivity = new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);
         intentVideoReleaseActivity.putExtra("ShortCameraActivity",outPutVideoPath);
         startActivity(intentVideoReleaseActivity);
-        setResult(APPLY_LIVE,intentVideoReleaseActivity);
         finish();
         }
     }

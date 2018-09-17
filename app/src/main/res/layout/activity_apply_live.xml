@@ -307,6 +307,7 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/tv_submission"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_18"
                     android:gravity="center"

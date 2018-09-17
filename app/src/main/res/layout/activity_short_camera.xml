@@ -53,14 +53,14 @@
             android:visibility="gone"
             android:layout_width="@dimen/dp_18"
             android:layout_height="@dimen/dp_16" />
-        <ImageView
+<!--        <ImageView
             android:id="@+id/iv_voice_svideo"
             android:layout_toLeftOf="@id/iv_music_svideo"
             android:layout_marginRight="@dimen/dp_17"
             android:src="@drawable/voice_svideo"
             android:visibility="gone"
             android:layout_width="@dimen/dp_18"
-            android:layout_height="@dimen/dp_16" />
+            android:layout_height="@dimen/dp_16" />-->
     </RelativeLayout>
     <RelativeLayout
 
@@ -71,6 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+
             android:id="@+id/takephote_close"
             android:src="@drawable/videoclose"
             android:layout_width="@dimen/dp_16"
@@ -88,7 +89,7 @@
             android:layout_width="@dimen/dp_18"
             android:layout_height="@dimen/dp_16" />
     </RelativeLayout>
-    <LinearLayout
+<!--    <LinearLayout
         android:id="@+id/ll_takephoto_filter"
         android:layout_marginBottom="@dimen/dp_21"
         android:layout_marginLeft="@dimen/dp_35"
@@ -108,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
         <ImageView
             android:id="@+id/iv_takephoto_btn"
@@ -123,7 +124,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:text="@string/takephoto"
+            android:text="点击录像"
             android:layout_marginBottom="@dimen/dp_8"
             android:textSize="12sp"
             android:layout_width="wrap_content"
@@ -155,8 +156,7 @@
         android:visibility="gone"
         android:layout_marginBottom="@dimen/dp_45"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp_35"
-        android:layout_toRightOf="@id/ll_takephoto_filter"
+        android:layout_marginLeft="@dimen/dp_90"
         android:src="@drawable/delete_short_camer"
         android:layout_width="@dimen/dp_33"
         android:layout_height="@dimen/dp_22" />

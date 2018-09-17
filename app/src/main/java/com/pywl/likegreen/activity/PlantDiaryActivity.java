@@ -17,6 +17,7 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.activity.mine.ShareLiftActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

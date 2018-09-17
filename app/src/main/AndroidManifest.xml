@@ -163,7 +163,9 @@
         <activity android:name=".activity.mine.MyMessageAndDirectActivity" />
         <activity android:name=".activity.mine.SystemSettingsActivity" />
         <activity android:name=".activity.mine.PlayBackActivity" />
-        <activity android:name=".activity.ShareLiftActivity" />
+        <activity android:name=".activity.mine.ShareLiftActivity" />
+        <activity android:name=".activity.mine.LongPostActivity" />
+        <activity android:name=".activity.mine.JoinThemeActivity" />
 
         <service android:name=".service.PlayerService" />
 
@@ -197,7 +199,7 @@
         <activity android:name=".activity.mine.AdMsgInputActivity" />
         <activity android:name=".activity.PlantDiaryActivity" />
         <activity android:name=".activity.EquipmentActivity" />
-        <activity android:name=".activity.LongPostActivity" />
+        <activity android:name=".activity.WriteLongPostActivity" />
         <activity android:name=".activity.mine.LivePreViewActivity" />
         <activity android:name=".activity.mine.LivePlayBackActivity" />
         <activity android:name=".activity.mine.LiveNowActivity" />

@@ -19,6 +19,7 @@ import com.pywl.likegreen.MainActivity;
 import com.pywl.likegreen.MyApplication;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.activity.ShortCameraActivity;
+import com.pywl.likegreen.activity.mine.LivePreViewActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +34,6 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_apply_live);
         initView();
     }
-
     private void initView() {
        findViewById(R.id.iv_return).setOnClickListener(this);
        findViewById(R.id.rl_data_picker).setOnClickListener(this);//选择开播时间
@@ -43,6 +43,7 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
          mPhototwo = (ImageView)findViewById(R.id.apply_live_photo_two);
          mPhotothree = (ImageView)findViewById(R.id.apply_live_photo_three);
          mshortVideo = (ImageView)findViewById(R.id.apply_live_shortvideo);//短视频拍摄
+        findViewById(R.id.tv_submission).setOnClickListener(this);//提交
         mPhotoOne.setOnClickListener(this);
         mPhototwo.setOnClickListener(this);
         mPhotothree.setOnClickListener(this);
@@ -69,8 +70,13 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
             break;
             case R.id.apply_live_shortvideo:
                 Intent intentShortCameraActivity= new Intent(this, ShortCameraActivity.class);
-
+                intentShortCameraActivity.putExtra("ApplyLiveActivity","ApplyLiveActivity");
                 startActivityForResult(intentShortCameraActivity, 200);
+                break;
+            case R.id.tv_submission://提交
+                Intent intentLivePreViewActivity = new Intent(this, LivePreViewActivity.class);
+                startActivity(intentLivePreViewActivity);
+                finish();
                 break;
         }
     }
@@ -84,6 +90,12 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
                 setImages(images);
             } else {
                 Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (resultCode==ShortCameraActivity.APPLY_LIVE){
+            if (data!=null&&requestCode==200){
+                String shortCameraActivity = data.getStringExtra("videoPath");
+                Log.v("nihaoma",shortCameraActivity);
             }
         }
 
@@ -101,15 +113,15 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
                     mPhototwo.setVisibility(View.VISIBLE);
                     mPhotothree.setVisibility(View.VISIBLE);
                     MyApplication.imagePicker.getImageLoader().displayImage(this,list.get(0).path,mPhotoOne,mPhotoOne.getMaxWidth(),mPhotoOne.getMaxHeight());
-                    MyApplication.imagePicker.getImageLoader().displayImage(this,list.get(0).path,mPhototwo,mPhototwo.getMaxWidth(),mPhototwo.getMaxHeight());
+                    MyApplication.imagePicker.getImageLoader().displayImage(this,list.get(1).path,mPhototwo,mPhototwo.getMaxWidth(),mPhototwo.getMaxHeight());
                     mPhotothree.setImageResource(R.drawable.addphotos);
                     break;
                 case 3:
                     mPhototwo.setVisibility(View.VISIBLE);
                     mPhotothree.setVisibility(View.VISIBLE);
                     MyApplication.imagePicker.getImageLoader().displayImage(this,list.get(0).path,mPhotoOne,mPhotoOne.getMaxWidth(),mPhotoOne.getMaxHeight());
-                    MyApplication.imagePicker.getImageLoader().displayImage(this,list.get(0).path,mPhototwo,mPhototwo.getMaxWidth(),mPhototwo.getMaxHeight());
-                    MyApplication.imagePicker.getImageLoader().displayImage(this,list.get(0).path,mPhotothree,mPhotothree.getMaxWidth(),mPhotothree.getMaxHeight());
+                    MyApplication.imagePicker.getImageLoader().displayImage(this,list.get(1).path,mPhototwo,mPhototwo.getMaxWidth(),mPhototwo.getMaxHeight());
+                    MyApplication.imagePicker.getImageLoader().displayImage(this,list.get(2).path,mPhotothree,mPhotothree.getMaxWidth(),mPhotothree.getMaxHeight());
                     break;
             }
 

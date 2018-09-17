@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
 
     signingConfigs {
-        config {
+        debug {
             storeFile file('D:/green.jks')
             storePassword '1234567'
             keyAlias 'key0'
@@ -37,12 +37,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 

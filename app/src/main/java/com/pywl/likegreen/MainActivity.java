@@ -19,13 +19,12 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.pywl.likegreen.activity.EquipmentActivity;
-import com.pywl.likegreen.activity.LongPostActivity;
+import com.pywl.likegreen.activity.WriteLongPostActivity;
 import com.pywl.likegreen.activity.PlantDiaryActivity;
-import com.pywl.likegreen.activity.ShareLiftActivity;
+import com.pywl.likegreen.activity.mine.ShareLiftActivity;
 import com.pywl.likegreen.activity.ShortCameraActivity;
+import com.pywl.likegreen.activity.mian.ApplyLiveActivity;
 import com.pywl.likegreen.adapter.BaseActivity;
 import com.pywl.likegreen.bean.CallTab;
 import com.pywl.likegreen.fragment.home.HomeFindFragment;
@@ -62,13 +61,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initFragment();
         initPermissions();
 
-        JMessageClient.login("12345678911", "123456", new BasicCallback() {
+        JMessageClient.login("12345678912", "123456", new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
                 Log.i("asdf",""+i);
             }
         });
-
     }
 
 
@@ -118,7 +116,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
-
+                EventBus.getDefault().post(CallTab.MAIN);
                 break;
             case R.id.main_rbt_note:
                 if (main_note == null) {
@@ -134,6 +132,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_note.setTextColor(getResources().getColor(R.color.green));
                 main_rbt_note.setChecked(true);
+                EventBus.getDefault().post(CallTab.NOTE);
                 break;
            // case R.id.main_rbt_add:
                 /*Intent intent = new Intent(getApplicationContext(), AddActivity.class);
@@ -166,6 +165,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 main_rbt_find.setChecked(true);
                 main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                EventBus.getDefault().post(CallTab.FIND);
                 break;
             case R.id.main_rbt_mine:
                 if (main_mine == null) {
@@ -181,6 +181,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 main_rbt_mine.setTextColor(getResources().getColor(R.color.green));
                 main_rbt_mine.setChecked(true);
                 main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));
+                EventBus.getDefault().post(CallTab.MINE);
                 break;
         }
         transaction.commitAllowingStateLoss();
@@ -227,7 +228,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     //接收eventbus事件
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setTab(CallTab callTab){
-        switch (callTab){
+    /*    switch (callTab){
             case MAIN:
                 main_rbt_home.setChecked(true);
                 break;
@@ -240,7 +241,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case FIND:
                 main_rbt_find.setChecked(true);
                 break;
-        }
+        }*/
     }
     @Override
     protected void onDestroy() {
@@ -260,13 +261,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
     private void showPopupWindow() {
         View contentView = LayoutInflater.from(this).inflate(R.layout.pop_add, null);
-
         contentView.findViewById(R.id.rl_add_close).setOnClickListener(this);//关闭
         contentView.findViewById(R.id.ll_add_shortvideo).setOnClickListener(this);//短视频
         contentView.findViewById(R.id.ll_add_plantdiary).setOnClickListener(this);//种植
         contentView.findViewById(R.id.ll_add_equipment).setOnClickListener(this);//应用设备
         contentView.findViewById(R.id.ll_add_longpost).setOnClickListener(this);//长贴子
         contentView.findViewById(R.id.ll_add_sharelife).setOnClickListener(this);//分享生活
+        contentView.findViewById(R.id.ll_add_live).setOnClickListener(this);//直播
+
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //设置为失去焦点 方便监听返回键的监听
         popupWindow.setFocusable(false);
@@ -312,13 +314,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 popupWindow.dismiss();
                 break;
             case R.id.ll_add_longpost://长贴子
-                Intent intentLongPostActivity = new Intent(MainActivity.this, LongPostActivity.class);
+                Intent intentLongPostActivity = new Intent(MainActivity.this, WriteLongPostActivity.class);
                 startActivity(intentLongPostActivity);
                 popupWindow.dismiss();
                 break;
             case R.id.ll_add_sharelife://分享生活
                 Intent intentShareLiftActivity = new Intent(MainActivity.this, ShareLiftActivity.class);
                 startActivity(intentShareLiftActivity);
+                popupWindow.dismiss();
+                break;
+            case R.id.ll_add_live://直播
+                Intent intentApplyLiveActivity = new Intent(MainActivity.this, ApplyLiveActivity.class);
+                startActivity(intentApplyLiveActivity);
                 popupWindow.dismiss();
                 break;
         }

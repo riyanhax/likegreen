@@ -328,7 +328,23 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
             mShortVideoListAdapter.pauseCurVideoView();
         }
     }
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            //相当于Fragment的onResume
+            if (mShortVideoListAdapter != null) {
+                mShortVideoListAdapter.startCurVideoView();
+            } else {
+                mShouldPlay = true;
+            }
+        } else {
+            //相当于Fragment的onPause
+            if (mShortVideoListAdapter != null) {
+                mShortVideoListAdapter.pauseCurVideoView();
+            }
+        }
+    }
     @Override
     public void onStop() {
         super.onStop();

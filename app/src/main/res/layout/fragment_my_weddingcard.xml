@@ -30,7 +30,7 @@
         </RelativeLayout>
         <include layout="@layout/layout_line"/>
         <RelativeLayout
-            android:id="@+id/rl_my_playback"
+            android:id="@+id/rl_my_join_theme"
             android:layout_width="match_parent"
             android:layout_height="59dp">
             <ImageView
@@ -50,7 +50,7 @@
         </RelativeLayout>
         <include layout="@layout/layout_line"/>
         <RelativeLayout
-            android:id="@+id/rl_my_air_on"
+            android:id="@+id/rl_my_longpost"
             android:layout_width="match_parent"
             android:layout_height="59dp">
             <ImageView

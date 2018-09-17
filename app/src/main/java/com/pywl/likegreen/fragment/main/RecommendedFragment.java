@@ -15,9 +15,16 @@ import android.view.ViewGroup;
 
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.RecommendedAdapter;
+import com.pywl.likegreen.bean.CallTab;
 
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+
+import cn.jpush.im.android.api.event.MessageEvent;
 
 
 /**
@@ -31,6 +38,7 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommended, container, false);
+        EventBus.getDefault().register(this);
         initDate();
         initView(view);
         return view;
@@ -123,8 +131,27 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            //相当于Fragment的onResume
+            if (mShortVideoListAdapter != null) {
+                mShortVideoListAdapter.startCurVideoView();
+            } else {
+                mShouldPlay = true;
+            }
+        } else {
+            //相当于Fragment的onPause
+            if (mShortVideoListAdapter != null) {
+                mShortVideoListAdapter.pauseCurVideoView();
+            }
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         mShortVideoListAdapter.stopCurVideoView();
     }
     private void startCurVideoView() {
@@ -139,6 +166,21 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
                 RecommendedAdapter.ViewHolder viewHolder = (RecommendedAdapter.ViewHolder) mVideoList.getChildViewHolder(holderView);
                 mShortVideoListAdapter.setCurViewHolder(viewHolder);
                 mShortVideoListAdapter.startCurVideoView();
+            }
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void control(CallTab tab) {
+        if (tab.equals(CallTab.MAIN)){
+            if (mShortVideoListAdapter != null) {
+                mShortVideoListAdapter.startCurVideoView();
+            } else {
+                mShouldPlay = true;
+            }
+
+        }else {
+            if (mShortVideoListAdapter != null) {
+                mShortVideoListAdapter.pauseCurVideoView();
             }
         }
     }

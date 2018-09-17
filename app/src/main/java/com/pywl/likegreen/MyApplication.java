@@ -131,6 +131,7 @@ public class MyApplication extends Application {
     public static List<UserInfo> alreadyRead = new ArrayList<>();
     public static List<UserInfo> unRead = new ArrayList<>();
     public static List<String> forAddFriend = new ArrayList<>();
+    public static ImagePicker imagePicker;
 
     @Override
     public void onCreate() {
@@ -172,7 +173,7 @@ public class MyApplication extends Application {
 
     }
     private void initImgPicker(){
-        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new GildeImageLoader());   //设置图片加载器
         imagePicker.setShowCamera(true);  //显示拍照按钮
         imagePicker.setCrop(false);        //允许裁剪（单选才有效）
