@@ -19,6 +19,8 @@ import com.bumptech.glide.request.transition.Transition;
 import com.pywl.likegreen.MyApplication;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.base.BaseActivity;
+import com.pywl.likegreen.chat.bean.DefaultUser;
+import com.pywl.likegreen.chat.bean.MyMessage;
 import com.pywl.likegreen.chat.constant.ChatConstant;
 
 import java.util.ArrayList;

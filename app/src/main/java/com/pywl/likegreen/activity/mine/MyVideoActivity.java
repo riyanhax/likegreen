@@ -28,6 +28,7 @@ public class MyVideoActivity extends AppCompatActivity implements View.OnClickLi
         videoPlayer= (PLVideoTextureView)findViewById(R.id.my_video);
         videoPlayer.setAVOptions(createAVOptions());
         videoPlayer.setVideoPath(url);
+        videoPlayer.setDisplayAspectRatio(PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT);
         videoPlayer.start();
         mVideoStop = findViewById(R.id.iv_video_stop);
         mControlview = findViewById(R.id.control_view);

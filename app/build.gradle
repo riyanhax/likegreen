@@ -191,7 +191,12 @@ dependencies {
     implementation 'cn.jiguang.sdk:jmessage:2.7.0'
     implementation 'cn.jiguang.sdk:jcore:1.2.3'
    //极光ui
+    implementation project(':messagelist')
+    implementation project(':chatinput')
 
 
-
+    //PhotoView
+    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
+    //时间选择器
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
 }

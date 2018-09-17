@@ -14,12 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48">
         <ImageView
+            android:id="@+id/iv_note_search"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_centerVertical="true"
             android:src="@drawable/search_riji"
             android:layout_width="@dimen/dp_16"
             android:layout_height="@dimen/dp_16" />
         <ImageView
+            android:id="@+id/iv_note_bell"
             android:layout_marginRight="@dimen/dp_20"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

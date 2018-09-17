@@ -209,6 +209,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+
         <activity
             android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -240,8 +241,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="17cadcbcbb05c51bb017572437ad792f" />
+                <data android:scheme="1106613662" />
             </intent-filter>
         </activity>
         <activity
@@ -250,6 +250,9 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 友盟 -->
         <activity android:name=".chat.ChatActivity"></activity>
+        <activity android:name=".activity.PhtotViewActivity" />
+        <activity android:name=".activity.mian.ApplyLiveActivity"></activity>
+
     </application>
 
 </manifest>

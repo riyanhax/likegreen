@@ -1,1 +1,1 @@
-include ':app', ':playerkit', ':STMobileJNI', ':vcloudnosupload'
+include ':app', ':playerkit', ':STMobileJNI', ':vcloudnosupload', ':chatinput', ':messagelist'
