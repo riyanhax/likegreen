@@ -191,7 +191,7 @@ dependencies {
     implementation 'cn.jiguang.sdk:jmessage:2.7.0'
     implementation 'cn.jiguang.sdk:jcore:1.2.3'
    //极光ui
-    implementation 'cn.jiguang.imui:messagelist:0.7.4'
+
 
 
 }
