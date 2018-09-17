@@ -52,6 +52,7 @@ import static com.netease.transcoding.TranscodingAPI.TRAN_SOURCE_NO_VIDEO_OR_AUD
 * 发布短视频点进来的照相机
 * */
 public class ShortCameraActivity extends AppCompatActivity implements MessageHandler,View.OnClickListener {
+    public static int APPLY_LIVE=0;
     private String appkey="4edf106797fe7de29d4cffc6bf073691";
 
 
@@ -591,6 +592,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         Intent intentVideoReleaseActivity = new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);
         intentVideoReleaseActivity.putExtra("ShortCameraActivity",outPutVideoPath);
         startActivity(intentVideoReleaseActivity);
+        setResult(APPLY_LIVE,intentVideoReleaseActivity);
         finish();
         }
     }
