@@ -26,6 +26,8 @@ import com.pywl.likegreen.base.BaseActivity;
 import com.pywl.likegreen.chat.bean.DefaultUser;
 import com.pywl.likegreen.chat.bean.MyMessage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,12 +35,12 @@ import java.util.List;
 import java.util.Locale;
 
 import cn.jiguang.imui.chatinput.ChatInputView;
-import cn.jiguang.imui.chatinput.listener.CameraControllerListener;
-import cn.jiguang.imui.chatinput.listener.OnCameraCallbackListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
+import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
 import cn.jiguang.imui.chatinput.menu.Menu;
 import cn.jiguang.imui.chatinput.menu.MenuManager;
 import cn.jiguang.imui.chatinput.model.FileItem;
+import cn.jiguang.imui.chatinput.record.RecordVoiceButton;
 import cn.jiguang.imui.commons.ImageLoader;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messages.MessageList;
@@ -52,6 +54,7 @@ import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.content.VideoContent;
+import cn.jpush.im.android.api.content.VoiceContent;
 import cn.jpush.im.android.api.enums.ContentType;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
@@ -208,31 +211,110 @@ public class ChatActivity extends BaseActivity {
 
             @Override
             public void onSendFiles(List<FileItem> list) {
+                Log.i("asdf", "onSendFiles");
 
             }
 
             @Override
             public boolean switchToMicrophoneMode() {
-                return false;
+                Log.i("asdf", "switchToMicrophoneMode");
+                return true;
             }
 
             @Override
             public boolean switchToGalleryMode() {
-                return false;
+                Log.i("asdf", "switchToMicrophoneMode");
+                return true;
             }
 
             @Override
             public boolean switchToCameraMode() {
-                return false;
+                Log.i("asdf", "switchToCameraMode");
+                return true;
             }
 
             @Override
             public boolean switchToEmojiMode() {
-                return false;
+                Log.i("asdf", "switchToEmojiMode");
+                return true;
             }
         });
-        //相机
-       // chatInputView.setCameraControllerListener(new OnCameraCallbackListener());
+        final RecordVoiceButton mRecordVoiceBtn = chatInputView.getRecordVoiceButton();
+        mRecordVoiceBtn.setRecordVoiceListener(new RecordVoiceListener() {
+            @Override
+            public void onStartRecord() {
+                // Show record voice interface
+                // 设置存放录音文件目录
+                File rootDir = getActivity().getFilesDir();
+                String fileDir = rootDir.getAbsolutePath() + "/voice";
+                mRecordVoiceBtn.setVoiceFilePath(fileDir, new Date().getTime() + ".mp3");
+            }
+
+            @Override
+            public void onFinishRecord(File voiceFile, int duration) {
+                Conversation c = null;
+                if (!TextUtils.isEmpty(targetId)) {
+                    //单聊
+                    c = conversation.createSingleConversation(targetId, appkey);
+                } else {
+                    c = conversation.createGroupConversation(groupid);
+                }
+                final MyMessage message = new MyMessage(null, IMessage.MessageType.SEND_VOICE.ordinal());
+                message.setMediaFilePath(voiceFile.getPath());
+                message.setDuration(duration);
+                message.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                message.setTimeString(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
+                mAdapter.addToStart(message, true);
+                // 参数：文本内容
+                VoiceContent voicecontent = null;
+                try {
+                    voicecontent = new VoiceContent(voiceFile, duration);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Message voicemessage = c.createSendMessage(voicecontent);
+                MessageSendingOptions options = new MessageSendingOptions();
+
+                options.setNeedReadReceipt(true);
+                JMessageClient.sendMessage(voicemessage, options);
+
+                voicemessage.setOnSendCompleteCallback(new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        if (i == 0) {
+                            Toast.makeText(getActivity(), "发送成功", Toast.LENGTH_SHORT).show();
+                            message.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                        } else {
+                            HandleResponseCode.onHandle(getActivity(), i, false);
+                            message.setMessageStatus(IMessage.MessageStatus.SEND_FAILED);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelRecord() {
+                Log.i("asdf", "onCancelRecord");
+            }
+
+            /**
+             * 录音试听界面，点击取消按钮触发
+             * 0.7.3 后添加此事件
+             */
+            @Override
+            public void onPreviewCancel() {
+                Log.i("asdf", "onPreviewCancel");
+            }
+
+            /**
+             * 录音试听界面，点击发送按钮触发
+             * 0.7.3 后增加此事件
+             */
+            @Override
+            public void onPreviewSend() {
+                Log.i("asdf", "onPreviewSend");
+            }
+        });
 
 
     }
@@ -460,7 +542,16 @@ public class ChatActivity extends BaseActivity {
                 m.setDuration(videoContent.getDuration());
                 m.setMediaFilePath(videoContent.getVideoLocalPath());
             } else if (message.getContentType() == ContentType.voice) {
-                m = new MyMessage(null, IMessage.MessageType.RECEIVE_VOICE.ordinal());
+                VoiceContent voiceContent = (VoiceContent) message.getContent();
+                if (message.getDirect() == MessageDirect.send)//发送方视频
+                {
+                    m = new MyMessage(null, IMessage.MessageType.SEND_VOICE.ordinal());
+                } else//接收方视频
+                {
+                    m = new MyMessage(null, IMessage.MessageType.RECEIVE_VOICE.ordinal());
+                }
+                m.setDuration(voiceContent.getDuration());
+                m.setMediaFilePath(voiceContent.getLocalPath());
             }
             if (m != null) {
                 m.setTimeString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
