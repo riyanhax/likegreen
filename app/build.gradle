@@ -11,11 +11,11 @@ android {
 
         }
     }
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.pywl.likegreen"
         minSdkVersion 18
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -73,7 +73,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:support-v4:26.+'
+    implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:multidex:1.0.0'
     implementation 'com.android.support:design:27.1.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -168,7 +168,7 @@ dependencies {
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
     //动画
-    implementation 'com.android.support:support-compat:25.1.1'
+    implementation 'com.android.support:support-compat:27.1.1'
     implementation 'com.daimajia.easing:library:2.0@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
 

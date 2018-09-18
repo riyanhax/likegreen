@@ -63,6 +63,7 @@
                 android:layout_gravity="right|bottom"
                 android:layout_marginBottom="4dp"
                 android:layout_marginRight="8dp"
+                android:visibility="gone"
                 android:textColor="@color/aurora_video_message_duration_text_color"
                 android:textSize="@dimen/aurora_size_video_message_duration_text"
                 tools:text="00:02" />
