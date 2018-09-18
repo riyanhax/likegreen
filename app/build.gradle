@@ -184,19 +184,23 @@ dependencies {
     implementation 'com.umeng.sdk:push:4.2.0'
     implementation files('libs/umeng-share-core-6.9.3.jar')
     implementation files('libs/BaiduLBS_Android.jar')
+
     //图片选择
     implementation 'com.lzy.widget:imagepicker:0.6.1'
 
     //极光
     implementation 'cn.jiguang.sdk:jmessage:2.7.0'
     implementation 'cn.jiguang.sdk:jcore:1.2.3'
-   //极光ui
+
+    //极光ui
     implementation project(':messagelist')
     implementation project(':chatinput')
 
-
     //PhotoView
     implementation 'com.github.chrisbanes.photoview:library:1.2.4'
+
     //时间选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
+
+
 }

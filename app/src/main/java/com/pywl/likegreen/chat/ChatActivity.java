@@ -91,7 +91,7 @@ public class ChatActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         this.mImm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        myid = getString(R.string.appidjiguang);
+        //myid = getString(R.string.appidjiguang);
         targetId = getIntent().getStringExtra(MyApplication.TARGET_ID); //获取用户的username
         type = getIntent().getStringExtra(MyApplication.message_tyoe);//回话类别
         appkey = getIntent().getStringExtra(MyApplication.TARGET_APP_KEY);//获取会话target appkey,只有单聊会话中会有target appkey这个概念，群聊和聊天室类型会话直接返回空字符串
@@ -157,7 +157,7 @@ public class ChatActivity extends BaseActivity {
                 if (input.length() == 0) {
                     return false;
                 }
-                // m.setUserInfo(new DefaultUser(userInfo.getUserName() + "", userInfo.getNickname(), "R.drawable.iv_deicon"));
+/*                // m.setUserInfo(new DefaultUser(userInfo.getUserName() + "", userInfo.getNickname(), "R.drawable.iv_deicon"));
                 JMessageClient.getUserInfo(getString(R.string.appidjiguang), new GetUserInfoCallback() {
                     @Override
                     public void gotResult(int i, String s, UserInfo userInfo) {
@@ -200,7 +200,7 @@ public class ChatActivity extends BaseActivity {
                             }
                         });
                     }
-                });
+                });*/
 
 
                 return true;

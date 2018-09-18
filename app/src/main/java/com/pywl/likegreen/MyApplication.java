@@ -136,21 +136,12 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-    /*    System.loadLibrary("fdk-aac");
-        System.loadLibrary("live-openh264");
-        System.loadLibrary("QuCore-ThirdParty");
-        System.loadLibrary("QuCore");
-        System.loadLibrary("FaceAREngine");
-        System.loadLibrary("AliFaceAREngine");
-        com.aliyun.common.httpfinal.QupaiHttpFinal.getInstance().initOkHttpFinal();
-        com.aliyun.vod.common.httpfinal.QupaiHttpFinal.getInstance().initOkHttpFinal();*/
+
 
         context = getApplicationContext();
         StorageUtil.init(context, null);
 
-       // Fresco.initialize(getApplicationContext());
-        //SDKInitializer.initialize(getApplicationContext());//地图的
-        //locationService = new LocationService(getApplicationContext());
+
 
         JMessageClient.init(getApplicationContext(), true);
         JMessageClient.setDebugMode(true);
@@ -165,10 +156,13 @@ public class MyApplication extends Application {
                 "99d7736e3d082f22eb2186d50014ed4b");
         UMConfigure.setLogEnabled(true);
         initImgPicker();
+
     }
+
+
     //配置分享
     {
-        PlatformConfig.setWeixin("com.pywl.likegreen", "3720d66b6c355f6b7b8ce9fe2270f827");
+        PlatformConfig.setWeixin("com.pywl.likegreen", "17cadcbcbb05c51bb017572437ad792f");
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
 
     }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +60,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                 popupWindow.dismiss();
                 break;
             case R.id.ll_share_weixin:
-                UMWeb web = new UMWeb("www.baidu.com");
+                UMWeb web = new UMWeb("https://www.baidu.com");
                 web.setTitle("This is music title");//标题
                 // web.setThumb(thumb);  //缩略图
                 web.setDescription("my description");//描述
@@ -85,28 +86,44 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
             case R.id.ll_share_uninterested:
                 popupWindow.dismiss();
                 break;
+            case R.id.iv_recommended_comment:
+                myclick.showCommentPop(view);
+                //showCommentPop(view);
+                break;
         }
     }
-   private  UMShareListener umShareListener= new UMShareListener() {
+
+    private void showCommentPop(View view) {
+        View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_comment, null);
+
+        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+    }
+
+    private  UMShareListener umShareListener= new UMShareListener() {
 
        @Override
        public void onStart(SHARE_MEDIA share_media) {
-
+           Log.v("nihaoma","1111111");
        }
 
        @Override
        public void onResult(SHARE_MEDIA share_media) {
-
+           Log.v("nihaoma","2222222");
        }
 
        @Override
        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-
+           Log.v("nihaoma",throwable+"33333333");
        }
 
        @Override
        public void onCancel(SHARE_MEDIA share_media) {
-
+           Log.v("nihaoma","4444444");
        }
    };
     private PopupWindow popupWindow;
@@ -130,7 +147,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         View holderRootView;
         View topView;
         View pausePlayImage;
-        View mShare;
+        View mShare,comment;
         public ViewHolder(View itemView) {
             super(itemView);
             holderRootView = itemView;
@@ -153,7 +170,8 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                     }
                 }
             });
-            mShare=itemView.findViewById(R.id.iv_recommend_share);
+            mShare=itemView.findViewById(R.id.iv_recommend_share);//分享
+            comment=itemView.findViewById(R.id.iv_recommended_comment);//评论
         }
     }
 
@@ -173,6 +191,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         holder.holderRootView.setTag(position);
         holder.videoView.setLooping(true);
         holder.mShare.setOnClickListener(this);
+        holder.comment.setOnClickListener(this);
     }
 
     @Override
@@ -229,5 +248,13 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         options.setInteger(AVOptions.KEY_LOG_LEVEL, disableLog ? 5 : 0);
         return options;
     }
+    public interface MyViewClick{
+        public void showCommentPop(View view);
+        public void showSharePop();
 
+    }
+    private MyViewClick myclick;
+    public void setMyViewClick(MyViewClick click){
+        myclick=click;
+    }
 }

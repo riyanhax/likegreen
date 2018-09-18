@@ -227,12 +227,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!-- 微信 -->
+        <!--微信-->
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true" />
         <!-- QQ -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -243,7 +242,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="1106613662" />
+                <data android:scheme="tencent1106613662" />
             </intent-filter>
         </activity>
         <activity
@@ -251,6 +250,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 友盟 -->
+        <!--极光分享-->
+
+
+        <!--极光分享-->
+
+
         <activity android:name=".chat.ChatActivity"></activity>
         <activity android:name=".activity.PhtotViewActivity" />
         <activity android:name=".activity.mian.ApplyLiveActivity"></activity>

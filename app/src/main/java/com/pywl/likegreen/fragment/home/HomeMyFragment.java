@@ -112,6 +112,7 @@ public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClic
             case R.id.pop_audit://视频审核
                 Intent intentAuditAndLiveActivity = new Intent(getActivity(), AuditAndLiveActivity.class);
                 startActivity(intentAuditAndLiveActivity);
+                popupWindow.dismiss();
                 break;
             case R.id.my_home_focuse://我的关注
                 Intent intentMyFocuseActivity = new Intent(getActivity(), MyFocuseActivity.class);

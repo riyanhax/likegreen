@@ -5,38 +5,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.pywl.likegreen.activity.mine.AuditAndLiveActivity">
-    <ImageView
-        android:src="@drawable/wode_return"
-        style="@style/paddinglift"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/st_message_direct"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        tl:tl_divider_color="#ffffff"
-        tl:tl_divider_padding="15dp"
-        tl:tl_divider_width="1dp"
-        tl:tl_indicator_color="#000000"
-        tl:tl_indicator_height="1dp"
-        tl:tl_indicator_width_equal_title="true"
-        tl:tl_tab_padding="16dp"
-        tl:tl_tab_space_equal="true"
-        tl:tl_textSelectColor="#bbe417"
-        tl:tl_textUnselectColor="#8b8b8b"
-        />
+
     <View
+        android:layout_marginTop="@dimen/dp_45"
         android:background="#f6f6f6"
-        android:layout_below="@id/st_message_direct"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="3dp"/>
+    <RelativeLayout
+        android:id="@+id/rl_riji"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48">
+        <ImageView
+            android:id="@+id/iv_return"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16" />
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/st_message_direct"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tl:tl_divider_color="#e2e2e2"
+            tl:tl_divider_padding="20dp"
+            tl:tl_divider_width="1dp"
+            tl:tl_indicator_color="#bbe417"
+            tl:tl_indicator_height="2dp"
+            tl:tl_indicator_width_equal_title="true"
+            tl:tl_tab_padding="16dp"
+            tl:tl_tab_space_equal="true"
+            tl:tl_textSelectColor="#bbe417"
+            tl:tl_textUnselectColor="#8b8b8b"
+            />
+    </RelativeLayout>
+
     <android.support.v4.view.ViewPager
-        android:layout_below="@id/st_message_direct"
+        android:layout_below="@id/rl_riji"
         android:id="@+id/viewpager_message_direct"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+
+
 </RelativeLayout>

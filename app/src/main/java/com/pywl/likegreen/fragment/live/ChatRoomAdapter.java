@@ -1,4 +1,4 @@
-package com.pywl.likegreen.adapter;
+package com.pywl.likegreen.fragment.live;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,45 +10,39 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.adapter.ListBaseAdapter;
+import com.pywl.likegreen.adapter.LivingRoomAudienceSayAdapter;
+
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.content.TextContent;
-
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by theWind on 2018/8/17.
- * 首页直播fragment，聊天室adapter，只发送文字
- */
-
-public class LivingRoomAudienceSayAdapter extends ListBaseAdapter<Message> {
+public class ChatRoomAdapter extends ListBaseAdapter<Message> {
     private LayoutInflater mLayoutInflater;
-
-    public LivingRoomAudienceSayAdapter(Context context) {
+    public ChatRoomAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
         mContext = context;
-
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new LivingRoomAudienceSayAdapter.ViewHolder(mLayoutInflater.inflate(R.layout.item_living_chatroom, parent, false));
+        return new MyHolder(mLayoutInflater.inflate(R.layout.item_living_chatroom,parent,false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        final MyHolder viewHolder = (MyHolder) holder;
         if (mDataList!=null){
             Message msg = mDataList.get(position);
-            LivingRoomAudienceSayAdapter.ViewHolder viewHolder = (LivingRoomAudienceSayAdapter.ViewHolder) holder;
-            viewHolder.userName.setText(msg.getFromID()+"：");
-
+            viewHolder.username.setText(msg.getFromID()+"：");
             String text = ((TextContent) msg.getContent()).getText();
-            viewHolder.directMsg.setText(text);
-
+            viewHolder.word.setText(text);
             //获取用户信息
             JMessageClient.getUserInfo(msg.getFromID(), new GetUserInfoCallback() {
                 @Override
@@ -57,6 +51,7 @@ public class LivingRoomAudienceSayAdapter extends ListBaseAdapter<Message> {
                         @Override
                         public void gotResult(int i, String s, Bitmap bitmap) {
                             Log.v("nihaoma",i+"mm"+s+"mm");
+                            viewHolder.head.setImageBitmap(bitmap);
                         }
                     });
                 }
@@ -64,20 +59,14 @@ public class LivingRoomAudienceSayAdapter extends ListBaseAdapter<Message> {
         }
 
     }
-
-
-    private class ViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView directMsg;
-        private TextView userName;
-        private CircleImageView headIcon;
-
-        public ViewHolder(View itemView) {
+    public class MyHolder extends RecyclerView.ViewHolder{
+        CircleImageView head;
+        private TextView username,word;
+        public MyHolder(View itemView) {
             super(itemView);
-            directMsg = (TextView) itemView.findViewById(R.id.tv_living_word);
-            userName = (TextView) itemView.findViewById(R.id.tv_living_username);
-            headIcon = (CircleImageView) itemView.findViewById(R.id.civ_living_head);
-
+            head= (CircleImageView)itemView.findViewById(R.id.civ_living_head);
+            username = (TextView)itemView.findViewById(R.id.tv_living_username);
+            word = (TextView)itemView.findViewById(R.id.tv_living_word);
         }
     }
 }

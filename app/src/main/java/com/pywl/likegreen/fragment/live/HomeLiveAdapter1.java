@@ -2,12 +2,15 @@ package com.pywl.likegreen.fragment.live;
 
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 
@@ -17,15 +20,19 @@ import com.pywl.likegreen.R;
 
 import java.util.ArrayList;
 
+import cn.jpush.im.android.api.model.Message;
 
 
 public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.ViewHolder> {
     private ArrayList<String> mItemList;
     private ViewHolder mCurViewHolder;
     private DisplayImageOptions mDisplayImageOptions;
-
-    public HomeLiveAdapter1(ArrayList<String> arrayList) {
+    private Context  mContext;
+    private ArrayList<Message> msgList;
+    public HomeLiveAdapter1(Context mConText,ArrayList<String> arrayList,ArrayList<Message> messageList) {
         mItemList = arrayList;
+        this.mContext=mConText;
+        msgList=messageList;
         mDisplayImageOptions = new DisplayImageOptions.Builder()
                 /*.showImageOnLoading(R.drawable.defualt_bg)            //加载图片时的图片
                 .showImageForEmptyUri(R.drawable.defualt_bg)         //没有图片资源时的默认图片
@@ -40,13 +47,15 @@ public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.View
         PLVideoTextureView videoView;
         String videoPath;
         View holderRootView;
-
+        LRecyclerView chatHead,chatRoom;//头像list
         public ViewHolder(View itemView) {
             super(itemView);
             holderRootView = itemView;
             videoView = (PLVideoTextureView) itemView.findViewById(R.id.video_texture_view);
             videoView.setAVOptions(createAVOptions());
             videoView.setDisplayAspectRatio(PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT);
+            chatHead= (LRecyclerView)itemView.findViewById(R.id.lr_chat_head);
+            chatRoom= (LRecyclerView)itemView.findViewById(R.id.living_room_audience_say);
         }
     }
 
@@ -62,10 +71,15 @@ public class HomeLiveAdapter1 extends RecyclerView.Adapter<HomeLiveAdapter1.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String videoItem = mItemList.get(position);
+        //视频的
         holder.videoPath = videoItem;
         holder.holderRootView.setTag(position);
-
         holder.videoView.setLooping(true);
+        //聊天
+        ChatRoomAdapter chatRoomAdapter = new ChatRoomAdapter(mContext);
+        chatRoomAdapter.setDataList(msgList);
+        holder.chatRoom.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+        holder.chatRoom.setAdapter(new LRecyclerViewAdapter(chatRoomAdapter));
     }
 
     @Override

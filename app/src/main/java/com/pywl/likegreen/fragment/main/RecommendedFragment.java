@@ -1,6 +1,8 @@
 package com.pywl.likegreen.fragment.main;
 
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,9 +11,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.RecommendedAdapter;
@@ -104,6 +108,22 @@ public class RecommendedFragment extends Fragment implements View.OnClickListene
                 }
             });
         }
+        mShortVideoListAdapter.setMyViewClick(new RecommendedAdapter.MyViewClick() {
+            @Override
+            public void showCommentPop(View view) {
+                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_comment, null);
+                PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,getActivity().getWindowManager().getDefaultDisplay().getHeight()*4/5);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setTouchable(true);
+                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            }
+
+            @Override
+            public void showSharePop() {
+
+            }
+        });
     }
     @Override
     public void onPause() {

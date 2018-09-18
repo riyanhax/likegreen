@@ -117,11 +117,12 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
     //设置聊天数据
     private void setChatRecord(cn.jpush.im.android.api.model.Message data) {
         msgList.add(data);
-        LivingRoomAudienceSayAdapter livingRoomAudienceSayAdapter = new LivingRoomAudienceSayAdapter(getActivity());
+
+      /*  LivingRoomAudienceSayAdapter livingRoomAudienceSayAdapter = new LivingRoomAudienceSayAdapter(getActivity());
         livingRoomAudienceSayAdapter.setDataList(msgList);
         LRecyclerViewAdapter adapter = new LRecyclerViewAdapter(livingRoomAudienceSayAdapter);
         mAudienceSay.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAudienceSay.setAdapter(adapter);
+        mAudienceSay.setAdapter(adapter);*/
     }
 
 
@@ -203,39 +204,7 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
     }
 
     private void gointoRoom() {
-  /*      //创建群聊
-        JMessageClient.createPublicGroup(groupName, groupDesc, new CreateGroupCallback() {
 
-            @Override
-            public void gotResult(int i, String s, long id) {
-                Log.v("nihaoma",i+"<>"+s+"<>"+id);
-                //创建成功
-                if (i==0){
-                    groupId=id;
-                }
-            }
-        });*/
-/*       //创建群聊会话
-        conv = Conversation.createGroupConversation(groupId);
-        //获取会话列表
-        Conversation groupConversation = JMessageClient.getGroupConversation(groupId);
-        Log.v("nihaoma",groupConversation.toString());
-        //全部会话
-       // List<cn.jpush.im.android.api.model.Message> allMessage = groupConversation.getAllMessage();
-
-        //获取群成员
-        JMessageClient.getGroupMembers(groupId, new GetGroupMembersCallback() {
-            @Override
-            public void gotResult(int i, String s, List<UserInfo> list) {
-                for(UserInfo user:list){
-                    user.toString();
-                }
-                Message msg = Message.obtain();
-                msg.what=TOTAL_ROOM_COUNT;
-                msg.obj=list.size();
-                mHandler.sendMessage(msg);
-            }
-        });*/
         //进入聊天室
         ChatRoomManager.enterChatRoom(roomId, new RequestCallback<Conversation>() {
             @Override
@@ -296,7 +265,7 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mVideoList);
 
-        mShortVideoListAdapter = new HomeLiveAdapter1(mItemList);
+        mShortVideoListAdapter = new HomeLiveAdapter1(getActivity(),mItemList,msgList);
         mVideoList.setAdapter(mShortVideoListAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
 
@@ -415,13 +384,7 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
 
             }
         });*/
-        //退群
-     /*   JMessageClient.adminDissolveGroup(groupId, new BasicCallback() {
-            @Override
-            public void gotResult(int i, String s) {
 
-            }
-        });*/
         JMessageClient.unRegisterEventReceiver(this);
     }
 
@@ -444,9 +407,7 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.iv_live_gift://礼物
 
-                break;
         }
     }
 
