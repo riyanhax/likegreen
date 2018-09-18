@@ -32,8 +32,10 @@ import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Queue;
 
 import cn.jiguang.imui.chatinput.ChatInputView;
 import cn.jiguang.imui.chatinput.listener.CameraControllerListener;
@@ -43,6 +45,7 @@ import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
 import cn.jiguang.imui.chatinput.menu.Menu;
 import cn.jiguang.imui.chatinput.menu.MenuManager;
 import cn.jiguang.imui.chatinput.model.FileItem;
+import cn.jiguang.imui.chatinput.model.VideoItem;
 import cn.jiguang.imui.chatinput.record.RecordVoiceButton;
 import cn.jiguang.imui.commons.ImageLoader;
 import cn.jiguang.imui.commons.models.IMessage;
@@ -74,11 +77,20 @@ import jiguang.chat.pickerimage.uitls.BitmapDecoder;
 import jiguang.chat.utils.HandleResponseCode;
 
 public class ChatActivity extends BaseActivity {
+    /**
+     * so that click image message can browser all images.
+     */
+    private ArrayList<String> mPathList = new ArrayList<>();
+    private ArrayList<String> mMsgIdList = new ArrayList<>();
+
+    //发送图片消息的队列
+    private Queue<Message> mMsgQueue = new LinkedList<Message>();
+
     private MsgListAdapter<MyMessage> mAdapter;
     private static final String TAG = "asdf";
     Conversation conversation;
     MsgListAdapter adapter = null;
-    PullToRefreshLayout ptrLayout;
+  //  PullToRefreshLayout ptrLayout;
     MessageList messageList;
     List<MyMessage> messages = new ArrayList<>();//适配器message
 
@@ -95,39 +107,46 @@ public class ChatActivity extends BaseActivity {
     String id = "";//获取Conversation的ID
     long groupid = 0;
 
+    String myusername = "";
+    String myusernickname = "";
+    String myavater = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         this.mImm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        myid = getString(R.string.appidjiguang);
+        myusername = getIntent().getStringExtra(MyApplication.myusername); //获取我的的username
+        myusernickname = getIntent().getStringExtra(MyApplication.myusernickername); //获取我的用户的username
+        myavater = getIntent().getStringExtra(MyApplication.myuseravater); //获取我的用户的username
+
         targetId = getIntent().getStringExtra(MyApplication.TARGET_ID); //获取用户的username
         type = getIntent().getStringExtra(MyApplication.message_tyoe);//回话类别
         appkey = getIntent().getStringExtra(MyApplication.TARGET_APP_KEY);//获取会话target appkey,只有单聊会话中会有target appkey这个概念，群聊和聊天室类型会话直接返回空字符串
         id = getIntent().getStringExtra(MyApplication.DRAFT);//获取Conversation的ID
         groupid = getIntent().getLongExtra(MyApplication.GROUP_ID, 0);
-        ptrLayout = (PullToRefreshLayout) findViewById(R.id.pull_to_refresh_layout);
+      //  ptrLayout = (PullToRefreshLayout) findViewById(R.id.pull_to_refresh_layout);
         PtrDefaultHeader header = new PtrDefaultHeader(getActivity());
         int[] colors = getResources().getIntArray(R.array.google_colors);
         header.setColorSchemeColors(colors);
         header.setLayoutParams(new RelativeLayout.LayoutParams(-1, -2));
         header.setPadding(0, DisplayUtil.dp2px(getActivity(), 15), 0, DisplayUtil.dp2px(getActivity(), 10));
-        header.setPtrFrameLayout(ptrLayout);
-        ptrLayout.setLoadingMinTime(1000);
-        ptrLayout.setDurationToCloseHeader(1500);
-        ptrLayout.setHeaderView(header);
-        ptrLayout.addPtrUIHandler(header);
+//        header.setPtrFrameLayout(ptrLayout);
+     //   ptrLayout.setLoadingMinTime(1000);
+    //    ptrLayout.setDurationToCloseHeader(1500);
+    //    ptrLayout.setHeaderView(header);
+     //   ptrLayout.addPtrUIHandler(header);
 // 如果设置为 true，下拉刷新时，内容固定，只有 Header 变化
-        ptrLayout.setPinContent(true);
-        ptrLayout.setPtrHandler(new PtrHandler() {
-            @Override
-            public void onRefreshBegin(PullToRefreshLayout layout) {
-                Log.i("asdf", "Loading next page");
-                //loadNextPage();
-                // 加载完历史消息后调用
-                ptrLayout.refreshComplete();
-            }
-        });
+     //   ptrLayout.setPinContent(true);
+//        ptrLayout.setPtrHandler(new PtrHandler() {
+//            @Override
+//            public void onRefreshBegin(PullToRefreshLayout layout) {
+//                Log.i("asdf", "Loading next page");
+//                //loadNextPage();
+//                // 加载完历史消息后调用
+//                ptrLayout.refreshComplete();
+//            }
+//        });
 
         messageList = (MessageList) findViewById(R.id.msg_list);
         messageList.setShowSenderDisplayName(true);
@@ -143,7 +162,7 @@ public class ChatActivity extends BaseActivity {
             //   adapter = new MsgListAdapter<>(groupid + "", holdersConfig, imageLoader);
         }
 
-        List<cn.jpush.im.android.api.model.Message> allMessage = conversation.getMessagesFromNewest(0,5);//会话message
+        List<Message> allMessage = conversation.getAllMessage();//会话message
         getMessages(allMessage);
 
         initMsgAdapter();
@@ -531,6 +550,7 @@ public class ChatActivity extends BaseActivity {
              */
             @Override
             public void loadImage(final ImageView imageView, String string) {
+                Log.i("asdf",""+string);
                 // You can use other image load libraries.
                 Glide.with(getApplicationContext())
                         .asBitmap()
@@ -686,8 +706,8 @@ public class ChatActivity extends BaseActivity {
      *
      * @param allMessage
      */
-    private void getMessages(List<cn.jpush.im.android.api.model.Message> allMessage) {
-        for (cn.jpush.im.android.api.model.Message message : allMessage) {
+    private void getMessages(List<Message> allMessage) {
+        for (Message message : allMessage) {
             Log.i("asdf", "" + message.toString());
             MyMessage m = null;
             ContentType contentType = message.getContentType();
