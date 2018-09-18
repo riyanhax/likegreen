@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +57,7 @@ public class MyDirectFragment extends BaseFragment {
     protected int mWidth;
     private NetworkReceiver mReceiver;
     protected boolean isCreate = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +91,7 @@ public class MyDirectFragment extends BaseFragment {
         initReceiver();
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -160,6 +161,7 @@ public class MyDirectFragment extends BaseFragment {
             }
         }
     }
+
     public void onEventMainThread(Event event) {
         switch (event.getType()) {
             case createConversation:
@@ -191,6 +193,7 @@ public class MyDirectFragment extends BaseFragment {
                 break;
         }
     }
+
     /**
      * 消息漫游完成事件
      *
@@ -206,12 +209,14 @@ public class MyDirectFragment extends BaseFragment {
             }
         }
     }
+
     /**
      * 消息已读事件
      */
     public void onEventMainThread(MessageReceiptStatusChangeEvent event) {
         mConvListController.getAdapter().notifyDataSetChanged();
     }
+
     /**
      * 接收离线消息
      *
@@ -231,11 +236,17 @@ public class MyDirectFragment extends BaseFragment {
         Conversation conversation = event.getConversation();
         mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conversation));
     }
+
     /**
      * 收到消息
      */
     public void onEvent(MessageEvent event) {
-        mConvListView.setUnReadMsg(JMessageClient.getAllUnReadMsgCount());
+        if (event == null) {
+            return;
+        }
+        if (mConvListView != null) {
+            mConvListView.setUnReadMsg(JMessageClient.getAllUnReadMsgCount());
+        }
         Message msg = event.getMessage();
         if (msg.getTargetType() == ConversationType.group) {
             long groupId = ((GroupInfo) msg.getTargetInfo()).getGroupID();
@@ -276,6 +287,7 @@ public class MyDirectFragment extends BaseFragment {
             }
         }
     }
+
     @Override
     public void onDestroy() {
         //注销消息接收
@@ -283,16 +295,19 @@ public class MyDirectFragment extends BaseFragment {
 
         super.onDestroy();
     }
+
     @Override
     public void onAttach(Activity context) {
         super.onAttach(context);
         mActivity = context;
     }
+
     @Override
     public void onResume() {
         super.onResume();
         mConvListController.getAdapter().notifyDataSetChanged();
     }
+
     public void sortConvList() {
         if (mConvListController != null) {
             mConvListController.getAdapter().sortConvList();

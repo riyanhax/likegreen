@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initFragment();
         initPermissions();
 
-        JMessageClient.login("12345678912", "123456", new BasicCallback() {
+        JMessageClient.login(getString(R.string.appidjiguang), "123456", new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
                 Log.i("asdf",""+i);
