@@ -90,7 +90,7 @@ public class ChatActivity extends BaseActivity {
     private static final String TAG = "asdf";
     Conversation conversation;
     MsgListAdapter adapter = null;
-   // PullToRefreshLayout ptrLayout;
+  //  PullToRefreshLayout ptrLayout;
     MessageList messageList;
     List<MyMessage> messages = new ArrayList<>();//适配器message
 
@@ -125,19 +125,19 @@ public class ChatActivity extends BaseActivity {
         appkey = getIntent().getStringExtra(MyApplication.TARGET_APP_KEY);//获取会话target appkey,只有单聊会话中会有target appkey这个概念，群聊和聊天室类型会话直接返回空字符串
         id = getIntent().getStringExtra(MyApplication.DRAFT);//获取Conversation的ID
         groupid = getIntent().getLongExtra(MyApplication.GROUP_ID, 0);
-    //   ptrLayout = (PullToRefreshLayout) findViewById(R.id.pull_to_refresh_layout);
+      //  ptrLayout = (PullToRefreshLayout) findViewById(R.id.pull_to_refresh_layout);
         PtrDefaultHeader header = new PtrDefaultHeader(getActivity());
         int[] colors = getResources().getIntArray(R.array.google_colors);
         header.setColorSchemeColors(colors);
         header.setLayoutParams(new RelativeLayout.LayoutParams(-1, -2));
         header.setPadding(0, DisplayUtil.dp2px(getActivity(), 15), 0, DisplayUtil.dp2px(getActivity(), 10));
-      //  header.setPtrFrameLayout(ptrLayout);
-    //    ptrLayout.setLoadingMinTime(1000);
-     //   ptrLayout.setDurationToCloseHeader(1500);
-     //   ptrLayout.setHeaderView(header);
+//        header.setPtrFrameLayout(ptrLayout);
+     //   ptrLayout.setLoadingMinTime(1000);
+    //    ptrLayout.setDurationToCloseHeader(1500);
+    //    ptrLayout.setHeaderView(header);
      //   ptrLayout.addPtrUIHandler(header);
 // 如果设置为 true，下拉刷新时，内容固定，只有 Header 变化
-      //  ptrLayout.setPinContent(true);
+     //   ptrLayout.setPinContent(true);
 //        ptrLayout.setPtrHandler(new PtrHandler() {
 //            @Override
 //            public void onRefreshBegin(PullToRefreshLayout layout) {
@@ -162,7 +162,7 @@ public class ChatActivity extends BaseActivity {
             //   adapter = new MsgListAdapter<>(groupid + "", holdersConfig, imageLoader);
         }
 
-        List<cn.jpush.im.android.api.model.Message> allMessage = conversation.getMessagesFromNewest(0,5);//会话message
+        List<cn.jpush.im.android.api.model.Message> allMessage = conversation.getAllMessage();//会话message
         getMessages(allMessage);
 
         initMsgAdapter();
