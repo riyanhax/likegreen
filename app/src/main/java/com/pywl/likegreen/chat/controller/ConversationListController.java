@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.enums.ConversationType;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.GroupInfo;
@@ -107,43 +108,59 @@ public class ConversationListController implements
 //    }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //点击会话条目
-        Intent intent = new Intent();
-        if (position > 0) {
-            //这里-3是减掉添加的三个headView
-            Conversation conv = mDatas.get(position - 3);
-            intent.putExtra(MyApplication.CONV_TITLE, conv.getTitle());
-            //群聊
-            if (conv.getType() == ConversationType.group) {
-                if (mListAdapter.includeAtMsg(conv)) {
-                    intent.putExtra("atMsgId", mListAdapter.getAtMsgId(conv));
-                }
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        JMessageClient.getUserInfo(view.getContext().getString(R.string.appidjiguang), new GetUserInfoCallback() {
 
-                if (mListAdapter.includeAtAllMsg(conv)) {
-                    intent.putExtra("atAllMsgId", mListAdapter.getatAllMsgId(conv));
+            @Override
+            public void gotResult(int i, String s, UserInfo userInfo) {
+                if (i==0)
+                {
+                    //点击会话条目
+                    Intent intent = new Intent();
+                    if (position > 0) {
+                        //这里-3是减掉添加的三个headView
+                        Conversation conv = mDatas.get(position - 3);
+                        intent.putExtra(MyApplication.CONV_TITLE, conv.getTitle());
+                        //群聊
+                        if (conv.getType() == ConversationType.group) {
+                            if (mListAdapter.includeAtMsg(conv)) {
+                                intent.putExtra("atMsgId", mListAdapter.getAtMsgId(conv));
+                            }
+
+                            if (mListAdapter.includeAtAllMsg(conv)) {
+                                intent.putExtra("atAllMsgId", mListAdapter.getatAllMsgId(conv));
+                            }
+                            long groupId = ((GroupInfo) conv.getTargetInfo()).getGroupID();
+                            intent.putExtra(MyApplication.GROUP_ID, groupId);
+                            String type= conv.getType().name();
+                            intent.putExtra(MyApplication.message_tyoe, type);
+                            intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
+                            intent.putExtra(MyApplication.myusername, userInfo.getUserName());
+                            intent.putExtra(MyApplication.myusernickername,userInfo.getNickname());
+                            intent.putExtra(MyApplication.myuseravater,userInfo.getAvatar());
+                            intent.setClass(mContext.getActivity(), ChatActivity.class);
+                            mContext.getActivity().startActivity(intent);
+                            return;
+                            //单聊
+                        } else {
+                            String targetId = ((UserInfo) conv.getTargetInfo()).getUserName();//
+                            String type= conv.getType().name();
+                            intent.putExtra(MyApplication.message_tyoe, type);
+                            intent.putExtra(MyApplication.TARGET_ID, targetId);
+                            intent.putExtra(MyApplication.TARGET_APP_KEY, conv.getTargetAppKey());
+                            intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
+                            intent.putExtra(MyApplication.myusername, userInfo.getUserName());
+                            intent.putExtra(MyApplication.myusernickername,userInfo.getNickname());
+                            intent.putExtra(MyApplication.myuseravater,userInfo.getAvatar());
+                        }
+                        intent.setClass(mContext.getActivity(), ChatActivity.class);
+                        mContext.getContext().startActivity(intent);
+
+                    }
                 }
-                long groupId = ((GroupInfo) conv.getTargetInfo()).getGroupID();
-                intent.putExtra(MyApplication.GROUP_ID, groupId);
-                String type= conv.getType().name();
-                intent.putExtra(MyApplication.message_tyoe, type);
-                intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
-                intent.setClass(mContext.getActivity(), ChatActivity.class);
-                mContext.getActivity().startActivity(intent);
-                return;
-                //单聊
-            } else {
-                String targetId = ((UserInfo) conv.getTargetInfo()).getUserName();//
-                String type= conv.getType().name();
-                intent.putExtra(MyApplication.message_tyoe, type);
-                intent.putExtra(MyApplication.TARGET_ID, targetId);
-                intent.putExtra(MyApplication.TARGET_APP_KEY, conv.getTargetAppKey());
-                intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
             }
-            intent.setClass(mContext.getActivity(), ChatActivity.class);
-            mContext.getContext().startActivity(intent);
+        });
 
-        }
     }
 
     public ConversationListAdapter getAdapter() {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -31,15 +32,20 @@ import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Queue;
 
 import cn.jiguang.imui.chatinput.ChatInputView;
+import cn.jiguang.imui.chatinput.listener.CameraControllerListener;
+import cn.jiguang.imui.chatinput.listener.OnCameraCallbackListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
 import cn.jiguang.imui.chatinput.menu.Menu;
 import cn.jiguang.imui.chatinput.menu.MenuManager;
 import cn.jiguang.imui.chatinput.model.FileItem;
+import cn.jiguang.imui.chatinput.model.VideoItem;
 import cn.jiguang.imui.chatinput.record.RecordVoiceButton;
 import cn.jiguang.imui.commons.ImageLoader;
 import cn.jiguang.imui.commons.models.IMessage;
@@ -51,12 +57,14 @@ import cn.jiguang.imui.messages.ptr.PullToRefreshLayout;
 import cn.jiguang.imui.utils.DisplayUtil;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.content.FileContent;
 import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.content.VideoContent;
 import cn.jpush.im.android.api.content.VoiceContent;
 import cn.jpush.im.android.api.enums.ContentType;
 import cn.jpush.im.android.api.enums.MessageDirect;
+import cn.jpush.im.android.api.exceptions.JMFileSizeExceedException;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
@@ -65,14 +73,24 @@ import cn.jpush.im.android.eventbus.EventBus;
 import cn.jpush.im.api.BasicCallback;
 import jiguang.chat.entity.Event;
 import jiguang.chat.entity.EventType;
+import jiguang.chat.pickerimage.uitls.BitmapDecoder;
 import jiguang.chat.utils.HandleResponseCode;
 
 public class ChatActivity extends BaseActivity {
+    /**
+     * so that click image message can browser all images.
+     */
+    private ArrayList<String> mPathList = new ArrayList<>();
+    private ArrayList<String> mMsgIdList = new ArrayList<>();
+
+    //发送图片消息的队列
+    private Queue<Message> mMsgQueue = new LinkedList<Message>();
+
     private MsgListAdapter<MyMessage> mAdapter;
     private static final String TAG = "asdf";
     Conversation conversation;
     MsgListAdapter adapter = null;
-    PullToRefreshLayout ptrLayout;
+   // PullToRefreshLayout ptrLayout;
     MessageList messageList;
     List<MyMessage> messages = new ArrayList<>();//适配器message
 
@@ -89,39 +107,46 @@ public class ChatActivity extends BaseActivity {
     String id = "";//获取Conversation的ID
     long groupid = 0;
 
+    String myusername = "";
+    String myusernickname = "";
+    String myavater = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         this.mImm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        myid = getString(R.string.appidjiguang);
+        myusername = getIntent().getStringExtra(MyApplication.myusername); //获取我的的username
+        myusernickname = getIntent().getStringExtra(MyApplication.myusernickername); //获取我的用户的username
+        myavater = getIntent().getStringExtra(MyApplication.myuseravater); //获取我的用户的username
+
         targetId = getIntent().getStringExtra(MyApplication.TARGET_ID); //获取用户的username
         type = getIntent().getStringExtra(MyApplication.message_tyoe);//回话类别
         appkey = getIntent().getStringExtra(MyApplication.TARGET_APP_KEY);//获取会话target appkey,只有单聊会话中会有target appkey这个概念，群聊和聊天室类型会话直接返回空字符串
         id = getIntent().getStringExtra(MyApplication.DRAFT);//获取Conversation的ID
         groupid = getIntent().getLongExtra(MyApplication.GROUP_ID, 0);
-        ptrLayout = (PullToRefreshLayout) findViewById(R.id.pull_to_refresh_layout);
+    //   ptrLayout = (PullToRefreshLayout) findViewById(R.id.pull_to_refresh_layout);
         PtrDefaultHeader header = new PtrDefaultHeader(getActivity());
         int[] colors = getResources().getIntArray(R.array.google_colors);
         header.setColorSchemeColors(colors);
         header.setLayoutParams(new RelativeLayout.LayoutParams(-1, -2));
         header.setPadding(0, DisplayUtil.dp2px(getActivity(), 15), 0, DisplayUtil.dp2px(getActivity(), 10));
-        header.setPtrFrameLayout(ptrLayout);
-        ptrLayout.setLoadingMinTime(1000);
-        ptrLayout.setDurationToCloseHeader(1500);
-        ptrLayout.setHeaderView(header);
-        ptrLayout.addPtrUIHandler(header);
+      //  header.setPtrFrameLayout(ptrLayout);
+    //    ptrLayout.setLoadingMinTime(1000);
+     //   ptrLayout.setDurationToCloseHeader(1500);
+     //   ptrLayout.setHeaderView(header);
+     //   ptrLayout.addPtrUIHandler(header);
 // 如果设置为 true，下拉刷新时，内容固定，只有 Header 变化
-        ptrLayout.setPinContent(true);
-        ptrLayout.setPtrHandler(new PtrHandler() {
-            @Override
-            public void onRefreshBegin(PullToRefreshLayout layout) {
-                Log.i("asdf", "Loading next page");
-                //loadNextPage();
-                // 加载完历史消息后调用
-                ptrLayout.refreshComplete();
-            }
-        });
+      //  ptrLayout.setPinContent(true);
+//        ptrLayout.setPtrHandler(new PtrHandler() {
+//            @Override
+//            public void onRefreshBegin(PullToRefreshLayout layout) {
+//                Log.i("asdf", "Loading next page");
+//                //loadNextPage();
+//                // 加载完历史消息后调用
+//                ptrLayout.refreshComplete();
+//            }
+//        });
 
         messageList = (MessageList) findViewById(R.id.msg_list);
         messageList.setShowSenderDisplayName(true);
@@ -137,7 +162,7 @@ public class ChatActivity extends BaseActivity {
             //   adapter = new MsgListAdapter<>(groupid + "", holdersConfig, imageLoader);
         }
 
-        List<cn.jpush.im.android.api.model.Message> allMessage = conversation.getAllMessage();//会话message
+        List<cn.jpush.im.android.api.model.Message> allMessage = conversation.getMessagesFromNewest(0,5);//会话message
         getMessages(allMessage);
 
         initMsgAdapter();
@@ -148,6 +173,7 @@ public class ChatActivity extends BaseActivity {
         //  messageList.setOnTouchListener(this);
         //输入 菜单项
         chatInputView = findViewById(R.id.chat_input);
+      //  chatInputView.setCameraCaptureFile(path, fileName);//拍摄路径
         MenuManager menuManager = chatInputView.getMenuManager();
         menuManager.setMenu(Menu.newBuilder().
                 customize(true).
@@ -210,8 +236,101 @@ public class ChatActivity extends BaseActivity {
             }
 
             @Override
-            public void onSendFiles(List<FileItem> list) {
-                Log.i("asdf", "onSendFiles");
+            public void onSendFiles(final List<FileItem> list) {
+
+                if (list == null) {
+                    return;
+                }
+//final List<FileClass>liststring=new ArrayList<>();
+//                for (int m=0;m<list.size();m++)
+//                {
+//                    FileClass fileClass=new FileClass();
+//                    fileClass.setFilepath(list.get(m).getFilePath());
+//                    fileClass.setSize(list.get(m).getLongFileSize());
+//                    liststring.add(fileClass);
+//                }
+
+
+                Log.i("asdf", list.size() + "");
+                for (int j = 0; j < list.size(); j++) {
+                    FileItem item = list.get(j);
+                    MyMessage message = null;
+                    if (item.getType() == FileItem.Type.Image) {
+                        message = new MyMessage(null, IMessage.MessageType.SEND_IMAGE.ordinal());
+                        message.setMediaFilePath(item.getFilePath());
+                    } else if (item.getType() == FileItem.Type.Video) {
+                        message = new MyMessage(null, IMessage.MessageType.SEND_VIDEO.ordinal());
+                        message.setDuration(((VideoItem) item).getDuration());
+                        message.setMediaFilePath(item.getFilePath());
+                    } else {
+                        throw new RuntimeException("Invalid FileItem type. Must be Type.Image or Type.Video");
+                    }
+
+                    message.setTimeString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date()));
+                    message.setMediaFilePath(item.getFilePath());
+                    message.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                    if (myavater != null) {
+                        message.setUserInfo(new DefaultUser(myusername, myusernickname, myavater));
+                    } else {
+                        message.setUserInfo(new DefaultUser(myusername, myusernickname, "R.drawable.ironman"));
+                    }
+
+                    final MyMessage fMsg = message;
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addToStart(fMsg, true);
+                        }
+                    });
+
+                    for (FileItem file : list) {
+                        if (item.getType() == FileItem.Type.Image) {
+                            //所有图片都在这里拿到
+                            ImageContent.createImageContentAsync(new File(file.getFilePath()), new ImageContent.CreateImageContentCallback() {
+                                @Override
+                                public void gotResult(int responseCode, String responseMessage, ImageContent imageContent) {
+                                    if (responseCode == 0) {
+                                        Message msg = conversation.createSendMessage(imageContent);
+                                        MessageSendingOptions options = new MessageSendingOptions();
+                                        options.setNeedReadReceipt(true);
+                                        JMessageClient.sendMessage(msg, options);
+                                        msg.setOnSendCompleteCallback(new BasicCallback() {
+                                            @Override
+                                            public void gotResult(int i, String s) {
+                                                if (i == 0) {
+                                                    Log.i("asdf", "发送图片成功");
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        } else if (item.getType() == FileItem.Type.Video) {
+                            FileContent fileContent = null;
+                            try {
+                                fileContent = new FileContent(new File(file.getFilePath()));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (JMFileSizeExceedException e) {
+                                e.printStackTrace();
+                            }
+                            fileContent.setStringExtra("video", "mp4");
+                            Message msg = conversation.createSendMessage(fileContent);
+                            MessageSendingOptions options = new MessageSendingOptions();
+                            options.setNeedReadReceipt(true);
+                            JMessageClient.sendMessage(msg, options);
+                            msg.setOnSendCompleteCallback(new BasicCallback() {
+                                @Override
+                                public void gotResult(int i, String s) {
+
+                                }
+                            });
+                        } else {
+                            throw new RuntimeException("Invalid FileItem type. Must be Type.Image or Type.Video");
+                        }
+                    }
+                }
+
 
             }
 
@@ -315,7 +434,88 @@ public class ChatActivity extends BaseActivity {
                 Log.i("asdf", "onPreviewSend");
             }
         });
+//camera
+        chatInputView.setOnCameraCallbackListener(new OnCameraCallbackListener() {
+            @Override
+            public void onTakePictureCompleted(String photoPath) {
+                Log.i("asdf","onTakePictureCompleted");
+                MyMessage message = null;
+                message = new MyMessage(null, IMessage.MessageType.SEND_IMAGE.ordinal());
+                message.setMediaFilePath(photoPath);
+                message.setTimeString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date()));
+                message.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                if (myavater != null) {
+                    message.setUserInfo(new DefaultUser(myusername, myusernickname, myavater));
+                } else {
+                    message.setUserInfo(new DefaultUser(myusername, myusernickname, "R.drawable.ironman"));
+                }
+                final MyMessage fMsg = message;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.addToStart(fMsg, true);
+                    }
+                });
+                //所有图片都在这里拿到
+                ImageContent.createImageContentAsync(new File(photoPath), new ImageContent.CreateImageContentCallback() {
+                    @Override
+                    public void gotResult(int responseCode, String responseMessage, ImageContent imageContent) {
+                        if (responseCode == 0) {
+                            Message msg = conversation.createSendMessage(imageContent);
+                            MessageSendingOptions options = new MessageSendingOptions();
+                            options.setNeedReadReceipt(true);
+                            JMessageClient.sendMessage(msg, options);
+                            msg.setOnSendCompleteCallback(new BasicCallback() {
+                                @Override
+                                public void gotResult(int i, String s) {
+                                    if (i == 0) {
+                                        Log.i("asdf", "发送图片成功");
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
 
+            }
+
+            @Override
+            public void onStartVideoRecord() {
+                Log.i("asdf","onStartVideoRecord");
+            }
+
+            @Override
+            public void onFinishVideoRecord(String videoPath) {
+                Log.i("asdf","onFinishVideoRecord");
+            }
+
+            @Override
+            public void onCancelVideoRecord() {
+                Log.i("asdf","onCancelVideoRecord");
+            }
+
+        });
+        chatInputView.setCameraControllerListener(new CameraControllerListener() {
+            @Override
+            public void onFullScreenClick() {
+                Log.i("asdf","onFullScreenClick");
+            }
+
+            @Override
+            public void onRecoverScreenClick() {
+                Log.i("asdf","onRecoverScreenClick");
+            }
+
+            @Override
+            public void onCloseCameraClick() {
+                Log.i("asdf","onCloseCameraClick");
+            }
+
+            @Override
+            public void onSwitchCameraModeClick(boolean isRecordVideoMode) {
+                Log.i("asdf","onSwitchCameraModeClick");
+            }
+        });
 
     }
 
@@ -350,6 +550,7 @@ public class ChatActivity extends BaseActivity {
              */
             @Override
             public void loadImage(final ImageView imageView, String string) {
+                Log.i("asdf",""+string);
                 // You can use other image load libraries.
                 Glide.with(getApplicationContext())
                         .asBitmap()
@@ -421,7 +622,6 @@ public class ChatActivity extends BaseActivity {
             public void loadVideo(ImageView imageCover, String uri) {
                 long interval = 5000 * 1000;
                 Glide.with(getActivity())
-                        .asBitmap()
                         .load(uri)
                         // Resize image view by change override size.
                         .apply(new RequestOptions().frame(interval).override(200, 400))
@@ -510,6 +710,7 @@ public class ChatActivity extends BaseActivity {
         for (cn.jpush.im.android.api.model.Message message : allMessage) {
             Log.i("asdf", "" + message.toString());
             MyMessage m = null;
+            ContentType contentType = message.getContentType();
             if (message.getContentType() == ContentType.text)//文字
             {
                 TextContent text = (TextContent) message.getContent();
@@ -530,8 +731,10 @@ public class ChatActivity extends BaseActivity {
                     m = new MyMessage(null, IMessage.MessageType.RECEIVE_IMAGE.ordinal());
                 }
                 m.setMediaFilePath(imageContent.getLocalThumbnailPath());
-            } else if (message.getContentType() == ContentType.video) {
-                VideoContent videoContent = (VideoContent) message.getContent();
+            } else if (message.getContentType() == ContentType.video||message.getContentType() == ContentType.file) {
+                FileContent fileContent = (FileContent) message.getContent();
+                String extra = fileContent.getStringExtra("video");
+                String videoPath = fileContent.getLocalPath();
                 if (message.getDirect() == MessageDirect.send)//发送方视频
                 {
                     m = new MyMessage(null, IMessage.MessageType.SEND_VIDEO.ordinal());
@@ -539,8 +742,17 @@ public class ChatActivity extends BaseActivity {
                 {
                     m = new MyMessage(null, IMessage.MessageType.RECEIVE_VIDEO.ordinal());
                 }
-                m.setDuration(videoContent.getDuration());
-                m.setMediaFilePath(videoContent.getVideoLocalPath());
+                if (videoPath != null) {
+//            String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + msg.getServerMessageId();
+                    String thumbPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + message.getServerMessageId();
+                    String path = BitmapDecoder.extractThumbnail(videoPath, thumbPath);
+                    m.setMediaFilePath(path);
+                    Log.i("","");
+                } else {
+                 //   Picasso.with(mContext).load(R.drawable.video_not_found).into(holder.picture);
+                }
+              //  m.setDuration(videoContent.g);
+
             } else if (message.getContentType() == ContentType.voice) {
                 VoiceContent voiceContent = (VoiceContent) message.getContent();
                 if (message.getDirect() == MessageDirect.send)//发送方视频
@@ -552,6 +764,8 @@ public class ChatActivity extends BaseActivity {
                 }
                 m.setDuration(voiceContent.getDuration());
                 m.setMediaFilePath(voiceContent.getLocalPath());
+            } else {
+                continue;
             }
             if (m != null) {
                 m.setTimeString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
@@ -617,6 +831,7 @@ public class ChatActivity extends BaseActivity {
             }
         }
     }
+
 
 
 }
