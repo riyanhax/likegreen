@@ -26,7 +26,7 @@ import com.pywl.likegreen.activity.mine.MyMessageAndDirectActivity;
 import com.pywl.likegreen.activity.MyProductsReleaseActivity;
 import com.pywl.likegreen.activity.mine.PersonalDataActivity;
 import com.pywl.likegreen.activity.mine.SystemSettingsActivity;
-import com.pywl.likegreen.base.HomeBottomBarFragment;
+import com.pywl.likegreen.base.BaseFragment;
 
 import com.pywl.likegreen.fragment.mine.MyGardenFragment;
 import com.pywl.likegreen.fragment.mine.MyLiveFragment;
@@ -41,7 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by theWind on 2018/8/1.
  */
 
-public class HomeMyFragment extends HomeBottomBarFragment implements View.OnClickListener {
+public class HomeMyFragment extends BaseFragment implements View.OnClickListener {
 
     private SlidingTabLayout mStMy;
     private ViewPager mViewpagerMy;

@@ -3,6 +3,7 @@ package com.pywl.likegreen;
 
 
 import android.Manifest;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,7 +26,8 @@ import com.pywl.likegreen.activity.PlantDiaryActivity;
 import com.pywl.likegreen.activity.mine.ShareLiftActivity;
 import com.pywl.likegreen.activity.ShortCameraActivity;
 import com.pywl.likegreen.activity.mian.ApplyLiveActivity;
-import com.pywl.likegreen.adapter.BaseActivity;
+
+import com.pywl.likegreen.base.BaseActivity;
 import com.pywl.likegreen.bean.CallTab;
 import com.pywl.likegreen.fragment.home.HomeFindFragment;
 import com.pywl.likegreen.fragment.home.HomeMyFragment;
@@ -38,8 +40,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.api.BasicCallback;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -67,10 +69,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Log.i("asdf",""+i);
             }
         });*/
+
+
     }
 
+    @Override
+    protected void onResume() {
 
+       /* HashMap<String, Boolean> stringBooleanHashMap = netWorkStateReceiver.wifiState();
+        for (Map.Entry<String,Boolean> entry:stringBooleanHashMap.entrySet()){
+            Log.v("nihaoma",entry.getKey()+entry.getValue());
+        }*/
+        super.onResume();
 
+    }
 
     private void initFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

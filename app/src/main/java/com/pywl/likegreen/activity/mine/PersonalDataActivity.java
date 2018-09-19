@@ -1,6 +1,6 @@
 package com.pywl.likegreen.activity.mine;
 
-import android.support.v4.view.ViewPager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -40,8 +40,11 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
          //手机号
         mTvPersonalPhone=(TextView)findViewById(R.id.tv_personal_phone);
         //个性化签名
-        mRlSagnatrue = findViewById(R.id.rl_sagnatrue);
+        findViewById(R.id.rl_sagnatrue).setOnClickListener(this);
         mRlShoppingAddress = findViewById(R.id.rl_shopping_address);
+        mRlShoppingAddress.setOnClickListener(this);
+        findViewById(R.id.rl_idcard_check).setOnClickListener(this);//身份证验证
+        findViewById(R.id.rl_business_check).setOnClickListener(this);//营业执照验证
     }
 
     private void initData() {
@@ -52,6 +55,21 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.system_personal_head:
+                break;
+            case R.id.system_personal_phone://修改手机号码
+                Intent intentChangePhoneNumActivity = new Intent(this, ChangePhoneNumActivity.class);
+                startActivity(intentChangePhoneNumActivity);
+                break;
+            case R.id.rl_sagnatrue://个性签名
+                Intent intentChangeUserMsgActivity = new Intent(this, AutographActivity.class);
+                startActivity(intentChangeUserMsgActivity);
+            case R.id.rl_shopping_address://个性签名
+                Intent intentShoppingAddressActivity = new Intent(this, ShoppingAddressActivity.class);
+                startActivity(intentShoppingAddressActivity);
+                break;
+            case R.id.rl_idcard_check://身份证验证
+                break;
+            case R.id.rl_business_check://营业执照验证
                 break;
 
         }

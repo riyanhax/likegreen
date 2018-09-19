@@ -102,6 +102,33 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"/>
     <RelativeLayout
+        android:id="@+id/rl_idcard_check"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="@string/idcardcheck"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+    <RelativeLayout
+        android:id="@+id/rl_business_check"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="@string/businesscheck"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <View
+        android:background="#f6f6f6"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+    <RelativeLayout
         android:id="@+id/rl_sagnatrue"
         android:layout_width="match_parent"
         android:layout_height="45dp">

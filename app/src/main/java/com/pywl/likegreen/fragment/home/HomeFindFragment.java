@@ -1,32 +1,23 @@
 package com.pywl.likegreen.fragment.home;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.pywl.likegreen.R;
-import com.pywl.likegreen.base.HomeBottomBarFragment;
+import com.pywl.likegreen.base.BaseFragment;
 import com.pywl.likegreen.fragment.find.ForumFragment;
 import com.pywl.likegreen.fragment.find.SelectedFragment;
 import com.pywl.likegreen.fragment.find.ShoppingMallFragment;
-import com.pywl.likegreen.fragment.note.NoteFocusFragment;
-import com.pywl.likegreen.fragment.note.NoteHotFragment;
 
 import java.util.ArrayList;
 
@@ -34,7 +25,7 @@ import java.util.ArrayList;
  * Created by theWind on 2018/8/1.
  */
 
-public class HomeFindFragment extends HomeBottomBarFragment implements View.OnClickListener {
+public class HomeFindFragment extends BaseFragment implements View.OnClickListener {
     private String[] items=new String[]{"精选","论坛","商城"};
     private SlidingTabLayout tabLayout;
     private ViewPager viewPager;

@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.adapter.RecommendedAdapter;
+import com.pywl.likegreen.base.BaseFragment;
 import com.pywl.likegreen.bean.CallTab;
 
 
@@ -36,13 +37,14 @@ import cn.jpush.im.android.api.event.MessageEvent;
  * 首页推荐
  */
 
-public class RecommendedFragment extends Fragment implements View.OnClickListener {
+public class RecommendedFragment extends BaseFragment implements View.OnClickListener {
     private String TAG = "ShortVideoActivity";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommended, container, false);
         EventBus.getDefault().register(this);
+
         initDate();
         initView(view);
         return view;

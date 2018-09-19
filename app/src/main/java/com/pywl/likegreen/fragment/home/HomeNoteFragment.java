@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.activity.mine.MyMessageAndDirectActivity;
-import com.pywl.likegreen.base.HomeBottomBarFragment;
+import com.pywl.likegreen.base.BaseFragment;
 import com.pywl.likegreen.fragment.note.NoteHotFragment;
 import com.pywl.likegreen.fragment.note.NoteFocusFragment;
 
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Created by theWind on 2018/8/1.
  */
 //日记
-public class HomeNoteFragment extends HomeBottomBarFragment implements View.OnClickListener {
+public class HomeNoteFragment extends BaseFragment implements View.OnClickListener {
     private String[] items=new String[]{"热门","关注"};
     private SlidingTabLayout tabLayout;
     private ViewPager viewPager;

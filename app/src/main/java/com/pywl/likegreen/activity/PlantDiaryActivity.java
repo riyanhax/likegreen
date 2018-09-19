@@ -71,6 +71,12 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
         //获取当前时间
         Date date = new Date(System.currentTimeMillis());
         plantData.setText("默认日期"+simpleDateFormat.format(date));
+        //设置位置
+        if (myListener.province!=null){
+            location.setText(myListener.province+"."+myListener.city+"."+myListener.district);
+        }
+
+        Log.v("nihaoma",myListener.addr+"00   @"+myListener.city+"@"+myListener.district+"@"+myListener.street);
     }
 
     @Override
@@ -78,11 +84,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId()){
             case R.id.tv_plant_location:
                 mLocationClient.start();
-                if (myListener.province!=null){
-                    location.setText(myListener.province+"."+myListener.city+"."+myListener.district);
-                }
 
-                Log.v("nihaoma",myListener.addr+"00   @"+myListener.city+"@"+myListener.district+"@"+myListener.street);
                 break;
             case  R.id.tv_plant_wancheng:
                 Intent intentShareLiftActivity = new Intent(PlantDiaryActivity.this, ShareLiftActivity.class);
