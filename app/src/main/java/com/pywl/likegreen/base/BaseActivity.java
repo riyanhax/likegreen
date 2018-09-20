@@ -15,10 +15,17 @@ import com.pywl.likegreen.R;
  * Created by theWind on 2018/8/3.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
 
     public NetWorkStateReceiver netWorkStateReceiver;
+    public T presenter;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        //presenter = initPresenter();
+
+    }
 
     //在onResume()方法注册
     @Override
@@ -29,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(netWorkStateReceiver, filter);
-
+       // presenter.attachView((V) this);
         super.onResume();
     }
 
@@ -38,6 +45,11 @@ public class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         unregisterReceiver(netWorkStateReceiver);
 
+       // presenter.detachView();
+
         super.onPause();
     }
+    // 实例化presenter
+    public abstract T initPresenter();
+
 }

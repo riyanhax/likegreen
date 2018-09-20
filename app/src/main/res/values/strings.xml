@@ -40,8 +40,8 @@
     <string name="myfocuse">我关注的</string>
     <string name="myfans">我的粉丝</string>
     <string name="changephone">更改绑定的手机号</string>
-    <string name="idcardcheck">身份证验证</string>
-    <string name="businesscheck">营业执照验证</string>
+    <string name="idcardcheck">身份证认证</string>
+    <string name="businesscheck">营业执照认证</string>
     <string name="save">保存</string>
     <string name="manageaddress">管理收货地址</string>
     <string name="addaddress">添加收货地址</string>

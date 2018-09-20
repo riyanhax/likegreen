@@ -264,7 +264,9 @@
         <activity android:name=".activity.mine.AboutUsActivity" />
         <activity android:name=".activity.mine.AutographActivity" />
         <activity android:name=".activity.mine.ShoppingAddressActivity" />
-        <activity android:name=".activity.mine.AddAddressActivity"></activity>
+        <activity android:name=".activity.mine.AddAddressActivity" />
+        <activity android:name=".activity.mine.IDCardCheckActivity" />
+        <activity android:name=".activity.mine.BusinessLicenseActivity"></activity>
     </application>
 
 </manifest>

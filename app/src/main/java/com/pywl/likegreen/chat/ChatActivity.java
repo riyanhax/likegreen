@@ -24,6 +24,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.pywl.likegreen.MyApplication;
 import com.pywl.likegreen.R;
 import com.pywl.likegreen.base.BaseActivity;
+import com.pywl.likegreen.base.BasePresenter;
 import com.pywl.likegreen.chat.bean.DefaultUser;
 import com.pywl.likegreen.chat.bean.MyMessage;
 
@@ -833,5 +834,8 @@ public class ChatActivity extends BaseActivity {
     }
 
 
-
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
 }
