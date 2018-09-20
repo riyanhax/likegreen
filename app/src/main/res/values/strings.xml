@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">喜绿</string>
     <string name="app_key">cee9f4368174507ce3308bfa</string>
-<string name="appidjiguang">12345678911</string>
+    <string name="appidjiguang">12345678912</string>
 
     <string name="homepage">首页</string>
     <string name="note">日记</string>

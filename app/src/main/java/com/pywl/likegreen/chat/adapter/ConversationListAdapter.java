@@ -89,42 +89,45 @@ public class ConversationListAdapter extends BaseAdapter {
                 mConversationListView.setNullConversation(true);
             }
         });
+if (mDatas!=null&&mDatas.size()>0)
+{
+    //如果是旧的会话
+    for (Conversation conversation : mDatas) {
+        if (conv.getId().equals(conversation.getId())) {
+            //如果是置顶的,就直接把消息插入,会话在list中的顺序不变
+            if (!TextUtils.isEmpty(conv.getExtra())) {
+                mUIHandler.sendEmptyMessageDelayed(REFRESH_CONVERSATION_LIST, 200);
+                //这里一定要return掉,要不还会走到for循环之后的方法,就会再次添加会话
+                return;
+                //如果不是置顶的,就在集合中把原来的那条消息移出,然后去掉置顶的消息数量,插入到集合中
+            } else {
+                //因为后面要改变排序位置,这里要删除
+                mDatas.remove(conversation);
+                //这里要排序,因为第一次登录有漫游消息.离线消息(其中群组变化也是用这个事件下发的);所以有可能会话的最后一条消息
+                //时间比较早,但是事件下发比较晚,这就导致乱序.所以要重新排序.
 
-        //如果是旧的会话
-        for (Conversation conversation : mDatas) {
-            if (conv.getId().equals(conversation.getId())) {
-                //如果是置顶的,就直接把消息插入,会话在list中的顺序不变
-                if (!TextUtils.isEmpty(conv.getExtra())) {
-                    mUIHandler.sendEmptyMessageDelayed(REFRESH_CONVERSATION_LIST, 200);
-                    //这里一定要return掉,要不还会走到for循环之后的方法,就会再次添加会话
-                    return;
-                    //如果不是置顶的,就在集合中把原来的那条消息移出,然后去掉置顶的消息数量,插入到集合中
-                } else {
-                    //因为后面要改变排序位置,这里要删除
-                    mDatas.remove(conversation);
-                    //这里要排序,因为第一次登录有漫游消息.离线消息(其中群组变化也是用这个事件下发的);所以有可能会话的最后一条消息
-                    //时间比较早,但是事件下发比较晚,这就导致乱序.所以要重新排序.
-
-                    //排序规则,每一个进来的会话去和倒叙list中的会话比较时间,如果进来的会话的最后一条消息就是最早创建的
-                    //那么这个会话自然就是最后一个.所以直接跳出循环,否则就一个个向前比较.
-                    for (int i = mDatas.size(); i > SharePreferenceManager.getCancelTopSize(); i--) {
-                        if (conv.getLatestMessage() != null && mDatas.get(i - 1).getLatestMessage() != null) {
-                            if (conv.getLatestMessage().getCreateTime() > mDatas.get(i - 1).getLatestMessage().getCreateTime()) {
-                                oldCount = i - 1;
-                            } else {
-                                oldCount = i;
-                                break;
-                            }
+                //排序规则,每一个进来的会话去和倒叙list中的会话比较时间,如果进来的会话的最后一条消息就是最早创建的
+                //那么这个会话自然就是最后一个.所以直接跳出循环,否则就一个个向前比较.
+                for (int i = mDatas.size(); i > SharePreferenceManager.getCancelTopSize(); i--) {
+                    if (conv.getLatestMessage() != null && mDatas.get(i - 1).getLatestMessage() != null) {
+                        if (conv.getLatestMessage().getCreateTime() > mDatas.get(i - 1).getLatestMessage().getCreateTime()) {
+                            oldCount = i - 1;
                         } else {
                             oldCount = i;
+                            break;
                         }
+                    } else {
+                        oldCount = i;
                     }
-                    mDatas.add(oldCount, conv);
-                    mUIHandler.sendEmptyMessageDelayed(REFRESH_CONVERSATION_LIST, 200);
-                    return;
                 }
+                mDatas.add(oldCount, conv);
+                mUIHandler.sendEmptyMessageDelayed(REFRESH_CONVERSATION_LIST, 200);
+                return;
             }
         }
+    }
+}
+
         if (mDatas.size() == 0) {
             mDatas.add(conv);
         } else {

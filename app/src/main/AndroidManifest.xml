@@ -71,7 +71,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="9dP8WSLNKYXFDrM5bfeMPwYOY1M0vYMY"></meta-data>
+            android:value="9dP8WSLNKYXFDrM5bfeMPwYOY1M0vYMY" />
         <!-- 11111111111111111111111111111111111111 -->
         <meta-data
             android:name="AA_DB_NAME"
@@ -210,13 +210,12 @@
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
@@ -227,11 +226,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--微信-->
+        <!-- 微信 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- QQ -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -242,6 +241,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent1106613662" />
             </intent-filter>
         </activity>
@@ -250,16 +250,16 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 友盟 -->
-        <!--极光分享-->
+        <!-- 极光分享 -->
 
 
-        <!--极光分享-->
+        <!-- 极光分享 -->
 
-
-        <activity android:name=".chat.ChatActivity"></activity>
+        <activity android:name=".chat.ChatActivity" />
         <activity android:name=".activity.PhtotViewActivity" />
-        <activity android:name=".activity.mian.ApplyLiveActivity"></activity>
-
+        <activity android:name=".activity.mian.ApplyLiveActivity" />
+        <activity android:name=".chat.ChatItemActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
     </application>
 
 </manifest>

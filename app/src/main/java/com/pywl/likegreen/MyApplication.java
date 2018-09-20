@@ -115,7 +115,7 @@ public class MyApplication extends Application {
 
     public static String PICTURE_DIR = "sdcard/JChatDemo/pictures/";
     private static final String JCHAT_CONFIGS = "JChat_configs";
-    public static String FILE_DIR = "sdcard/JChatDemo/recvFiles/";
+    public static String FILE_DIR = "sdcard/xliwork/recvFiles/";
     public static String VIDEO_DIR = "sdcarVIDEOd/JChatDemo/sendFiles/";
     public static final String TARGET_ID = "targetId";
     public static final String ATUSER = "atuser";
