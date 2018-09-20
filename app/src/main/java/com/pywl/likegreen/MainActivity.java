@@ -1,9 +1,7 @@
 package com.pywl.likegreen;
 
 
-
 import android.Manifest;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,12 +19,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.pywl.likegreen.activity.EquipmentActivity;
-import com.pywl.likegreen.activity.WriteLongPostActivity;
 import com.pywl.likegreen.activity.PlantDiaryActivity;
-import com.pywl.likegreen.activity.mine.ShareLiftActivity;
 import com.pywl.likegreen.activity.ShortCameraActivity;
+import com.pywl.likegreen.activity.WriteLongPostActivity;
 import com.pywl.likegreen.activity.mian.ApplyLiveActivity;
-
+import com.pywl.likegreen.activity.mine.ShareLiftActivity;
 import com.pywl.likegreen.base.BaseActivity;
 import com.pywl.likegreen.bean.CallTab;
 import com.pywl.likegreen.fragment.home.HomeFindFragment;
@@ -40,8 +37,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.HashMap;
-import java.util.Map;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -63,12 +60,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initFragment();
         initPermissions();
 
-    /*    JMessageClient.login(getString(R.string.appidjiguang), "123456", new BasicCallback() {
+        JMessageClient.login(getString(R.string.appidjiguang), "123456", new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
                 Log.i("asdf",""+i);
             }
-        });*/
+
+        });
+
 
 
     }

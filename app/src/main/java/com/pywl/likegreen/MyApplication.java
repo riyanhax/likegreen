@@ -159,7 +159,7 @@ public class MyApplication extends Application {
                 "99d7736e3d082f22eb2186d50014ed4b");
         UMConfigure.setLogEnabled(true);
         initImgPicker();
-
+        OkGo.getInstance().init(this);
     }
 
 

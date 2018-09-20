@@ -113,12 +113,12 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
 
        @Override
        public void onResult(SHARE_MEDIA share_media) {
-           Log.v("nihaoma","2222222");
+           Log.v("nihaoma","2222222 "+share_media.getName());
        }
 
        @Override
        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-           Log.v("nihaoma",throwable+"33333333");
+           Log.v("nihaoma",throwable+"33333333 "+share_media.getName());
        }
 
        @Override
