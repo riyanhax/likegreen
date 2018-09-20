@@ -1,31 +1,20 @@
 package com.pywl.likegreen.base;
 
-import android.app.Activity;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.pywl.likegreen.BroadcastReceiver.NetWorkStateReceiver;
-import com.pywl.likegreen.R;
+
 
 /**
  * Created by theWind on 2018/8/3.
  */
 
-public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     public NetWorkStateReceiver netWorkStateReceiver;
-    public T presenter;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        //presenter = initPresenter();
-
-    }
 
     //在onResume()方法注册
     @Override
@@ -36,7 +25,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(netWorkStateReceiver, filter);
-       // presenter.attachView((V) this);
+
         super.onResume();
     }
 
@@ -45,11 +34,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     protected void onPause() {
         unregisterReceiver(netWorkStateReceiver);
 
-       // presenter.detachView();
-
         super.onPause();
     }
-    // 实例化presenter
-    public abstract T initPresenter();
 
 }

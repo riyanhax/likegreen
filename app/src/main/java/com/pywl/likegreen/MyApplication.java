@@ -115,7 +115,7 @@ public class MyApplication extends Application {
 
     public static String PICTURE_DIR = "sdcard/JChatDemo/pictures/";
     private static final String JCHAT_CONFIGS = "JChat_configs";
-    public static String FILE_DIR = "sdcard/JChatDemo/recvFiles/";
+    public static String FILE_DIR = "sdcard/xliwork/recvFiles/";
     public static String VIDEO_DIR = "sdcarVIDEOd/JChatDemo/sendFiles/";
     public static final String TARGET_ID = "targetId";
     public static final String ATUSER = "atuser";
@@ -159,13 +159,13 @@ public class MyApplication extends Application {
                 "99d7736e3d082f22eb2186d50014ed4b");
         UMConfigure.setLogEnabled(true);
         initImgPicker();
-        initOkGo();
+        OkGo.getInstance().init(this);
     }
 
 
     //配置分享
     {
-        PlatformConfig.setWeixin("com.pywl.likegreen", "edc1fa8d24295a29946572a793e04a46");
+        PlatformConfig.setWeixin("com.pywl.likegreen", "17cadcbcbb05c51bb017572437ad792f");
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
 
     }
@@ -197,11 +197,11 @@ public class MyApplication extends Application {
     private void initOkGo() {
         //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
         HttpHeaders headers = new HttpHeaders();
-        headers.put("Content-Type", "application/json");    //header不支持中文，不允许有特殊字符
-       // headers.put("commonHeaderKey2", "commonHeaderValue2");
+        headers.put("commonHeaderKey1", "commonHeaderValue1");    //header不支持中文，不允许有特殊字符
+        headers.put("commonHeaderKey2", "commonHeaderValue2");
         HttpParams params = new HttpParams();
-        //params.put("commonParamsKey1", "commonParamsValue1");     //param支持中文,直接传,不要自己编码
-       // params.put("commonParamsKey2", "这里支持中文参数");
+        params.put("commonParamsKey1", "commonParamsValue1");     //param支持中文,直接传,不要自己编码
+        params.put("commonParamsKey2", "这里支持中文参数");
         //----------------------------------------------------------------------------------------//
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
