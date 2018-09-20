@@ -17,10 +17,9 @@ import com.pywl.likegreen.R;
 import com.pywl.likegreen.activity.mian.ApplyLiveActivity;
 import com.pywl.likegreen.activity.mine.LiveStreamingActivity;
 import com.pywl.likegreen.activity.mian.LivingActivity;
-import com.pywl.likegreen.base.HomeBottomBarFragment;
+import com.pywl.likegreen.base.BaseFragment;
 import com.pywl.likegreen.fragment.main.FocuFragment;
 import com.pywl.likegreen.fragment.main.RecommendedFragment;
-import com.pywl.likegreen.fragment.main.RecommendedFragment2;
 import com.pywl.likegreen.fragment.main.TheNewFragment;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
  * Created by theWind on 2018/8/1.
  */
 
-public class HomePageFragment extends HomeBottomBarFragment implements View.OnClickListener {
+public class HomePageFragment extends BaseFragment implements View.OnClickListener {
     private ImageView mIvHomeMoreBtn;
     private  SlidingTabLayout mStHomePage;//
     private ViewPager mViewpager;

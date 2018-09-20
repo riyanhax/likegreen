@@ -52,6 +52,7 @@
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
     <RelativeLayout
+        android:id="@+id/rl_change_phone"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
@@ -76,35 +77,44 @@
         android:background="#f6f6f6"
         android:layout_width="match_parent"
         android:layout_height="5dp"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp">
-        <TextView
-            android:text="仅WiFi环境下观看视频和直播"
-            style="@style/systemtext" />
-        <ImageView
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/system_select"
-            android:layout_height="20dp"
-            android:layout_width="38dp"/>
-    </RelativeLayout>
-    <include layout="@layout/layout_line"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp">
-        <TextView
-            android:text="数据和WiFi环境下观看视频和直播"
-            style="@style/systemtext" />
-        <ImageView
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/system_select"
-            android:layout_height="20dp"
-            android:layout_width="38dp"/>
-    </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="仅WiFi环境下观看视频和直播"
+                        style="@style/systemtext" />
+                    <CheckBox
+                        android:id="@+id/cb_wifi_network"
+                        android:background="@drawable/system_select"
+                        android:button="@null"
+                        android:checked="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"/>
+                </RelativeLayout>
+                <include layout="@layout/layout_line"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="数据和WiFi环境下观看视频和直播"
+                        style="@style/systemtext" />
+                    <CheckBox
+                        android:id="@+id/cb_mobile_network"
+                        android:button="@null"
+                        android:background="@drawable/system_select"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"/>
+                </RelativeLayout>
+
+
+
     <View
         android:background="#f6f6f6"
         android:layout_width="match_parent"
@@ -122,6 +132,7 @@
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
     <RelativeLayout
+        android:id="@+id/rl_push_msg"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
@@ -166,6 +177,7 @@
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
     <RelativeLayout
+        android:id="@+id/rl_user_protocol"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
@@ -177,6 +189,7 @@
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
     <RelativeLayout
+        android:id="@+id/rl_about_us"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView

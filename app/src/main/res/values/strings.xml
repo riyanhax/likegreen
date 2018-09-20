@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">喜绿</string>
     <string name="app_key">cee9f4368174507ce3308bfa</string>
-    <string name="appidjiguang">12345678912</string>
+    <string name="appidjiguang">12345678911</string>
 
     <string name="homepage">首页</string>
     <string name="note">日记</string>
@@ -13,7 +13,7 @@
     <string name="privateletter">私信</string>
     <string name="shoppingcar">购物车</string>
     <string name="order">订单</string>
-    <string name="coupons">优惠券</string>
+    <string name="coupons">优惠券</string>F
     <string name="audit">审核</string>
     <string name="mycollection">我的收藏</string>
     <string name="mygoods">我发布的商品</string>
@@ -24,16 +24,27 @@
     <string name="editv">编辑</string>
     <string name="deletev">删除</string>
     <string name="submission">提交</string>
+    <string name="sure">确定</string>
+    <string name="getverificationcode">获取验证码</string>
+    <string name="setpushmsg">消息设置</string>
+    <string name="userprotocol">用户注册协议</string>
+    <string name="aboutus">关于我们</string>
 
 
     <string name="personaldata">个人资料</string>
     <string name="headimg">头像</string>
-    <string name="nichen">昵称</string>
+    <string name="nichen">真实姓名</string>
     <string name="phone">手机号</string>
     <string name="sagnetrue">个性签名</string>
     <string name="shoppingaddress">收货地址</string>
     <string name="myfocuse">我关注的</string>
     <string name="myfans">我的粉丝</string>
+    <string name="changephone">更改绑定的手机号</string>
+    <string name="idcardcheck">身份证验证</string>
+    <string name="businesscheck">营业执照验证</string>
+    <string name="save">保存</string>
+    <string name="manageaddress">管理收货地址</string>
+    <string name="addaddress">添加收货地址</string>
 
     <string name="trailer">预告</string>
     <string name="playback">回放</string>

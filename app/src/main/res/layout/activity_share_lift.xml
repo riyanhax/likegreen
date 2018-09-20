@@ -42,7 +42,6 @@
             <EditText
                 android:id="@+id/et_search"
                 android:layout_gravity="center_vertical"
-
                 android:background="@null"
                 android:textColorHint="#e7e7e7"
                 android:textColor="#000000"
