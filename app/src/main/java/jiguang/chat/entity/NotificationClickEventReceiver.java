@@ -4,7 +4,7 @@ package jiguang.chat.entity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.pywl.likegreen.MyApplication;
+import com.xbdl.xinushop.MyApplication;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.enums.ConversationType;

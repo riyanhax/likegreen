@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.pywl.likegreen.activity.mine.PlayBackActivity">
+    tools:context="com.xbdl.xinushop.activity.mine.PlayBackActivity">
     <LinearLayout
         android:id="@+id/ll_playback"
         android:orientation="vertical"

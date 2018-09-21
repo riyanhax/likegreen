@@ -2,7 +2,7 @@ package jiguang.chat.utils;
 
 import android.content.Context;
 
-import com.pywl.likegreen.R;
+import com.xbdl.xinushop.R;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

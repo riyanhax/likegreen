@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pywl.likegreen.activity.LoginActivity;
+import com.xbdl.xinushop.activity.LoginActivity;
 
 
 public class HandleResponseCode {

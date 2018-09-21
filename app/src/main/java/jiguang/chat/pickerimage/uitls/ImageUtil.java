@@ -17,8 +17,8 @@ import com.netease.LSMediaCapture.util.storage.StorageType;
 import com.netease.LSMediaCapture.util.storage.StorageUtil;
 import com.netease.LSMediaCapture.util.string.StringUtil;
 import com.netease.LSMediaCapture.util.sys.ScreenUtil;
-import com.pywl.likegreen.MyApplication;
-import com.pywl.likegreen.R;
+import com.xbdl.xinushop.MyApplication;
+import com.xbdl.xinushop.R;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

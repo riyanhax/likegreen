@@ -10,9 +10,9 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.pywl.likegreen.MainActivity;
-import com.pywl.likegreen.R;
-import com.pywl.likegreen.activity.LoginActivity;
+import com.xbdl.xinushop.MainActivity;
+import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.LoginActivity;
 
 import java.io.File;
 

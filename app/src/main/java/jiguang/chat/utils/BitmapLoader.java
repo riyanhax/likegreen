@@ -3,7 +3,7 @@ package jiguang.chat.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.pywl.likegreen.MyApplication;
+import com.xbdl.xinushop.MyApplication;
 
 import java.io.File;
 import java.io.FileNotFoundException;

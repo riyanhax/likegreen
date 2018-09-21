@@ -19,8 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pywl.likegreen.MyApplication;
-import com.pywl.likegreen.R;
+import com.xbdl.xinushop.MyApplication;
+import com.xbdl.xinushop.R;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.FileContent;

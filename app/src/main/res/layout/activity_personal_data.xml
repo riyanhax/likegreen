@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.pywl.likegreen.activity.mine.PersonalDataActivity">
+    tools:context="com.xbdl.xinushop.activity.mine.PersonalDataActivity">
     <RelativeLayout
         style="@style/head">
         <ImageView

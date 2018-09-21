@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#38630d"
-    tools:context="com.pywl.likegreen.activity.LoginActivity">
+    tools:context="com.xbdl.xinushop.activity.LoginActivity">
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_marginTop="@dimen/dp_56"
         android:layout_gravity="center"

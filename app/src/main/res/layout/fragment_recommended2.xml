@@ -17,7 +17,7 @@
             android:layout_height="match_parent"/>
 
     </FrameLayout>
-   <com.pywl.likegreen.view.VerticalViewPager
+   <com.xbdl.xinushop.view.VerticalViewPager
         android:id="@+id/recommend_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

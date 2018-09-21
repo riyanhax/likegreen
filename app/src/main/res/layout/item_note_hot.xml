@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </RelativeLayout>
-    <com.pywl.likegreen.view.MultiImageView
+    <com.xbdl.xinushop.view.MultiImageView
         android:id="@+id/iv_note_photo"
         android:background="@color/enptyviewbackground"
         android:layout_width="match_parent"

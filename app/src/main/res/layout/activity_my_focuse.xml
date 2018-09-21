@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/enptyviewbackground"
     android:orientation="vertical"
-    tools:context="com.pywl.likegreen.activity.mine.MyFocuseActivity">
+    tools:context="com.xbdl.xinushop.activity.mine.MyFocuseActivity">
     <RelativeLayout
         style="@style/head">
         <ImageView

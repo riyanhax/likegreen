@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/enptyviewbackground"
 
-    tools:context="com.pywl.likegreen.activity.ChatAct2ivity">
+    tools:context="com.xbdl.xinushop.activity.ChatAct2ivity">
      <RelativeLayout
          android:id="@+id/rl_chat_head"
          android:background="@color/white"

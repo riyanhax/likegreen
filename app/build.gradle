@@ -13,7 +13,8 @@ android {
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.pywl.likegreen"
+        //applicationId "com.xbdl.xinushop"
+        applicationId "com.xbdl.xinushop"
         minSdkVersion 18
         targetSdkVersion 27
         versionCode 1
@@ -28,7 +29,7 @@ android {
 //        }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME: "com.pywl.likegreen",
+                JPUSH_PKGNAME: "com.xbdl.xinushop",
                 JPUSH_APPKEY : "cee9f4368174507ce3308bfa", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]

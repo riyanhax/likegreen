@@ -7,8 +7,8 @@ import android.os.Environment;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
-import com.pywl.likegreen.MyApplication;
-import com.pywl.likegreen.R;
+import com.xbdl.xinushop.MyApplication;
+import com.xbdl.xinushop.R;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pywl.likegreen.activity.DirectMessagesActivity">
+    tools:context="com.xbdl.xinushop.activity.DirectMessagesActivity">
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tab_dir_msg"
         android:layout_width="match_parent"

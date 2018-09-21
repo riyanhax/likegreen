@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.pywl.likegreen">
+    package="com.xbdl.xinushop">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <!-- 111111111111111111111111111111 -->
     <permission
-        android:name="com.pywl.likegreen.permission.JPUSH_MESSAGE"
+        android:name="com.xbdl.xinushop.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
     <!-- Required -->
-    <uses-permission android:name="com.pywl.likegreen.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.xbdl.xinushop.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -101,7 +101,7 @@
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
 
-                <category android:name="com.pywl.likegreen" />
+                <category android:name="com.xbdl.xinushop" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -124,7 +124,7 @@
         <!-- Required since JCore 1.1.7. SDK 核心功能 -->
         <provider
             android:name="cn.jpush.android.service.DataProvider"
-            android:authorities="com.pywl.likegreen.DataProvider"
+            android:authorities="com.xbdl.xinushop.DataProvider"
             android:exported="false" />
 
         <!-- Required JMessage SDK核心功能 -->

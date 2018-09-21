@@ -18,7 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 
-import com.pywl.likegreen.R;
+import com.xbdl.xinushop.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

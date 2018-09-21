@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/enptyviewbackground"
     android:orientation="vertical"
-    tools:context="com.pywl.likegreen.activity.mine.ShareLiftActivity">
+    tools:context="com.xbdl.xinushop.activity.mine.ShareLiftActivity">
     <RelativeLayout
         style="@style/head">
         <ImageView
