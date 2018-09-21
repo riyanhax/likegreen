@@ -104,10 +104,10 @@ public class ShareLifeListBean implements Serializable {
             return islike;
         }
 
-        public void setImages(List<Images> images) {
+        public void setImages( List<Images> images) {
             this.images = images;
         }
-        public List<Images> getImages() {
+        public  List<Images> getImages() {
             return images;
         }
 
