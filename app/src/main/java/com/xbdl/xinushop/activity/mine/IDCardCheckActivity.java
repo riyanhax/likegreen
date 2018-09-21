@@ -51,13 +51,13 @@ public class IDCardCheckActivity extends AppCompatActivity implements View.OnCli
             case R.id.iv_previewfront:
 
                 Intent intentPerview = new Intent(this, ImageGridActivity.class);
-                intentPerview.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
+                intentPerview.putExtra(ImageGridActivity.EXTRAS_IMAGES,front);
                 startActivityForResult(intentPerview, 100);
                 break;
             case R.id.iv_idcard_back:
             case R.id.iv_previewback:
                 Intent intentBack = new Intent(this, ImageGridActivity.class);
-                intentBack.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
+                intentBack.putExtra(ImageGridActivity.EXTRAS_IMAGES,imgback);
                 startActivityForResult(intentBack, 200);
                 break;
 
@@ -91,7 +91,8 @@ public class IDCardCheckActivity extends AppCompatActivity implements View.OnCli
         if (front!=null&&imgback!=null){
 
         }else {
-            Toast.makeText(this, "请拍照后提交", Toast.LENGTH_SHORT).show();
+            return;
+            //Toast.makeText(this, "请拍照后提交", Toast.LENGTH_SHORT).show();
         }
     }
 }

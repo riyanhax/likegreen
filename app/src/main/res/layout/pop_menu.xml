@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
+              android:layout_width="150dp"
               android:layout_height="230dp"
               android:background="@drawable/pop"
               android:padding="10dp"
     >
-
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/pop_mywallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:clickable="true"
+        >
+        <ImageView
+            style="@style/popiv"
+            android:src="@drawable/qianbao"
+            />
+        <TextView
+            style="@style/poptv"
+            android:text="@string/mywallet"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="115dp"
+        android:layout_height="1dp"
+        android:background="@color/linebackground"/>
 
   <LinearLayout
       android:layout_marginTop="10dp"
       android:id="@+id/pop_privateletter"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      android:gravity="center"
       android:clickable="true"
       >
       <ImageView
@@ -33,10 +52,9 @@
         android:background="@color/linebackground"/>
     <LinearLayout
         android:id="@+id/pop_shoppingcar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="10dp"
         >
         <ImageView
@@ -54,10 +72,9 @@
         android:background="@color/linebackground"/>
     <LinearLayout
         android:id="@+id/pop_order"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="10dp"
         >
         <ImageView
@@ -75,10 +92,9 @@
         android:background="@color/linebackground"/>
     <LinearLayout
         android:id="@+id/pop_coupon"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="10dp"
         >
         <ImageView
@@ -97,10 +113,9 @@
         android:background="@color/linebackground"/>
     <LinearLayout
         android:id="@+id/pop_audit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="10dp"
         >
         <ImageView
@@ -119,10 +134,9 @@
         android:background="@color/linebackground"/>
     <LinearLayout
         android:id="@+id/pop_mycollection"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="10dp"
         >
         <ImageView
@@ -141,10 +155,10 @@
         android:background="@color/linebackground"/>
     <LinearLayout
         android:id="@+id/pop_mygoods"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
+
         android:layout_marginTop="10dp"
         >
         <ImageView

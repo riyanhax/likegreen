@@ -17,8 +17,6 @@ public class ImagesAdapter extends BaseQuickAdapter<Images, BaseViewHolder> {
         super(R.layout.item_imagelayout);
         this.position = position;
     }
-
-
     @Override
     protected void convert(BaseViewHolder helper, Images item) {
         AppCompatImageView iv = helper.getView(R.id.iv_image);

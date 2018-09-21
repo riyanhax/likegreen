@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/enptyviewbackground"
+    tools:context=".activity.mine.wallet.MyWalletActivity">
+    <RelativeLayout
+        android:background="#2c2c2c"
+        android:layout_height="@dimen/dp_48"
+        android:layout_width="match_parent">
+        <ImageView
+            android:id="@+id/tv_goback"
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return_baise"
+            style="@style/paddinglift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/mywallet"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_walletdetail"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/walletdetail"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="#2c2c2c"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_150">
+            <TextView
+                android:id="@+id/tv_accountbalance"
+                android:layout_marginLeft="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/accountbalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+               <TextView
+                   android:id="@+id/tv_renmingbi"
+                   android:layout_marginLeft="@dimen/dp_50"
+                   android:layout_below="@id/tv_accountbalance"
+                   android:layout_marginTop="@dimen/dp_20"
+                   android:text="¥"
+                   android:textSize="25sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <TextView
+                   android:id="@+id/tv_my_cash"
+                   android:layout_below="@id/tv_accountbalance"
+                   android:layout_toRightOf="@id/tv_renmingbi"
+                   android:textSize="40sp"
+                   android:layout_marginLeft="@dimen/dp_10"
+                   android:layout_marginTop="@dimen/dp_10"
+                   android:text="100"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_recharge"
+                    android:textColor="#2c2c2c"
+                    android:gravity="center"
+                    android:background="@drawable/bg_recharge"
+                    android:layout_marginBottom="@dimen/dp_60"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="@dimen/dp_40"
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:text="@string/recharge"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_25" />
+    </RelativeLayout>
+    <View
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <RelativeLayout
+        android:id="@+id/rl_make_cash"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="@string/makecash"
+            style="@style/systemtext" />
+        <ImageView
+            android:src="@drawable/back"
+            style="@style/systeimg" />
+    </RelativeLayout>
+    <View
+        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</LinearLayout>

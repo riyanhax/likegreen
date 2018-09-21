@@ -9,6 +9,7 @@
     <string name="focus">关注</string>
     <string name="recommended">推荐</string>
     <string name="update">更新</string>
+    <string name="mywallet">我的钱包</string>
     <string name="privateletter">私信</string>
     <string name="shoppingcar">购物车</string>
     <string name="order">订单</string>
@@ -28,6 +29,14 @@
     <string name="setpushmsg">消息设置</string>
     <string name="userprotocol">用户注册协议</string>
     <string name="aboutus">关于我们</string>
+    <string name="walletdetail">明细</string>
+    <string name="accountbalance">账户余额</string>
+    <string name="recharge">充值</string>
+    <string name="rechargecenter">充值中心</string>
+    <string name="makecash">提现</string>
+    <string name="transactiondetails">交易明细</string>
+    <string name="weixinplay">微信支付</string>
+    <string name="aliplay">支付宝支付</string>
 
 
     <string name="personaldata">个人资料</string>
@@ -250,5 +259,4 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- chat-->
-    <string name="string_hintrecommendcomment">神评由你来谱写...</string>
 </resources>

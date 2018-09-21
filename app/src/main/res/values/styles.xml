@@ -31,7 +31,6 @@
         <item name="android:layout_height">@dimen/dp_16</item>
     </style>
     <style name="paddingright" >
-
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginRight">20dp</item>

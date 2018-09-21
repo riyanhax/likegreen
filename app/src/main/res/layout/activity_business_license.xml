@@ -39,10 +39,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/iv_business_photo"
+            android:scaleType="fitXY"
             android:src="@drawable/fanben"
             android:layout_width="@dimen/dp_150"
             android:layout_height="230dp" />
         <ImageView
+            android:id="@+id/iv_business_camera"
             android:src="@drawable/shangchuan_img"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
@@ -54,15 +57,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/tv_business_pop"
         android:layout_marginTop="@dimen/dp_20"
-
         android:textColor="#2d99fa"
         android:text="*点击查看新版营业执照示例图片"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
         android:layout_marginTop="@dimen/dp_20"
-
         android:textColor="#a4a4a4"
         android:text="清晰的图片可以让您更快通过审核；"
         android:layout_width="wrap_content"
@@ -78,7 +80,6 @@
     <TextView
 
         android:layout_marginTop="@dimen/dp_5"
-
         android:textColor="#a4a4a4"
         android:text="请确保营业执照图片所有信息清晰可见，\n内容真实，无任何修改"
         android:layout_width="wrap_content"

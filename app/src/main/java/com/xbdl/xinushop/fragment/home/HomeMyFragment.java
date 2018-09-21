@@ -134,6 +134,9 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 Intent intentPersonalDataActivity = new Intent(getActivity(), PersonalDataActivity.class);
                 startActivity(intentPersonalDataActivity);
                 break;
+            case R.id.pop_mywallet://钱包
+
+                break;
         }
     }
 
@@ -167,6 +170,9 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
 
     private void showPopwindow() {
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_menu, null);
+        //钱包
+        LinearLayout pop_mywallet = contentView.findViewById(R.id.pop_mywallet);
+        pop_mywallet.setOnClickListener(this);
         //私信
         LinearLayout pop_privateletter = contentView.findViewById(R.id.pop_privateletter);
         pop_privateletter.setOnClickListener(this);
@@ -197,7 +203,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 getActivity().getWindow().setAttributes(lp);
             }
         });
-        popupWindow.showAsDropDown(mMyMore, -70, 5);
+        popupWindow.showAsDropDown(mMyMore, -80, 5);
     }
 
 }
