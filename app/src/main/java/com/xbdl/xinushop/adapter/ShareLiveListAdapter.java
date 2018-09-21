@@ -55,34 +55,27 @@ public class ShareLiveListAdapter extends BaseQuickAdapter<ShareLifeListBean, Ba
         tvTopic.setText(spannableString);
 
         RecyclerView recyclerViewimage = helper.getView(R.id.recycler_image);
-        if (item.getImages()!=null)
-        {
-            if (item.getImages().size()==1)
-            {
-                recyclerViewimage.setLayoutManager(new GridLayoutManager(recyclerViewimage.getContext(),1));
-            }else if (item.getImages().size()==2)
-            {
-                recyclerViewimage.setLayoutManager(new GridLayoutManager(recyclerViewimage.getContext(),2));
-            }else {
-                recyclerViewimage.setLayoutManager(new GridLayoutManager(recyclerViewimage.getContext(),3));
+        if (item.getImages() != null) {
+            if (item.getImages().size() == 1) {
+                recyclerViewimage.setLayoutManager(new GridLayoutManager(recyclerViewimage.getContext(), 1));
+            } else if (item.getImages().size() == 2) {
+                recyclerViewimage.setLayoutManager(new GridLayoutManager(recyclerViewimage.getContext(), 2));
+            } else {
+                recyclerViewimage.setLayoutManager(new GridLayoutManager(recyclerViewimage.getContext(), 3));
             }
         }
 
-       ImagesAdapter imagesAdapter=null;
-       if (item.getImages()!=null&&item.getImages().size()>0)
-       {
-           imagesAdapter=new ImagesAdapter(item.getImages().size());
-       }else {
-           imagesAdapter=new ImagesAdapter(0);
-       }
-       recyclerViewimage.setAdapter(imagesAdapter);
+        ImagesAdapter imagesAdapter = null;
+        if (item.getImages() != null && item.getImages().size() > 0) {
+            imagesAdapter = new ImagesAdapter(item.getImages().size());
+        } else {
+            imagesAdapter = new ImagesAdapter(0);
+        }
+        recyclerViewimage.setAdapter(imagesAdapter);
 
-      if (item.getImages()!=null&&item.getImages().size()>0)
-      {
-          imagesAdapter.addData(item.getImages());
-      }
-
-
+        if (item.getImages() != null && item.getImages().size() > 0) {
+            imagesAdapter.addData(item.getImages());
+        }
 
 
         AppCompatImageView ivUsericon = helper.getView(R.id.iv_usericon);

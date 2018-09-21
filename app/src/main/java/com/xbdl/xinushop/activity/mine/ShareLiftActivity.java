@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -41,10 +43,12 @@ public class ShareLiftActivity extends AppCompatActivity {
     }
 
     ShareLiveListAdapter shareLiveListAdapter;
+    ProgressBar progressBar;
 
     private void initView() {
         title = findViewById(R.id.tv_title);
         search = findViewById(R.id.et_search);
+        progressBar = findViewById(R.id.prossbar);
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(ShareLiftActivity.this));
         shareLiveListAdapter = new ShareLiveListAdapter();
@@ -83,6 +87,7 @@ public class ShareLiftActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 super.onFinish();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -90,7 +95,9 @@ public class ShareLiftActivity extends AppCompatActivity {
                 super.onError(response);
                 Log.i("", "");
             }
+
         });
+
     }
 
     /**

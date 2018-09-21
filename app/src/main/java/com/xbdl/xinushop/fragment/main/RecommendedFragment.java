@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.RecommendedAdapter;
 import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -113,12 +115,15 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
         mShortVideoListAdapter.setMyViewClick(new RecommendedAdapter.MyViewClick() {
             @Override
             public void showCommentPop(View view) {
-                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_comment, null);
-                PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,getActivity().getWindowManager().getDefaultDisplay().getHeight()*4/5);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                popupWindow.setOutsideTouchable(true);
-                popupWindow.setTouchable(true);
-                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_comment, null);
+//                PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,getActivity().getWindowManager().getDefaultDisplay().getHeight()*4/5);
+//                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                popupWindow.setOutsideTouchable(true);
+//                popupWindow.setTouchable(true);
+//                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                Log.i("asdf","pinglun");
+                RecommentCommentDialogFragment dialogFragment=RecommentCommentDialogFragment.newInstance();
+                dialogFragment.show(getChildFragmentManager(),"");
             }
 
             @Override

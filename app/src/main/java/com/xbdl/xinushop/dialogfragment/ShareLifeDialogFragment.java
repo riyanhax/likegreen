@@ -39,7 +39,7 @@ public class ShareLifeDialogFragment extends MyDialogFragment {
         ShareLifeDialogFragment fragment = new ShareLifeDialogFragment();
         Bundle args = new Bundle();
         args.putInt("type", type);
-        args.putSerializable("shareLifeListBean", shareLifeListBean);
+        args.putParcelable("shareLifeListBean", shareLifeListBean);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +52,7 @@ public class ShareLifeDialogFragment extends MyDialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             type = getArguments().getInt("type", 0);
-            shareLifeListBean = (ShareLifeListBean) getArguments().getSerializable("shareLifeListBean");
+            shareLifeListBean =  getArguments().getParcelable("shareLifeListBean");
         }
     }
 
@@ -69,7 +69,7 @@ public class ShareLifeDialogFragment extends MyDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_share_life_dialog, container, false);
-        getDialog().setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
+        getDialog().setCanceledOnTouchOutside(true);// 设置点击屏幕Dialog不消失
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 设置宽度为屏宽、靠近屏幕底部。
         Window window = getDialog().getWindow();

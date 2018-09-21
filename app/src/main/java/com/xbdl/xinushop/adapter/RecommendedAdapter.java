@@ -93,16 +93,16 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         }
     }
 
-    private void showCommentPop(View view) {
-        View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_comment, null);
-
-        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setTouchable(true);
-        popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-
-    }
+//    private void showCommentPop(View view) {
+//        View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_comment, null);
+//
+//        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        popupWindow.setOutsideTouchable(true);
+//        popupWindow.setTouchable(true);
+//        popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//
+//    }
 
     private  UMShareListener umShareListener= new UMShareListener() {
 

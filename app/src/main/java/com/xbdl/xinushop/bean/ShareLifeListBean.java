@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * 分享生活bean
  */
-public class ShareLifeListBean implements Serializable {
-    private static final long serialVersionUID = -7060214460046441L;
+public class ShareLifeListBean implements Parcelable {
+
 
 
 
@@ -128,4 +128,56 @@ public class ShareLifeListBean implements Serializable {
                 ", images=" + images +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.usericon);
+        dest.writeString(this.username);
+        dest.writeString(this.createtime);
+        dest.writeString(this.topic);
+        dest.writeString(this.title);
+        dest.writeString(this.message);
+        dest.writeInt(this.commentnumber);
+        dest.writeInt(this.sharenumber);
+        dest.writeInt(this.likenumber);
+        dest.writeInt(this.viewcount);
+        dest.writeInt(this.islike);
+        dest.writeList(this.images);
+    }
+
+    public ShareLifeListBean() {
+    }
+
+    protected ShareLifeListBean(Parcel in) {
+        this.usericon = in.readString();
+        this.username = in.readString();
+        this.createtime = in.readString();
+        this.topic = in.readString();
+        this.title = in.readString();
+        this.message = in.readString();
+        this.commentnumber = in.readInt();
+        this.sharenumber = in.readInt();
+        this.likenumber = in.readInt();
+        this.viewcount = in.readInt();
+        this.islike = in.readInt();
+        this.images = new ArrayList<Images>();
+        in.readList(this.images, Images.class.getClassLoader());
+    }
+
+    public static final Creator<ShareLifeListBean> CREATOR = new Creator<ShareLifeListBean>() {
+        @Override
+        public ShareLifeListBean createFromParcel(Parcel source) {
+            return new ShareLifeListBean(source);
+        }
+
+        @Override
+        public ShareLifeListBean[] newArray(int size) {
+            return new ShareLifeListBean[size];
+        }
+    };
 }
