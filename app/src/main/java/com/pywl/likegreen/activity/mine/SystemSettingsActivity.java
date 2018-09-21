@@ -161,8 +161,5 @@ public class SystemSettingsActivity extends BaseActivity implements View.OnClick
         popupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
     }
 
-    @Override
-    public BasePresenter initPresenter() {
-        return null;
-    }
+
 }

@@ -82,9 +82,5 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    @Override
-    public BasePresenter initPresenter() {
 
-        return null;
-    }
 }
