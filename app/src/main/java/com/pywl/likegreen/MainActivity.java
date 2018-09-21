@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.pywl.likegreen.activity.WriteLongPostActivity;
 import com.pywl.likegreen.activity.mian.ApplyLiveActivity;
 import com.pywl.likegreen.activity.mine.ShareLiftActivity;
 import com.pywl.likegreen.base.BaseActivity;
+import com.pywl.likegreen.base.BasePresenter;
 import com.pywl.likegreen.bean.CallTab;
 import com.pywl.likegreen.fragment.home.HomeFindFragment;
 import com.pywl.likegreen.fragment.home.HomeMyFragment;
@@ -41,7 +43,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     final RxPermissions rxPermissions = new RxPermissions(this);
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";//测试url
 
@@ -82,6 +84,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onResume();
 
     }
+
+
 
     private void initFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -341,8 +345,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
-    private void popupWindowDissmiss(){
 
-        popupWindow.dismiss();
-    }
+
 }

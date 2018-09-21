@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.pywl.likegreen.R;
+import com.pywl.likegreen.base.BaseActivity;
+import com.pywl.likegreen.base.BasePresenter;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 //个人资料页
-public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener {
+public class PersonalDataActivity extends BaseActivity implements View.OnClickListener {
     private View mSystemPersonalHead,mSystemPersonalName,mSystemPersonPhone,mRlSagnatrue,mRlShoppingAddress;
     private CircleImageView mIvPersonalHead;
     private TextView mTvPersonalName,mTvPersonalPhone;
@@ -68,10 +71,20 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 startActivity(intentShoppingAddressActivity);
                 break;
             case R.id.rl_idcard_check://身份证验证
+                Intent intentIDCardCheckActivity = new Intent(this, IDCardCheckActivity.class);
+                startActivity(intentIDCardCheckActivity);
                 break;
             case R.id.rl_business_check://营业执照验证
+                Intent intentBusinessLicenseActivity = new Intent(this, BusinessLicenseActivity.class);
+                startActivity(intentBusinessLicenseActivity);
                 break;
 
         }
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+
+        return null;
     }
 }

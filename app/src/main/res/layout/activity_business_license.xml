@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/enptyviewbackground"
+    tools:context=".activity.mine.BusinessLicenseActivity">
+    <RelativeLayout
+        style="@style/head">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return"
+            style="@style/paddinglift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/businesscheck"
+            android:textColor="@color/colorfocuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#a4a4a4"
+        android:text="喜绿将严格对你身份信息进行保密"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/fanben"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="230dp" />
+        <ImageView
+            android:src="@drawable/shangchuan_img"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginTop="@dimen/dp_20"
+
+        android:textColor="#2d99fa"
+        android:text="*点击查看新版营业执照示例图片"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="@dimen/dp_20"
+
+        android:textColor="#a4a4a4"
+        android:text="清晰的图片可以让您更快通过审核；"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#a4a4a4"
+        android:text="推荐上传扫描文件，拍照请尽量降低反光；"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+
+        android:layout_marginTop="@dimen/dp_5"
+
+        android:textColor="#a4a4a4"
+        android:text="请确保营业执照图片所有信息清晰可见，\n内容真实，无任何修改"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="@dimen/dp_5"
+        android:textColor="#a4a4a4"
+        android:text="文件格式支持.jpg.jpeg.bmp.png.pdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_submission"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:gravity="center"
+            android:background="@drawable/bg_plant_diary"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:text="提交审核"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40" />
+    </RelativeLayout>
+
+</LinearLayout>
