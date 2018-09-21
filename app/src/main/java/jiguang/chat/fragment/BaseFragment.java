@@ -82,17 +82,21 @@ public class BaseFragment extends Fragment {
                             case R.id.jmui_cancel_btn:
                                 Intent intent = new Intent(mContext, LoginActivity.class);
                                 startActivity(intent);
+                                getActivity().finish();
                                 break;
                             case R.id.jmui_commit_btn:
-                                JMessageClient.login(SharePreferenceManager.getCachedUsername(), SharePreferenceManager.getCachedPsw(), new BasicCallback() {
-                                    @Override
-                                    public void gotResult(int responseCode, String responseMessage) {
-                                        if (responseCode == 0) {
-                                            Intent intent = new Intent(mContext, MainActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    }
-                                });
+                                Intent intent2 = new Intent(mContext, MainActivity.class);
+                                startActivity(intent2);
+                                getActivity().finish();
+//                                JMessageClient.login(SharePreferenceManager.getCachedUsername(), SharePreferenceManager.getCachedPsw(), new BasicCallback() {
+//                                    @Override
+//                                    public void gotResult(int responseCode, String responseMessage) {
+//                                        if (responseCode == 0) {
+//                                            Intent intent = new Intent(mContext, MainActivity.class);
+//                                            startActivity(intent);
+//                                        }
+//                                    }
+//                                });
                                 break;
                         }
                     }

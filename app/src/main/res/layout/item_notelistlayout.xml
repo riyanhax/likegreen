@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
+
+        <LinearLayout
+            android:id="@+id/ll_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_usericon"
+                android:layout_width="@dimen/dp_46"
+                android:layout_height="@dimen/dp_46"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="title"
+                    android:textColor="@color/color_303030"
+                    android:textSize="@dimen/sp_14" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="topic"
+                    android:textColor="@color/color_727272"
+                    android:textSize="@dimen/sp_10" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_attention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/circle_919191_10"
+                android:padding="@dimen/dp_5"
+                android:text="已关注"
+                android:textColor="@color/color_353535" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/color_919191" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/tv_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:background="@drawable/circle_fff_10"
+        android:padding="@dimen/dp_10"
+        android:text="种草日记.惊天"
+        android:textColor="@color/color_353535" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_viewcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_3"
+        android:padding="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="adfsd"
+        android:textColor="@color/color_727272"
+        android:textSize="@dimen/sp_12" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_3"
+        android:background="@color/color_919191" />
+</LinearLayout>
