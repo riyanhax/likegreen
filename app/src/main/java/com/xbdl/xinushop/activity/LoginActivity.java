@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
@@ -75,6 +76,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_forget_pwd://忘记密码
                 break;
             case R.id.tv_tv_register://注册
+                Intent intentRegisterActivity = new Intent(this, RegisterActivity.class);
+                startActivity(intentRegisterActivity);
                 break;
         }
     }
@@ -142,6 +145,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
     private void initData() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OkGo.getInstance().cancelTag(this);
 
     }
 }

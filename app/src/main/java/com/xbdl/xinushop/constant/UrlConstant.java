@@ -18,4 +18,12 @@ public interface UrlConstant {
      * 登录
      */
     String login=baseUrl+"user/appLogin";
+    /**
+     * 发送验证码
+     */
+    String sendCode=baseUrl+"user/appSend";
+    /**
+     * 注册
+     */
+    String regeist=baseUrl+"user/appRegist";
 }

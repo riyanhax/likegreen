@@ -19,9 +19,12 @@ import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MainActivity;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.base.BaseActivity;
+import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
+import com.xbdl.xinushop.utils.AESUtils;
 import com.xbdl.xinushop.utils.CountDownUtil;
 import com.xbdl.xinushop.utils.HttpUtils;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +48,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
          et_code = (EditText)findViewById(R.id.et_register_code);
          etPwd = (EditText)findViewById(R.id.et_register_pwd);
          sendCode = (TextView)findViewById(R.id.tv_send_code);
-         sendCode();
+         sendCode.setOnClickListener(this);
          cb_pwd = findViewById(R.id.cb_show_pwd);
          cb_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -68,20 +71,71 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case  R.id.tv_send_code:
+                if (mPhoneNumber.length()!=11){
+                    Toast.makeText(this,"请输入正确手机号",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                    sendCode();
 
+                break;
             case  R.id.tv_register:
 
                 break;
         }
     }
+    private CountDownUtil time;
     private void sendCode(){
-        new CountDownUtil(sendCode)
+         time=new CountDownUtil(sendCode)
                 .setCountDownMillis(60_000L)//倒计时60000ms
                 .setCountDownColor(android.R.color.holo_blue_light,android.R.color.darker_gray)//不同状态字体颜色
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("MainActivity","发送成功");
+
+                        if (mPhoneNumber.length()!=11){
+                            Toast.makeText(RegisterActivity.this,"请输入正确手机号",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                       HttpUtils.sendCode(mPhoneNumber.getText().toString(), new StringCallback() {
+                           @Override
+                           public void onSuccess(Response<String> response) {
+                               String body = response.body();
+                               try {
+                                   JSONObject jsonObject = new JSONObject(body);
+                                   int code = jsonObject.getInt("code");
+                                   if (code==100){
+                                       Toast.makeText(RegisterActivity.this,"短信已发送",Toast.LENGTH_SHORT).show();
+                                   }else {
+                                       Toast.makeText(RegisterActivity.this,"发送不成功",Toast.LENGTH_SHORT).show();
+
+
+                                   }
+                               } catch (JSONException e) {
+                                   e.printStackTrace();
+                               }
+                           }
+                           @Override
+                           public void onStart(Request<String, ? extends Request> request) {
+                               super.onStart(request);
+                               showLoading();
+                               Log.v("nihaoma","4444444444");
+                           }
+
+                           @Override
+                           public void onError(Response<String> response) {
+                               super.onError(response);
+                               dismissLoading();
+                               Log.v("nihaoma",response+"55555555555");
+                           }
+
+                           @Override
+                           public void onFinish() {
+                               super.onFinish();
+                               dismissLoading();
+                           }
+                       });
                     }
                 })
                 .start();
@@ -89,7 +143,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
 
 
-    private void login(){
+
+    private void register(){
         if (mPhoneNumber.length()!=11){
             Toast.makeText(this,"请输入正确手机号",Toast.LENGTH_SHORT).show();
             return;
@@ -102,28 +157,33 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             Toast.makeText(this,"请输入验证码",Toast.LENGTH_SHORT).show();
             return;
         }
-
-        if (mPhoneNumber.length()==11&& !TextUtils.isEmpty(etPwd.toString())){
-            HttpUtils.login(mPhoneNumber.getText().toString(), etPwd.getText().toString(),new StringCallback() {
+        final String phonenum = mPhoneNumber.getText().toString();
+        final String pwd = etPwd.getText().toString();
+        String code = et_code.getText().toString();
+        if (mPhoneNumber.length()==11&& !TextUtils.isEmpty(etPwd.toString())&& !TextUtils.isEmpty(et_code.toString())){
+            HttpUtils.register(phonenum,pwd,code,new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
-                    Log.v("nihaoma","3333333333");
                     String body = response.body();
                     try {
                         JSONObject jsonObject = new JSONObject(body);
                         int code = jsonObject.getInt("code");
                         String  object = jsonObject.getString("object");
                         if (code==100){
-                            Gson gson = new Gson();
-                            PersonBean personBean = gson.fromJson(object, PersonBean.class);
-                            Log.v("nihaoma",personBean.toString());
+                            Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
+                            //加密
+                            String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
+                            String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
+                            SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PHONE,phoneEncode);
+                            SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PASSWORD,pwdEncode);
                             dismissLoading();
                             Intent intentMainActivity = new Intent(RegisterActivity.this, MainActivity.class);
                             startActivity(intentMainActivity);
+                            time.reset();
                             finish();
                         }else {
-                            String msg = jsonObject.getString("msg");
-                            Toast.makeText(RegisterActivity.this,msg,Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
