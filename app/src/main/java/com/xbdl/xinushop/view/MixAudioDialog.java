@@ -18,7 +18,8 @@ import android.widget.TextView;
 import com.xbdl.xinushop.R;
 
 
-/** 伴音配置对话框
+/**
+ * 伴音配置对话框
  * Created by hzzhujinbo on 2016/7/20.
  */
 public class MixAudioDialog extends PopupWindow {
@@ -55,7 +56,7 @@ public class MixAudioDialog extends PopupWindow {
 
     private void initDialog(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contextView = inflater.inflate(R.layout.mix_audio_layout,null);
+        View contextView = inflater.inflate(R.layout.mix_audio_layout, null);
         contextView.setBackgroundColor(0xaafff);
         initView(contextView);
         this.setContentView(contextView);
@@ -82,20 +83,16 @@ public class MixAudioDialog extends PopupWindow {
 
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         startAudioMixBtn = (Button) view.findViewById(R.id.StartAudioMixBtn);
-        if(!mAudioMixOn)
-        {
+        if (!mAudioMixOn) {
             startAudioMixBtn.setEnabled(true);
-        }
-        else
-        {
+        } else {
             startAudioMixBtn.setEnabled(false);
         }
 
         startAudioMixBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 mIntentAudioMix.putExtra("AudioMixMSG", 1);
                 mContext.sendBroadcast(mIntentAudioMix);
                 mAudioMixOn = true;
@@ -108,35 +105,26 @@ public class MixAudioDialog extends PopupWindow {
         });
 
         pauseResumeAudioMixBtn = (Button) view.findViewById(R.id.PauseResumeAudioMixBtn);
-        if(mAudioMixOn && !mAudioMixPause)
-        {
+        if (mAudioMixOn && !mAudioMixPause) {
             pauseResumeAudioMixBtn.setText("暂停");
             pauseResumeAudioMixBtn.setEnabled(true);
-        }
-        else if(mAudioMixOn && mAudioMixPause)
-        {
+        } else if (mAudioMixOn && mAudioMixPause) {
             pauseResumeAudioMixBtn.setText("继续");
             pauseResumeAudioMixBtn.setEnabled(true);
-        }
-        else
-        {
+        } else {
             pauseResumeAudioMixBtn.setText("继续");
             pauseResumeAudioMixBtn.setEnabled(false);
         }
 
         pauseResumeAudioMixBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                if(!mAudioMixPause)
-                {
+            public void onClick(View v) {
+                if (!mAudioMixPause) {
                     mIntentAudioMix.putExtra("AudioMixMSG", 3);
                     mContext.sendBroadcast(mIntentAudioMix);
                     mAudioMixPause = true;
                     pauseResumeAudioMixBtn.setText("继续");
                     pauseResumeAudioMixBtn.setEnabled(true);
-                }
-                else
-                {
+                } else {
                     mIntentAudioMix.putExtra("AudioMixMSG", 2);
                     mContext.sendBroadcast(mIntentAudioMix);
                     mAudioMixPause = false;
@@ -148,17 +136,13 @@ public class MixAudioDialog extends PopupWindow {
         });
 
         stopAudioMixBtn = (Button) view.findViewById(R.id.StopAudioMixBtn);
-        if(mAudioMixOn)
-        {
+        if (mAudioMixOn) {
             stopAudioMixBtn.setEnabled(true);
-        }
-        else
-        {
+        } else {
             stopAudioMixBtn.setEnabled(false);
         }
         stopAudioMixBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 mIntentAudioMix.putExtra("AudioMixMSG", 4);
                 mContext.sendBroadcast(mIntentAudioMix);
                 mAudioMixOn = false;
@@ -174,12 +158,12 @@ public class MixAudioDialog extends PopupWindow {
 
         initMixAudioFileSpinner(view);
 
-        mixAudioVolumeBar = (SeekBar)view.findViewById(R.id.mixAudioVolumeBar);
+        mixAudioVolumeBar = (SeekBar) view.findViewById(R.id.mixAudioVolumeBar);
         mixAudioVolumeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 m_mixAudioVolumeProgress = progress;
-                m_mixAudioVolume = progress/10;//0-9
+                m_mixAudioVolume = progress / 10;//0-9
                 mixAudioVolumeTV.setText(String.valueOf(progress) + "%");
 
                 mIntentAudioMixVolume.putExtra("AudioMixVolumeMSG", m_mixAudioVolume);
@@ -197,26 +181,21 @@ public class MixAudioDialog extends PopupWindow {
             }
         });
 
-        mixAudioVolumeTV = (TextView)view.findViewById(R.id.mixAudioVolumeTV);
-        if(mAudioMixOn)
-        {
+        mixAudioVolumeTV = (TextView) view.findViewById(R.id.mixAudioVolumeTV);
+        if (mAudioMixOn) {
             mixAudioVolumeTV.setText(String.valueOf(m_mixAudioVolumeProgress) + "%");
             mIntentAudioMixVolume.putExtra("AudioMixVolumeMSG", m_mixAudioVolume);
             mixAudioVolumeBar.setProgress(m_mixAudioVolumeProgress);
-        }
-        else
-        {
+        } else {
             mixAudioVolumeTV.setText("20%");
-            mIntentAudioMixVolume.putExtra("AudioMixVolumeMSG", 20/10);
+            mIntentAudioMixVolume.putExtra("AudioMixVolumeMSG", 20 / 10);
             mixAudioVolumeBar.setProgress(20);
         }
     }
 
-    private void initMixAudioFileSpinner(View view)
-    {
-        mixAudioFileSpinner = (Spinner)view.findViewById(R.id.mixAudioFileSpinner);
-        if(Build.VERSION.SDK_INT >=11)
-        {
+    private void initMixAudioFileSpinner(View view) {
+        mixAudioFileSpinner = (Spinner) view.findViewById(R.id.mixAudioFileSpinner);
+        if (Build.VERSION.SDK_INT >= 11) {
             adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, mixAudioFileArray);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
             mixAudioFileSpinner.setAdapter(adapter);
@@ -227,11 +206,12 @@ public class MixAudioDialog extends PopupWindow {
                     mContext.sendBroadcast(mIntentAudioMix);
                 }
 
-                public void onNothingSelected(AdapterView<?> arg0) {}
+                public void onNothingSelected(AdapterView<?> arg0) {
+                }
             });
             mixAudioFileSpinner.setVisibility(View.VISIBLE);
             mixAudioFileSpinner.setSelection(0);
-        }else{
+        } else {
             mixAudioFileSpinner.setVisibility(View.GONE);
         }
     }
