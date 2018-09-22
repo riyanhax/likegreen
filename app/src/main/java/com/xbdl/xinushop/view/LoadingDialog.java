@@ -45,7 +45,7 @@ public class LoadingDialog extends Dialog {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_gray);
 		setCancelable(true);
-		setCanceledOnTouchOutside(false);
+		setCanceledOnTouchOutside(true);
 	}
 
 	public LoadingDialog setLoadingDialogTitle(String txt){

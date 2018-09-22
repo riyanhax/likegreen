@@ -18,6 +18,7 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.netease.LSMediaCapture.util.storage.StorageUtil;
+import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.utils.GildeImageLoader;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
@@ -288,5 +289,9 @@ public class MyApplication extends Application {
             //return hostname.equals("server.jeasonlzy.com");
             return true;
         }
+    }
+    public static PersonBean user;
+    public void setUer(PersonBean user){
+        this.user=user;
     }
 }

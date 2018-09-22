@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.xbdl.xinushop.BroadcastReceiver.NetWorkStateReceiver;
+import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.view.LoadingDialog;
 
 
 /**
@@ -12,7 +14,7 @@ import com.xbdl.xinushop.BroadcastReceiver.NetWorkStateReceiver;
  */
 
 public class BaseActivity extends AppCompatActivity {
-
+   protected LoadingDialog loadingDialog;
     public NetWorkStateReceiver netWorkStateReceiver;
 
 
@@ -36,5 +38,17 @@ public class BaseActivity extends AppCompatActivity {
 
         super.onPause();
     }
+    /**
+     * 显示加载对话框
 
+     */
+    protected void showLoading(){
+        if (loadingDialog==null){
+            loadingDialog = new LoadingDialog(this);
+            loadingDialog.show();
+        }
+    }
+    protected void dismissLoading(){
+        loadingDialog.dismiss();
+    }
 }

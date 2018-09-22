@@ -1,6 +1,7 @@
 package com.xbdl.xinushop.constant;
 
 public interface UrlConstant {
+    String baseUrl="http://192.168.1.4:8080/";
     /**
      * 喜帖分享生活
      */
@@ -14,7 +15,7 @@ public interface UrlConstant {
      */
     String notehotandattention="https://www.easy-mock.com/mock/5ba31506fb39f72ea10ec4d4/xilv/notehotandattention";
     /**
-     * 商品分类
+     * 登录
      */
-    String getgoodsCategory=InternetConstant.API_URL+"commodityclassify/getClassifyByInfoApi";
+    String login=baseUrl+"user/appLogin";
 }

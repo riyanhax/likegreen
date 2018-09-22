@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.xbdl.xinushop.activity.LoginActivity;
+
 public class LaunchActivity extends AppCompatActivity {
 
     @Override
@@ -20,7 +22,7 @@ public class LaunchActivity extends AppCompatActivity {
     Runnable r = new Runnable() {
         public void run() {
             Intent intent = new Intent();
-            intent.setClass(LaunchActivity.this, MainActivity.class);
+            intent.setClass(LaunchActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }

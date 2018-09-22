@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#38630d"
     tools:context="com.xbdl.xinushop.activity.LoginActivity">
+    <ImageView
+        android:scaleType="fitXY"
+        android:src="@drawable/denglu_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/login_head_icon"
         android:layout_marginTop="@dimen/dp_56"
         android:layout_gravity="center"
         android:src="@drawable/logo_denglu"
@@ -27,6 +37,8 @@
             android:layout_height="@dimen/dp_15" />
         <EditText
             android:id="@+id/et_phone_number"
+            android:inputType="phone"
+            android:maxLength="11"
             android:gravity="center_vertical"
             android:textColorHint="@color/white"
             android:hint="请输入手机号码"
@@ -36,10 +48,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/login_edtext_bg"
+            android:layout_width="271dp"
+            android:layout_height="41dp">
     <LinearLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/login_edtext_bg"
         android:layout_width="271dp"
         android:layout_height="41dp">
         <ImageView
@@ -50,6 +65,7 @@
             android:layout_height="@dimen/dp_15" />
         <EditText
             android:id="@+id/et_pwd"
+            android:inputType="textPassword"
             android:gravity="center_vertical"
             android:textColorHint="@color/white"
             android:hint="请输入密码"
@@ -59,20 +75,31 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent" />
-
     </LinearLayout>
+            <CheckBox
+                android:id="@+id/cb_show_pwd"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/checkbox_login"
+                android:button="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     <RelativeLayout
         android:layout_marginTop="@dimen/dp_22"
         android:layout_gravity="center_horizontal"
         android:layout_width="271dp"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/tv_forget_pwd"
             android:textSize="@dimen/sp_12"
             android:textColor="#fffefe"
             android:text="忘记密码"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_tv_register"
             android:textSize="@dimen/sp_12"
             android:textColor="#bbe417"
             android:layout_alignParentRight="true"
@@ -82,6 +109,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/tv_login"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_18"
         android:gravity="center"
@@ -153,5 +181,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

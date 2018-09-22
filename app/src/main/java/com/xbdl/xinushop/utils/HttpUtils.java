@@ -41,12 +41,13 @@ public class HttpUtils {
     /**
      * 评论列表
      */
-    public static void getGoodsCategory(StringCallback stringCallback){
-        OkGo.<String>post(UrlConstant.getgoodsCategory)                            // 请求方式和请求url
-                .tag("getGoodsCategory")                       // 请求的 tag, 主要用于取消对应的请求
+    public static void login(String phone,String pwd,StringCallback stringCallback){
+        OkGo.<String>get(UrlConstant.notehotandattention)// 请求方式和请求url
+                .params("namePhone",phone)
+                .params("password",pwd)
+                .tag("login")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
-
 }
