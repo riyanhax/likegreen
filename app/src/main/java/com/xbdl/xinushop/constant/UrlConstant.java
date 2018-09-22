@@ -13,4 +13,8 @@ public interface UrlConstant {
      * 推荐评论
      */
     String notehotandattention="https://www.easy-mock.com/mock/5ba31506fb39f72ea10ec4d4/xilv/notehotandattention";
+    /**
+     * 商品分类
+     */
+    String getgoodsCategory=InternetConstant.API_URL+"commodityclassify/getClassifyByInfoApi";
 }

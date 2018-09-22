@@ -27,299 +27,341 @@
         android:background="@color/enptyviewbackground"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_goodsname"
-            android:background="@null"
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:textColorHint="#d8d8d8"
-            android:hint="@string/goodsname"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_42" />
-        <View
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:background="@color/enptyviewbackground"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-        <EditText
-            android:id="@+id/et_goodsdetails"
-            android:background="@null"
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:gravity="top"
-            android:textColorHint="#d8d8d8"
-            android:hint="@string/goodsdetails"
-
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_100" />
-        <View
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:background="#f6f6f6"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-        <TextView
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_13"
-            android:text="图片"
-            android:textSize="13sp"
-            android:textColor="#404040"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_width="match_parent"
-            android:layout_height="140dp">
-            <ImageView
-                android:id="@+id/apply_live_photo_one"
-                android:src="@drawable/addphotos"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-            <ImageView
-                android:id="@+id/apply_live_photo_two"
-                android:visibility="invisible"
-                android:layout_marginLeft="@dimen/dp_5"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-            <ImageView
-                android:id="@+id/apply_live_photo_three"
-                android:layout_marginLeft="@dimen/dp_5"
-                android:visibility="invisible"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <View
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="#f6f6f6"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-        <TextView
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_13"
-            android:text="直播预告视频"
-            android:textSize="13sp"
-            android:textColor="#404040"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_marginRight="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginTop="@dimen/dp_10"
+            <EditText
+                android:id="@+id/et_goodsname"
                 android:layout_width="match_parent"
-                android:layout_height="140dp">
+                android:layout_height="@dimen/dp_42"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:background="@null"
+                android:hint="@string/goodsname"
+                android:textColorHint="#d8d8d8" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:background="@color/enptyviewbackground" />
+
+            <EditText
+                android:id="@+id/et_goodsdetails"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@null"
+
+                android:gravity="top"
+                android:hint="@string/goodsdetails"
+                android:textColorHint="#d8d8d8" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:background="#f6f6f6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_13"
+                android:text="图片"
+                android:textColor="#404040"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <ImageView
+                    android:id="@+id/apply_live_photo_one"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/addphotos" />
+
+                <ImageView
+                    android:id="@+id/apply_live_photo_two"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/apply_live_photo_three"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="#f6f6f6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_13"
+                android:text="直播预告视频"
+                android:textColor="#404040"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10">
+
                 <ImageView
                     android:id="@+id/apply_live_shortvideo"
-                    android:src="@drawable/addvideo"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/addvideo" />
+
                 <ImageView
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:visibility="invisible"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+
                 <ImageView
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:visibility="invisible"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
             </LinearLayout>
+
             <View
-                android:layout_marginTop="@dimen/dp_10"
-                android:background="#f6f6f6"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="#f6f6f6" />
+
             <RelativeLayout
                 android:id="@+id/rl_data_picker"
-                android:layout_marginRight="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_20"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40">
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20">
+
                 <TextView
-                    android:textSize="13sp"
-                    android:textColor="#404040"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="设定开播时间"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="#404040"
+                    android:textSize="13sp" />
+
                 <ImageView
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/arrow"
-                    android:layout_centerVertical="true"
                     android:layout_width="9dp"
-                    android:layout_height="@dimen/dp_15" />
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow" />
             </RelativeLayout>
+
             <View
-                android:background="#f6f6f6"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:background="#f6f6f6" />
+
             <EditText
-                android:layout_marginRight="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_42"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:textColorHint="#d8d8d8"
+                android:layout_marginRight="@dimen/dp_20"
                 android:background="@null"
                 android:hint="@string/contcats"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_42" />
+                android:textColorHint="#d8d8d8" />
+
             <View
-                android:background="#f6f6f6"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:background="#f6f6f6" />
+
             <EditText
-                android:layout_marginRight="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_42"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:textColorHint="#d8d8d8"
+                android:layout_marginRight="@dimen/dp_20"
                 android:background="@null"
                 android:hint="@string/contcatsphone"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_42" />
+                android:textColorHint="#d8d8d8" />
+
             <View
-                android:background="#f6f6f6"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:background="#f6f6f6" />
+
             <RelativeLayout
-                android:layout_marginRight="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:id="@+id/rl_addliveshop"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40">
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20">
+
                 <TextView
-                    android:textSize="13sp"
-                    android:textColor="#404040"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="添加直播商品链接"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="#404040"
+                    android:textSize="13sp" />
+
                 <ImageView
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/arrow"
-                    android:layout_centerVertical="true"
                     android:layout_width="9dp"
-                    android:layout_height="@dimen/dp_15" />
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow" />
             </RelativeLayout>
+
             <View
-                android:background="#f6f6f6"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:background="#f6f6f6" />
+
             <LinearLayout
-                android:layout_marginRight="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_20"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40">
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20">
+
                 <TextView
-                    android:text="认证"
-                    style="@style/admsginputtext" />
+                    style="@style/admsginputtext"
+                    android:text="认证" />
+
                 <RadioGroup
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <RadioButton
-                        android:textColor="#404040"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableLeft="@drawable/bt_video_type"
                         android:drawablePadding="4dp"
                         android:text="个人认证"
-                        android:checked="true"
+                        android:textColor="#404040" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:button="@null"
                         android:drawableLeft="@drawable/bt_video_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <RadioButton
-                        android:textColor="#404040"
-                        android:layout_marginLeft="10dp"
                         android:drawablePadding="4dp"
                         android:text="企业认证"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/bt_video_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textColor="#404040" />
                 </RadioGroup>
+
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dp_5"
                     android:text="(此信息仅限喜绿官方查看)"
                     android:textColor="#cccccc"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="10sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="10sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginLeft="@dimen/dp_30"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:orientation="vertical">
+
                 <ImageView
-                    android:src="@drawable/kuangkuang"
                     android:layout_width="77dp"
-                    android:layout_height="77dp" />
+                    android:layout_height="77dp"
+                    android:src="@drawable/kuangkuang" />
+
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="身份证反面"
-                    android:layout_gravity="center_horizontal"
                     android:textColor="#8c8c8c"
-                    android:textSize="14sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_marginTop="@dimen/dp_10"
-                android:background="@color/enptyviewbackground"
                 android:layout_width="match_parent"
-                android:layout_height="130dp">
+                android:layout_height="130dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/enptyviewbackground">
+
                 <LinearLayout
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginTop="@dimen/dp_12"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12">
+
                     <CheckBox
-                        android:checked="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@null"
                         android:button="@drawable/bt_video_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:checked="true" />
+
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:text="承诺以上信息真实可靠"
                         android:textColor="#cccccc"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="10sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="10sp" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/tv_submission"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_18"
-                    android:gravity="center"
-                    android:text="@string/submission"
-                    android:layout_marginBottom="@dimen/dp_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@drawable/login_btn_bg"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/dp_20"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:layout_marginRight="@dimen/dp_20"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp" />
+                    android:background="@drawable/login_btn_bg"
+                    android:gravity="center"
+                    android:text="@string/submission"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_18" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

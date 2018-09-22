@@ -16,6 +16,7 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.ShortCameraActivity;
+import com.xbdl.xinushop.activity.mine.AdMsgInputActivity;
 import com.xbdl.xinushop.activity.mine.LivePreViewActivity;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
         mPhototwo.setOnClickListener(this);
         mPhotothree.setOnClickListener(this);
         mshortVideo.setOnClickListener(this);
+        findViewById(R.id.rl_addliveshop).setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +75,11 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
             case R.id.tv_submission://提交
                 Intent intentLivePreViewActivity = new Intent(this, LivePreViewActivity.class);
                 startActivity(intentLivePreViewActivity);
+                finish();
+                break;
+            case R.id.rl_addliveshop:
+                Intent AdMsgInputintent = new Intent(this, AdMsgInputActivity.class);
+                startActivity(AdMsgInputintent);
                 finish();
                 break;
         }
