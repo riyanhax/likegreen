@@ -109,12 +109,7 @@ public class AdMsgInputActivity extends AppCompatActivity implements ImagePicker
      * 获取商品分类
      */
     private void initGoodsCategory() {
-        HttpUtils.getGoodsCategory(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Log.i("asdf", "getGoodsCategory" + response.body());
-            }
-        });
+
     }
 
     @Override

@@ -14,13 +14,14 @@ import android.widget.TextView;
 
 import com.xbdl.xinushop.R;
 
-/** 网络监控信息对话框
+/**
+ * 网络监控信息对话框
  * Created by hzzhujinbo on 2016/7/20.
  */
 public class NetWorkInfoDialog extends PopupWindow {
 
     public static final String NETINFO_ACTION = "com.netease.netInfo";
-    private TextView videoFrameRateTV, videoBitRateTV, audioBitRateTV, totalRealBitRateTV, ResolutionTV,networkLevelTV;
+    private TextView videoFrameRateTV, videoBitRateTV, audioBitRateTV, totalRealBitRateTV, ResolutionTV, networkLevelTV;
     private MsgReceiver msgReceiver;
 
     private int mVideoFrameRate = 0;
@@ -41,7 +42,7 @@ public class NetWorkInfoDialog extends PopupWindow {
 
     private void initDialog(Activity context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contextView = inflater.inflate(R.layout.net_info_layout,null);
+        View contextView = inflater.inflate(R.layout.net_info_layout, null);
         initView(contextView);
         this.setContentView(contextView);
         this.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -67,11 +68,11 @@ public class NetWorkInfoDialog extends PopupWindow {
     }
 
     private void initView(View view) {
-        videoFrameRateTV = (TextView)view.findViewById(R.id.VideoFrameRateTV);
-        videoBitRateTV = (TextView)view.findViewById(R.id.VideoBitRateTV);
-        audioBitRateTV = (TextView)view.findViewById(R.id.AudioBitRateTV);
-        totalRealBitRateTV = (TextView)view.findViewById(R.id.TotalRealBitRateTV);
-        ResolutionTV = (TextView)view.findViewById(R.id.ResolutionTV);
+        videoFrameRateTV = (TextView) view.findViewById(R.id.VideoFrameRateTV);
+        videoBitRateTV = (TextView) view.findViewById(R.id.VideoBitRateTV);
+        audioBitRateTV = (TextView) view.findViewById(R.id.AudioBitRateTV);
+        totalRealBitRateTV = (TextView) view.findViewById(R.id.TotalRealBitRateTV);
+        ResolutionTV = (TextView) view.findViewById(R.id.ResolutionTV);
         networkLevelTV = (TextView) view.findViewById(R.id.networkLevel);
 
         videoFrameRateTV.setText(String.valueOf(mVideoFrameRate) + " fps");
@@ -90,7 +91,7 @@ public class NetWorkInfoDialog extends PopupWindow {
     }
 
     private void unRegisterMsgReceiver() {
-        if(msgReceiver != null) {
+        if (msgReceiver != null) {
             mContext.unregisterReceiver(msgReceiver);
             msgReceiver = null;
         }
@@ -123,9 +124,9 @@ public class NetWorkInfoDialog extends PopupWindow {
         }
     }
 
-    private String getNetworkLevel(int level){
+    private String getNetworkLevel(int level) {
         String str = "未知";
-        switch (level){
+        switch (level) {
             case 1:
                 str = "好";
                 break;

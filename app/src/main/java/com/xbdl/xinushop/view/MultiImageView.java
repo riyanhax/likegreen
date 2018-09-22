@@ -10,9 +10,10 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+
 /*
-* 图片高度view
-* */
+ * 图片高度view
+ * */
 public class MultiImageView extends LinearLayout {
     public static int MAX_WIDTH = 0;
 
@@ -24,7 +25,7 @@ public class MultiImageView extends LinearLayout {
      */
     private int pxOneMaxWandH;  // 单张图最大允许宽高
     private int pxMoreWandH = 0;// 多张图的宽高
-    private int pxImagePadding = DensityUtil.dip2px(getContext(),3);// 图片间的间距
+    private int pxImagePadding = DensityUtil.dip2px(getContext(), 3);// 图片间的间距
 
     private int MAX_PER_ROW_COUNT = 3;// 每行显示最大数
 
@@ -57,10 +58,10 @@ public class MultiImageView extends LinearLayout {
             if (lists.size() == 2 || lists.size() == 4) {
                 pxMoreWandH = (MAX_WIDTH - pxImagePadding) / 2;
             } else {
-            pxMoreWandH = (MAX_WIDTH - pxImagePadding * 2) / 3; //解决右侧图片和内容对不齐问题
+                pxMoreWandH = (MAX_WIDTH - pxImagePadding * 2) / 3; //解决右侧图片和内容对不齐问题
             }
-           // pxOneMaxWandH = MAX_WIDTH * 2 / 3;  // 一张图的时候，图片宽度
-            pxOneMaxWandH = MAX_WIDTH ;  // 一张图的时候，图片宽度
+            // pxOneMaxWandH = MAX_WIDTH * 2 / 3;  // 一张图的时候，图片宽度
+            pxOneMaxWandH = MAX_WIDTH;  // 一张图的时候，图片宽度
             initImageLayoutParams();
         }
 
