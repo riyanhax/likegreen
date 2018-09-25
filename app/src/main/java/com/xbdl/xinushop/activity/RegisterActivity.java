@@ -217,8 +217,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             Toast.makeText(this,"请输入验证码",Toast.LENGTH_SHORT).show();
             return;
         }
-        final String phonenum = mPhoneNumber.getText().toString();
-        final String pwd = etPwd.getText().toString();
+         String phonenum = mPhoneNumber.getText().toString();
+         String pwd = etPwd.getText().toString();
         String code = et_code.getText().toString();
         if (mPhoneNumber.length()==11&& !TextUtils.isEmpty(etPwd.toString())&& !TextUtils.isEmpty(et_code.toString())){
             if (loginActivity==0){
@@ -233,8 +233,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             if (code==100){
                                 Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
                                 //加密
-                                String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
-                                String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
+                                //String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
+                                //String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
                                 // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PHONE,phoneEncode);
                                 // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PASSWORD,pwdEncode);
                                 dismissLoading();
@@ -284,8 +284,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             if (code==100){
                                 Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
                                 //加密
-                                String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
-                                String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
+                                //String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
+                               // String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
                                 // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PHONE,phoneEncode);
                                 // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PASSWORD,pwdEncode);
                                 dismissLoading();

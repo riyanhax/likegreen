@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,6 +35,7 @@ import com.xbdl.xinushop.fragment.home.HomeNoteFragment;
 import com.xbdl.xinushop.fragment.home.HomePageFragment;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.umeng.socialize.UMShareAPI;
+import com.xbdl.xinushop.utils.NavigationBarHeight;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -292,7 +294,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setOutsideTouchable(false);
 
-        popupWindow.showAtLocation(main_rbt_add, Gravity.NO_GRAVITY, 0, 0);
+        //popupWindow.showAtLocation(main_rbt_add, Gravity.NO_GRAVITY, 0, 0);
+        int navigationBarHeight = NavigationBarHeight.getNavigationBarHeight(this);
+        popupWindow.showAtLocation(main_rbt_add, Gravity.NO_GRAVITY, 0, -navigationBarHeight);
     }
 
     @Override
