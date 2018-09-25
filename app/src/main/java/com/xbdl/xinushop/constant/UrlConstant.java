@@ -22,6 +22,7 @@ public interface UrlConstant {
      * 发送验证码
      *
      */
+    //22222
     String sendCode=baseUrl+"user/appSend";
     /**
      * 注册
@@ -32,4 +33,7 @@ public interface UrlConstant {
      *
      */
     String getCategorylist="commodityclassify/getClassifyByInfo";
+
+
+    //kkj000000000000000000
 }
