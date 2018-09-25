@@ -2,6 +2,7 @@ package com.xbdl.xinushop.view;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ import com.xbdl.xinushop.R;
  * 加载Dialog
  * @author YSL
  */
-public class LoadingDialog extends Dialog {
+public class LoadingDialog extends ProgressDialog {
 	private TextView tvContent;
 	Context context;
 	public LoadingDialog(Context context) {

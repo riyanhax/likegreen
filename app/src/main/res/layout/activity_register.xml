@@ -152,6 +152,7 @@
             android:layout_width="244dp"
             android:layout_height="35dp" />
         <LinearLayout
+            android:id="@+id/ll_user_text"
             android:layout_marginTop="@dimen/dp_20"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"

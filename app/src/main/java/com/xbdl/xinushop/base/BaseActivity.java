@@ -4,6 +4,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.lzy.okgo.OkGo;
 import com.xbdl.xinushop.BroadcastReceiver.NetWorkStateReceiver;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.view.LoadingDialog;
@@ -51,4 +52,5 @@ public class BaseActivity extends AppCompatActivity {
     protected void dismissLoading(){
         loadingDialog.dismiss();
     }
+
 }

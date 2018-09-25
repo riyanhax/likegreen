@@ -69,6 +69,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
 
     }
+    private int forget=0;
+    private int register=1;
 
     @Override
     public void onClick(View v) {
@@ -78,9 +80,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 break;
             case R.id.tv_forget_pwd://忘记密码
+                Intent intentRegisterActivity1 = new Intent(this, RegisterActivity.class);
+                intentRegisterActivity1.putExtra("LoginActivity",forget);
+                startActivity(intentRegisterActivity1);
                 break;
             case R.id.tv_tv_register://注册
                 Intent intentRegisterActivity = new Intent(this, RegisterActivity.class);
+                intentRegisterActivity.putExtra("LoginActivity",register);
                 startActivity(intentRegisterActivity);
                 break;
         }
@@ -112,12 +118,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             MyApplication application = (MyApplication)getApplication();
                             application.setUer(personBean);
                             Log.v("nihaoma",personBean.toString());
-                            dismissLoading();
                             //加密
                             String phoneEncode = AESUtils.encryptString(loginphone, MyConstants.Key);
                             String pwdEncode = AESUtils.encryptString(loginpwd, MyConstants.Key);
-                            SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PHONE,phoneEncode);
-                            SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PASSWORD,pwdEncode);
+
+                            SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PHONE,loginphone);
+                            SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PASSWORD,loginpwd);
+                            //SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PHONE,phoneEncode);
+                           // SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PASSWORD,pwdEncode);
+                            dismissLoading();
                             Intent intentMainActivity = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intentMainActivity);
                             finish();
@@ -154,7 +163,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
     private void initData() {
-
+        String phoneShare = SharedPreferencesUtil.getString(this, MyConstants.PHONE, "1");
+        String pwdShare = SharedPreferencesUtil.getString(this, MyConstants.PASSWORD, "1");
+        Log.v("nihaoma",phoneShare+"11111"+pwdShare);
+        if (!TextUtils.isEmpty(phoneShare)&&!phoneShare.equals("1")){
+            Log.v("nihaoma",phoneShare+"11111"+pwdShare);
+            //String decodePhone = AESUtils.decryptString(phoneShare, MyConstants.Key);
+            mPhoneNumber.setText(phoneShare);
+        }
+        if (!TextUtils.isEmpty(pwdShare)&&!pwdShare.equals("1")){
+            Log.v("nihaoma",phoneShare+"11111"+pwdShare);
+          //  String decodepwd = AESUtils.decryptString(pwdShare, MyConstants.Key);
+            etPwd.setText(pwdShare);
+        }
 
     }
 
@@ -163,5 +184,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onDestroy();
         OkGo.getInstance().cancelTag(this);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        OkGo.getInstance().cancelTag(this);
     }
 }

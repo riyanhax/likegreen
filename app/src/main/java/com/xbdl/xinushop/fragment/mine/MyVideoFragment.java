@@ -39,16 +39,17 @@ public class MyVideoFragment extends Fragment {
    private void initView(View view ){
        mRecyclerView = (LRecyclerView)view.findViewById(R.id.my_video_lrc);
    }
+
     private void initData(){
         list=new ArrayList<>();
         VideoBean videoBean1 = new VideoBean();
-        videoBean1.setVideoUrl("http://jdvod6w938ryc.vod.126.net/jdvod6w938ryc/ea89570d-7298-47f9-8ea9-030fe1b5eeef.mp4");
+        videoBean1.setVideoUrl("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/1BrIAtvV_1818587477_shd.mp4");
         list.add(videoBean1);
         VideoBean videoBean2 = new VideoBean();
-        videoBean2.setVideoUrl("http://jdvod6w938ryc.vod.126.net/jdvod6w938ryc/8cd1ad40-0e96-4545-9ad5-a6c8bd589f05.mp4");
+        videoBean2.setVideoUrl("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/FmdVOTqd_1818586962_shd.mp4");
         list.add(videoBean2);
         VideoBean videoBean3 = new VideoBean();
-        videoBean3.setVideoUrl("http://jdvod6w938ryc.vod.126.net/jdvod6w938ryc/5e4083d2-d399-460c-9e76-c9a83ada3791.mp4");
+        videoBean3.setVideoUrl("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/wq1e35cQ_1818588221_shd.mp4");
         list.add(videoBean3);
         MyVideoAdapter myVideoAdapter = new MyVideoAdapter(getContext());
         myVideoAdapter.setDataList(list);
