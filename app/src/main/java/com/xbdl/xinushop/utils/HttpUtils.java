@@ -45,7 +45,7 @@ public class HttpUtils {
      * 评论列表
      */
     public static void login(String phone, String pwd, StringCallback stringCallback) {
-        OkGo.<String>get(UrlConstant.notehotandattention)// 请求方式和请求url
+        OkGo.<String>get(UrlConstant.login)// 请求方式和请求url
                 .params("namePhone", phone)
                 .params("password", pwd)
                 .tag("login")                       // 请求的 tag, 主要用于取消对应的请求
