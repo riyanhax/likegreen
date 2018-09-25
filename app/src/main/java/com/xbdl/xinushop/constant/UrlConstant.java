@@ -20,6 +20,7 @@ public interface UrlConstant {
     String login=baseUrl+"user/appLogin";
     /**
      * 发送验证码
+     *
      */
     String sendCode=baseUrl+"user/appSend";
     /**

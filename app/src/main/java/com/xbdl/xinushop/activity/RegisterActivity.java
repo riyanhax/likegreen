@@ -80,13 +80,58 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                 break;
             case  R.id.tv_register:
-
+                register();
                 break;
         }
     }
     private CountDownUtil time;
     private void sendCode(){
-         time=new CountDownUtil(sendCode)
+        if (mPhoneNumber.length()!=11){
+            Toast.makeText(RegisterActivity.this,"请输入正确手机号",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        HttpUtils.sendCode(mPhoneNumber.getText().toString(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject jsonObject = new JSONObject(body);
+                    int code = jsonObject.getInt("code");
+                    if (code==100){
+                        Toast.makeText(RegisterActivity.this,"短信已发送",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(RegisterActivity.this,"发送不成功",Toast.LENGTH_SHORT).show();
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                showLoading();
+                Log.v("nihaoma","4444444444");
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dismissLoading();
+                Log.v("nihaoma",response+"55555555555");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoading();
+            }
+        });
+
+
+/*         time=new CountDownUtil(sendCode)
                 .setCountDownMillis(60_000L)//倒计时60000ms
                 .setCountDownColor(android.R.color.holo_blue_light,android.R.color.darker_gray)//不同状态字体颜色
                 .setOnClickListener(new View.OnClickListener() {
@@ -138,7 +183,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                        });
                     }
                 })
-                .start();
+                .start();*/
     }
 
 

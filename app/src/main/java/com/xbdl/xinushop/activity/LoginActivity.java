@@ -21,8 +21,11 @@ import com.xbdl.xinushop.MainActivity;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.base.BaseActivity;
+import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
+import com.xbdl.xinushop.utils.AESUtils;
 import com.xbdl.xinushop.utils.HttpUtils;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +36,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText mPhoneNumber, etPwd;
     private  CircleImageView headIcon;
     private CheckBox showPwd;
+    private String loginphone,loginpwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +94,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Toast.makeText(this,"请输入密码",Toast.LENGTH_SHORT).show();
             return;
         }
-        String s = mPhoneNumber.getText().toString();
-        String s1 = etPwd.getText().toString();
+        loginphone = mPhoneNumber.getText().toString();
+        loginpwd = etPwd.getText().toString();
         if (mPhoneNumber.length()==11&& !TextUtils.isEmpty(etPwd.toString())){
             HttpUtils.login(mPhoneNumber.getText().toString(), etPwd.getText().toString(),new StringCallback() {
                 @Override
@@ -109,6 +113,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             application.setUer(personBean);
                             Log.v("nihaoma",personBean.toString());
                             dismissLoading();
+                            //加密
+                            String phoneEncode = AESUtils.encryptString(loginphone, MyConstants.Key);
+                            String pwdEncode = AESUtils.encryptString(loginpwd, MyConstants.Key);
+                            SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PHONE,phoneEncode);
+                            SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PASSWORD,pwdEncode);
                             Intent intentMainActivity = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intentMainActivity);
                             finish();
@@ -145,6 +154,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
     private void initData() {
+
 
     }
 
