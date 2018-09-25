@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -28,11 +29,16 @@ import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.AddCategoryBeanAdapter;
 import com.xbdl.xinushop.adapter.ImagePickerAdapter;
 import com.xbdl.xinushop.bean.CategoryBean;
+import com.xbdl.xinushop.bean.CommodityClassifyBean;
 import com.xbdl.xinushop.constant.ImagePickerConstant;
 import com.xbdl.xinushop.dialogfragment.SettingBackgroundDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils;
 import com.xbdl.xinushop.utils.Judge;
 import com.xbdl.xinushop.view.SelectDialog;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +115,71 @@ public class AdMsgInputActivity extends AppCompatActivity implements ImagePicker
      * 获取商品分类
      */
     private void initGoodsCategory() {
+        HttpUtils.getCategorylist(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
 
+                    String data = jsonObject.getString("classifyList");
+                    List<CommodityClassifyBean> list = getCommodityClassifys(data);
+                    if (list != null && list.size() > 0) {
+                        tvGoodscategory.setClickable(true);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.myDialog2);
+                        final String[] items = new String[list.size()];
+                        for (int i = 0; i < list.size(); i++) {
+                            items[i] = list.get(i).getClassifyName();
+                        }
+                        builder.setTitle("请选择商品分类");
+                        builder.setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                tvGoodscategory.setText(items[i]);
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        builder.show();
+                    }
+
+                } catch (JSONException e) {
+                }
+            }
+
+            /**
+             * 解析json
+             *
+             * @param data
+             * @return
+             */
+            private List<CommodityClassifyBean> getCommodityClassifys(String data) {
+                if (Judge.getBoolean_isNull(data)) {
+                    return null;
+                }
+                try {
+                    JSONArray array = new JSONArray(data);
+                    List<CommodityClassifyBean> datas = new ArrayList<>();
+                    for (int i = 0; i < array.length(); i++) {
+                        CommodityClassifyBean commodityClassifyBean = new Gson().fromJson(array.getString(i), CommodityClassifyBean.class);
+                        datas.add(commodityClassifyBean);
+                    }
+                    return datas;
+                } catch (JSONException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Log.i("", "");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Log.i("", "");
+            }
+        });
     }
 
     @Override
@@ -300,7 +370,7 @@ public class AdMsgInputActivity extends AppCompatActivity implements ImagePicker
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        OkGo.getInstance().cancelTag("getGoodsCategory");
+        OkGo.getInstance().cancelTag("getCategorylist");
     }
 
     @Override

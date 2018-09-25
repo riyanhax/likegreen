@@ -27,4 +27,9 @@ public interface UrlConstant {
      * 注册
      */
     String regeist=baseUrl+"user/appRegist";
+    /**
+     * 商品分类
+     *
+     */
+    String getCategorylist="commodityclassify/getClassifyByInfo";
 }
