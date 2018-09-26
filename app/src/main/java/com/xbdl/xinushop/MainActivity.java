@@ -3,6 +3,7 @@ package com.xbdl.xinushop;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,6 +37,7 @@ import com.xbdl.xinushop.fragment.home.HomeNoteFragment;
 import com.xbdl.xinushop.fragment.home.HomePageFragment;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.umeng.socialize.UMShareAPI;
+import com.xbdl.xinushop.utils.FastBlurUtility;
 import com.xbdl.xinushop.utils.NavigationBarHeight;
 
 import org.greenrobot.eventbus.EventBus;
@@ -285,7 +288,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_longpost).setOnClickListener(this);//长贴子
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_sharelife).setOnClickListener(this);//分享生活
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_live).setOnClickListener(this);//直播
-
+        ImageView img =(ImageView) contentView.findViewById(R.id.iv_pop_bg);//背景
+        //虚化背景
+        Bitmap blurBackgroundDrawer = FastBlurUtility.getBlurBackgroundDrawer(this);
+        img.setImageBitmap(blurBackgroundDrawer);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //设置为失去焦点 方便监听返回键的监听
         popupWindow.setFocusable(false);
@@ -297,6 +303,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //popupWindow.showAtLocation(main_rbt_add, Gravity.NO_GRAVITY, 0, 0);
         int navigationBarHeight = NavigationBarHeight.getNavigationBarHeight(this);
         popupWindow.showAtLocation(main_rbt_add, Gravity.NO_GRAVITY, 0, -navigationBarHeight);
+        EventBus.getDefault().post(CallTab.ADD);
     }
 
     @Override

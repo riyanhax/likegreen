@@ -4,9 +4,22 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.xbdl.xinushop.activity.LoginActivity;
+import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.bean.PersonBean;
+import com.xbdl.xinushop.utils.HttpUtils;
+import com.xbdl.xinushop.utils.HttpUtils2;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LaunchActivity extends AppCompatActivity {
 
@@ -21,10 +34,49 @@ public class LaunchActivity extends AppCompatActivity {
 
     Runnable r = new Runnable() {
         public void run() {
-            Intent intent = new Intent();
-            intent.setClass(LaunchActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            final String user = SharedPreferencesUtil.getString(LaunchActivity.this, MyConstants.User, "1");
+            if (!TextUtils.isEmpty(user)&&!user.equals("1")){
+                try {
+                    JSONObject jsonObject = new JSONObject(user);
+                    String loginToken = jsonObject.getString("loginToken");
+                    Log.v("nihaoma",loginToken);
+                    HttpUtils2.autoLogin(loginToken, new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject login = new JSONObject(body);
+                                int code = login.getInt("code");
+                                if (code==100){
+                                    Gson gson = new Gson();
+                                    PersonBean personBean = gson.fromJson(user, PersonBean.class);
+                                    MyApplication application = (MyApplication)getApplication();
+                                    application.setUer(personBean);
+                                    Intent intent = new Intent();
+                                    intent.setClass(LaunchActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }else {
+                                    Intent intent = new Intent();
+                                    intent.setClass(LaunchActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }else {
+                Intent intent = new Intent();
+                intent.setClass(LaunchActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
     };
 }

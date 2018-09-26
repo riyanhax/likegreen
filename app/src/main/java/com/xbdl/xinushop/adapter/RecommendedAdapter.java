@@ -227,6 +227,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     public void pauseCurVideoView() {
         if (mCurViewHolder != null) {
             mCurViewHolder.videoView.pause();
+            mCurViewHolder.pausePlayImage.setVisibility(View.VISIBLE);
         }
     }
 
