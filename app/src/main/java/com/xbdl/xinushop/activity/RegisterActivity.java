@@ -222,110 +222,118 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         String code = et_code.getText().toString();
         if (mPhoneNumber.length()==11&& !TextUtils.isEmpty(etPwd.toString())&& !TextUtils.isEmpty(et_code.toString())){
             if (loginActivity==0){
-                HttpUtils.forget(phonenum,pwd,code, new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            int code = jsonObject.getInt("code");
-                            String  object = jsonObject.getString("object");
-                            if (code==100){
-                                Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
-                                //加密
-                                //String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
-                                //String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
-                                // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PHONE,phoneEncode);
-                                // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PASSWORD,pwdEncode);
-                                dismissLoading();
-                                Intent intentMainActivity = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(intentMainActivity);
-                                // time.reset();
-                                finish();
-                            }else {
-
-                                Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        super.onStart(request);
-                        showLoading();
-                        Log.v("nihaoma","4444444444");
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        dismissLoading();
-                        Log.v("nihaoma",response+"55555555555");
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        dismissLoading();
-                    }
-                });
+                forgetpwd(phonenum, pwd, code);
             }else {
-                HttpUtils.register(phonenum,pwd,code,new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            int code = jsonObject.getInt("code");
-                            String  object = jsonObject.getString("object");
-                            if (code==100){
-                                Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
-                                //加密
-                                //String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
-                               // String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
-                                // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PHONE,phoneEncode);
-                                // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PASSWORD,pwdEncode);
-                                dismissLoading();
-                                Intent intentMainActivity = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(intentMainActivity);
-                                // time.reset();
-                                finish();
-                            }else {
-
-                                Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        super.onStart(request);
-                        showLoading();
-                        Log.v("nihaoma","4444444444");
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        dismissLoading();
-                        Log.v("nihaoma",response+"55555555555");
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        dismissLoading();
-                    }
-                });
+                registerUser(phonenum, pwd, code);
             }
 
         }
+    }
+     //注册
+    private void registerUser(String phonenum, String pwd, String code) {
+        HttpUtils.register(phonenum,pwd,code,new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject jsonObject = new JSONObject(body);
+                    int code = jsonObject.getInt("code");
+                    String  object = jsonObject.getString("object");
+                    if (code==100){
+                        Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
+                        //加密
+                        //String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
+                       // String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
+                        // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PHONE,phoneEncode);
+                        // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PASSWORD,pwdEncode);
+                        dismissLoading();
+                        Intent intentMainActivity = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intentMainActivity);
+                        // time.reset();
+                        finish();
+                    }else {
+
+                        Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                showLoading();
+                Log.v("nihaoma","4444444444");
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dismissLoading();
+                Log.v("nihaoma",response+"55555555555");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoading();
+            }
+        });
+    }
+    //忘记密码
+    private void forgetpwd(String phonenum, String pwd, String code) {
+        HttpUtils.forget(phonenum,pwd,code, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject jsonObject = new JSONObject(body);
+                    int code = jsonObject.getInt("code");
+                    String  object = jsonObject.getString("object");
+                    if (code==100){
+                        Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
+                        //加密
+                        //String phoneEncode = AESUtils.encryptString(phonenum, MyConstants.Key);
+                        //String pwdEncode = AESUtils.encryptString(pwd, MyConstants.Key);
+                        // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PHONE,phoneEncode);
+                        // SharedPreferencesUtil.putString(RegisterActivity.this,MyConstants.PASSWORD,pwdEncode);
+                        dismissLoading();
+                        Intent intentMainActivity = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intentMainActivity);
+                        // time.reset();
+                        finish();
+                    }else {
+
+                        Toast.makeText(RegisterActivity.this,object,Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                showLoading();
+                Log.v("nihaoma","4444444444");
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dismissLoading();
+                Log.v("nihaoma",response+"55555555555");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoading();
+            }
+        });
     }
 
     @Override

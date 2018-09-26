@@ -111,16 +111,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     try {
                         JSONObject jsonObject = new JSONObject(body);
                         int code = jsonObject.getInt("code");
-                        String  object = jsonObject.getString("object");
+                        String object = jsonObject.getString("object");
                         if (code==100){
                             Gson gson = new Gson();
                             PersonBean personBean = gson.fromJson(object, PersonBean.class);
                             MyApplication application = (MyApplication)getApplication();
                             application.setUer(personBean);
                             Log.v("nihaoma",personBean.toString());
+                            JSONObject jsonObject1 = new JSONObject(object);
+                            String user = jsonObject1.getString("user");
+                            SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.User,user);
                             //加密
-                            String phoneEncode = AESUtils.encryptString(loginphone, MyConstants.Key);
-                            String pwdEncode = AESUtils.encryptString(loginpwd, MyConstants.Key);
+                           // String phoneEncode = AESUtils.encryptString(loginphone, MyConstants.Key);
+                            //String pwdEncode = AESUtils.encryptString(loginpwd, MyConstants.Key);
 
                             SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PHONE,loginphone);
                             SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.PASSWORD,loginpwd);
