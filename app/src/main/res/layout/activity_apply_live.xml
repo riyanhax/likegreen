@@ -261,23 +261,26 @@
                     android:text="认证" />
 
                 <RadioGroup
+                    android:id="@+id/rg_authentication"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/rb_person_authentication"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:button="@null"
-                        android:checked="true"
+
                         android:drawableLeft="@drawable/bt_video_type"
                         android:drawablePadding="4dp"
                         android:text="个人认证"
                         android:textColor="#404040" />
 
                     <RadioButton
+                        android:id="@+id/rb_business_authentication"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -332,11 +335,12 @@
                     android:layout_marginTop="@dimen/dp_12">
 
                     <CheckBox
+                        android:id="@+id/cb_agree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:button="@drawable/bt_video_type"
-                        android:checked="true" />
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"

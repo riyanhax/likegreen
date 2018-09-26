@@ -12,7 +12,9 @@ import android.view.KeyEvent;
 import android.view.ViewConfiguration;
 
 import java.lang.reflect.Method;
-
+/*
+* 判断虚拟按键
+* */
 public class NavigationBarHeight {
     //获取虚拟按键的高度
     public static int getNavigationBarHeight(Activity context) {

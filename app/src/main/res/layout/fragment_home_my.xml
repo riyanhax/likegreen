@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:background="#a5dca5">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+      <ImageView
+          android:id="@+id/iv_top_icon"
+          android:scaleType="fitXY"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_my_head"
         android:layout_marginTop="20dp"
@@ -15,7 +25,6 @@
         app:civ_border_width="3dp"
         app:civ_border_color="#b9b9c0"/>
     <LinearLayout
-
         android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
         android:layout_alignParentRight="true"
@@ -112,11 +121,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+    </RelativeLayout>
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/st_my"
         android:background="@color/white"
-        android:layout_below="@id/ll_my"
-        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -141,4 +149,4 @@
         />
 
 
-</RelativeLayout>
+</LinearLayout>

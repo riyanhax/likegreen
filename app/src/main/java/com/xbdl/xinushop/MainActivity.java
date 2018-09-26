@@ -2,6 +2,7 @@ package com.xbdl.xinushop;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -51,7 +52,7 @@ import cn.jpush.im.api.BasicCallback;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     final RxPermissions rxPermissions = new RxPermissions(this);
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";//测试url
-
+    public static Activity instance = null;
     Fragment main_home, main_note, main_find, main_mine,main_add;
     private RadioGroup main_radio;
     private RadioButton main_rbt_home,main_rbt_add,main_rbt_mine,main_rbt_find,main_rbt_note;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.xbdl.xinushop.R.layout.activity_main);
-
+        instance = this;
         EventBus.getDefault().register(this);
         initView();
         initFragment();

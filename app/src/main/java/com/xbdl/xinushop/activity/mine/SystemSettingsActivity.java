@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.LoginActivity;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.base.BasePresenter;
 import com.xbdl.xinushop.bean.MyConstants;
@@ -56,6 +57,7 @@ public class SystemSettingsActivity extends BaseActivity implements View.OnClick
         findViewById(R.id.rl_change_phone).setOnClickListener(this);
         findViewById(R.id.rl_push_msg).setOnClickListener(this);
         findViewById(R.id.rl_user_protocol).setOnClickListener(this);
+        findViewById(R.id.rl_exit_logon).setOnClickListener(this);
     }
     private void initData() {
         //wifi下观看视频
@@ -120,6 +122,12 @@ public class SystemSettingsActivity extends BaseActivity implements View.OnClick
             case R.id.rl_about_us://关于我们
                 Intent intentAboutUsActivity = new Intent(this, AboutUsActivity.class);
                 startActivity(intentAboutUsActivity);
+                break;
+            case R.id.rl_exit_logon://退出登录
+                Intent intentLoginActivity = new Intent(this, LoginActivity.class);
+                startActivity(intentLoginActivity);
+                SharedPreferencesUtil.putBoolean(this,MyConstants.ISLOGIN,false);
+                finish();
                 break;
 
         }

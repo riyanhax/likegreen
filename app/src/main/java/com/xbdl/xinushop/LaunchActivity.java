@@ -35,7 +35,8 @@ public class LaunchActivity extends AppCompatActivity {
     Runnable r = new Runnable() {
         public void run() {
             final String user = SharedPreferencesUtil.getString(LaunchActivity.this, MyConstants.User, "1");
-            if (!TextUtils.isEmpty(user)&&!user.equals("1")){
+            final boolean islogin = SharedPreferencesUtil.getBoolean(LaunchActivity.this, MyConstants.ISLOGIN, true);
+            if (!TextUtils.isEmpty(user)&&!user.equals("1")&&islogin){
                 try {
                     JSONObject jsonObject = new JSONObject(user);
                     String loginToken = jsonObject.getString("loginToken");

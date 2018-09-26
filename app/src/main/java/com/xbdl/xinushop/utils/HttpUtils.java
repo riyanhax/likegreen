@@ -4,6 +4,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
 import com.xbdl.xinushop.constant.UrlConstant;
+import com.xbdl.xinushop.constant.UrlConstant2;
 
 public class HttpUtils {
     /**
@@ -90,7 +91,7 @@ public class HttpUtils {
      * 发送验证码
      */
     public static void forget(String phone,String pwd,String code ,StringCallback stringCallback) {
-        OkGo.<String>post(UrlConstant.forget)// 请求方式和请求url
+        OkGo.<String>post(UrlConstant2.forget)// 请求方式和请求url
                 .params("phone", phone)
                 .params("password", pwd)
                 .params("code", code)

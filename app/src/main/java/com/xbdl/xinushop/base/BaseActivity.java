@@ -1,11 +1,16 @@
 package com.xbdl.xinushop.base;
 
+import android.app.Application;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.lzy.okgo.OkGo;
 import com.xbdl.xinushop.BroadcastReceiver.NetWorkStateReceiver;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.view.LoadingDialog;
 
@@ -17,7 +22,13 @@ import com.xbdl.xinushop.view.LoadingDialog;
 public class BaseActivity extends AppCompatActivity {
    protected LoadingDialog loadingDialog;
     public NetWorkStateReceiver netWorkStateReceiver;
-
+    public MyApplication app;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        app= MyApplication.getInstance();
+        app.addActivity(this);
+    }
 
     //在onResume()方法注册
     @Override
@@ -53,4 +64,9 @@ public class BaseActivity extends AppCompatActivity {
         loadingDialog.dismiss();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }

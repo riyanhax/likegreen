@@ -1,8 +1,11 @@
 package com.xbdl.xinushop.fragment.home;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -32,6 +36,7 @@ import com.xbdl.xinushop.fragment.mine.MyGardenFragment;
 import com.xbdl.xinushop.fragment.mine.MyLiveFragment;
 import com.xbdl.xinushop.fragment.mine.MyVideoFragment;
 import com.xbdl.xinushop.fragment.mine.MyWeddingCardFragment;
+import com.xbdl.xinushop.utils.FastBlurUtility;
 
 import java.util.ArrayList;
 
@@ -50,6 +55,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
     private PopupWindow popupWindow;
     private TextView mMyfocuse,mMyfans;
     private CircleImageView headIcon;//头像
+    private ImageView iv_top_icon;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,6 +81,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         mMyfocuse.setOnClickListener(this);
         mMyfans.setOnClickListener(this);
         headIcon.setOnClickListener(this);
+        iv_top_icon= (ImageView)v.findViewById(R.id.iv_top_icon);//模糊背景
     }
 
     private void initData() {
@@ -84,8 +91,10 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         fragments.add(new MyGardenFragment());
         fragments.add(new MyWeddingCardFragment());
         mStMy.setViewPager(mViewpagerMy, items, (FragmentActivity) getActivity(), fragments);
-
-
+        //模糊效果
+        Bitmap bmp= BitmapFactory.decodeResource(getResources(), R.drawable.xilvfriends);
+        Bitmap bitmap = FastBlurUtility.blurBitmap(bmp);
+        iv_top_icon.setImageBitmap(bitmap);
     }
 
     @Override

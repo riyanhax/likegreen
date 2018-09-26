@@ -200,7 +200,7 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
     public void control(CallTab tab) {
         if (tab.equals(CallTab.MAIN)){
             if (mShortVideoListAdapter != null) {
-                mShortVideoListAdapter.startCurVideoView();
+               // mShortVideoListAdapter.startCurVideoView();
             } else {
                 mShouldPlay = true;
             }

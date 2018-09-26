@@ -1,7 +1,8 @@
 package com.xbdl.xinushop.constant;
 
 public interface UrlConstant {
-    String baseUrl="http://192.168.1.4:8080/";
+    String baseUrl="http://120.79.173.209:8080/";
+    //String baseUrl="http://192.168.1.4:8080/";
     /**
      * 喜帖分享生活
      */

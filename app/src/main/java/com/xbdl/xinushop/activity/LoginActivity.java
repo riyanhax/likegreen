@@ -121,6 +121,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             JSONObject jsonObject1 = new JSONObject(object);
                             String user = jsonObject1.getString("user");
                             SharedPreferencesUtil.putString(LoginActivity.this,MyConstants.User,user);
+                            //设置是否登录了
+                            SharedPreferencesUtil.putBoolean(LoginActivity.this,MyConstants.ISLOGIN,true);
                             //加密
                            // String phoneEncode = AESUtils.encryptString(loginphone, MyConstants.Key);
                             //String pwdEncode = AESUtils.encryptString(loginpwd, MyConstants.Key);
@@ -193,5 +195,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onBackPressed() {
         super.onBackPressed();
         OkGo.getInstance().cancelTag(this);
+        MainActivity.instance.finish();
+        finish();
     }
 }

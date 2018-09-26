@@ -63,6 +63,12 @@ public class ShareLiftActivity extends AppCompatActivity {
                         shareLifeDialogFragment.getClass().getName());
             }
         });
+        findViewById(R.id.iv_return).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initData() {
