@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#d4da16"
+    android:background="@color/enptyviewbackground"
     xmlns:tl="http://schemas.android.com/tools">
     <LinearLayout
         android:id="@+id/ll_home_live"

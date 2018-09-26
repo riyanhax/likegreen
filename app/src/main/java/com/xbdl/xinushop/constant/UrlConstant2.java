@@ -4,8 +4,8 @@ public interface UrlConstant2 {
 
 
     /**
-     * 忘记密码
+     * 自动登录
      */
-    String regeist=UrlConstant.baseUrl+"user/appForget";
+    String autoLogin=UrlConstant.baseUrl+"user/appAutoLogin";
 
 }

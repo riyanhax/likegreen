@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#90ffffff"
+    android:background="#99ffffff"
     android:layout_height="match_parent">
-
+        <ImageView
+            android:id="@+id/iv_pop_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <RelativeLayout
             android:layout_marginRight="@dimen/dp_25"
             android:layout_marginLeft="@dimen/dp_25"
@@ -263,7 +266,7 @@
 
      <RelativeLayout
          android:id="@+id/rl_add_close"
-         android:background="@color/white"
+         android:background="#ffffff"
          android:layout_alignParentBottom="true"
          android:layout_width="match_parent"
          android:layout_height="@dimen/dp_60">
