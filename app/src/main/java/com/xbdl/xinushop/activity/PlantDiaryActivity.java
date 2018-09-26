@@ -21,7 +21,6 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.activity.mine.ShareLiftActivity;
 import com.xbdl.xinushop.adapter.ImagePickerAdapter;
 import com.xbdl.xinushop.constant.ImagePickerConstant;
 import com.xbdl.xinushop.utils.Base64Util;
@@ -60,10 +59,10 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
     public LocationClient mLocationClient = null;
 
     private void initView() {
-        tvlocation = (TextView) findViewById(R.id.tv_plant_location);
-        plantData = (TextView) findViewById(R.id.tv_plant_data);
+        tvlocation = findViewById(R.id.tv_plant_location);
+        plantData = findViewById(R.id.tv_plant_data);
 
-        findViewById(R.id.tv_plant_wancheng).setOnClickListener(this);
+        //findViewById(R.id.tv_plant_wancheng).setOnClickListener(this);
         tvlocation.setOnClickListener(this);
 
 
@@ -113,13 +112,12 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
 
 
                 break;
-            case R.id.tv_plant_wancheng:
-//                Intent intentShareLiftActivity = new Intent(PlantDiaryActivity.this, ShareLiftActivity.class);
-//                startActivity(intentShareLiftActivity);
-                break;
+//            case R.id.tv_plant_wancheng:
+////                Intent intentShareLiftActivity = new Intent(PlantDiaryActivity.this, ShareLiftActivity.class);
+////                startActivity(intentShareLiftActivity);
+//                break;
             case R.id.iv_commit:
-                String me= Base64Util.Bitmap2StrByBase64(BitmapFactory.decodeFile(adapter.getImages().get(0).path));
-                Log.i("","");
+
                 break;
 
         }
