@@ -141,8 +141,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        instance = this;
         context = getApplicationContext();
         StorageUtil.init(context, null);
 
@@ -177,7 +175,7 @@ public class MyApplication extends Application {
         imagePicker.setShowCamera(true);  //显示拍照按钮
         imagePicker.setCrop(false);        //允许裁剪（单选才有效）
         imagePicker.setSaveRectangle(true); //是否按矩形区域保存
-        imagePicker.setSelectLimit(3);    //选中数量限制
+        imagePicker.setSelectLimit(6);    //选中数量限制
         imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
         imagePicker.setFocusWidth(800);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
         imagePicker.setFocusHeight(800);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
@@ -295,58 +293,5 @@ public class MyApplication extends Application {
     public void setUer(PersonBean user){
         this.user=user;
     }
-
-    /**打开的activity**/
-    private List<Activity> activities = new ArrayList<Activity>();
-    /**应用实例**/
-    private static MyApplication instance;
-    /**
-     *  获得实例
-     * @return
-     */
-    public static MyApplication getInstance(){
-        return instance;
-    }
-    /**
-     * 新建了一个activity
-     * @param activity
-     */
-    public void addActivity(Activity activity){
-        activities.add(activity);
-    }
-    /**
-     *  结束指定的Activity
-     * @param activity
-     */
-    public void finishActivity(Activity activity){
-        if (activity!=null) {
-            this.activities.remove(activity);
-            activity.finish();
-            activity = null;
-        }
-    }
-    /**
-     * 应用退出，结束所有的activity
-     */
-    public void exit(){
-        for (Activity activity : activities) {
-            if (activity!=null) {
-                activity.finish();
-            }
-        }
-        System.exit(0);
-    }
-    /**
-     * 关闭Activity列表中的所有Activity*/
-    public void finishActivity(){
-        for (Activity activity : activities) {
-            if (null != activity) {
-                activity.finish();
-            }
-        }
-        //杀死该应用进程
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
-
 
 }

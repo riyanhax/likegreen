@@ -33,7 +33,7 @@ public class MyVideoActivity extends AppCompatActivity implements View.OnClickLi
         mVideoStop = findViewById(R.id.iv_video_stop);
         mControlview = findViewById(R.id.control_view);
         mControlview.setOnClickListener(this);
-        mVideoReturn = findViewById(R.id.iv_video_return);
+        findViewById(R.id.iv_video_return).setOnClickListener(this);
     }
 
     @Override

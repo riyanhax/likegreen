@@ -28,6 +28,8 @@ public class IDCardCheckActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_idcard_check);
+
+        ImagePicker.getInstance().setMultiMode(false);
         initView();
 
     }
