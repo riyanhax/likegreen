@@ -1,8 +1,10 @@
 package com.xbdl.xinushop.constant;
 
 public interface UrlConstant {
-    String baseUrl="http://120.79.173.209:8080/";
-    //String baseUrl="http://192.168.1.4:8080/";
+String baseUrl="http://192.168.1.5:8080/";
+// String baseUrl="http://120.79.173.209:8080/";
+// String baseUrl="http://192.168.0.121:8080/"; //谢
+
     /**
      * 喜帖分享生活
      */
@@ -35,6 +37,14 @@ public interface UrlConstant {
      */
     String getCategorylist="commodityclassify/getClassifyByInfo";
 
-
+String appAddPlantDiary=baseUrl+"plantDiary/appAddPlantDiary";
     //kkj000000000000000000
+    /**
+     * 获取所有tag
+     */
+    String findAllTag=baseUrl+"note/appFindAllTag";
+    /**
+     * 发布帖子
+     */
+    String setPost=baseUrl+"note/appAddNote";
 }

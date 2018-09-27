@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.activity.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,12 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private View mSystemPersonalHead,mSystemPersonalName,mSystemPersonPhone,mRlSagnatrue,mRlShoppingAddress;
     private CircleImageView mIvPersonalHead;
     private TextView mTvPersonalName,mTvPersonalPhone;
+
+    @Override
+    protected Activity getActivity() {
+        return PersonalDataActivity.this;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

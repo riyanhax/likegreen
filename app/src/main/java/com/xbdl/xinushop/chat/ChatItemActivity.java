@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.chat;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
@@ -21,6 +22,11 @@ import java.util.List;
 public class ChatItemActivity extends BaseActivity implements PLOnPreparedListener, PLOnInfoListener, PLOnCompletionListener, PLOnVideoSizeChangedListener, PLOnErrorListener {
     private boolean mIsLiveStreaming;
     PLVideoView mVideoView;
+
+    @Override
+    protected Activity getActivity() {
+        return ChatItemActivity.this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

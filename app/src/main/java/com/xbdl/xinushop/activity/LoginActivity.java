@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.activity;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +38,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private  CircleImageView headIcon;
     private CheckBox showPwd;
     private String loginphone,loginpwd;
+
+    @Override
+    protected Activity getActivity() {
+        return LoginActivity.this;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +110,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginphone = mPhoneNumber.getText().toString();
         loginpwd = etPwd.getText().toString();
         if (mPhoneNumber.length()==11&& !TextUtils.isEmpty(etPwd.toString())){
-            HttpUtils.login(mPhoneNumber.getText().toString(), etPwd.getText().toString(),new StringCallback() {
+            HttpUtils.login(loginphone, loginpwd,new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
                     Log.v("nihaoma","3333333333");
@@ -148,7 +155,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 @Override
                 public void onStart(Request<String, ? extends Request> request) {
                     super.onStart(request);
-                    showLoading();
+
                     Log.v("nihaoma","4444444444");
                 }
 
@@ -187,7 +194,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        OkGo.getInstance().cancelTag(this);
+        OkGo.getInstance().cancelTag("login");
 
     }
 
@@ -197,5 +204,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         OkGo.getInstance().cancelTag(this);
         MainActivity.instance.finish();
         finish();
+        OkGo.getInstance().cancelTag("login");
     }
 }

@@ -28,6 +28,7 @@ import com.xbdl.xinushop.activity.PlantDiaryActivity;
 import com.xbdl.xinushop.activity.ShortCameraActivity;
 import com.xbdl.xinushop.activity.WriteLongPostActivity;
 import com.xbdl.xinushop.activity.mian.ApplyLiveActivity;
+import com.xbdl.xinushop.activity.mine.AddShareLifeActivity;
 import com.xbdl.xinushop.activity.mine.ShareLiftActivity;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.base.BasePresenter;
@@ -346,8 +347,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 popupWindow.dismiss();
                 break;
             case com.xbdl.xinushop.R.id.ll_add_sharelife://分享生活
-                Intent intentShareLiftActivity = new Intent(MainActivity.this, ShareLiftActivity.class);
+//                Intent intentShareLiftActivity = new Intent(MainActivity.this, ShareLiftActivity.class);
+//                startActivity(intentShareLiftActivity);
+
+                Intent intentShareLiftActivity = new Intent(MainActivity.this, AddShareLifeActivity.class);
                 startActivity(intentShareLiftActivity);
+
                 popupWindow.dismiss();
                 break;
             case com.xbdl.xinushop.R.id.ll_add_live://直播

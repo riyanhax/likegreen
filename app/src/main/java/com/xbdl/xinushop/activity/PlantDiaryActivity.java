@@ -2,29 +2,38 @@ package com.xbdl.xinushop.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.ImagePickerAdapter;
+import com.xbdl.xinushop.base.BaseActivity;
+import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.constant.ImagePickerConstant;
-import com.xbdl.xinushop.utils.Base64Util;
+import com.xbdl.xinushop.utils.HttpUtils;
+import com.xbdl.xinushop.utils.ImageUtils;
 import com.xbdl.xinushop.utils.Judge;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 import com.xbdl.xinushop.view.SelectDialog;
 
 import java.text.SimpleDateFormat;
@@ -38,13 +47,16 @@ import static com.xbdl.xinushop.MyApplication.maxImgCount;
 /*
  * 种植日记
  * */
-public class PlantDiaryActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerAdapter.OnRecyclerViewItemClickListener {
+public class PlantDiaryActivity extends BaseActivity implements View.OnClickListener, ImagePickerAdapter.OnRecyclerViewItemClickListener {
 
     private TextView tvlocation, plantData;
     String addr;//详细地址
     private RecyclerView rvimages;
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
+
+    EditText etPlantName;//植物名字
+    EditText etDynamicstate;//动态
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +73,8 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
     private void initView() {
         tvlocation = findViewById(R.id.tv_plant_location);
         plantData = findViewById(R.id.tv_plant_data);
-
+        etPlantName = findViewById(R.id.et_plantname);
+        etDynamicstate = findViewById(R.id.et_dynamicstate);
         //findViewById(R.id.tv_plant_wancheng).setOnClickListener(this);
         tvlocation.setOnClickListener(this);
 
@@ -69,7 +82,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
         //添加商品图片
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.images);
         selImageList = new ArrayList<>();
-        adapter = new ImagePickerAdapter(this, selImageList, 6);
+        adapter = new ImagePickerAdapter(this, selImageList, 1);
         adapter.setOnItemClickListener(this);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
@@ -82,7 +95,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 ");// HH:mm:ss
         //获取当前时间
         Date date = new Date(System.currentTimeMillis());
-        plantData.setText("默认日期" + simpleDateFormat.format(date));
+        plantData.setText( simpleDateFormat.format(date));
 
         //位置
         mLocationClient = new LocationClient(getApplicationContext());
@@ -117,6 +130,55 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
 ////                startActivity(intentShareLiftActivity);
 //                break;
             case R.id.iv_commit:
+                if (adapter != null && adapter.getImages().size() == 0) {
+                    Toast.makeText(getActivity(), "请选择图片", Toast.LENGTH_LONG).show();
+                    return;
+                } else if (Judge.getBoolean_isNull(etPlantName.getText().toString())) {
+                    Toast.makeText(getActivity(), "请填写植物名字", Toast.LENGTH_LONG).show();
+                    return;
+                } else if (Judge.getBoolean_isNull(etDynamicstate.getText().toString())) {
+                    Toast.makeText(getActivity(), "请填写你的动态", Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    showLoading();
+                    String base64image = null;
+
+                        base64image = "data:image/jpg;base64,"+ImageUtils.bitmapToString(images.get(0).path);
+
+                    String name = etPlantName.getText().toString();
+                    String dynamicstate = etDynamicstate.getText().toString();
+                    String time = plantData.getText().toString();
+                  String userjson=  SharedPreferencesUtil.getString(getActivity(), MyConstants.User,"");
+                  String token="";
+                    PersonBean personBean=          new Gson().fromJson(userjson, PersonBean.class);
+                    token=personBean.getLoginToken();
+                    HttpUtils.appAddPlantDiary(token, name, addr, base64image, time, dynamicstate, new StringCallback() {
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            super.onStart(request);
+                            showLoading();
+                            Log.i("asdf","onStart");
+                        }
+
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body=response.body();
+                            Log.i("asdf","success"+body);
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            Log.i("asdf","err");
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            super.onFinish();
+                        dismissLoading();
+                        }
+                    });
+                }
 
                 break;
 
@@ -143,7 +205,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
                                  * 如果实在有所需要，请直接下载源码引用。
                                  */
                                 //打开选择,本次允许选择的数量
-                                ImagePicker.getInstance().setSelectLimit(6 - selImageList.size());
+                                ImagePicker.getInstance().setSelectLimit(1 - selImageList.size());
                                 Intent intent = new Intent(getActivity(), ImageGridActivity.class);
                                 intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
                                 startActivityForResult(intent, ImagePickerConstant.REQUEST_CODE_SELECT);
@@ -180,7 +242,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
     }
 
     public class MyLocationListener extends BDAbstractLocationListener {
-        String addr;
+
 
         @Override
         public void onReceiveLocation(BDLocation location) {
@@ -198,7 +260,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
 
     private MyLocationListener myListener = new MyLocationListener();
 
-    private Activity getActivity() {
+    protected Activity getActivity() {
         return PlantDiaryActivity.this;
     }
 
@@ -207,7 +269,7 @@ public class PlantDiaryActivity extends AppCompatActivity implements View.OnClic
                 .transparentFrameWindowStyle,
                 listener, names);
         if (!this.isFinishing()) {
-            maxImgCount = 6;
+            maxImgCount = 1;
             dialog.show();
         }
         return dialog;

@@ -92,7 +92,7 @@ public class ChatActivity extends BaseActivity {
     MessageList messageList;
     List<MyMessage> messages = new ArrayList<>();//适配器message
 
-    Activity getActivity() {
+    protected Activity getActivity() {
         return ChatActivity.this;
     }
 

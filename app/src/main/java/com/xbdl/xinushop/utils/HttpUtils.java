@@ -50,8 +50,6 @@ public class HttpUtils {
                 .params("namePhone", phone)
                 .params("password", pwd)
                 .tag("login")                       // 请求的 tag, 主要用于取消对应的请求
-                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
-                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
 
@@ -80,24 +78,91 @@ public class HttpUtils {
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
-    public static void getCategorylist(StringCallback stringCallback){
+
+    public static void getCategorylist(StringCallback stringCallback) {
         OkGo.<String>get(UrlConstant.getCategorylist)                            // 请求方式和请求url
                 .tag("getCategorylist")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
+
     /**
      * 发送验证码
      */
-    public static void forget(String phone,String pwd,String code ,StringCallback stringCallback) {
-        OkGo.<String>post(UrlConstant2.forget)// 请求方式和请求url
+
+    public static void forget(String phone, String pwd, String code, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant.regeist)// 请求方式和请求url
+
                 .params("phone", phone)
                 .params("password", pwd)
                 .params("code", code)
                 .tag("forget")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+
+    /**
+     * 添加种植日记
+     */
+    public static void appAddPlantDiary(String token, String name, String address, String img,
+                                        String plantTime, String desc, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant.appAddPlantDiary)// 请求方式和请求url
+                .params("token", token)
+                .params("name", name)
+                .params("address", address)
+                .params("img", img)
+                .params("plantTime", plantTime)
+                .params("desc", desc)
+                .tag("appAddPlantDiary")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+
+    /**
+     * 获取所有标签
+     *
+     * @param stringCallback
+     */
+    public static void findAllTag(String token, StringCallback stringCallback) {
+        OkGo.<String>get(UrlConstant.findAllTag)                            // 请求方式和请求url
+                .tag("findAllTag")
+                .params("token", token)
+                // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+
+    /**
+     * 发布帖子  	帖子类型 2、分享生活 3、参与话题 4、精选 5、攻略
+     *
+     * @param stringCallback
+     */
+    public static void setPost(String token,
+                               String type,
+                               String tagID,
+                               String topicID,
+                               String chooseID,
+                               String img,
+                               String noteName,
+                               String noteContent, StringCallback stringCallback) {
+
+
+
+        OkGo.<String>post(UrlConstant.setPost)
+                .params("token", token)
+                .params("type", type)
+                .params("tagID", tagID)
+                .params("topicID", topicID)
+                .params("chooseID", chooseID)
+                .params("img", img)
+                .params("noteName", noteName)
+                .params("noteContent", noteContent)
+                // 请求的 tag, 主要用于取消对应的请求
+
                 .execute(stringCallback);
     }
 }

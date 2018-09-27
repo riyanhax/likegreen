@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.activity.mine;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -33,6 +34,12 @@ public class SystemSettingsActivity extends BaseActivity implements View.OnClick
     private  View mMyToPromote,mSystemPersonalData;
     private PopupWindow popupWindow;
     private  CheckBox wifi,mobileandWifi;
+
+    @Override
+    protected Activity getActivity() {
+        return SystemSettingsActivity.this;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

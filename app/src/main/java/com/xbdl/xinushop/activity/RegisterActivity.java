@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -36,6 +37,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private CheckBox cb_pwd;
     private  int loginActivity;
     private View userXieyi;
+
+    @Override
+    protected Activity getActivity() {
+        return RegisterActivity.this;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
