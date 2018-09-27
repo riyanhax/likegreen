@@ -134,6 +134,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:id="@+id/et_plantname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
@@ -164,6 +165,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:id="@+id/et_dynamicstate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp_10"

@@ -149,16 +149,14 @@
             android:value="cee9f4368174507ce3308bfa" />
 
         <!-- 11111111111111111111111111111111111111 -->
-        <activity android:name=".LaunchActivity" >
+        <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".activity.mine.PersonalDataActivity" />
         <activity android:name=".activity.mine.GuanggaoAndLiveActivity" />
         <activity android:name=".activity.mine.AuditAndLiveActivity" />
@@ -272,7 +270,8 @@
         <activity android:name=".activity.mine.wallet.MyWalletActivity" />
         <activity android:name=".activity.mine.wallet.WalletDetailActivity" />
         <activity android:name=".activity.mine.wallet.RechargeCenterActivity" />
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.mine.AddShareLifeActivity"></activity>
     </application>
 
 </manifest>
