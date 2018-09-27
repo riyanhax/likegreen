@@ -15,5 +15,9 @@ public interface UrlConstant2 {
      * 修改用户信息
      */
     String updataUser=UrlConstant.baseUrl+"user/appUpdataUser";
+    /**
+     * 添加收货地址
+     */
+    String adduserAddress=UrlConstant.baseUrl+"useraddress/addUserAddressApi";
 
 }

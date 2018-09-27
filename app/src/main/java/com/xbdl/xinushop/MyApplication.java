@@ -165,9 +165,9 @@ public class MyApplication extends Application {
 
     //配置分享
     {
-        PlatformConfig.setWeixin("com.xbdl.xinushop", "17cadcbcbb05c51bb017572437ad792f");
-        PlatformConfig.setSinaWeibo("3366607441", "5ae0660397608d96e91e417df02c3ded", "http://sns.whalecloud.com");
-
+        PlatformConfig.setWeixin("wx3283ad5062a19c73", "4a85a038996c9ef6bbcbc83439dc7150");
+        PlatformConfig.setSinaWeibo("3366607441", "5ae0660397608d96e91e417df02c3ded",  "http://sns.whalecloud.com");
+        PlatformConfig.setQQZone("1105675885","lzkucM3J8ecESvAe");
     }
     private void initImgPicker(){
         imagePicker = ImagePicker.getInstance();

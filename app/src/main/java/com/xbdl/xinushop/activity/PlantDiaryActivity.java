@@ -77,7 +77,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
         etDynamicstate = findViewById(R.id.et_dynamicstate);
         //findViewById(R.id.tv_plant_wancheng).setOnClickListener(this);
         tvlocation.setOnClickListener(this);
-
+        findViewById(R.id.iv_return).setOnClickListener(this);
 
         //添加商品图片
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.images);
@@ -121,6 +121,9 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_return:
+                finish();
+                break;
             case R.id.tv_plant_location:
 
 
@@ -130,58 +133,62 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 ////                startActivity(intentShareLiftActivity);
 //                break;
             case R.id.iv_commit:
-                if (adapter != null && adapter.getImages().size() == 0) {
-                    Toast.makeText(getActivity(), "请选择图片", Toast.LENGTH_LONG).show();
-                    return;
-                } else if (Judge.getBoolean_isNull(etPlantName.getText().toString())) {
-                    Toast.makeText(getActivity(), "请填写植物名字", Toast.LENGTH_LONG).show();
-                    return;
-                } else if (Judge.getBoolean_isNull(etDynamicstate.getText().toString())) {
-                    Toast.makeText(getActivity(), "请填写你的动态", Toast.LENGTH_LONG).show();
-                    return;
-                } else {
-                    showLoading();
-                    String base64image = null;
-
-                        base64image = "data:image/jpg;base64,"+ImageUtils.bitmapToString(images.get(0).path);
-
-                    String name = etPlantName.getText().toString();
-                    String dynamicstate = etDynamicstate.getText().toString();
-                    String time = plantData.getText().toString();
-                  String userjson=  SharedPreferencesUtil.getString(getActivity(), MyConstants.User,"");
-                  String token="";
-                    PersonBean personBean=          new Gson().fromJson(userjson, PersonBean.class);
-                    token=personBean.getLoginToken();
-                    HttpUtils.appAddPlantDiary(token, name, addr, base64image, time, dynamicstate, new StringCallback() {
-                        @Override
-                        public void onStart(Request<String, ? extends Request> request) {
-                            super.onStart(request);
-                            showLoading();
-                            Log.i("asdf","onStart");
-                        }
-
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            String body=response.body();
-                            Log.i("asdf","success"+body);
-                        }
-
-                        @Override
-                        public void onError(Response<String> response) {
-                            super.onError(response);
-                            Log.i("asdf","err");
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            super.onFinish();
-                        dismissLoading();
-                        }
-                    });
-                }
+                commit();
 
                 break;
 
+        }
+    }
+    //提交
+    private void commit() {
+        if (adapter != null && adapter.getImages().size() == 0) {
+            Toast.makeText(getActivity(), "请选择图片", Toast.LENGTH_LONG).show();
+            return;
+        } else if (Judge.getBoolean_isNull(etPlantName.getText().toString())) {
+            Toast.makeText(getActivity(), "请填写植物名字", Toast.LENGTH_LONG).show();
+            return;
+        } else if (Judge.getBoolean_isNull(etDynamicstate.getText().toString())) {
+            Toast.makeText(getActivity(), "请填写你的动态", Toast.LENGTH_LONG).show();
+            return;
+        } else {
+            showLoading();
+            String base64image = null;
+
+                base64image = "data:image/jpg;base64,"+ ImageUtils.bitmapToString(images.get(0).path);
+
+            String name = etPlantName.getText().toString();
+            String dynamicstate = etDynamicstate.getText().toString();
+            String time = plantData.getText().toString();
+          String userjson=  SharedPreferencesUtil.getString(getActivity(), MyConstants.User,"");
+          String token="";
+            PersonBean personBean=new Gson().fromJson(userjson, PersonBean.class);
+            token=personBean.getLoginToken();
+            HttpUtils.appAddPlantDiary(token, name, addr, base64image, time, dynamicstate, new StringCallback() {
+                @Override
+                public void onStart(Request<String, ? extends Request> request) {
+                    super.onStart(request);
+                    showLoading();
+                    Log.i("asdf","onStart");
+                }
+
+                @Override
+                public void onSuccess(Response<String> response) {
+                    String body=response.body();
+                    Log.i("asdf","success"+body);
+                }
+
+                @Override
+                public void onError(Response<String> response) {
+                    super.onError(response);
+                    Log.i("asdf","err");
+                }
+
+                @Override
+                public void onFinish() {
+                    super.onFinish();
+                dismissLoading();
+                }
+            });
         }
     }
 

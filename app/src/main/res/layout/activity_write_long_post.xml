@@ -120,8 +120,9 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
     </RelativeLayout>
+
     <com.xbdl.xinushop.view.MultiImageView
-        android:id="@+id/iv_longpost_photo"
+        android:id="@+id/rv_add_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

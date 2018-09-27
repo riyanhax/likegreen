@@ -3,7 +3,6 @@ package com.xbdl.xinushop.chat;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 
@@ -20,7 +19,7 @@ import com.xbdl.xinushop.base.BaseActivity;
 import java.io.File;
 import java.util.List;
 
-public class ChatItemActivity extends AppCompatActivity implements PLOnPreparedListener, PLOnInfoListener, PLOnCompletionListener, PLOnVideoSizeChangedListener, PLOnErrorListener {
+public class ChatItemActivity extends BaseActivity implements PLOnPreparedListener, PLOnInfoListener, PLOnCompletionListener, PLOnVideoSizeChangedListener, PLOnErrorListener {
     private boolean mIsLiveStreaming;
     PLVideoView mVideoView;
 
