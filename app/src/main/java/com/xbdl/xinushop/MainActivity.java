@@ -17,30 +17,29 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.umeng.socialize.UMShareAPI;
 import com.xbdl.xinushop.activity.EquipmentActivity;
 import com.xbdl.xinushop.activity.PlantDiaryActivity;
 import com.xbdl.xinushop.activity.ShortCameraActivity;
 import com.xbdl.xinushop.activity.WriteLongPostActivity;
 import com.xbdl.xinushop.activity.mian.ApplyLiveActivity;
 import com.xbdl.xinushop.activity.mine.AddShareLifeActivity;
-import com.xbdl.xinushop.activity.mine.ShareLiftActivity;
-import com.xbdl.xinushop.base.BaseActivity;
-import com.xbdl.xinushop.base.BasePresenter;
+import com.xbdl.xinushop.activity.mine.AddSubjectActivity;
 import com.xbdl.xinushop.bean.CallTab;
 import com.xbdl.xinushop.fragment.home.HomeFindFragment;
 import com.xbdl.xinushop.fragment.home.HomeMyFragment;
 import com.xbdl.xinushop.fragment.home.HomeNoteFragment;
 import com.xbdl.xinushop.fragment.home.HomePageFragment;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.umeng.socialize.UMShareAPI;
+import com.xbdl.xinushop.listener.BackHandledInterface;
 import com.xbdl.xinushop.utils.FastBlurUtility;
 import com.xbdl.xinushop.utils.NavigationBarHeight;
+import com.xbdl.xinushop.view.BackHandledFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -50,15 +49,16 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,BackHandledInterface {
     final RxPermissions rxPermissions = new RxPermissions(this);
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";//测试url
     public static Activity instance = null;
-    Fragment main_home, main_note, main_find, main_mine,main_add;
+    Fragment main_home, main_note, main_find, main_mine, main_add;
     private RadioGroup main_radio;
-    private RadioButton main_rbt_home,main_rbt_add,main_rbt_mine,main_rbt_find,main_rbt_note;
+    private RadioButton main_rbt_home, main_rbt_add, main_rbt_mine, main_rbt_find, main_rbt_note;
     private FragmentTransaction transaction;
     private PopupWindow popupWindow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,11 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         JMessageClient.login(getString(com.xbdl.xinushop.R.string.appidjiguang), "123456", new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
-                Log.i("asdf",""+i);
+                Log.i("asdf", "" + i);
             }
 
         });
-
 
 
     }
@@ -93,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private void initFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (main_home == null) {
@@ -103,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         transaction.commitAllowingStateLoss();
     }
+
     protected void initView() {
         main_radio = (RadioGroup) findViewById(com.xbdl.xinushop.R.id.main_radio);
         main_rbt_home = (RadioButton) findViewById(com.xbdl.xinushop.R.id.main_rbt_home);
@@ -156,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 main_rbt_note.setChecked(true);
                 EventBus.getDefault().post(CallTab.NOTE);
                 break;
-           // case R.id.main_rbt_add:
+            // case R.id.main_rbt_add:
                 /*Intent intent = new Intent(getApplicationContext(), AddActivity.class);
                 startActivityForResult(intent,1);*/
                 /*if (main_add == null) {
@@ -165,14 +164,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     transaction.show(main_add);
                 }*/
-               // showPopupWindow();
+            // showPopupWindow();
                 /*main_rbt_home.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_add.setTextColor(getResources().getColor(R.color.green));
                 main_rbt_add.setChecked(true);
                 main_rbt_find.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_mine.setTextColor(getResources().getColor(R.color.maintextcolor));
                 main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));*/
-               // break;
+            // break;
             case com.xbdl.xinushop.R.id.main_rbt_find:
                 if (main_find == null) {
                     main_find = new HomeFindFragment();
@@ -210,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     public void hideAllFragment(FragmentTransaction transaction) {
         if (main_home != null) {
             transaction.hide(main_home);
@@ -222,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             transaction.hide(main_mine);
         }
         if (main_add != null) {
-           // transaction.hide(main_add);
+            // transaction.hide(main_add);
         }
         if (main_note != null) {
             transaction.hide(main_note);
@@ -238,18 +236,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //QQ分享
-        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         //add页面结束后返回首页
-        if (resultCode==2){
-            if (requestCode==1){
+        if (resultCode == 2) {
+            if (requestCode == 1) {
                 main_rbt_home.setChecked(true);
             }
 
         }
     }
+
     //接收eventbus事件
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setTab(CallTab callTab){
+    public void setTab(CallTab callTab) {
     /*    switch (callTab){
             case MAIN:
                 main_rbt_home.setChecked(true);
@@ -265,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }*/
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -281,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Manifest.permission.READ_PHONE_STATE)
                 .subscribe();
     }
+
     private void showPopupWindow() {
         View contentView = LayoutInflater.from(this).inflate(com.xbdl.xinushop.R.layout.pop_add, null);
         contentView.findViewById(com.xbdl.xinushop.R.id.rl_add_close).setOnClickListener(this);//关闭
@@ -290,7 +291,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_longpost).setOnClickListener(this);//长贴子
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_sharelife).setOnClickListener(this);//分享生活
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_live).setOnClickListener(this);//直播
-        ImageView img =(ImageView) contentView.findViewById(R.id.iv_pop_bg);//背景
+        contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_jiontheme).setOnClickListener(this);//参与话题
+        ImageView img = (ImageView) contentView.findViewById(R.id.iv_pop_bg);//背景
         //虚化背景
         Bitmap blurBackgroundDrawer = FastBlurUtility.getBlurBackgroundDrawer(this);
         img.setImageBitmap(blurBackgroundDrawer);
@@ -308,17 +310,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EventBus.getDefault().post(CallTab.ADD);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (popupWindow!=null){
-            popupWindow.dismiss();
-        }
-            super.onBackPressed();
-    }
+
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case com.xbdl.xinushop.R.id.iv_mian_add:
                 showPopupWindow();
                 break;
@@ -347,12 +343,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 popupWindow.dismiss();
                 break;
             case com.xbdl.xinushop.R.id.ll_add_sharelife://分享生活
-//                Intent intentShareLiftActivity = new Intent(MainActivity.this, ShareLiftActivity.class);
-//                startActivity(intentShareLiftActivity);
-
                 Intent intentShareLiftActivity = new Intent(MainActivity.this, AddShareLifeActivity.class);
                 startActivity(intentShareLiftActivity);
-
                 popupWindow.dismiss();
                 break;
             case com.xbdl.xinushop.R.id.ll_add_live://直播
@@ -360,8 +352,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentApplyLiveActivity);
                 popupWindow.dismiss();
                 break;
+            //参与话题
+            case R.id.ll_add_jiontheme:
+                Intent intentAddSubjectActivity = new Intent(MainActivity.this, AddSubjectActivity.class);
+                startActivity(intentAddSubjectActivity);
+                popupWindow.dismiss();
+                break;
         }
     }
+    //webview fragment
+    private BackHandledFragment mBackHandedFragment;
+    private boolean hadIntercept;
+    @Override
+    public void setSelectedFragment(BackHandledFragment selectedFragment) {
+        this.mBackHandedFragment = selectedFragment;
+    }
+    @Override
+    public void onBackPressed() {
+        if (popupWindow != null) {
+            popupWindow.dismiss();
+        }
+        if (mBackHandedFragment == null || !mBackHandedFragment.onBackPressed()) {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                Log.i("asdf", "1");
 
+                super.onBackPressed();
+            } else {
+                Log.i("asdf", "2");
+                getSupportFragmentManager().popBackStack(); //fragment 出栈
+            }
+        }
+//        long secondTime = System.currentTimeMillis();
+//        if (secondTime - firstTime > 2000) {
+//            ToastUtil.showShortToast("再按一次退出程序");
+//            firstTime = secondTime;
+//        } else {
+//            if (NiceVideoPlayerManager.instance().onBackPressd()) return;
+//            finish();
+//        }
+        // super.onBackPressed();
+    }
 
 }

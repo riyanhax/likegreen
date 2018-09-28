@@ -53,9 +53,9 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void initView(View v){
-         mStHomePage = (SlidingTabLayout)v.findViewById(R.id.st_home_page);
-        mViewpager=(ViewPager)v.findViewById(R.id.viewpager_home_page);
-        mIvHomeMoreBtn=(ImageView)v.findViewById(R.id.iv_home_more_btn);//打开直播的按钮
+         mStHomePage = v.findViewById(R.id.st_home_page);
+        mViewpager=v.findViewById(R.id.viewpager_home_page);
+        mIvHomeMoreBtn=v.findViewById(R.id.iv_home_more_btn);//打开直播的按钮
         mIvHomeMoreBtn.setOnClickListener(this);
         mLlHomeLive = v.findViewById(R.id.ll_home_live);//显示直播进入界面
         mRlMoreLive = v.findViewById(R.id.rl_morelive);//更多直播
@@ -69,7 +69,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         fragmentsRecom.add(new FocuFragment());
         fragmentsRecom.add(new RecommendedFragment());
         fragmentsRecom.add(new TheNewFragment());
-        mStHomePage.setViewPager(mViewpager,itemsRecommend,(FragmentActivity) getActivity(),fragmentsRecom);
+        mStHomePage.setViewPager(mViewpager,itemsRecommend, getActivity(),fragmentsRecom);
         mStHomePage.setCurrentTab(1);
 
     }

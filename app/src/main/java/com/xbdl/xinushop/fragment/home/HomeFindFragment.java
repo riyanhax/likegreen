@@ -1,117 +1,176 @@
 package com.xbdl.xinushop.fragment.home;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
-import com.flyco.tablayout.SlidingTabLayout;
-import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.gson.Gson;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.base.BaseFragment;
-import com.xbdl.xinushop.fragment.find.ForumFragment;
-import com.xbdl.xinushop.fragment.find.SelectedFragment;
-import com.xbdl.xinushop.fragment.find.ShoppingMallFragment;
+import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.bean.PersonBean;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
+import com.xbdl.xinushop.view.BackHandledFragment;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by theWind on 2018/8/1.
  */
 
-public class HomeFindFragment extends BaseFragment implements View.OnClickListener {
-    private String[] items=new String[]{"精选","论坛","商城"};
-    private SlidingTabLayout tabLayout;
-    private ViewPager viewPager;
-    private int tab;
-    private Fragment selectedFragment,forumFragment,shoppingMallFragment;
-    private RadioButton selected,forum,shoppingmall;
-    private ImageView equipment,shoppingCar;//应用设备  购物车
-    private View downView;
-    private boolean isShow=true;
+public class HomeFindFragment extends BackHandledFragment {
+    String token = "";
+    WebView myWebView;
+ProgressBar pb;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_find, container, false);
+        view.findViewById(R.id.view_line).setVisibility(View.GONE);
+        String userjson = SharedPreferencesUtil.getString(getActivity(), MyConstants.User, "");
+
+        PersonBean personBean = new Gson().fromJson(userjson, PersonBean.class);
+        token = personBean.getLoginToken();
         initView(view);
-        //initFragment();
-        initData();
+
         return view;
     }
 
 
-        private void initView(View v) {
-        tabLayout = (SlidingTabLayout)v.findViewById(R.id.st_home_find);
-        viewPager = (ViewPager)v.findViewById(R.id.viewpager_home_find);
-        equipment = (ImageView)v.findViewById(R.id.iv_find_equipment);//应用设备
-        equipment.setOnClickListener(this);
-        shoppingCar = (ImageView)v.findViewById(R.id.iv_find_shopping);//购物
-        downView = v.findViewById(R.id.find_downview);
-        v.findViewById(R.id.view_transparent).setOnClickListener(this);
-        }
+    private void initView(View v) {
+        pb=v.findViewById(R.id.pb);
+        myWebView = v.findViewById(R.id.webview);
+        initWebViewSettings();
+    }
+
+    /**
+     * init WebView Settings
+     */
+    private void initWebViewSettings() {
+
+//String urls="file:///android_asset/index.html";
+      String urls = "http://165g4d2958.iask.in:57817/dist/index.html#/";
+     //   String urls = "http://www.baidu.com";
+//String urls="http://mall.depforlive.com/test/hybrid.php";
+        myWebView.loadUrl(urls);
 
 
-    private void initData() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new SelectedFragment());
-        fragments.add(new ForumFragment());
-        fragments.add(new ShoppingMallFragment());
-        tabLayout.setViewPager(viewPager,items,getActivity(),fragments);
-        tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+        myWebView.setWebViewClient(new WebViewClient() {
             @Override
-            public void onTabSelect(int position) {
-                switch (position){
-                    case 0:
-                    case 1:
-                        equipment.setVisibility(View.VISIBLE);
-                        shoppingCar.setVisibility(View.GONE);
-                        break;
-                    case 2:
-                        equipment.setVisibility(View.GONE);
-                        shoppingCar.setVisibility(View.VISIBLE);
-                        break;
-                }
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                view.loadUrl(url);
             }
 
             @Override
-            public void onTabReselect(int position) {
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
 
             }
         });
+        myWebView.getSettings().setJavaScriptEnabled(true);
 
+
+        // 设置编码
+        myWebView.getSettings().setDefaultTextEncodingName("utf-8");
+        // 支持js
+        WebSettings ws = myWebView.getSettings();
+        // 是否允许脚本支持
+        ws.setJavaScriptEnabled(true);
+        ws.setJavaScriptCanOpenWindowsAutomatically(true);
+        ws.setPluginState(WebSettings.PluginState.ON);
+        ws.setAppCacheMaxSize(10240);
+        // 设置 缓存模式
+        ws.setCacheMode(WebSettings.LOAD_DEFAULT);
+        // 开启 DOM storage API 功能
+        ws.setDomStorageEnabled(true);
+        ws.setAllowFileAccess(true);
+        ws.setLoadWithOverviewMode(true);
+        ws.setUseWideViewPort(true);
+
+        myWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        // webview.addJavascriptInterface(MyWealthActivity.this, "android");
+        myWebView.addJavascriptInterface(new FamilyPowerRank(), "android");
+        myWebView.setWebViewClient(new WebViewClient());
+        myWebView.setWebChromeClient(new MyWebviewChromeClient());
+    }
+
+
+    /**
+     * JS调用android的方法
+     *
+     * @param str
+     * @return
+     */
+    @JavascriptInterface //仍然必不可少
+    public void getClient(String str) {
+        Log.i("ansen", "html调用客户端:" + str);
+    }
+
+    class MyWebviewChromeClient extends WebChromeClient {
+        @Override
+        public void onProgressChanged(WebView webView, int i) {
+            if (i == 100) {
+                pb.setVisibility(View.GONE);
+            } else {
+                    pb.setVisibility(View.VISIBLE);
+            }
+
+
+            super.onProgressChanged(webView, i);
+        }
+
+
+    }
+
+    private class FamilyPowerRank {
+        @JavascriptInterface
+        public String getSession() {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("token", token);
+            } catch (JSONException e) {
+
+            }
+
+            return jsonObject.toString();
+        }
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.iv_find_equipment:
-                showdownView(isShow);
-                break;
-            case R.id.view_transparent:
-                showdownView(isShow);
-                break;
+    public void onDestroy() {
+        super.onDestroy();
+
+
+        myWebView.clearHistory();
+        myWebView.clearMatches();
+        myWebView.clearCache(true);
+        myWebView.destroy();
+    }
+    @Override
+    public boolean onBackPressed() {
+        if(myWebView.canGoBack()){
+            myWebView.goBack();
+            Log.v("webView.goBack()", "webView.goBack()");
+            return true;
+
+        }else{
+            Log.v("Conversatio退出","Conversatio退出");
+            return false;
         }
     }
-
-    private void showdownView(boolean b) {
-        if (b){
-            downView.setVisibility(View.VISIBLE);
-            isShow=false;
-            Log.v("nihaoma",isShow+"1111111");
-        }else {
-            downView.setVisibility(View.GONE);
-            isShow=true;
-            Log.v("nihaoma",isShow+"2222222222222");
-        }
-    }
-
-
 }
 
 

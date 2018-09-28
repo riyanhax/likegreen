@@ -1,23 +1,18 @@
-package com.xbdl.xinushop.activity;
+package com.xbdl.xinushop.activity.mine;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
@@ -25,168 +20,111 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.ImagePickerAdapter;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
+import com.xbdl.xinushop.bean.TopsBean;
 import com.xbdl.xinushop.constant.ImagePickerConstant;
+import com.xbdl.xinushop.dialogfragment.FindAllSubjectDialogFragment;
+import com.xbdl.xinushop.listener.OnItemAllTopListener;
 import com.xbdl.xinushop.utils.HttpUtils;
 import com.xbdl.xinushop.utils.ImageUtils;
 import com.xbdl.xinushop.utils.Judge;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 import com.xbdl.xinushop.view.SelectDialog;
 
-import java.text.SimpleDateFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static com.xbdl.xinushop.MyApplication.maxImgCount;
 
+/**
+ * 添加  参与话题
+ */
+public class AddSubjectActivity extends BaseActivity implements View.OnClickListener, ImagePickerAdapter.OnRecyclerViewItemClickListener {
+    AppCompatImageView ivtop;
+    AppCompatTextView tvTopmessage;
+    AppCompatTextView tvTopdesc;
 
-/*
- * 种植日记
- * */
-public class PlantDiaryActivity extends BaseActivity implements View.OnClickListener, ImagePickerAdapter.OnRecyclerViewItemClickListener {
 
-    private TextView tvlocation, plantData;
-    String addr;//详细地址
-    private RecyclerView rvimages;
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
 
-    EditText etPlantName;//植物名字
-    EditText etDynamicstate;//动态
-
-    TextView tvPlantName;
-    TextView tvdynamic;//动态
-
+    AppCompatEditText etTitle, etMessage;//输入标题 内容
+String token="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plant_diary);
+        setContentView(R.layout.activity_add_subject);
+
+        String userjson = SharedPreferencesUtil.getString(getActivity(), MyConstants.User, "");
+
+        PersonBean personBean = new Gson().fromJson(userjson, PersonBean.class);
+        token = personBean.getLoginToken();
+
+        findViewById(R.id.iv_addsubject).setOnClickListener(this);
+        ivtop = findViewById(R.id.iv_icon);
+        tvTopmessage = findViewById(R.id.tv_message);
+        tvTopdesc = findViewById(R.id.tv_desc);
 
 
-        initView();
-        initData();
-    }
-
-    public LocationClient mLocationClient = null;
-
-    private void initView() {
-        tvlocation = findViewById(R.id.tv_plant_location);
-        plantData = findViewById(R.id.tv_plant_data);
-        etPlantName = findViewById(R.id.et_plantname);
-        etDynamicstate = findViewById(R.id.et_dynamicstate);
-        tvPlantName = findViewById(R.id.tv_plantname);
-        tvdynamic = findViewById(R.id.tv_dynamic);
-        //findViewById(R.id.tv_plant_wancheng).setOnClickListener(this);
-        tvlocation.setOnClickListener(this);
-
-
-        //添加商品图片
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.images);
+        //图片
+        RecyclerView recyclerView = findViewById(R.id.rv_subjectimage);
         selImageList = new ArrayList<>();
-        adapter = new ImagePickerAdapter(this, selImageList, 1);
+        adapter = new ImagePickerAdapter(this, selImageList, 6);
         adapter.setOnItemClickListener(this);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        //添加商品图片
-
-        initListener();
+        //图片
+        findViewById(R.id.tv_commit).setOnClickListener(this);
+        etTitle = findViewById(R.id.et_title);
+        etMessage = findViewById(R.id.et_message);
     }
 
-    private void initListener() {
-        etPlantName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int length = editable.toString().length();
-                tvPlantName.setText("植物名字（" + length + "/32）");
-            }
-        });
-        etDynamicstate.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int length = editable.toString().length();
-                tvdynamic.setText("Ta的动态（"+length+"/280）");
-            }
-        });
+    @Override
+    protected Activity getActivity() {
+        return AddSubjectActivity.this;
     }
 
-    private void initData() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 ");// HH:mm:ss
-        //获取当前时间
-        Date date = new Date(System.currentTimeMillis());
-        plantData.setText(simpleDateFormat.format(date));
-
-        //位置
-        mLocationClient = new LocationClient(getApplicationContext());
-        //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);
-        //注册监听函数
-        LocationClientOption option = new LocationClientOption();
-
-        option.setIsNeedAddress(true);
-//可选，是否需要地址信息，默认为不需要，即参数为false
-//如果开发者需要获得当前点的地址信息，此处必须为true
-
-        mLocationClient.setLocOption(option);
-//mLocationClient为第二步初始化过的LocationClient对象
-//需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
-//更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说
-        mLocationClient.start();
-
-        //提交
-        findViewById(R.id.iv_commit).setOnClickListener(this);
-    }
+    TopsBean topsBean = null;//话题 bean
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_plant_location:
-
-
+            case R.id.iv_addsubject:
+                FindAllSubjectDialogFragment findAllSubjectDialogFragment =
+                        FindAllSubjectDialogFragment.newInstance();
+                findAllSubjectDialogFragment.setOnItemAllTopListener(new OnItemAllTopListener() {
+                    @Override
+                    public void onItemAllTop(TopsBean topsBea) {
+                        topsBean = topsBea;
+                        findViewById(R.id.ll_toplayout).setVisibility(View.VISIBLE);
+                        Glide.with(getActivity()).load(topsBean.getImg_path()).into(ivtop);
+                        tvTopmessage.setText(topsBean.getT_name());
+                        tvTopdesc.setText(topsBean.getT_desc());
+                    }
+                });
+                findAllSubjectDialogFragment.show(getSupportFragmentManager(), findAllSubjectDialogFragment.getClass().getName());
                 break;
-//            case R.id.tv_plant_wancheng:
-////                Intent intentShareLiftActivity = new Intent(PlantDiaryActivity.this, ShareLiftActivity.class);
-////                startActivity(intentShareLiftActivity);
-//                break;
-            case R.id.iv_commit:
-                if (adapter != null && adapter.getImages().size() == 0) {
+            case R.id.tv_commit:
+                if (topsBean == null) {
+                    Toast.makeText(getActivity(), "请选择话题", Toast.LENGTH_LONG).show();
+                } else if (Judge.getBoolean_isNull(etTitle.getText().toString())) {
+                    Toast.makeText(getActivity(), "请输入标题", Toast.LENGTH_LONG).show();
+                } else if (Judge.getBoolean_isNull(etMessage.getText().toString())) {
+                    Toast.makeText(getActivity(), "请输入内容", Toast.LENGTH_LONG).show();
+                } else if (adapter.getImages().size() == 0) {
                     Toast.makeText(getActivity(), "请选择图片", Toast.LENGTH_LONG).show();
-                    return;
-                } else if (Judge.getBoolean_isNull(etPlantName.getText().toString())) {
-                    Toast.makeText(getActivity(), "请填写植物名字", Toast.LENGTH_LONG).show();
-                    return;
-                } else if (Judge.getBoolean_isNull(etDynamicstate.getText().toString())) {
-                    Toast.makeText(getActivity(), "请填写你的动态", Toast.LENGTH_LONG).show();
-                    return;
                 } else {
-                    showLoading();
+                    //showLoading("");
+                  //  showLoading();
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < adapter.getImages().size(); i++) {
                         String path = adapter.getImages().get(i).path;
@@ -211,44 +149,45 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 
                     }
                     String base64images = sb.toString();
+                    String topid = topsBean.getTopic_id() + "";
+                    String title = etTitle.getText().toString();
+                    String message = etMessage.getText().toString();
 
-                    String name = etPlantName.getText().toString();
-                    String dynamicstate = etDynamicstate.getText().toString();
-                    String time = plantData.getText().toString();
-                    String userjson = SharedPreferencesUtil.getString(getActivity(), MyConstants.User, "");
-                    String token = "";
-                    PersonBean personBean = new Gson().fromJson(userjson, PersonBean.class);
-                    token = personBean.getLoginToken();
-                    HttpUtils.appAddPlantDiary(token, name, addr, base64images, time, dynamicstate, new StringCallback() {
-                        @Override
-                        public void onStart(Request<String, ? extends Request> request) {
-                            super.onStart(request);
-                            showLoading();
-                            Log.i("asdf", "onStart");
-                        }
+                    HttpUtils.setPost(token, 3 + "",
+                            0 + "", topid + "",
+                            0 + "", base64images,
+                            title, message, new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    try {
+                                        JSONObject jsonObject=new JSONObject(response.body());
+                                        int code=jsonObject.getInt("code");
+                                        if (code!=100)
+                                        {
+                                            Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
+                                        }else {
+                                            Toast.makeText(getActivity(),"提交成功",Toast.LENGTH_LONG).show();
+                                            finish();
+                                        }
+                                    } catch (JSONException e) {
+                                        Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
+                                    }
+                                }
 
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            String body = response.body();
-                            Log.i("asdf", "success" + body);
-                        }
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
+                                    Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
+                                }
 
-                        @Override
-                        public void onError(Response<String> response) {
-                            super.onError(response);
-                            Log.i("asdf", "err");
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            super.onFinish();
-                            dismissLoading();
-                        }
-                    });
+                                @Override
+                                public void onFinish() {
+                                    super.onFinish();
+                                    dismissLoading();
+                                }
+                            });
                 }
-
                 break;
-
         }
     }
 
@@ -259,6 +198,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                 List<String> names = new ArrayList<>();
                 names.add("拍照");
                 names.add("相册");
+
                 showDialog(new SelectDialog.SelectDialogListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -272,7 +212,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                                  * 如果实在有所需要，请直接下载源码引用。
                                  */
                                 //打开选择,本次允许选择的数量
-                                ImagePicker.getInstance().setSelectLimit(1 - selImageList.size());
+                                ImagePicker.getInstance().setSelectLimit(6 - selImageList.size());
                                 Intent intent = new Intent(getActivity(), ImageGridActivity.class);
                                 intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
                                 startActivityForResult(intent, ImagePickerConstant.REQUEST_CODE_SELECT);
@@ -308,39 +248,17 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    public class MyLocationListener extends BDAbstractLocationListener {
-
-
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
-            //以下只列举部分获取地址相关的结果信息
-            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-            addr = location.getAddrStr();    //获取详细地址信息
-            if (!Judge.getBoolean_isNull(addr)) {
-                tvlocation.setText(addr);
-            }
-
-        }
-    }
-
-
-    private MyLocationListener myListener = new MyLocationListener();
-
-    protected Activity getActivity() {
-        return PlantDiaryActivity.this;
-    }
-
     private SelectDialog showDialog(SelectDialog.SelectDialogListener listener, List<String> names) {
         SelectDialog dialog = new SelectDialog(this, R.style
                 .transparentFrameWindowStyle,
                 listener, names);
         if (!this.isFinishing()) {
-            maxImgCount = 1;
+            maxImgCount = 6;
             dialog.show();
         }
         return dialog;
     }
+
 
     ArrayList<ImageItem> images = null;
 

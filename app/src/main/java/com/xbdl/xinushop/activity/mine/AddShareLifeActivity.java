@@ -61,6 +61,7 @@ public class AddShareLifeActivity extends BaseActivity implements ImagePickerAda
 
         PersonBean personBean = new Gson().fromJson(userjson, PersonBean.class);
         token = personBean.getLoginToken();
+        Log.i("asdf","token"+token);
         initAllTag(token);
 
     }
@@ -270,26 +271,32 @@ public class AddShareLifeActivity extends BaseActivity implements ImagePickerAda
                 } else if (adapter.getImages().size() == 0) {
                     Toast.makeText(getActivity(), "请选择图片", Toast.LENGTH_LONG).show();
                 } else {
+                    showLoading("");
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < adapter.getImages().size(); i++) {
                         String path = adapter.getImages().get(i).path;
                         String pathbase64 = ImageUtils.bitmapToString(path);
                       if (adapter.getImages().get(i).mimeType.contains("image/jpeg")||adapter.getImages().get(i).mimeType.contains("image/jpg"))
                       {
-                          pathbase64="data:image/jpeg;base64," +
-                                  ""+pathbase64;
+
+                          if (adapter.getImages().size() == 1) {
+                              sb.append(pathbase64);
+                              sb.append(";");
+                          } else {
+                              sb.append(pathbase64);
+                              sb.append(";");
+                          }
                       }else
                       {
-                          pathbase64="data:image/png;base64," +
-                                  ""+pathbase64;
+                          if (adapter.getImages().size() == 1) {
+                              sb.append(pathbase64);
+                              sb.append(";");
+                          } else {
+                              sb.append(pathbase64);
+                              sb.append(";");
+                          }
                       }
-                        if (adapter.getImages().size() == 1) {
-                            sb.append(pathbase64);
-                            sb.append(";");
-                        } else {
-                            sb.append(pathbase64);
-                            sb.append(";");
-                        }
+
                     }
                     String base64images = sb.toString();
                     int tagid = allTagAdapter.getDatas().get(0).getTagId();
@@ -302,19 +309,31 @@ public class AddShareLifeActivity extends BaseActivity implements ImagePickerAda
                           title, message, new StringCallback() {
                               @Override
                               public void onSuccess(Response<String> response) {
-                                  Log.i("asdf","onSuccess"+response.body());
+                                  try {
+                                      JSONObject jsonObject=new JSONObject(response.body());
+                                      int code=jsonObject.getInt("code");
+                                      if (code!=100)
+                                      {
+                                          Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
+                                      }else {
+                                          Toast.makeText(getActivity(),"提交成功",Toast.LENGTH_LONG).show();
+                                          finish();
+                                      }
+                                  } catch (JSONException e) {
+                                      Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
+                                  }
                               }
 
                               @Override
                               public void onError(Response<String> response) {
                                   super.onError(response);
-                                  Log.i("asdf","onError"+response.body());
+                                  Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
                               }
 
                               @Override
                               public void onFinish() {
                                   super.onFinish();
-                                  Log.i("asdf","onFinish");
+                              dismissLoading();
                               }
                           });
 

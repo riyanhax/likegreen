@@ -121,7 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (progressDialog == null) {
-                    progressDialog = new ProgressDialog(context);
+                    progressDialog = new ProgressDialog(context,R.style.myDialog2);
                 }
                 if (progressDialog.isShowing() == true) {
                     progressDialog.dismiss();
