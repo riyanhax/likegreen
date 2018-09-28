@@ -10,6 +10,7 @@
     <RelativeLayout
         style="@style/head">
         <ImageView
+            android:id="@+id/iv_return"
             android:layout_centerVertical="true"
             android:src="@drawable/wode_return"
             style="@style/paddinglift"
@@ -23,5 +24,64 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@android:color/white">
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="22dp"
+            android:src="@drawable/xilv_banbengengxin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="© 2017  heekgroup.com"
+            android:textColor="#85868d"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvversion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="版本1.0.3"
+            android:textColor="#85868d"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="45dp"
+            android:paddingRight="45dp"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="5sp"
+            android:text="        喜绿是一个以园艺水族为主题的图片经验分享社区。在这里你可以随时发现生活上那些不为人知的栽培养殖秘技，有你最喜欢的花草鸟语。你也可以尝试下动手开拓自己的梦想花园，收藏你最喜爱的园艺手作。喜绿HEEKGROUP，伴随你的生活和喜悦。"
+            android:textColor="#50505a"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tvversion2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:textColor="#50505a"
+            android:textSize="16sp"
+            android:text="版本介绍1.0.3" />
+    </RelativeLayout>
 </LinearLayout>

@@ -149,15 +149,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/login_weixin"
                 android:src="@drawable/weixin"
                 android:layout_width="@dimen/dp_45"
                 android:layout_height="@dimen/dp_45" />
             <ImageView
+                android:id="@+id/login_qq"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:src="@drawable/qq"
                 android:layout_width="@dimen/dp_45"
                 android:layout_height="@dimen/dp_45" />
             <ImageView
+                android:id="@+id/login_weibo"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:src="@drawable/weibo"
                 android:layout_width="@dimen/dp_45"

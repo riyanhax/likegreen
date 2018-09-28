@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+
 import com.activeandroid.ActiveAndroid;
+
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.lzy.okgo.OkGo;
@@ -17,10 +19,10 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.netease.LSMediaCapture.util.storage.StorageUtil;
-import com.umeng.commonsdk.UMConfigure;
-import com.umeng.socialize.PlatformConfig;
 import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.utils.GildeImageLoader;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -97,9 +99,9 @@ public class MyApplication extends Application {
     public static final String DELETE_MODE = "deleteMode";
     public static final int RESULT_CODE_ME_INFO = 20;
 
-    public static final String myusername = "myusername";
-    public static final String myusernickername = "mynickname";
-    public static final String myuseravater = "myuseravater";
+    public static final String myusername="myusername";
+    public static final String myusernickername="mynickname";
+    public static final String myuseravater="myuseravater";
     public static final String DRAFT = "draft";
     public static final String GROUP_ID = "groupId";
     public static final String message_tyoe = "messagetype";
@@ -139,10 +141,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        instance = this;
         context = getApplicationContext();
         StorageUtil.init(context, null);
+
 
 
         JMessageClient.init(getApplicationContext(), true);
@@ -152,7 +153,7 @@ public class MyApplication extends Application {
         JMessageClient.setNotificationFlag(JMessageClient.FLAG_NOTIFY_WITH_SOUND | JMessageClient.FLAG_NOTIFY_WITH_LED | JMessageClient.FLAG_NOTIFY_WITH_VIBRATE);
         //注册Notification点击的接收器
         new NotificationClickEventReceiver(getApplicationContext());
-        // initImagePicker();
+       // initImagePicker();
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
         UMConfigure.init(this, "5b99e1bb8f4a9d343a0001e7", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
                 "99d7736e3d082f22eb2186d50014ed4b");
@@ -165,17 +166,17 @@ public class MyApplication extends Application {
     //配置分享
     {
         PlatformConfig.setWeixin("wx3283ad5062a19c73", "4a85a038996c9ef6bbcbc83439dc7150");
-        PlatformConfig.setSinaWeibo("3366607441", "5ae0660397608d96e91e417df02c3ded", "http://sns.whalecloud.com");
-        PlatformConfig.setQQZone("1105675885", "lzkucM3J8ecESvAe");
+        PlatformConfig.setSinaWeibo("3366607441", "5ae0660397608d96e91e417df02c3ded",  "http://sns.whalecloud.com");
+        //PlatformConfig.setSinaWeibo("3366607441", "5ae0660397608d96e91e417df02c3ded",  " https://api.weibo.com/oauth2/default.html");
+        PlatformConfig.setQQZone("1105675885","lzkucM3J8ecESvAe");
     }
-
-    private void initImgPicker() {
+    private void initImgPicker(){
         imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new GildeImageLoader());   //设置图片加载器
         imagePicker.setShowCamera(true);  //显示拍照按钮
         imagePicker.setCrop(false);        //允许裁剪（单选才有效）
         imagePicker.setSaveRectangle(true); //是否按矩形区域保存
-        imagePicker.setSelectLimit(3);    //选中数量限制
+        imagePicker.setSelectLimit(6);    //选中数量限制
         imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
         imagePicker.setFocusWidth(800);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
         imagePicker.setFocusHeight(800);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
@@ -234,7 +235,7 @@ public class MyApplication extends Application {
         //HttpsUtils.SSLParams sslParams4 = HttpsUtils.getSslSocketFactory(getAssets().open("xxx.bks"), "123456", getAssets().open("yyy.cer"));
         builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
         //配置https的域名匹配规则，详细看demo的初始化介绍，不需要就不要加入，使用不当会导致https握手失败
-        //builder.hostnameVerifier(new SafeHostnameVerifier());
+       //builder.hostnameVerifier(new SafeHostnameVerifier());
 
         // 其他统一的配置
         // 详细说明看GitHub文档：https://github.com/jeasonlzy/
@@ -289,77 +290,9 @@ public class MyApplication extends Application {
             return true;
         }
     }
-
     public static PersonBean user;
-
-    public void setUer(PersonBean user) {
-        this.user = user;
+    public void setUer(PersonBean user){
+        this.user=user;
     }
-
-    /**
-     * 打开的activity
-     **/
-    private List<Activity> activities = new ArrayList<Activity>();
-    /**
-     * 应用实例
-     **/
-    private static MyApplication instance;
-
-    /**
-     * 获得实例
-     *
-     * @return
-     */
-    public static MyApplication getInstance() {
-        return instance;
-    }
-
-    /**
-     * 新建了一个activity
-     *
-     * @param activity
-     */
-    public void addActivity(Activity activity) {
-        activities.add(activity);
-    }
-
-    /**
-     * 结束指定的Activity
-     *
-     * @param activity
-     */
-    public void finishActivity(Activity activity) {
-        if (activity != null) {
-            this.activities.remove(activity);
-            activity.finish();
-            activity = null;
-        }
-    }
-
-    /**
-     * 应用退出，结束所有的activity
-     */
-    public void exit() {
-        for (Activity activity : activities) {
-            if (activity != null) {
-                activity.finish();
-            }
-        }
-        System.exit(0);
-    }
-
-    /**
-     * 关闭Activity列表中的所有Activity
-     */
-    public void finishActivity() {
-        for (Activity activity : activities) {
-            if (null != activity) {
-                activity.finish();
-            }
-        }
-        //杀死该应用进程
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
-
 
 }

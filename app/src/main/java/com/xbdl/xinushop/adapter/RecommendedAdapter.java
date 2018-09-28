@@ -79,6 +79,13 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                         .setCallback(umShareListener)//回调监听器
                         .share();
                 popupWindow.dismiss();
+            case R.id.ll_shareQQ:
+                new ShareAction(mContext)
+                        .setPlatform(SHARE_MEDIA.QQ)//微博
+                        .withText("hello")//分享内容
+                        .setCallback(umShareListener)//回调监听器
+                        .share();
+                popupWindow.dismiss();
                 break;
             case R.id.ll_share_colse:
                 popupWindow.dismiss();
@@ -132,6 +139,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         contentView.findViewById(R.id.ll_share_weixin_circleo).setOnClickListener(this);//朋友圈
         contentView.findViewById(R.id.ll_share_weixin).setOnClickListener(this);//朋友圈
         contentView.findViewById(R.id.ll_share_weibo).setOnClickListener(this);//微博
+        contentView.findViewById(R.id.ll_shareQQ).setOnClickListener(this);//QQ
         contentView.findViewById(R.id.ll_share_colse).setOnClickListener(this);//关闭
         contentView.findViewById(R.id.ll_share_uninterested).setOnClickListener(this);//不感兴趣
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

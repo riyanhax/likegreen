@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.xbdl.xinushop.activity.LoginActivity;
@@ -80,4 +81,10 @@ public class LaunchActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OkGo.getInstance().cancelTag("autoLogin");
+    }
 }

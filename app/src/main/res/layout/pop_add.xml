@@ -59,7 +59,7 @@
             <TextView
                 android:textColor="#303030"
                 android:textSize="14sp"
-                android:text="广州：阴29"
+                android:text="广州：阴29℃"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

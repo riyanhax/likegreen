@@ -11,5 +11,13 @@ public interface UrlConstant2 {
      * 自动登录
      */
     String autoLogin=UrlConstant.baseUrl+"user/appAutoLogin";
+    /**
+     * 修改用户信息
+     */
+    String updataUser=UrlConstant.baseUrl+"user/appUpdataUser";
+    /**
+     * 添加收货地址
+     */
+    String adduserAddress=UrlConstant.baseUrl+"useraddress/addUserAddress";
 
 }

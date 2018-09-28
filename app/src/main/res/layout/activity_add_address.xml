@@ -145,7 +145,24 @@
             android:background="@null" />
 
     </RelativeLayout>
-
+    <CheckBox
+        android:id="@+id/cb_isdefaultaddress"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@id/Re_item5"
+        android:background="@drawable/checkbox_admsginput"
+        android:button="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_toRightOf="@id/cb_isdefaultaddress"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@id/Re_item5"
+        android:textColor="@color/black1"
+        android:text="是否设为默认地址"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/save"
         android:layout_width="match_parent"

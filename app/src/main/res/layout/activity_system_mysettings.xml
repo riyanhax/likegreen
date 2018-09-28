@@ -64,6 +64,7 @@
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
     <RelativeLayout
+        android:id="@+id/rl_change_pwd"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
@@ -155,6 +156,7 @@
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
     <RelativeLayout
+        android:id="@+id/rl_rommended_to_friends"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
@@ -166,6 +168,7 @@
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
     <RelativeLayout
+        android:id="@+id/rl_clean"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView

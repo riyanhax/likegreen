@@ -18,6 +18,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.utils.SocializeUtils;
 import com.xbdl.xinushop.MainActivity;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
@@ -30,6 +34,9 @@ import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Map;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -60,7 +67,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         etPwd =(EditText) findViewById(R.id.et_pwd);
         findViewById(R.id.tv_login).setOnClickListener(this);//登录
         findViewById(R.id.tv_forget_pwd).setOnClickListener(this);//忘记密码
-        findViewById(R.id.tv_tv_register).setOnClickListener(this);//注册
+        findViewById(R.id.login_weixin).setOnClickListener(this);//微信
+        findViewById(R.id.login_qq).setOnClickListener(this);//QQ
+        findViewById(R.id.login_weibo).setOnClickListener(this);//微博
+
         showPwd= findViewById(R.id.cb_show_pwd);
         showPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -96,8 +106,48 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 intentRegisterActivity.putExtra("LoginActivity",register);
                 startActivity(intentRegisterActivity);
                 break;
+            case R.id.login_weixin:
+                UMShareAPI.get(this).getPlatformInfo(this,SHARE_MEDIA.WEIXIN,authListener);
+                break;
+            case R.id.login_qq:
+                UMShareAPI.get(this).getPlatformInfo(this,SHARE_MEDIA.QQ,authListener);
+                break;
+            case R.id.login_weibo:
+                UMShareAPI.get(this).getPlatformInfo(this,SHARE_MEDIA.SINA,authListener);
+                break;
         }
     }
+
+    UMAuthListener authListener = new UMAuthListener() {
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            showLoading();
+        }
+
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            dismissLoading();
+            Toast.makeText(LoginActivity.this, "成功了", Toast.LENGTH_LONG).show();
+            Set<Map.Entry<String, String>> set = data.entrySet();
+            for (Map.Entry<String,String> me: set){
+                String key = me.getKey();
+                String value = me.getValue();
+                Log.v("nihaoma",key+"11111"+value);
+            }
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            dismissLoading();
+            Toast.makeText(LoginActivity.this, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            dismissLoading();
+            Toast.makeText(LoginActivity.this, "取消了", Toast.LENGTH_LONG).show();
+        }
+    };
     private void login(){
         if (mPhoneNumber.length()!=11){
             Toast.makeText(this,"请输入正确手机号",Toast.LENGTH_SHORT).show();

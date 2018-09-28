@@ -36,7 +36,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private TextView sendCode, tv_register;
     private CheckBox cb_pwd;
     private  int loginActivity;
-    private View userXieyi;
+    private View userXieyi;//用户协议
 
     @Override
     protected Activity getActivity() {
@@ -76,13 +76,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         });
         tv_register= (TextView)findViewById(R.id.tv_register);//注册
         tv_register.setOnClickListener(this);
-        View userXieyi = findViewById(R.id.ll_user_text);
+        userXieyi= findViewById(R.id.ll_user_text);
+        userXieyi.setOnClickListener(this);
     }
     private void initData() {
         if (loginActivity==0){
             tv_register.setText("修改密码");
+            userXieyi.setVisibility(View.GONE);
         }else {
             tv_register.setText("注册");
+            userXieyi.setVisibility(View.VISIBLE);
         }
     }
 
@@ -99,6 +102,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 break;
             case  R.id.tv_register:
                     register();
+                break;
+            case  R.id.ll_user_text://用户协议
+
                 break;
         }
     }
