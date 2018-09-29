@@ -65,7 +65,7 @@
         <TextView
             android:id="@+id/tv_personal_name"
             android:textSize="@dimen/sp_14"
-
+            android:text="喜绿"
             android:layout_toLeftOf="@id/iv_personaldata_nicheng_back"
             android:layout_marginRight="@dimen/dp_20"
             android:layout_centerVertical="true"
@@ -89,6 +89,7 @@
         <TextView
             android:id="@+id/tv_personal_phone"
             android:textSize="@dimen/sp_14"
+            android:text="喜绿"
             android:layout_toLeftOf="@id/iv_personaldata_phone_back"
             android:layout_marginRight="@dimen/dp_20"
             android:layout_centerVertical="true"
