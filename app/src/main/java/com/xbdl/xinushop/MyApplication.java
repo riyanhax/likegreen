@@ -153,7 +153,7 @@ public class MyApplication extends Application {
         JMessageClient.setNotificationFlag(JMessageClient.FLAG_NOTIFY_WITH_SOUND | JMessageClient.FLAG_NOTIFY_WITH_LED | JMessageClient.FLAG_NOTIFY_WITH_VIBRATE);
         //注册Notification点击的接收器
         new NotificationClickEventReceiver(getApplicationContext());
-       // initImagePicker();
+        // initImagePicker();
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
         UMConfigure.init(this, "5b99e1bb8f4a9d343a0001e7", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
                 "99d7736e3d082f22eb2186d50014ed4b");
@@ -235,7 +235,7 @@ public class MyApplication extends Application {
         //HttpsUtils.SSLParams sslParams4 = HttpsUtils.getSslSocketFactory(getAssets().open("xxx.bks"), "123456", getAssets().open("yyy.cer"));
         builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
         //配置https的域名匹配规则，详细看demo的初始化介绍，不需要就不要加入，使用不当会导致https握手失败
-       //builder.hostnameVerifier(new SafeHostnameVerifier());
+        //builder.hostnameVerifier(new SafeHostnameVerifier());
 
         // 其他统一的配置
         // 详细说明看GitHub文档：https://github.com/jeasonlzy/

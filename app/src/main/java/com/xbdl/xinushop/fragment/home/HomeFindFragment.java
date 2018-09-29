@@ -60,7 +60,7 @@ ProgressBar pb;
     private void initWebViewSettings() {
 
 //String urls="file:///android_asset/index.html";
-      String urls = "http://165g4d2958.iask.in:57817/dist/index.html#/";
+      String urls = "file:///android_asset/index.html";
      //   String urls = "http://www.baidu.com";
 //String urls="http://mall.depforlive.com/test/hybrid.php";
         myWebView.loadUrl(urls);

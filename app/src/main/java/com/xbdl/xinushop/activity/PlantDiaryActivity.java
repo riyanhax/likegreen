@@ -187,9 +187,30 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                     return;
                 } else {
                     showLoading();
-                    String base64image = null;
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < adapter.getImages().size(); i++) {
+                        String path = adapter.getImages().get(i).path;
+                        String pathbase64 = ImageUtils.bitmapToString(path);
+                        if (adapter.getImages().get(i).mimeType.contains("image/jpeg") || adapter.getImages().get(i).mimeType.contains("image/jpg")) {
+                            if (adapter.getImages().size() == 1) {
+                                sb.append(pathbase64);
+                                sb.append(";");
+                            } else {
+                                sb.append(pathbase64);
+                                sb.append(";");
+                            }
+                        } else {
+                            if (adapter.getImages().size() == 1) {
+                                sb.append(pathbase64);
+                                sb.append(";");
+                            } else {
+                                sb.append(pathbase64);
+                                sb.append(";");
+                            }
+                        }
 
-                    base64image = ImageUtils.bitmapToString(images.get(0).path);
+                    }
+                    String base64images = sb.toString();
 
                     String name = etPlantName.getText().toString();
                     String dynamicstate = etDynamicstate.getText().toString();
@@ -198,7 +219,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                     String token = "";
                     PersonBean personBean = new Gson().fromJson(userjson, PersonBean.class);
                     token = personBean.getLoginToken();
-                    HttpUtils.appAddPlantDiary(token, name, addr, base64image, time, dynamicstate, new StringCallback() {
+                    HttpUtils.appAddPlantDiary(token, name, addr, base64images, time, dynamicstate, new StringCallback() {
                         @Override
                         public void onStart(Request<String, ? extends Request> request) {
                             super.onStart(request);

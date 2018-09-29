@@ -1,21 +1,15 @@
 package com.xbdl.xinushop.base;
 
-import android.app.Application;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.lzy.okgo.OkGo;
 import com.xbdl.xinushop.BroadcastReceiver.NetWorkStateReceiver;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
@@ -37,16 +31,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = "asdf";
     protected LoadingDialog loadingDialog;
     public NetWorkStateReceiver netWorkStateReceiver;
-
-    public MyApplication app;
     protected abstract Activity getActivity();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         context = (BaseActivity) getActivity();
-        app = MyApplication.getInstance();
-        app.addActivity(this);
-
     }
 
     //在onResume()方法注册
@@ -71,15 +61,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-
-
     /**
      * 进度弹窗
      */
     protected ProgressDialog progressDialog = null;
+
     /**
      * 展示加载进度条,无标题
-     *
      */
     public void showLoading() {
         try {
@@ -88,6 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             Log.e(TAG, "showProgressDialog  showProgressDialog(null, context.getResources().getString(stringResId));");
         }
     }
+
     /**
      * 展示加载进度条,无标题
      *
@@ -121,7 +110,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (progressDialog == null) {
-                    progressDialog = new ProgressDialog(context,R.style.myDialog2);
+                    progressDialog = new ProgressDialog(context, R.style.myDialog2);
                 }
                 if (progressDialog.isShowing() == true) {
                     progressDialog.dismiss();

@@ -179,4 +179,21 @@ public class HttpUtils {
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
+    /**
+     * 获取所有标签
+     *
+     * @param stringCallback
+     * 查询类型 1、普通查询 2、好友查询 3、查询当前用户的
+     */
+    public static void findPlantList(String token, String page,String findType,StringCallback stringCallback) {
+        OkGo.<String>get(UrlConstant.findPlantList)                            // 请求方式和请求url
+                .tag("findPlantList")
+                .params("token", token)
+                .params("page", page)
+                .params("findType", findType)
+                // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
 }

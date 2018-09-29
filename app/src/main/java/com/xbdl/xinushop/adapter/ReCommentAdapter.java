@@ -19,12 +19,12 @@ public class ReCommentAdapter extends BaseQuickAdapter<ReCommentListBean, BaseVi
         helper.setText(R.id.tv_username, item.getUsername())
                 .setText(R.id.tv_message, item.getCommentmessage())
                 .setText(R.id.tv_time, item.getCreatetime());
-        if (item.getIslike() == 1) {
-            helper.setImageResource(R.id.iv_like, R.drawable.heart_zhibodianzan);
-        } else {
-            helper.setImageResource(R.id.iv_like, R.drawable.heart_pinglun);
-            helper.setText(R.id.tv_likenumber,item.getLikenumber()+"");
-        }
+//        if (item.getIslike() == 1) {
+//            helper.setImageResource(R.id.iv_like, R.drawable.heart_zhibodianzan);
+//        } else {
+//            helper.setImageResource(R.id.iv_like, R.drawable.heart_pinglun);
+//            helper.setText(R.id.tv_likenumber,item.getLikenumber()+"");
+//        }
 
      AppCompatImageView imageView =helper.getView(R.id.iv_usericon);
         RequestOptions requestOptions = RequestOptions.circleCropTransform();
