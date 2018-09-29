@@ -1,0 +1,21 @@
+	body{
+		margin: 0;
+		font-size: 12px;
+	}
+	
+	p, span{
+		margin: 0;
+	}
+	
+	a{
+		text-decoration: none;
+	}
+	
+	.flex {
+    	display: flex;
+	}
+	
+	input, textarea {
+		border: none;
+		outline:medium;	
+	}
