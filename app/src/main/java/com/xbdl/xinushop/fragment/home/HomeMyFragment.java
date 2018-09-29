@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +23,20 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMWeb;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.activity.MyProductsReleaseActivity;
 import com.xbdl.xinushop.activity.mine.AuditAndLiveActivity;
-import com.xbdl.xinushop.activity.mine.DiscountCouponActivity;
 import com.xbdl.xinushop.activity.mine.MyFansActivity;
 import com.xbdl.xinushop.activity.mine.MyFocuseActivity;
 import com.xbdl.xinushop.activity.mine.MyMessageAndDirectActivity;
+import com.xbdl.xinushop.activity.MyProductsReleaseActivity;
 import com.xbdl.xinushop.activity.mine.PersonalDataActivity;
 import com.xbdl.xinushop.activity.mine.SystemSettingsActivity;
 import com.xbdl.xinushop.base.BaseFragment;
+
 import com.xbdl.xinushop.fragment.mine.MyGardenFragment;
 import com.xbdl.xinushop.fragment.mine.MyLiveFragment;
 import com.xbdl.xinushop.fragment.mine.MyVideoFragment;
@@ -52,10 +58,9 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
     private View mMyMore, mSystemSetting, mMsgDriect;
     private String[] items = new String[]{"视频", "直播", "花园", "喜帖"};
     private PopupWindow popupWindow;
-    private TextView mMyfocuse, mMyfans;
+    private TextView mMyfocuse,mMyfans;
     private CircleImageView headIcon;//头像
     private ImageView iv_top_icon;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,17 +76,17 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         mMyMore = v.findViewById(R.id.my_more);//弹popuwindow
         mSystemSetting = v.findViewById(R.id.system_setting);//系统设置
         mMsgDriect = v.findViewById(R.id.msg_driect);//消息私信
-        mMyfocuse = (TextView) v.findViewById(R.id.my_home_focuse);//关注
-        mMyfans = (TextView) v.findViewById(R.id.my_home_fans);//关注
+        mMyfocuse = (TextView)v.findViewById(R.id.my_home_focuse);//关注
+        mMyfans = (TextView)v.findViewById(R.id.my_home_fans);//关注
         v.findViewById(R.id.tv_huozanshu).setOnClickListener(this);//获赞数
-        headIcon = (CircleImageView) v.findViewById(R.id.iv_my_head);//头像
+        headIcon =(CircleImageView) v.findViewById(R.id.iv_my_head);//头像
         mMyMore.setOnClickListener(this);
         mSystemSetting.setOnClickListener(this);
         mMsgDriect.setOnClickListener(this);
         mMyfocuse.setOnClickListener(this);
         mMyfans.setOnClickListener(this);
         headIcon.setOnClickListener(this);
-        iv_top_icon = (ImageView) v.findViewById(R.id.iv_top_icon);//模糊背景
+        iv_top_icon= (ImageView)v.findViewById(R.id.iv_top_icon);//模糊背景
     }
 
     private void initData() {
@@ -92,13 +97,15 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         fragments.add(new MyWeddingCardFragment());
         mStMy.setViewPager(mViewpagerMy, items, (FragmentActivity) getActivity(), fragments);
         //模糊效果
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.xilvfriends);
+        Bitmap bmp= BitmapFactory.decodeResource(getResources(), R.drawable.xilvfriends);
         Bitmap bitmap = FastBlurUtility.blurBitmap(bmp);
         iv_top_icon.setImageBitmap(bitmap);
     }
 
     @Override
     public void onClick(View view) {
+        UMWeb web = new UMWeb("https://www.baidu.com");
+        web.setTitle("快来加入喜绿吧");//标题
         switch (view.getId()) {
             case R.id.my_more://点击。。。
                 showPopwindow();
@@ -109,12 +116,12 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.msg_driect://点击铃铛
                 Intent intentMyMessageAndDirectActivity = new Intent(getActivity(), MyMessageAndDirectActivity.class);
-                intentMyMessageAndDirectActivity.putExtra("HomeMyFragment", 0);
+                intentMyMessageAndDirectActivity.putExtra("HomeMyFragment",0);
                 startActivity(intentMyMessageAndDirectActivity);
                 break;
             case R.id.pop_privateletter://私信
                 Intent intentMyMessageAndDirectActivity2 = new Intent(getActivity(), MyMessageAndDirectActivity.class);
-                intentMyMessageAndDirectActivity2.putExtra("HomeMyFragment", 1);
+                intentMyMessageAndDirectActivity2.putExtra("HomeMyFragment",1);
                 startActivity(intentMyMessageAndDirectActivity2);
                 popupWindow.dismiss();
                 break;
@@ -146,21 +153,80 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
             case R.id.pop_mywallet://钱包
 
                 break;
-            //优惠券
-            case R.id.pop_coupon:
-                Intent intentDiscountCouponActivity = new Intent(getActivity(), DiscountCouponActivity.class);
-                startActivity(intentDiscountCouponActivity);
+            case R.id.iv_huozan_close://获赞关闭
+                huoZanPop.dismiss();
+                break;
+            case R.id.tv_huozan_share://获赞分享
+                showRommended();
+                huoZanPop.dismiss();
+                break;
+            case R.id.ll_share_weixin_circleo:
+                new ShareAction(getActivity())
+                        .setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)//朋友圈
+                        .withMedia(web)
+                        .setCallback(umShareListener)//回调监听器
+                        .share();
+                popShare.dismiss();
+                break;
+            case R.id.ll_share_weixin:
+
+                new ShareAction(getActivity())
+                        .setPlatform(SHARE_MEDIA.WEIXIN)//微信
+                        .withMedia(web)
+                        .setCallback(umShareListener)//回调监听器
+                        .share();
+
+                popShare.dismiss();
+                break;
+            case R.id.ll_share_weibo:
+                new ShareAction(getActivity())
+                        .setPlatform(SHARE_MEDIA.SINA)//微博
+                        .withMedia(web)
+                        .setCallback(umShareListener)//回调监听器
+                        .share();
+                popShare.dismiss();
+            case R.id.ll_shareQQ:
+                new ShareAction(getActivity())
+                        .setPlatform(SHARE_MEDIA.QQ)//微博
+                        .withText("hello")//分享内容
+                        .setCallback(umShareListener)//回调监听器
+                        .share();
+                popShare.dismiss();
                 break;
         }
     }
+    private UMShareListener umShareListener= new UMShareListener() {
 
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+            Log.v("nihaoma","1111111");
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+            Log.v("nihaoma","2222222 "+share_media.getName());
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            Log.v("nihaoma",throwable+"33333333 "+share_media.getName());
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            Log.v("nihaoma","4444444");
+        }
+    };
+
+    private PopupWindow huoZanPop;
     private void showDianZanShuPop() {
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_huo_zan, null);
-
-        PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setTouchable(true);
+        contentView.findViewById(R.id.iv_huozan_close).setOnClickListener(this);
+        contentView.findViewById(R.id.tv_huozan_share).setOnClickListener(this);
+        huoZanPop = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        huoZanPop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        huoZanPop.setOutsideTouchable(true);
+        huoZanPop.setTouchable(true);
         //设置半透明
         WindowManager.LayoutParams lp = getActivity().getWindow()
                 .getAttributes();
@@ -168,7 +234,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         getActivity().getWindow().setAttributes(lp);
         //恢复正常
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+        huoZanPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 WindowManager.LayoutParams lp = getActivity().getWindow()
@@ -178,10 +244,41 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 getActivity().getWindow().setAttributes(lp);
             }
         });
-        popupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+        huoZanPop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.CENTER, 0, 0);
 
     }
-
+    private PopupWindow popShare;
+    //推荐给好友
+    private void showRommended() {
+        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_share, null);
+        contentView.findViewById(R.id.ll_share_weixin_circleo).setOnClickListener(this);
+        contentView.findViewById(R.id.ll_share_weixin).setOnClickListener(this);
+        contentView.findViewById(R.id.ll_shareQQ).setOnClickListener(this);
+        contentView.findViewById(R.id.ll_share_weibo).setOnClickListener(this);
+        popShare = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popShare.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popShare.setOutsideTouchable(true);
+        popShare.setTouchable(true);
+        //设置半透明
+        WindowManager.LayoutParams lp =getActivity().getWindow()
+                .getAttributes();
+        lp.alpha = 0.4f;
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        getActivity().getWindow().setAttributes(lp);
+        //恢复正常
+        popShare.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getActivity().getWindow()
+                        .getAttributes();
+                lp.alpha = 1f;
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
+        //popupWindow.showAsDropDown(mMyToPromote, -70, 5);
+        popShare.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+    }
     private void showPopwindow() {
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_menu, null);
         //钱包
@@ -190,7 +287,6 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         //私信
         LinearLayout pop_privateletter = contentView.findViewById(R.id.pop_privateletter);
         pop_privateletter.setOnClickListener(this);
-        contentView.findViewById(R.id.pop_coupon).setOnClickListener(this);
         //审核
         LinearLayout pop_audit = contentView.findViewById(R.id.pop_audit);
         pop_audit.setOnClickListener(this);

@@ -70,6 +70,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.login_weixin).setOnClickListener(this);//微信
         findViewById(R.id.login_qq).setOnClickListener(this);//QQ
         findViewById(R.id.login_weibo).setOnClickListener(this);//微博
+        findViewById(R.id.tv_tv_register).setOnClickListener(this);//注册
 
         showPwd= findViewById(R.id.cb_show_pwd);
         showPwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

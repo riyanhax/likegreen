@@ -26,7 +26,7 @@ public interface UrlConstant {
      *
      */
     //22222
-    String sendCode=baseUrl+"user/appSend";
+    String sendCode=baseUrl+"user/appSendApi";
     /**
      * 注册
      */

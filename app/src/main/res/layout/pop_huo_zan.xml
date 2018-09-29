@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_huozan_share"
             android:textSize="12sp"
             android:gravity="center"
             android:text="@string/showoff"
@@ -47,8 +48,8 @@
         android:layout_width="183dp"
         android:layout_height="90dp" />
     <ImageView
+        android:id="@+id/iv_huozan_close"
         android:layout_alignParentRight="true"
-
         android:layout_marginTop="@dimen/dp_30"
         android:src="@drawable/close_dianzan"
         android:layout_width="@dimen/dp_16"

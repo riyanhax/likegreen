@@ -53,6 +53,7 @@
     <string name="save">保存</string>
     <string name="manageaddress">管理收货地址</string>
     <string name="addaddress">添加收货地址</string>
+    <string name="updateaddress">修改收货地址</string>
 
     <string name="trailer">预告</string>
     <string name="playback">回放</string>

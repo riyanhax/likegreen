@@ -19,5 +19,21 @@ public interface UrlConstant2 {
      * 添加收货地址
      */
     String adduserAddress=UrlConstant.baseUrl+"useraddress/addUserAddress";
+    /**
+     * 查询收货地址
+     */
+    String getAddressList=UrlConstant.baseUrl+"useraddress/getAddressByUserId";
+    /**
+     * 设置默认收货地址
+     */
+    String setAddressDefault=UrlConstant.baseUrl+"useraddress/settingDefault";
+    /**
+     * 删除收货地址
+     */
+    String delAddress=UrlConstant.baseUrl+"useraddress/delUserAddress";
+    /**
+     * 修改收货地址
+     */
+    String updateAddress=UrlConstant.baseUrl+"useraddress/updUserAddress";
 
 }
