@@ -56,16 +56,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:gravity="center_horizontal"
+
+
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/iv_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-               />
+                android:button="@drawable/checkbox_islike"
+                android:checked="true" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_likenumber"
@@ -76,8 +76,9 @@
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/color_919191"/>
+        android:background="@color/color_919191" />
 </LinearLayout>

@@ -98,4 +98,5 @@
     <dimen name="sp_24">24sp</dimen>
 
     <dimen name="text_medium_size">16sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
