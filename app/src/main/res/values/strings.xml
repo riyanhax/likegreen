@@ -37,6 +37,15 @@
     <string name="transactiondetails">交易明细</string>
     <string name="weixinplay">微信支付</string>
     <string name="aliplay">支付宝支付</string>
+    <string name="etrechargeamount">请输入充值金额</string>
+    <string name="rechargeprotocol">《充值协议》</string>
+    <string name="withdrawcash">余额提现</string>
+    <string name="cashchose">余额提现方式选择</string>
+    <string name="makecollections">收款账号信息</string>
+    <string name="ali">支付宝</string>
+    <string name="payee">收款人：</string>
+    <string name="payeenumber">收款账号：</string>
+    <string name="payeemoney">收款金额：</string>
 
 
     <string name="personaldata">个人资料</string>

@@ -278,7 +278,9 @@
         <activity
             android:name=".activity.mine.DiscountCouponActivity"
             android:label="@string/title_activity_discount_coupon"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".activity.mine.wallet.WithdrawCashActivity"></activity>
+        <activity android:name=".wxapi.WXPayEntryActivity"/>
     </application>
 
 </manifest>

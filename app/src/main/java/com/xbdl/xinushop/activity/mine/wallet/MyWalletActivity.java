@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 /*
 * 我的钱包
@@ -30,7 +31,7 @@ public class MyWalletActivity extends AppCompatActivity implements View.OnClickL
         cash= findViewById(R.id.tv_my_cash);//账户余额
     }
     private void initData() {
-
+        cash.setText(String.valueOf(MyApplication.user.getAccountBalance()));
     }
     @Override
     public void onClick(View v) {
@@ -47,8 +48,8 @@ public class MyWalletActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intentRechargeCenterActivity);
                 break;
             case R.id.rl_make_cash://提现
-               /* Intent intentWalletDetailActivity = new Intent(this, WalletDetailActivity.class);
-                startActivity(intentWalletDetailActivity);*/
+                Intent intentWithdrawCashActivity = new Intent(this, WithdrawCashActivity.class);
+                startActivity(intentWithdrawCashActivity);
                 break;
 
         }

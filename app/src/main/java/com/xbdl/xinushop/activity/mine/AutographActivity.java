@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 /*
  * 个性签名
@@ -39,6 +40,7 @@ import com.xbdl.xinushop.R;
                 //个性签名
                 title.setText(R.string.sagnetrue);
                 inputText.setHint("  个性签名头脑风暴快快来临");
+                inputText.setText(MyApplication.user.getSignature());
             }else {
                 //用户名
                 title.setText(R.string.nichen);
@@ -58,7 +60,7 @@ import com.xbdl.xinushop.R;
                     if (inputMsg!=null){
                         Intent intent=new Intent();
                         if (personalDataActivity==0){
-                            intent.putExtra("sagnetrue",inputMsg);
+                            intent.putExtra("signature",inputMsg);
                         }else {
                             intent.putExtra("nichen",inputMsg);
                         }

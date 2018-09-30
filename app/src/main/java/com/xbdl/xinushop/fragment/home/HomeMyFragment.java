@@ -35,6 +35,7 @@ import com.xbdl.xinushop.activity.mine.MyMessageAndDirectActivity;
 import com.xbdl.xinushop.activity.MyProductsReleaseActivity;
 import com.xbdl.xinushop.activity.mine.PersonalDataActivity;
 import com.xbdl.xinushop.activity.mine.SystemSettingsActivity;
+import com.xbdl.xinushop.activity.mine.wallet.MyWalletActivity;
 import com.xbdl.xinushop.base.BaseFragment;
 
 import com.xbdl.xinushop.fragment.mine.MyGardenFragment;
@@ -151,7 +152,9 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 startActivity(intentPersonalDataActivity);
                 break;
             case R.id.pop_mywallet://钱包
-
+                Intent intentMyWalletActivity = new Intent(getActivity(), MyWalletActivity.class);
+                startActivity(intentMyWalletActivity);
+                popupWindow.dismiss();
                 break;
             case R.id.iv_huozan_close://获赞关闭
                 huoZanPop.dismiss();
@@ -193,6 +196,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                         .share();
                 popShare.dismiss();
                 break;
+
         }
     }
     private UMShareListener umShareListener= new UMShareListener() {
@@ -293,6 +297,8 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         //我发布的商品
         LinearLayout pop_goods = contentView.findViewById(R.id.pop_mygoods);
         pop_goods.setOnClickListener(this);
+        //我的钱包
+        contentView.findViewById(R.id.pop_mywallet).setOnClickListener(this);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);

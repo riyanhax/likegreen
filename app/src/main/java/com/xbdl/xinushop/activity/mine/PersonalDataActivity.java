@@ -38,7 +38,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private View mSystemPersonalHead,mSystemPersonalName,mSystemPersonPhone,mRlSagnatrue,mRlShoppingAddress;
     private CircleImageView mIvPersonalHead;
     private TextView mTvPersonalName,mTvPersonalPhone;
-
+    private TextView tv_signature;//个性签名
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +66,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         mTvPersonalPhone=(TextView)findViewById(R.id.tv_personal_phone);
         //个性化签名
         findViewById(R.id.rl_sagnatrue).setOnClickListener(this);
+        tv_signature = findViewById(R.id.tv_signature);
         mRlShoppingAddress = findViewById(R.id.rl_shopping_address);
         mRlShoppingAddress.setOnClickListener(this);
         findViewById(R.id.rl_idcard_check).setOnClickListener(this);//身份证验证
@@ -77,7 +78,8 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private void initData() {
         //设置手机号
         mTvPersonalPhone.setText(MyApplication.user.getUserPhone());
-
+        //个性签名
+        tv_signature.setText(MyApplication.user.getSignature());
     }
 
     @Override
@@ -135,11 +137,12 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
             }
         }else if (resultCode == RESULT_OK){
             if (data!=null&&requestCode==200){
-                String sagnetrue = data.getStringExtra("sagnetrue");
-                if (sagnetrue!=null){
-                    Log.v("nihaoma",sagnetrue);
+                String signature = data.getStringExtra("signature");
+                if (signature!=null){
+                    Log.v("nihaoma",signature);
 
-                    sendMsg("signature",sagnetrue);
+                    sendMsg("signature",signature);
+                    tv_signature.setText(signature);
                 }
                 String nichen = data.getStringExtra("nichen");
                 if (nichen!=null){

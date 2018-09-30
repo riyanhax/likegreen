@@ -10,6 +10,7 @@
     <RelativeLayout
         style="@style/head">
         <ImageView
+            android:id="@+id/iv_return"
             android:layout_centerVertical="true"
             android:src="@drawable/wode_return"
             style="@style/paddinglift"
@@ -26,55 +27,63 @@
         android:background="#cccccc"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <RadioGroup
+    <com.xbdl.xinushop.view.MyRadioGroup
+        android:id="@+id/rg_money1"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:orientation="horizontal"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RadioButton
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:gravity="center"
-            android:text="100"
-            android:textColor="#181717"
-            android:button="@null"
-            android:background="@drawable/bg_play"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/dp_40" />
-        <RadioButton
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:gravity="center"
-            android:text="200"
-            android:textColor="#181717"
-            android:button="@null"
-            android:background="@drawable/bg_play"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/dp_40" />
-        <RadioButton
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:gravity="center"
-            android:text="300"
-            android:textColor="#181717"
-            android:button="@null"
-            android:background="@drawable/bg_play"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/dp_40" />
-    </RadioGroup>
-    <RadioGroup
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rb_100"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:gravity="center"
+                android:text="100"
+                android:textColor="#181717"
+                android:button="@null"
+                android:background="@drawable/bg_play"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/dp_40" />
+            <RadioButton
+                android:id="@+id/rb_200"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:gravity="center"
+                android:text="200"
+                android:textColor="#181717"
+                android:button="@null"
+                android:background="@drawable/bg_play"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/dp_40" />
+            <RadioButton
+                android:id="@+id/rb_300"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:gravity="center"
+                android:text="300"
+                android:textColor="#181717"
+                android:button="@null"
+                android:background="@drawable/bg_play"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/dp_40" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rg_money2"
         android:layout_marginTop="@dimen/dp_15"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RadioButton
+            android:id="@+id/rb_500"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginLeft="@dimen/dp_10"
             android:gravity="center"
@@ -86,6 +95,7 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40" />
         <RadioButton
+            android:id="@+id/rb_800"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginLeft="@dimen/dp_10"
             android:gravity="center"
@@ -97,6 +107,7 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40" />
         <RadioButton
+            android:id="@+id/rb_other"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginLeft="@dimen/dp_10"
             android:gravity="center"
@@ -107,8 +118,10 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40" />
-    </RadioGroup>
+    </LinearLayout>
+    </com.xbdl.xinushop.view.MyRadioGroup>
     <RelativeLayout
+
         android:layout_marginRight="@dimen/dp_20"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_30"
@@ -132,10 +145,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:id="@+id/et_recharge_amount"
                 android:layout_below="@id/tv_qingshuru"
                 android:textSize="30sp"
                 android:textColor="@color/timeline_background_del_color"
-                android:text="200"
+                android:background="@null"
+                android:hint="@string/etrechargeamount"
+                android:textColorHint="#cccccc"
+                android:inputType="number|numberDecimal"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_toRightOf="@id/tv_renmingbi"
                 android:layout_width="match_parent"
@@ -147,13 +164,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
     </RelativeLayout>
-    <LinearLayout
+    <RelativeLayout
 
-        android:orientation="vertical"
         android:background="@color/enptyviewbackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/ll_weixin_play"
             android:layout_marginTop="@dimen/dp_20"
             android:background="@color/white"
             android:layout_width="match_parent"
@@ -180,6 +197,7 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
+                    android:id="@+id/iv_weixin_check"
                     android:layout_marginRight="@dimen/dp_20"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -188,7 +206,10 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/ll_aliplay"
+            android:layout_below="@id/ll_weixin_play"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -214,6 +235,7 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
+                    android:id="@+id/iv_aliplay_check"
                     android:visibility="gone"
                     android:layout_marginRight="@dimen/dp_20"
                     android:layout_alignParentRight="true"
@@ -223,5 +245,39 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_rechargeprotocol"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_80"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="10sp"
+                android:textColor="#cccccc"
+                android:text="点击充值，即表示你已同意喜绿"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="10sp"
+                android:textColor="#bbe417"
+                android:text="@string/rechargeprotocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_commit_recharge"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:text="@string/recharge"
+            android:background="@drawable/forum_hot_focuse"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48" />
+    </RelativeLayout>
 </LinearLayout>
