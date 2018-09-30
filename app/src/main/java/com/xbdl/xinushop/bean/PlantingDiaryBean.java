@@ -1,24 +1,37 @@
 package com.xbdl.xinushop.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * 种植日记 bean
  */
-public class PlantingDiaryBean {
+public class PlantingDiaryBean implements Parcelable {
+
+
     /**
-     * p1 : {"pdId":1,"dayId":"bfb5d88162554c93ab1107a6743cfa77","desc":"VLOOKUP","name":null,"imgpath":"/pic/960f9d93131e4da597400e3737f74e04.jpg","address":"中国广东省广州市番禺区鸿城大街10号","plantTime":"2018年09月28日","time":1538121074000,"pdType":1,"userId":9,"userName":"xl_16298763","headPortrait":null,"signature":null}
+     * p1 : {"pdId":2,"dayId":"fee15cca595f494db321d3f68e67de23","desc":"公积金","name":"daawwwww","imgpath":"/pic/e35b4dbb1b8345eb9665d0b71c81708f.jpg","address":"中国广东省广州市番禺区鸿城大街10号","plantTime":"2018-09-29","time":1538189811000,"pdType":1,"userId":9,"userName":"xl_16298763","headPortrait":null,"signature":null}
      * isFollow : 0
+     * p2 : {"pdId":3,"dayId":"fee15cca595f494db321d3f68e67de23","name":"sdfname拉萨的积拉萨的积分","desc":"随便","imgpath":"/pic/13f97192ac834e06b3c21bef8bf0981c.jpg","address":"中国广东省江门市","plantTime":"2018-09-30","time":1538192982000,"pdType":2,"userId":9}
+     * p3 : {"pdId":4,"dayId":"fee15cca595f494db321d3f68e67de23","name":"dadadaad222","desc":"持续更新","imgpath":"/pic/111.jpg","address":"中国广东省广州市天河区天河客运站","plantTime":"2018-09-30","time":1538306510000,"pdType":2,"userId":9}
+     * day2 : 1
+     * day3 : 1
      * day1 : 1
      */
 
-    private P1Bean p1;
+    private PBean p1;
     private int isFollow;
+    private PBean p2;
+    private PBean p3;
+    private int day2;
+    private int day3;
     private int day1;
 
-    public P1Bean getP1() {
+    public PBean getP1() {
         return p1;
     }
 
-    public void setP1(P1Bean p1) {
+    public void setP1(PBean p1) {
         this.p1 = p1;
     }
 
@@ -30,6 +43,38 @@ public class PlantingDiaryBean {
         this.isFollow = isFollow;
     }
 
+    public PBean getP2() {
+        return p2;
+    }
+
+    public void setP2(PBean p2) {
+        this.p2 = p2;
+    }
+
+    public PBean getP3() {
+        return p3;
+    }
+
+    public void setP3(PBean p3) {
+        this.p3 = p3;
+    }
+
+    public int getDay2() {
+        return day2;
+    }
+
+    public void setDay2(int day2) {
+        this.day2 = day2;
+    }
+
+    public int getDay3() {
+        return day3;
+    }
+
+    public void setDay3(int day3) {
+        this.day3 = day3;
+    }
+
     public int getDay1() {
         return day1;
     }
@@ -38,16 +83,16 @@ public class PlantingDiaryBean {
         this.day1 = day1;
     }
 
-    public static class P1Bean {
+    public static class PBean implements Parcelable {
         /**
-         * pdId : 1
-         * dayId : bfb5d88162554c93ab1107a6743cfa77
-         * desc : VLOOKUP
-         * name : null
-         * imgpath : /pic/960f9d93131e4da597400e3737f74e04.jpg
+         * pdId : 2
+         * dayId : fee15cca595f494db321d3f68e67de23
+         * desc : 公积金
+         * name : daawwwww
+         * imgpath : /pic/e35b4dbb1b8345eb9665d0b71c81708f.jpg
          * address : 中国广东省广州市番禺区鸿城大街10号
-         * plantTime : 2018年09月28日
-         * time : 1538121074000
+         * plantTime : 2018-09-29
+         * time : 1538189811000
          * pdType : 1
          * userId : 9
          * userName : xl_16298763
@@ -93,7 +138,7 @@ public class PlantingDiaryBean {
             this.desc = desc;
         }
 
-        public Object getName() {
+        public String getName() {
             return name;
         }
 
@@ -174,31 +219,97 @@ public class PlantingDiaryBean {
         }
 
         @Override
-        public String toString() {
-            return "P1Bean{" +
-                    "pdId=" + pdId +
-                    ", dayId='" + dayId + '\'' +
-                    ", desc='" + desc + '\'' +
-                    ", name='" + name + '\'' +
-                    ", imgpath='" + imgpath + '\'' +
-                    ", address='" + address + '\'' +
-                    ", plantTime='" + plantTime + '\'' +
-                    ", time=" + time +
-                    ", pdType=" + pdType +
-                    ", userId=" + userId +
-                    ", userName='" + userName + '\'' +
-                    ", headPortrait='" + headPortrait + '\'' +
-                    ", signature='" + signature + '\'' +
-                    '}';
+        public int describeContents() {
+            return 0;
         }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.pdId);
+            dest.writeString(this.dayId);
+            dest.writeString(this.desc);
+            dest.writeString(this.name);
+            dest.writeString(this.imgpath);
+            dest.writeString(this.address);
+            dest.writeString(this.plantTime);
+            dest.writeLong(this.time);
+            dest.writeInt(this.pdType);
+            dest.writeInt(this.userId);
+            dest.writeString(this.userName);
+            dest.writeString(this.headPortrait);
+            dest.writeString(this.signature);
+        }
+
+        public PBean() {
+        }
+
+        protected PBean(Parcel in) {
+            this.pdId = in.readInt();
+            this.dayId = in.readString();
+            this.desc = in.readString();
+            this.name = in.readString();
+            this.imgpath = in.readString();
+            this.address = in.readString();
+            this.plantTime = in.readString();
+            this.time = in.readLong();
+            this.pdType = in.readInt();
+            this.userId = in.readInt();
+            this.userName = in.readString();
+            this.headPortrait = in.readParcelable(Object.class.getClassLoader());
+            this.signature = in.readParcelable(Object.class.getClassLoader());
+        }
+
+        public static final Creator<PBean> CREATOR = new Creator<PBean>() {
+            @Override
+            public PBean createFromParcel(Parcel source) {
+                return new PBean(source);
+            }
+
+            @Override
+            public PBean[] newArray(int size) {
+                return new PBean[size];
+            }
+        };
     }
 
     @Override
-    public String toString() {
-        return "PlantingDiaryBean{" +
-                "p1=" + p1 +
-                ", isFollow=" + isFollow +
-                ", day1=" + day1 +
-                '}';
+    public int describeContents() {
+        return 0;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.p1, flags);
+        dest.writeInt(this.isFollow);
+        dest.writeParcelable(this.p2, flags);
+        dest.writeParcelable(this.p3, flags);
+        dest.writeInt(this.day2);
+        dest.writeInt(this.day3);
+        dest.writeInt(this.day1);
+    }
+
+    public PlantingDiaryBean() {
+    }
+
+    protected PlantingDiaryBean(Parcel in) {
+        this.p1 = in.readParcelable(PBean.class.getClassLoader());
+        this.isFollow = in.readInt();
+        this.p2 = in.readParcelable(PBean.class.getClassLoader());
+        this.p3 = in.readParcelable(PBean.class.getClassLoader());
+        this.day2 = in.readInt();
+        this.day3 = in.readInt();
+        this.day1 = in.readInt();
+    }
+
+    public static final Parcelable.Creator<PlantingDiaryBean> CREATOR = new Parcelable.Creator<PlantingDiaryBean>() {
+        @Override
+        public PlantingDiaryBean createFromParcel(Parcel source) {
+            return new PlantingDiaryBean(source);
+        }
+
+        @Override
+        public PlantingDiaryBean[] newArray(int size) {
+            return new PlantingDiaryBean[size];
+        }
+    };
 }

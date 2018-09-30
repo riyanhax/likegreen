@@ -1,10 +1,12 @@
 package com.xbdl.xinushop.fragment.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.mine.PlantDetailActivity;
 import com.xbdl.xinushop.adapter.PlantingDiaryMyGrardenAdapter;
+import com.xbdl.xinushop.adapter.baseadapter.BaseAdapter;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.bean.PlantingDiaryBean;
@@ -53,7 +57,7 @@ public class MyGardenFragment extends Fragment {
         refreshLayout = view.findViewById(R.id.refresh);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         plantingDiaryMyGrardenAdapter = new PlantingDiaryMyGrardenAdapter(getActivity());
         recyclerView.setAdapter(plantingDiaryMyGrardenAdapter);
 
@@ -102,6 +106,12 @@ public class MyGardenFragment extends Fragment {
             }
         });
         //     refreshLayout.autoRefresh();
+        plantingDiaryMyGrardenAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+        });
     }
 
     int page = 1;

@@ -4,7 +4,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
 import com.xbdl.xinushop.constant.UrlConstant;
-import com.xbdl.xinushop.constant.UrlConstant2;
 
 public class HttpUtils {
     /**
@@ -122,6 +121,20 @@ public class HttpUtils {
     }
 
     /**
+     * 查询种植日记详情
+     */
+    public static void findPlantDetail(String token, String pdId, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant.findplantDetail)// 请求方式和请求url
+                .params("token", token)
+                .params("pdId", pdId)
+                .tag("findPlantDetail")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+
+
+    /**
      * 获取所有标签
      *
      * @param stringCallback
@@ -151,7 +164,6 @@ public class HttpUtils {
                                String noteContent, StringCallback stringCallback) {
 
 
-
         OkGo.<String>post(UrlConstant.setPost)
                 .params("token", token)
                 .params("type", type)
@@ -165,6 +177,7 @@ public class HttpUtils {
 
                 .execute(stringCallback);
     }
+
     /**
      * 获取所有标签
      *
@@ -179,12 +192,11 @@ public class HttpUtils {
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
+
     /**
-     *
-     * @param stringCallback
-     * 查询类型 1、普通查询 2、好友查询 3、查询当前用户的
+     * @param stringCallback 查询类型 1、普通查询 2、好友查询 3、查询当前用户的
      */
-    public static void findPlantList(String token, String page,String findType,StringCallback stringCallback) {
+    public static void findPlantList(String token, String page, String findType, StringCallback stringCallback) {
         OkGo.<String>get(UrlConstant.findPlantList)                            // 请求方式和请求url
                 .tag("findPlantList")
                 .params("token", token)
@@ -195,17 +207,18 @@ public class HttpUtils {
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
+
     /**
      * 获取 优惠券
      *
      * @param stringCallback
      */
-    public static void findMydiscountCoupon (String pn,String userId,String status, StringCallback stringCallback) {
-        OkGo.<String>get(UrlConstant.findAllSubject)                            // 请求方式和请求url
+    public static void findMydiscountCoupon(String token, String pn, String userId, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant.findMydiscountCoupon)                            // 请求方式和请求url
                 .tag("findMydiscountCoupon")
+                .params("token", token)
                 .params("pn", pn)
                 .params("userId", userId)
-                .params("status", status)
                 // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍

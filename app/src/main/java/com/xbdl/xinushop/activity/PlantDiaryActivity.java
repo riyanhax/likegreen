@@ -38,6 +38,9 @@ import com.xbdl.xinushop.utils.Judge;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 import com.xbdl.xinushop.view.SelectDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -138,7 +141,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initData() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 ");// HH:mm:ss
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
         //获取当前时间
         Date date = new Date(System.currentTimeMillis());
         plantData.setText(simpleDateFormat.format(date));
@@ -230,13 +233,27 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                         @Override
                         public void onSuccess(Response<String> response) {
                             String body = response.body();
-                            Log.i("asdf", "success" + body);
+                            try {
+                                JSONObject jsonObject=new JSONObject(body);
+
+                                int code=jsonObject.getInt("code");
+                                if (code==100)
+                                {
+                                    Toast.makeText(getActivity(),"提交成功",Toast.LENGTH_LONG).show();
+                                    finish();
+                                }else {
+                                    Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
+                                }
+
+                            } catch (JSONException e) {
+                                Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
+                            }
                         }
 
                         @Override
                         public void onError(Response<String> response) {
                             super.onError(response);
-                            Log.i("asdf", "err");
+                            Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
                         }
 
                         @Override
