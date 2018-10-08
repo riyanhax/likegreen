@@ -15,6 +15,7 @@
         android:padding="@dimen/dp_10">
 
         <ImageView
+            android:id="@+id/iv_back"
             style="@style/paddinglift"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
             android:textSize="16sp" />
 
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/tv_commit"
+            android:id="@+id/iv_adddiscount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
