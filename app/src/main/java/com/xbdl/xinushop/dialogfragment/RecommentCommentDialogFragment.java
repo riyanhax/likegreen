@@ -3,12 +3,14 @@ package com.xbdl.xinushop.dialogfragment;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -39,18 +42,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
+ * 评论分类 1、种植日记 2、分享生活 3、参与话题 4、精选 5、攻略
  */
 public class RecommentCommentDialogFragment extends MyDialogFragment implements View.OnClickListener {
     public RecommentCommentDialogFragment() {
         // Required empty public constructor
     }
+
+    String token = "";
+    String pdid = "";
+    int notetype = 0;
+    MaterialRefreshLayout refreshLayout;
+
+    public static final int lOAD_DADA = 1;
+    public static final int UP_DADA = lOAD_DADA + 1;
 
     @Override
     public void onStart() {
@@ -62,11 +71,14 @@ public class RecommentCommentDialogFragment extends MyDialogFragment implements 
     }
 
     /**
+     * @param noteType 评论分类 1、种植日记 2、分享生活 3、参与话题 4、精选 5、攻略
      */
     // TODO: Rename and change types and number of parameters
-    public static RecommentCommentDialogFragment newInstance() {
+    public static RecommentCommentDialogFragment newInstance(String pdid, int noteType) {
         RecommentCommentDialogFragment fragment = new RecommentCommentDialogFragment();
         Bundle args = new Bundle();
+        args.putString("pdid", pdid);
+        args.putInt("noteType", noteType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,6 +87,8 @@ public class RecommentCommentDialogFragment extends MyDialogFragment implements 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            pdid = getArguments().getString("pdid", "");
+            notetype = getArguments().getInt("noteType", 0);
         }
     }
 
@@ -103,6 +117,12 @@ public class RecommentCommentDialogFragment extends MyDialogFragment implements 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height * 2 / 3);
         f.setLayoutParams(params);
 
+
+        String userjson = SharedPreferencesUtil.getString(getActivity(), MyConstants.User, "");
+
+        PersonBean personBean = new Gson().fromJson(userjson, PersonBean.class);
+        token = personBean.getLoginToken();
+
         tvComment = view.findViewById(R.id.tv_commentnumber);
         AppCompatImageView close = view.findViewById(R.id.iv_close);
         close.setOnClickListener(new View.OnClickListener() {
@@ -111,10 +131,11 @@ public class RecommentCommentDialogFragment extends MyDialogFragment implements 
                 dismiss();
             }
         });
+        refreshLayout = view.findViewById(R.id.refresh);
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new ReCommentAdapter();
-        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        adapter = new ReCommentAdapter(getActivity());
+
         recyclerView.setAdapter(adapter);
 
         progressBar = view.findViewById(R.id.prossbar);
@@ -122,35 +143,11 @@ public class RecommentCommentDialogFragment extends MyDialogFragment implements 
         etSend = view.findViewById(R.id.et_comment);
         tvSend = view.findViewById(R.id.tv_send);
         tvSend.setOnClickListener(this);
-        initData();
-
+        //   initData();
+        setListener();
         return view;
     }
 
-    private void initData() {
-        HttpUtils.recommentlist(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body());
-                    String data = jsonObject.getString("data");
-                    List<ReCommentListBean> list = getCommentList(data);
-                    if (list != null && list.size() > 0) {
-                        adapter.addData(list);
-                        tvComment.setText(list.size() + "条评论");
-                    }
-
-                } catch (JSONException e) {
-                }
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-    }
 
     private List<ReCommentListBean> getCommentList(String data) {
         if (Judge.getBoolean_isNull(data)) {
@@ -173,6 +170,7 @@ public class RecommentCommentDialogFragment extends MyDialogFragment implements 
     public void onDestroy() {
         super.onDestroy();
         OkGo.getInstance().cancelTag("recommentlist");
+        OkGo.getInstance().cancelTag("readdcomment");
     }
 
     @Override
@@ -183,24 +181,127 @@ public class RecommentCommentDialogFragment extends MyDialogFragment implements 
                     Toast.makeText(getActivity(), "请填写内容", Toast.LENGTH_LONG).show();
                     return;
                 }
-                ReCommentListBean reCommentListBean = new ReCommentListBean();
-                reCommentListBean.setCommentmessage(etSend.getText().toString());
-                reCommentListBean.setIslike(0);
-                SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
-                String ss = s.format(new Date());
-                reCommentListBean.setCreatetime(ss);
-                reCommentListBean.setUserid("" + new Date().getTime());
-                String userjson = SharedPreferencesUtil.getString(getActivity(), MyConstants.User, "");
-                PersonBean p = new Gson().fromJson(userjson, PersonBean.class);
-                if (p != null && !Judge.getBoolean_isNull((String) p.getHeadPortrait()))
-                    reCommentListBean.setUsericon((String) p.getHeadPortrait());
-                reCommentListBean.setLikenumber(0);
-                reCommentListBean.setUsername(p.getUserName());
-                adapter.addData(reCommentListBean);
-                etSend.setText("");
-                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
-                tvComment.setText(adapter.getData().size() + "条评论");
+HttpUtils.readdcomment(token,
+        pdid, etSend.getText().toString(),
+        notetype+"", new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject=new JSONObject(response.body());
+
+                    int code=jsonObject.getInt("code");
+                    if (code!=100)
+                    {
+                        Toast.makeText(getActivity(),"发布失败",Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(getActivity(),"发布成功",Toast.LENGTH_LONG).show();
+                        etSend.setText("");
+                        getData(lOAD_DADA);
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+
+                } catch (JSONException e) {
+                    Toast.makeText(getActivity(),"发布失败",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Toast.makeText(getActivity(),"发布失败",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
                 break;
         }
+    }
+
+    int page = 1;
+
+    private void setListener() {
+        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+                //下拉刷新...
+                new Handler().postDelayed(new Runnable() {
+
+
+                    @Override
+                    public void run() {
+                        page = 1;
+                        getData(lOAD_DADA);
+                        refreshLayout.setLoadMore(true);
+                    }
+                }, 500);
+
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //上拉加载更多...
+                        /**
+                         * 完成加载数据后，调用此方法，要不然刷新的效果不会消失
+                         */
+                        page++;
+                        getData(UP_DADA);
+
+                    }
+                }, 500);
+
+            }
+        });
+        refreshLayout.autoRefresh();
+
+    }
+
+    private void getData(final int upOrLoad) {
+        if (upOrLoad == lOAD_DADA) { // 下拉
+            page = 1;
+        } else if (upOrLoad == UP_DADA) { // 上拉
+            page += 1;
+        }
+        HttpUtils.recommentlist(token, pdid, page + "", notetype + "", new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+
+                    int code = jsonObject.getInt("code");
+                    String object = jsonObject.getString("object");
+
+                    if (code == 100) {
+                        List<ReCommentListBean> reCommentListBeans = getCommentList(object);
+                     if (reCommentListBeans!=null&&reCommentListBeans.size()>0)
+                     {
+                         if (upOrLoad == lOAD_DADA) { // 下拉
+                             adapter.refreshData(reCommentListBeans);
+                         } else if (upOrLoad == UP_DADA) { // 上拉
+                             adapter.loadMoreData(reCommentListBeans);
+                         }
+                         tvComment.setText(reCommentListBeans.size()+"条评论");
+                     }
+                    }
+
+                } catch (JSONException e) {
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Log.i("asdf", "onError" + response.body());
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
     }
 }

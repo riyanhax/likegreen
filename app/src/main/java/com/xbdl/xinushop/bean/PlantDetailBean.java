@@ -210,5 +210,37 @@ public class PlantDetailBean {
         public void setSignature(String signature) {
             this.signature = signature;
         }
+
+        @Override
+        public String toString() {
+            return "PBean{" +
+                    "pdId=" + pdId +
+                    ", dayId='" + dayId + '\'' +
+                    ", desc='" + desc + '\'' +
+                    ", name='" + name + '\'' +
+                    ", imgpath='" + imgpath + '\'' +
+                    ", address='" + address + '\'' +
+                    ", plantTime='" + plantTime + '\'' +
+                    ", time=" + time +
+                    ", pdType=" + pdType +
+                    ", userId=" + userId +
+                    ", userName='" + userName + '\'' +
+                    ", headPortrait='" + headPortrait + '\'' +
+                    ", signature='" + signature + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "PlantDetailBean{" +
+                "p=" + p +
+                ", isFollow=" + isFollow +
+                ", isLike=" + isLike +
+                ", likeCount=" + likeCount +
+                ", vs=" + vs +
+                ", day=" + day +
+                ", commentCount=" + commentCount +
+                '}';
     }
 }

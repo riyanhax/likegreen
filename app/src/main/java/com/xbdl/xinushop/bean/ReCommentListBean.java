@@ -1,80 +1,129 @@
 package com.xbdl.xinushop.bean;
 
+import java.util.List;
+
 /**
  * 首页推荐 列表
  */
 public class ReCommentListBean  {
+
     /**
-     * userid : 1231222
-     * usericon : http://img3.redocn.com/tupian/20150730/meinvxingganzuozi_4749930.jpg
-     * username : 马云
-     * createtime : 2018-12-01
-     * commentmessage : 阿斯蒂芬
-     * likenumber : 11
-     * islike : 0
+     * returnComment : []
+     * comment : {"comId":16,"content":"爱丽丝的房间卡萨电话费","time":1538971482000,"conType":1,"noteId":4,"userId":9,"type":null,"userName":"xl_16298763","userHeadPortrait":null}
      */
 
-    private String userid;
-    private String usericon;
-    private String username;
-    private String createtime;
-    private String commentmessage;
-    private int likenumber;
-    private int islike;
+    private CommentBean comment;
+    private List<?> returnComment;
 
-    public String getUserid() {
-        return userid;
+    public CommentBean getComment() {
+        return comment;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setComment(CommentBean comment) {
+        this.comment = comment;
     }
 
-    public String getUsericon() {
-        return usericon;
+    public List<?> getReturnComment() {
+        return returnComment;
     }
 
-    public void setUsericon(String usericon) {
-        this.usericon = usericon;
+    public void setReturnComment(List<?> returnComment) {
+        this.returnComment = returnComment;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    public static class CommentBean {
+        /**
+         * comId : 16
+         * content : 爱丽丝的房间卡萨电话费
+         * time : 1538971482000
+         * conType : 1
+         * noteId : 4
+         * userId : 9
+         * type : null
+         * userName : xl_16298763
+         * userHeadPortrait : null
+         */
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+        private int comId;
+        private String content;
+        private long time;
+        private int conType;
+        private int noteId;
+        private int userId;
+        private Object type;
+        private String userName;
+        private Object userHeadPortrait;
 
-    public String getCreatetime() {
-        return createtime;
-    }
+        public int getComId() {
+            return comId;
+        }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime;
-    }
+        public void setComId(int comId) {
+            this.comId = comId;
+        }
 
-    public String getCommentmessage() {
-        return commentmessage;
-    }
+        public String getContent() {
+            return content;
+        }
 
-    public void setCommentmessage(String commentmessage) {
-        this.commentmessage = commentmessage;
-    }
+        public void setContent(String content) {
+            this.content = content;
+        }
 
-    public int getLikenumber() {
-        return likenumber;
-    }
+        public long getTime() {
+            return time;
+        }
 
-    public void setLikenumber(int likenumber) {
-        this.likenumber = likenumber;
-    }
+        public void setTime(long time) {
+            this.time = time;
+        }
 
-    public int getIslike() {
-        return islike;
-    }
+        public int getConType() {
+            return conType;
+        }
 
-    public void setIslike(int islike) {
-        this.islike = islike;
+        public void setConType(int conType) {
+            this.conType = conType;
+        }
+
+        public int getNoteId() {
+            return noteId;
+        }
+
+        public void setNoteId(int noteId) {
+            this.noteId = noteId;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public Object getType() {
+            return type;
+        }
+
+        public void setType(Object type) {
+            this.type = type;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public Object getUserHeadPortrait() {
+            return userHeadPortrait;
+        }
+
+        public void setUserHeadPortrait(Object userHeadPortrait) {
+            this.userHeadPortrait = userHeadPortrait;
+        }
     }
 }

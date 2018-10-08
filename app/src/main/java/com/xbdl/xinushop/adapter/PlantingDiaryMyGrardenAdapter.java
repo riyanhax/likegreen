@@ -98,7 +98,7 @@ public class PlantingDiaryMyGrardenAdapter extends SimpleAdapter<PlantingDiaryBe
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width / 3, width / 3);
             ivIcon.setLayoutParams(params);
 
-            Glide.with(context).load(R.mipmap.ic_launcher).into(ivIcon);
+            Glide.with(context).load(item.getP().getImgpath()).apply(options).into(ivIcon);
 
 
             tvTime.setText("第" + item.getDay() + "天");

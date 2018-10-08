@@ -115,105 +115,105 @@ public class DiscountCouponActivity extends BaseActivity {
     int page = 1;
 
     private void getData(final int upOrLoad) {
-        HttpUtils.findMydiscountCoupon(token, page + "", userid, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body());
-                    int code = jsonObject.getInt("code");
-                    String pageInfo = jsonObject.getString("pageInfo");
-                    if (code != 1) {
-//                        findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
-//                        refreshLayout.setVisibility(View.GONE);
-                    } else {
-                        JSONObject pageInfojson = new JSONObject(pageInfo);
-                        String list = pageInfojson.getString("list");
-                        List<DiscountCouponBean> discountCouponBeans = getDisCountCouponList(list);
-                        if (discountCouponBeans != null && discountCouponBeans.size() > 0) {
-                            if (upOrLoad == lOAD_DADA) { // 下拉
-                                discountCouponAdapter.refreshData(discountCouponBeans);
-
-                            } else if (upOrLoad == UP_DADA) { // 上拉
-                                discountCouponAdapter.loadMoreData(discountCouponBeans);
-
-                            }
-                        } else {
-//                            findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
-//                            refreshLayout.setVisibility(View.GONE);
-                        }
-                    }
-
-                } catch (JSONException e) {
-//                    findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
-//                    refreshLayout.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
-                refreshLayout.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                refreshLayout.finishRefresh();
-                refreshLayout.finishRefreshLoadMore();
-            }
-        });
+//        HttpUtils.findMydiscountCoupon(token, page + "", userid, new StringCallback() {
+//            @Override
+//            public void onSuccess(Response<String> response) {
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response.body());
+//                    int code = jsonObject.getInt("code");
+//                    String pageInfo = jsonObject.getString("pageInfo");
+//                    if (code != 1) {
+////                        findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
+////                        refreshLayout.setVisibility(View.GONE);
+//                    } else {
+//                        JSONObject pageInfojson = new JSONObject(pageInfo);
+//                        String list = pageInfojson.getString("list");
+//                        List<DiscountCouponBean> discountCouponBeans = getDisCountCouponList(list);
+//                        if (discountCouponBeans != null && discountCouponBeans.size() > 0) {
+//                            if (upOrLoad == lOAD_DADA) { // 下拉
+//                                discountCouponAdapter.refreshData(discountCouponBeans);
+//
+//                            } else if (upOrLoad == UP_DADA) { // 上拉
+//                                discountCouponAdapter.loadMoreData(discountCouponBeans);
+//
+//                            }
+//                        } else {
+////                            findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
+////                            refreshLayout.setVisibility(View.GONE);
+//                        }
+//                    }
+//
+//                } catch (JSONException e) {
+////                    findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
+////                    refreshLayout.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Response<String> response) {
+//                super.onError(response);
+//                findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
+//                refreshLayout.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                super.onFinish();
+//                refreshLayout.finishRefresh();
+//                refreshLayout.finishRefreshLoadMore();
+//            }
+//        });
     }
 
     private void getDeaultData(final int upOrLoad) {
-        HttpUtils.findMydiscountCoupon(token, page + "", userid, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body());
-                    int code = jsonObject.getInt("code");
-                    String pageInfo = jsonObject.getString("pageInfo");
-                    if (code != 1) {
-                        findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
-                        refreshLayout.setVisibility(View.GONE);
-                    } else {
-                        JSONObject pageInfojson = new JSONObject(pageInfo);
-                        String list = pageInfojson.getString("list");
-                        List<DiscountCouponBean> discountCouponBeans = getDisCountCouponList(list);
-                        if (discountCouponBeans != null && discountCouponBeans.size() > 0) {
-                            if (upOrLoad == lOAD_DADA) { // 下拉
-                                discountCouponAdapter.refreshData(discountCouponBeans);
-
-                            } else if (upOrLoad == UP_DADA) { // 上拉
-                                discountCouponAdapter.loadMoreData(discountCouponBeans);
-
-                            }
-                        } else {
-                            findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
-                            refreshLayout.setVisibility(View.GONE);
-                        }
-                    }
-
-                } catch (JSONException e) {
-                    findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
-                    refreshLayout.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
-                refreshLayout.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                refreshLayout.finishRefresh();
-                refreshLayout.finishRefreshLoadMore();
-            }
-        });
+//        HttpUtils.findMydiscountCoupon(token, page + "", userid, new StringCallback() {
+//            @Override
+//            public void onSuccess(Response<String> response) {
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response.body());
+//                    int code = jsonObject.getInt("code");
+//                    String pageInfo = jsonObject.getString("pageInfo");
+//                    if (code != 1) {
+//                        findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
+//                        refreshLayout.setVisibility(View.GONE);
+//                    } else {
+//                        JSONObject pageInfojson = new JSONObject(pageInfo);
+//                        String list = pageInfojson.getString("list");
+//                        List<DiscountCouponBean> discountCouponBeans = getDisCountCouponList(list);
+//                        if (discountCouponBeans != null && discountCouponBeans.size() > 0) {
+//                            if (upOrLoad == lOAD_DADA) { // 下拉
+//                                discountCouponAdapter.refreshData(discountCouponBeans);
+//
+//                            } else if (upOrLoad == UP_DADA) { // 上拉
+//                                discountCouponAdapter.loadMoreData(discountCouponBeans);
+//
+//                            }
+//                        } else {
+//                            findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
+//                            refreshLayout.setVisibility(View.GONE);
+//                        }
+//                    }
+//
+//                } catch (JSONException e) {
+//                    findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
+//                    refreshLayout.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Response<String> response) {
+//                super.onError(response);
+//                findViewById(R.id.rl_emptylayout).setVisibility(View.VISIBLE);
+//                refreshLayout.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                super.onFinish();
+//                refreshLayout.finishRefresh();
+//                refreshLayout.finishRefreshLoadMore();
+//            }
+//        });
     }
 
     private List<DiscountCouponBean> getDisCountCouponList(String list) {

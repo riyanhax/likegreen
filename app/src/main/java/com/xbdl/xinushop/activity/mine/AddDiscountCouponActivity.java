@@ -16,8 +16,8 @@ public class AddDiscountCouponActivity extends BaseActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_discount_coupon);
-findViewById(R.id.iv_back).setOnClickListener(this);
-findViewById(R.id.iv_adddiscount).setOnClickListener(this);
+        findViewById(R.id.iv_back).setOnClickListener(this);
+        findViewById(R.id.iv_adddiscount).setOnClickListener(this);
 
     }
 
@@ -28,8 +28,7 @@ findViewById(R.id.iv_adddiscount).setOnClickListener(this);
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;

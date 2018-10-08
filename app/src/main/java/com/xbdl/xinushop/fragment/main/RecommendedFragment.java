@@ -122,8 +122,8 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
 //                popupWindow.setTouchable(true);
 //                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 Log.i("asdf","pinglun");
-                RecommentCommentDialogFragment dialogFragment=RecommentCommentDialogFragment.newInstance();
-                dialogFragment.show(getChildFragmentManager(),"");
+//                RecommentCommentDialogFragment dialogFragment=RecommentCommentDialogFragment.newInstance();
+//                dialogFragment.show(getChildFragmentManager(),"");
             }
 
             @Override

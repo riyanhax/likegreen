@@ -22,16 +22,41 @@ public class HttpUtils {
     /**
      * 评论列表
      */
-    public static void recommentlist(StringCallback stringCallback) {
+    public static void recommentlist(String token,
+                                     String pdId,
+                                     String page,
+                                     String noteType, StringCallback stringCallback) {
         OkGo.<String>get(UrlConstant.recommentlist)                            // 请求方式和请求url
                 .tag("recommentlist")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .params("token", token)
+                .params("pdId", pdId)
+                .params("page", page)
+                .params("noteType", noteType)
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
 
     /**
-     * 评论列表
+     * 发布评论
+     */
+    public static void readdcomment(String token,
+                                     String pdId,
+                                     String content,
+                                     String noteType, StringCallback stringCallback) {
+        OkGo.<String>get(UrlConstant.readdcomment)                            // 请求方式和请求url
+                .tag("readdcomment")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .params("token", token)
+                .params("pdId", pdId)
+                .params("content", content)
+                .params("noteType", noteType)
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+
+    /**
+     *
      */
     public static void notehotandattention(StringCallback stringCallback) {
         OkGo.<String>get(UrlConstant.notehotandattention)                            // 请求方式和请求url
@@ -208,20 +233,20 @@ public class HttpUtils {
                 .execute(stringCallback);
     }
 
-    /**
-     * 获取 优惠券
-     *
-     * @param stringCallback
-     */
-    public static void findMydiscountCoupon(String token, String pn, String userId, StringCallback stringCallback) {
-        OkGo.<String>post(UrlConstant.findMydiscountCoupon)                            // 请求方式和请求url
-                .tag("findMydiscountCoupon")
-                .params("token", token)
-                .params("pn", pn)
-                .params("userId", userId)
-                // 请求的 tag, 主要用于取消对应的请求
-                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
-                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
-                .execute(stringCallback);
-    }
+//    /**
+//     * 获取 优惠券
+//     *
+//     * @param stringCallback
+//     */
+//    public static void findMydiscountCoupon(String token, String pn, String userId, StringCallback stringCallback) {
+//        OkGo.<String>post(UrlConstant.findMydiscountCoupon)                            // 请求方式和请求url
+//                .tag("findMydiscountCoupon")
+//                .params("token", token)
+//                .params("pn", pn)
+//                .params("userId", userId)
+//                // 请求的 tag, 主要用于取消对应的请求
+//                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+//                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+//                .execute(stringCallback);
+//    }
 }
