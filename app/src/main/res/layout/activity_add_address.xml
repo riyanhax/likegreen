@@ -1,41 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/enptyviewbackground"
     android:orientation="vertical"
+    android:background="@color/enptyviewbackground"
     tools:context=".activity.mine.AddAddressActivity">
-
     <RelativeLayout
         android:id="@+id/re_top"
         style="@style/head">
-
         <ImageView
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return"
             style="@style/paddinglift"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/wode_return" />
-
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_address_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/addaddress"
-            android:textColor="@color/colorfocuse" />
+            android:textColor="@color/colorfocuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
-
-    <include layout="@layout/layout_line" />
-
+    <include layout="@layout/layout_line"/>
     <RelativeLayout
         android:id="@+id/Re_item1"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
         android:layout_below="@id/re_top"
         android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:background="@android:color/white">
 
         <EditText
@@ -45,18 +41,18 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
-            android:background="@null"
             android:hint="收货人姓名"
+            android:textSize="15sp"
             android:textColor="#000000"
             android:textColorHint="@color/black1"
-            android:textSize="15sp" />
+            android:background="@null" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/Re_item2"
+        android:layout_below="@+id/Re_item1"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@+id/Re_item1"
         android:layout_marginTop="1dp"
         android:background="@android:color/white">
 
@@ -67,18 +63,18 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
-            android:background="@null"
-            android:hint="手机号码"
+            android:textSize="15sp"
             android:textColor="#000000"
             android:textColorHint="@color/black1"
-            android:textSize="15sp" />
+            android:hint="手机号码"
+            android:background="@null" />
     </RelativeLayout>
 
-    <RelativeLayout
+<!--    <RelativeLayout
         android:id="@+id/Re_item3"
+        android:layout_below="@+id/Re_item2"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@+id/Re_item2"
         android:layout_marginTop="1dp"
         android:background="@android:color/white">
 
@@ -89,19 +85,19 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
-            android:background="@null"
-            android:hint="邮政编码"
+            android:textSize="15sp"
             android:textColor="#000000"
             android:textColorHint="@color/black1"
-            android:textSize="15sp" />
+            android:hint="邮政编码"
+            android:background="@null" />
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/Re_item4"
+        android:layout_below="@+id/Re_item2"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@+id/Re_item3"
         android:layout_marginTop="1dp"
         android:background="@android:color/white">
 
@@ -110,76 +106,74 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
-            android:text="省、市、区"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"
             android:textColor="@color/black1"
-            android:textSize="15sp" />
+            android:text="省、市、区" />
 
         <ImageView
             android:id="@+id/itemarr"
             android:layout_width="20dp"
             android:layout_height="40dp"
+            android:src="@drawable/back"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:padding="6dp"
-            android:src="@drawable/back" />
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/Re_item5"
+        android:layout_below="@+id/Re_item4"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:layout_below="@+id/Re_item4"
         android:layout_marginTop="1dp"
         android:background="@android:color/white">
 
         <EditText
             android:id="@+id/etaddress"
+            android:gravity="top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="13dp"
-            android:background="@null"
-            android:hint="详细地址"
             android:inputType="textMultiLine"
+            android:textSize="15sp"
             android:textColor="#000000"
             android:textColorHint="@color/black1"
-            android:textSize="15sp" />
+            android:hint="详细地址"
+            android:background="@null" />
 
     </RelativeLayout>
-
     <CheckBox
         android:id="@+id/cb_isdefaultaddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Re_item5"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@id/Re_item5"
         android:background="@drawable/checkbox_admsginput"
-        android:button="@null" />
-
-    <TextView
+        android:button="@null"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Re_item5"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_toRightOf="@id/cb_isdefaultaddress"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_toRightOf="@id/cb_isdefaultaddress"
+        android:layout_below="@id/Re_item5"
+        android:textColor="@color/black1"
         android:text="是否设为默认地址"
-        android:textColor="@color/black1" />
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/save"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="20dp"
-        android:background="#ff4d64"
         android:clickable="false"
         android:text="保存"
+        android:textSize="15sp"
         android:textColor="@android:color/white"
-        android:textSize="15sp" />
+        android:background="#ff4d64" />
 </RelativeLayout>

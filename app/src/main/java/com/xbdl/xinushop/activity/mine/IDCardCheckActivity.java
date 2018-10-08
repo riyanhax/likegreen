@@ -28,19 +28,21 @@ public class IDCardCheckActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_idcard_check);
+
+        ImagePicker.getInstance().setMultiMode(false);
         initView();
 
     }
 
     private void initView() {
-         idcard_front = findViewById(R.id.iv_idcard_front);
-         idcard_front.setOnClickListener(this);
-         idCardBack = findViewById(R.id.iv_idcard_back);
+        idcard_front = findViewById(R.id.iv_idcard_front);
+        idcard_front.setOnClickListener(this);
+        idCardBack = findViewById(R.id.iv_idcard_back);
         idCardBack.setOnClickListener(this);
         findViewById(R.id.tv_submission).setOnClickListener(this);
-         previewfront= (ImageView)findViewById(R.id.iv_previewfront);//身份证正面
-         previewfront.setOnClickListener(this);
-         previewback = (ImageView)findViewById(R.id.iv_previewback);
+        previewfront= (ImageView)findViewById(R.id.iv_previewfront);//身份证正面
+        previewfront.setOnClickListener(this);
+        previewback = (ImageView)findViewById(R.id.iv_previewback);
         previewback.setOnClickListener(this);
     }
 

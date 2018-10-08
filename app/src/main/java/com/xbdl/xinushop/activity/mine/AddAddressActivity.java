@@ -2,6 +2,7 @@ package com.xbdl.xinushop.activity.mine;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +29,7 @@ import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.base.BaseActivity;
+import com.xbdl.xinushop.bean.AddressBean;
 import com.xbdl.xinushop.bean.CityJsonBean;
 import com.xbdl.xinushop.bean.JsonRootBean;
 import com.xbdl.xinushop.utils.GetJsonDataUtil;
@@ -38,6 +40,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -49,10 +52,12 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
     private Thread thread;
     private EditText etname,etphone,etemscode,etaddress;
-    private TextView region;
+    private TextView region,title;
     private boolean isLoaded = false;
     private int isDefaultAddress ;
     private CheckBox cb_isdefaultaddress;
+    private int shoppingAddressActivity;//0 增加收货地址  1修改收货地址
+    private AddressBean.AddressListBean addressBean;
     Handler mHandler= new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -72,17 +77,43 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_address);
+        Intent intent = getIntent();
+        shoppingAddressActivity = intent.getIntExtra("ShoppingAddressActivity", 1);
+        addressBean= (AddressBean.AddressListBean) intent.getSerializableExtra("addressBean");
         decodeJson();
         initView();
         initData();
     }
 
+    private void initData() {
+        if (shoppingAddressActivity==0){
+            title.setText(R.string.addaddress);
+        }else {
+            title.setText(R.string.updateaddress);
+            if (addressBean!=null){
+                setData();
+            }
+        }
+    }
 
+    private void setData() {
+        etname.setText(addressBean.getConsignee());
+        etphone.setText(addressBean.getContactWay());
+        etaddress.setText(addressBean.getContactAddress());
+        String provinceCity=addressBean.getProvince()+addressBean.getCity()+addressBean.getDistrict();
+        region.setText(provinceCity);
+        if (addressBean.getIsDefaultAddress()==0){
+            cb_isdefaultaddress.setChecked(false);
+        }else {
+            cb_isdefaultaddress.setChecked(true);
+        }
+
+    }
 
     private void initView() {
         etname=(EditText) findViewById(R.id.etname);
         etphone=(EditText) findViewById(R.id.etphone);
-        etemscode=(EditText) findViewById(R.id.etemscode);
+       // etemscode=(EditText) findViewById(R.id.etemscode);
         etaddress=(EditText) findViewById(R.id.etaddress);
         findViewById(R.id.Re_item4).setOnClickListener(this);
         findViewById(R.id.save).setOnClickListener(this);
@@ -98,6 +129,7 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
                 }
             }
         });
+         title = (TextView)findViewById(R.id.tv_address_title);//标题
     }
     private String consignee,mobile,post,address,cname,province,city,district;
     @Override
@@ -106,7 +138,7 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
             case R.id.save:
                 consignee = etname.getText().toString().trim();
                 mobile = etphone.getText().toString().trim();
-                post = etemscode.getText().toString().trim();
+                //post = etemscode.getText().toString().trim();
                 address = etaddress.getText().toString().trim();
                 if(consignee==null||"".equals(consignee)){
                     ToastUtil.shortToast(this,"收货人姓名为空，请填写");
@@ -116,10 +148,10 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
                     ToastUtil.shortToast(this,"收货人手机号码为空，请填写");
                     return;
                 }
-                if(post==null||"".equals(post)){
+               /* if(post==null||"".equals(post)){
                     ToastUtil.shortToast(this,"收货邮编为空，请填写");
                     return;
-                }
+                }*/
                 if(cname==null||"".equals(cname)){
                     ToastUtil.shortToast(this,"收货市区为空，请填写");
                     return;
@@ -141,52 +173,27 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
     }
 
     private void commit() {
-        int userId = MyApplication.user.getUserId();
-
-        HttpUtils2.adduserAddress(MyApplication.user.getUserId(), consignee, mobile, province, city, district, address, isDefaultAddress, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                String body = response.body();
-                try {
-                    JSONObject jsonObject = new JSONObject(body);
-                    int code = jsonObject.getInt("code");
-                    if (code==1){
-                        ToastUtil.shortToast(AddAddressActivity.this,"添加成功");
-                        finish();
-                    }else {
-                        ToastUtil.shortToast(AddAddressActivity.this,"请再稍后再试");
-                    }
-                } catch (JSONException e) {
+          if (shoppingAddressActivity==0){
+              addAdress();
+          } else {
+              updataAddress();
+          }
 
 
-                }
-
-
-            }
-
-            @Override
-            public void onStart(Request<String, ? extends Request> request) {
-                super.onStart(request);
-                showLoading();
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                dismissLoading();
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                dismissLoading();
-            }
-        });
     }
 
-    private void initData() {
-
+    private void updataAddress() {
+        if (addressBean!=null){
+            HttpUtils2.updateAddress(addressBean.getUserAddressID(),addressBean.getUserId(),consignee, mobile, province, city,
+                    district, address, isDefaultAddress,addAdressStringCallback );
+        }
     }
+
+    private void addAdress() {
+        HttpUtils2.adduserAddress(MyApplication.user.getUserId(), consignee, mobile, province, city,
+                district, address, isDefaultAddress,addAdressStringCallback);
+    }
+
 
     private void decodeJson() {
         if (thread == null) {//如果已创建就不再重新创建子线程了
@@ -202,7 +209,51 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
             thread.start();
         }
     }
+    //添加收货地址修改收货地址
+    StringCallback addAdressStringCallback=new StringCallback() {
+        @Override
+        public void onSuccess(Response<String> response) {
+            String body = response.body();
+            try {
+                JSONObject jsonObject = new JSONObject(body);
+                int code = jsonObject.getInt("code");
+                if (code==1){
+                    if (shoppingAddressActivity==0){
+                        ToastUtil.shortToast(AddAddressActivity.this,"添加成功");
+                    }else {
+                        ToastUtil.shortToast(AddAddressActivity.this,"修改成功");
+                    }
 
+                    finish();
+                }else {
+                    ToastUtil.shortToast(AddAddressActivity.this,"请再稍后再试");
+                }
+            } catch (JSONException e) {
+
+
+            }
+
+
+        }
+
+        @Override
+        public void onStart(Request<String, ? extends Request> request) {
+            super.onStart(request);
+            showLoading();
+        }
+
+        @Override
+        public void onError(Response<String> response) {
+            super.onError(response);
+            dismissLoading();
+        }
+
+        @Override
+        public void onFinish() {
+            super.onFinish();
+            dismissLoading();
+        }
+    };
     private void initJsonData() {//解析数据
 
         /**
@@ -308,6 +359,8 @@ private void showPickerView() {// 弹出选择器
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        OkGo.getInstance().cancelTag("adduserAddress");
+      //  OkGo.getInstance().cancelTag("adduserAddress");
+      //  OkGo.getInstance().cancelTag("updateAddress");
+        OkGo.getInstance().cancelAll();
     }
 }

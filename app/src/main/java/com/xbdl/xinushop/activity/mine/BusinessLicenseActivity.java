@@ -35,6 +35,7 @@ public class BusinessLicenseActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_license);
+        ImagePicker.getInstance().setMultiMode(false);
         initView();
 
     }
@@ -46,6 +47,7 @@ public class BusinessLicenseActivity extends AppCompatActivity implements View.O
         camera.setOnClickListener(this);
         findViewById(R.id.tv_business_pop).setOnClickListener(this);
         findViewById(R.id.tv_submission).setOnClickListener(this);
+        findViewById(R.id.iv_return).setOnClickListener(this);
     }
 
     @Override
@@ -68,6 +70,9 @@ public class BusinessLicenseActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.iv_close:
                 popupWindow.dismiss();
+                break;
+            case R.id.iv_return:
+                finish();
                 break;
         }
     }

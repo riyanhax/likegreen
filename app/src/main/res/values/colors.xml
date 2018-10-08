@@ -148,4 +148,8 @@
     <color name="color_919191">#919191</color>
     <color name="color_bbe417">#bbe417</color>
     <color name="color_e0e0e0">#e0e0e0</color>
+
+    <color name="cgrey">#3d3d3d</color>
+    <color name="cgrey4">#ededed</color>
+    <color name="grey1">#50505a</color>
 </resources>

@@ -10,7 +10,7 @@ public class PersonBean {
      * xlId : 65365287
      * headPortrait : null
      * sex : null
-     * signature : null
+     * signature : 个性签名
      * registerTime : 2018-09-21 18:03:36
      * backgroundImg : null
      * wechat : null
@@ -25,16 +25,16 @@ public class PersonBean {
     private String userPhone;
     private String password;
     private String xlId;
-    private Object headPortrait;
-    private Object sex;
-    private Object signature;
+    private String headPortrait;
+    private String sex;
+    private String signature;
     private String registerTime;
     private Object backgroundImg;
-    private Object wechat;
+    private String wechat;
     private String loginToken;
     private int accountBalance;
     private Object clientId;
-    private Object realName;
+    private String realName;
 
     public int getUserId() {
         return userId;
@@ -76,27 +76,27 @@ public class PersonBean {
         this.xlId = xlId;
     }
 
-    public Object getHeadPortrait() {
+    public String getHeadPortrait() {
         return headPortrait;
     }
 
-    public void setHeadPortrait(Object headPortrait) {
+    public void setHeadPortrait(String headPortrait) {
         this.headPortrait = headPortrait;
     }
 
-    public Object getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Object sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public Object getSignature() {
+    public String getSignature() {
         return signature;
     }
 
-    public void setSignature(Object signature) {
+    public void setSignature(String signature) {
         this.signature = signature;
     }
 
@@ -116,11 +116,11 @@ public class PersonBean {
         this.backgroundImg = backgroundImg;
     }
 
-    public Object getWechat() {
+    public String getWechat() {
         return wechat;
     }
 
-    public void setWechat(Object wechat) {
+    public void setWechat(String wechat) {
         this.wechat = wechat;
     }
 
@@ -148,11 +148,11 @@ public class PersonBean {
         this.clientId = clientId;
     }
 
-    public Object getRealName() {
+    public String getRealName() {
         return realName;
     }
 
-    public void setRealName(Object realName) {
+    public void setRealName(String realName) {
         this.realName = realName;
     }
 }

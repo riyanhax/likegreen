@@ -17,38 +17,35 @@
     <style name="AppThemeProgress">
         <item name="colorAccent">#dfdfdf</item> <!-- Whatever color you want-->
     </style>
-
-    <style name="admsginputtext">
+    <style name="admsginputtext" >
         <item name="android:textColor">#404040</item>
         <item name="android:textSize">13sp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
-    <style name="paddinglift">
+    <style name="paddinglift" >
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_width">@dimen/dp_9</item>
         <item name="android:layout_height">@dimen/dp_16</item>
     </style>
-
-    <style name="paddingright">
+    <style name="paddingright" >
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:layout_width">@dimen/dp_16</item>
         <item name="android:layout_height">@dimen/dp_16</item>
     </style>
+    <style name="popiv" >
 
-    <style name="popiv">
-        <!-- Customize your theme here. -->
         <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">16dp</item>
         <item name="android:layout_height">16dp</item>
     </style>
-
     <style name="poptv">
+        <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#515151</item>
@@ -56,12 +53,12 @@
     </style>
     <!-- Dialog -->
     <style name="dialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">true</item>
+    <item name="android:windowFrame">@null</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:backgroundDimEnabled">true</item>
     </style>
 
     <style name="head">
@@ -69,7 +66,6 @@
         <item name="android:layout_height">48dp</item>
         <item name="android:background">@color/white</item>
     </style>
-
     <style name="systemtext">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -86,18 +82,19 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
-    <style name="Transparent">
-        <item name="android:windowBackground">
-            @color/transparent_background
-        </item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <style name="Transparent">
+            <item name="android:windowBackground">
+                @color/transparent_background
+            </item>
+            <item name="android:windowNoTitle">true</item>
+            <item name="android:windowIsTranslucent">true</item>
 
-    </style>
+        </style>
+
 
 
     <!--111111111短视频11111111111-->
-    <!--  <style name="AliyunVideoUIStytle" >
+  <!--  <style name="AliyunVideoUIStytle" >
         <item name="qusnap_background_color">@color/color_bg</item> //背景主题色
         <item name="qusnap_tint_color">@color/tint_color</item> //录制进度条颜色
         <item name="qusnap_timeline_backgound_color">@color/timeline_backgound_color</item> //录制进度条背景色
@@ -128,7 +125,7 @@
         <item name="qusnap_crop_time_txt_size">15dp</item> //裁剪视频时长文字大小
         <item name="qusnap_crop_txt_visibility">visible</item> //裁剪视频时长文字显隐属性
     </style>-->
-    <!--1111111111chatdemo导入的11111111111-->
+<!--1111111111chatdemo导入的11111111111-->
     <style name="text_title_small">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -149,7 +146,6 @@
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">18sp</item>
     </style>
-
     <style name="text_title_radio">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -160,7 +156,6 @@
         <item name="android:background">@color/title_grey</item>
         <item name="android:drawableRight">@drawable/switch_off</item>
     </style>
-
     <style name="loading_dialog" parent="android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -168,7 +163,6 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
-
     <style name="jmui_default_dialog_style">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
@@ -196,21 +190,25 @@
         <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
     </style>
-
     <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/photo_choose_bg</item>
     </style>
     <!-- 提示框 -->
-    <style name="myDialog2" parent="@style/Theme.AppCompat.Light.Dialog.Alert.Self" />
+    <style name="myDialog2" parent="@style/Theme.AppCompat.Light.Dialog.Alert.Self"/>
     <!--设置dialogbutton颜色-->
     <style name="Theme.AppCompat.Light.Dialog.Alert.Self" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
         <!--修改AlertDialog按钮的颜色-->
         <item name="colorAccent">#333333</item>
     </style>
-
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
+    //省市区
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 
 </resources>
