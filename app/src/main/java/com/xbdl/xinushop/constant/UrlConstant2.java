@@ -39,5 +39,9 @@ public interface UrlConstant2 {
      * 帐户余额充值
      */
     String balanceRecharge=UrlConstant.baseUrl+"user/balanceRecharge";
+    /**
+     * 帐户余额提现
+     */
+    String tixian=UrlConstant.baseUrl+"user/balanceWithdrawDeposit";
 
 }
