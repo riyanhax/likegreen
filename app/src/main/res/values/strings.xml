@@ -37,7 +37,7 @@
     <string name="transactiondetails">交易明细</string>
     <string name="weixinplay">微信支付</string>
     <string name="aliplay">支付宝支付</string>
-    <string name="etrechargeamount">请输入充值金额</string>
+    <string name="etrechargeamount">请输入充值金额大于1</string>
     <string name="rechargeprotocol">《充值协议》</string>
     <string name="withdrawcash">余额提现</string>
     <string name="cashchose">余额提现方式选择</string>

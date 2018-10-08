@@ -35,5 +35,9 @@ public interface UrlConstant2 {
      * 修改收货地址
      */
     String updateAddress=UrlConstant.baseUrl+"useraddress/updUserAddress";
+    /**
+     * 帐户余额充值
+     */
+    String balanceRecharge=UrlConstant.baseUrl+"user/balanceRecharge";
 
 }

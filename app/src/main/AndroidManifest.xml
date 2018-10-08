@@ -280,7 +280,22 @@
             android:label="@string/title_activity_discount_coupon"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".activity.mine.wallet.WithdrawCashActivity"></activity>
-        <activity android:name=".wxapi.WXPayEntryActivity"/>
+        <activity android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+
     </application>
 
 </manifest>

@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="59dp">
         <ImageView
-            android:src="@drawable/playback"
+            android:src="@drawable/forthcomingbroadcasting"
             android:layout_marginLeft="@dimen/dp_20"
             android:id="@+id/iv_air_on"
             android:layout_centerVertical="true"

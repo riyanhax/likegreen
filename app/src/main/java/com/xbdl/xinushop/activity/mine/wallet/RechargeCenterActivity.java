@@ -1,21 +1,40 @@
 package com.xbdl.xinushop.activity.mine.wallet;
 
-import android.support.v7.app.AppCompatActivity;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.alipay.sdk.app.PayTask;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.base.BaseActivity;
+import com.xbdl.xinushop.bean.PayResult;
+import com.xbdl.xinushop.bean.WXplayBean;
 import com.xbdl.xinushop.utils.EditTextUtils;
+import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.ToastUtil;
+import com.xbdl.xinushop.utils.WXPayUtils;
 import com.xbdl.xinushop.view.MyRadioGroup;
 
-public class RechargeCenterActivity extends AppCompatActivity implements View.OnClickListener {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
+
+public class RechargeCenterActivity extends BaseActivity implements View.OnClickListener {
+    private static final int SDK_PAY_FLAG = 0;
     private MyRadioGroup money1;
     private RadioButton rb_100,rb_200,rb_300,rb_500,rb_800,rb_other;
     private EditText etamount;//充值金额
@@ -124,8 +143,140 @@ public class RechargeCenterActivity extends AppCompatActivity implements View.On
                     ToastUtil.shortToast(this,"请输入金额");
                     return;
                 }
+
                 String money = etamount.getText().toString();
+                if (Float.parseFloat(money)<1){
+                    ToastUtil.shortToast(this,"请输入大于1金额");
+                    return;
+                }
+                if(isShow){
+                    pay(money,2);
+                }else {
+                    pay(money,1);
+                }
                 break;
         }
     }
+
+    private void pay(final String money, final int payWay) {
+        HttpUtils2.balanceRecharge(MyApplication.user.getUserId(), payWay, Float.parseFloat(money), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    String one=money;
+                    JSONObject body = new JSONObject(response.body());
+                    String result = body.getString("result");
+                    if (payWay==2){
+                        //微信支付
+                        Gson gson = new Gson();
+                        WXplayBean wXplayBean = gson.fromJson(result, WXplayBean.class);
+                        if (wXplayBean.getCode()==1){
+                            WXplayBean.JsonBean json = wXplayBean.getJson();
+                            WXPayUtils.WXPayBuilder builder = new WXPayUtils.WXPayBuilder();
+                            builder.setAppId(json.getAppid())
+                                    .setPartnerId(json.getPartnerid())
+                                    .setPrepayId(json.getPrepayid())
+                                    .setPackageValue("Sign=WXPay")
+                                    .setNonceStr(json.getNoncestr())
+                                    .setTimeStamp(String.valueOf(json.getTimestamp()))
+                                    .setSign(json.getSign())
+                                    .build().toWXPayNotSign(RechargeCenterActivity.this);
+                        }else {
+                            ToastUtil.shortToast(RechargeCenterActivity.this,wXplayBean.getMsg());
+                        }
+                    }else {
+                        //支付宝支付
+                        JSONObject jsonObject = new JSONObject(result);
+                        String body1 = jsonObject.getString("body");
+                        getAlipay(body1);
+                    }
+
+
+                } catch (JSONException e) {
+
+                }
+                dismissLoading();
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                showLoading();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoading();
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dismissLoading();
+            }
+        });
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return RechargeCenterActivity.this;
+    }
+   private void  getAlipay(final String orderInfo){
+        //订单签名后的信息（服务器返回的数据）
+
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(RechargeCenterActivity.this);
+                Map<String, String> result = alipay.payV2(orderInfo, true);
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    //支付宝返回数据handler
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    @SuppressWarnings("unchecked")
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    /**
+                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
+                    String result = "";
+                    // 判断resultStatus 为9000则代表支付成功
+                    Log.i("nihaoma", resultStatus);
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        //支付成功
+                        result = "支付成功";
+                       // aliPaySuccess();
+                    } else if ("6001".equals(resultStatus)) {
+                        result = "您取消了支付";
+                    } else {
+                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                        result = "支付失败";
+                    }
+                    ToastUtil.shortToast(RechargeCenterActivity.this,result);
+                    break;
+                }
+            }
+        }
+    };
+
+
+
+
 }
