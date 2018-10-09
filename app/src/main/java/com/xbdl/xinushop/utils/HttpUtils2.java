@@ -133,4 +133,28 @@ public class HttpUtils2 {
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
+    /**
+     * 我发布的商品
+     */
+    public static void getCommodityByUserId(int pn,int userId, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.getCommodityByUserId)// 请求方式和请求url
+                .params("pn",pn)
+                .params("userId",userId)
+                .tag("getCommodityByUserId")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 交易明细
+     */
+    public static void getWalletDetailByInfo(int pn,int userId, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.getWalletDetailByInfo)// 请求方式和请求url
+                .params("pn",pn)
+                .params("userId",userId)
+                .tag("getWalletDetailByInfo")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
 }

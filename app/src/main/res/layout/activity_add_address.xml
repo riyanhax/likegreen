@@ -11,6 +11,7 @@
         android:id="@+id/re_top"
         style="@style/head">
         <ImageView
+            android:id="@+id/iv_return"
             android:layout_centerVertical="true"
             android:src="@drawable/wode_return"
             style="@style/paddinglift"

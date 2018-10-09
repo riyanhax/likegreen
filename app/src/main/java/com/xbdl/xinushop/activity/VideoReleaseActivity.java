@@ -57,7 +57,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
 
 
     private String mNosToken, mBucket, mObject;
-
+    private String album;//相册
     private File mFile;
 
     private static class HandleMsg {
@@ -110,9 +110,9 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
         if (nosUpload != null) {
 
             NOSUpload.Config config = new NOSUpload.Config();
-            config.appKey = "4edf106797fe7de29d4cffc6bf073691";
+            config.appKey = "35aaca97cc05a23cd153b9f05c740a52";
             config.accid = "a01";
-            config.token = "103126978e0037e1774c414852f76c3fd1383e82";
+            config.token = "95c7b8398c3692616ec6211947bfeba9b00c6f38";
             nosUpload.setConfig(config);
         }
     }
@@ -128,13 +128,19 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     private void initData() {
         Intent intent = getIntent();
         mVideoPath = intent.getStringExtra("ShortCameraActivity");
-        setVideoImg(mVideoPath);
+        album = intent.getStringExtra("ShortCameraActivityAlbum");
+        if (album!=null){
+            setVideoImg(album);
+        }else {
+            setVideoImg(mVideoPath);
+        }
+
     }
 
     private void setVideoImg(String path) {
         mFile = new File(path);
         if (mFile!=null) {
-            RequestOptions requestOptions = RequestOptions.frameOf(2);//选择第几贞做封面
+            RequestOptions requestOptions = RequestOptions.frameOf(3);//选择第几贞做封面
             requestOptions.set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST);
             requestOptions.transform(new BitmapTransformation() {
                 @Override

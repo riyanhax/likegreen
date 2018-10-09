@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/enptyviewbackground"
     tools:context=".activity.MyProductsReleaseActivity">
     <RelativeLayout
         style="@style/head">
@@ -20,10 +20,10 @@
             android:textColor="@color/colorfocuse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ImageView
+     <!--   <ImageView
             android:id="@+id/iv_products_news"
             android:src="@drawable/bell"
-            style="@style/paddingright" />
+            style="@style/paddingright" />-->
     </RelativeLayout>
     <View
         android:background="#cccccc"

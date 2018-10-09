@@ -30,6 +30,7 @@ import com.xbdl.xinushop.adapter.AddCategoryBeanAdapter;
 import com.xbdl.xinushop.adapter.ImagePickerAdapter;
 import com.xbdl.xinushop.bean.CategoryBean;
 import com.xbdl.xinushop.bean.CommodityClassifyBean;
+import com.xbdl.xinushop.bean.MyProductsReleaseBean;
 import com.xbdl.xinushop.constant.ImagePickerConstant;
 import com.xbdl.xinushop.dialogfragment.SettingBackgroundDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils;
@@ -40,6 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,19 +64,30 @@ public class AdMsgInputActivity extends AppCompatActivity implements ImagePicker
     //属性类别
 
     AppCompatImageView ivFront, ivReverse, ivBusiness;//正面  反面  营业执照副本
-
+    private MyProductsReleaseBean.ListBean bean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_msg_input);
+        Intent intent = getIntent();
+        bean= (MyProductsReleaseBean.ListBean) intent.getSerializableExtra("bean");
         initView();
+        initData();
         initGoodsCategory();
+
+    }
+
+    private void initData() {
+        if (bean!=null){
+
+        }
     }
 
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
 
     private void initView() {
+        findViewById(R.id.iv_return).setOnClickListener(this);
         //添加商品图片
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.shopimages);
         selImageList = new ArrayList<>();
@@ -305,6 +318,9 @@ public class AdMsgInputActivity extends AppCompatActivity implements ImagePicker
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_return:
+                finish();
+                break;
             case R.id.tv_trading: {
                 final String[] items = new String[]{"喜绿商品", "外部商品"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.myDialog2);

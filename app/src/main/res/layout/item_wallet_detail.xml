@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="@dimen/dp_70">
+        <LinearLayout
+            android:id="@+id/ll_wallet"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_wallet_type"
+                android:text="余额提现"
+                android:textSize="16sp"
+                android:textColor="@color/actionbar_sel_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_wallet_date"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="余额提现"
+                android:textSize="12sp"
+                android:textColor="@color/maintextcolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+<!--    <TextView
+        android:textSize="@dimen/sp_10"
+        android:textColor="@color/group_small_text_color"
+        android:text="交易完成"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />-->
+    <TextView
+        android:id="@+id/tv_wallet_cash"
+        android:textSize="16sp"
+        android:textColor="@color/actionbar_sel_color"
+        android:text="100"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

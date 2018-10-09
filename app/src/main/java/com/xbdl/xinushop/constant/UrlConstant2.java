@@ -43,5 +43,13 @@ public interface UrlConstant2 {
      * 帐户余额提现
      */
     String tixian=UrlConstant.baseUrl+"user/balanceWithdrawDeposit";
+    /**
+     * 我发布的商品
+     */
+    String getCommodityByUserId=UrlConstant.baseUrl+"commodity/getCommodityByUserId";
+    /**
+     * 交易明细
+     */
+    String getWalletDetailByInfo=UrlConstant.baseUrl+"walletdetail/getWalletDetailByInfo";
 
 }

@@ -21,6 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.netease.transcoding.TranscodingAPI;
 import com.netease.transcoding.TranscodingNative;
 import com.netease.transcoding.record.MediaRecord;
@@ -29,6 +33,7 @@ import com.netease.vcloud.video.effect.VideoEffect;
 import com.netease.vcloud.video.render.NeteaseView;
 import com.netease.vcloudnosupload.util.FileUtil;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.utils.ImageUtils;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -54,7 +59,7 @@ import static com.netease.transcoding.TranscodingAPI.TRAN_SOURCE_NO_VIDEO_OR_AUD
 * */
 public class ShortCameraActivity extends AppCompatActivity implements MessageHandler,View.OnClickListener {
     public static int APPLY_LIVE=0;
-    private String appkey="4edf106797fe7de29d4cffc6bf073691";
+    private String appkey="35aaca97cc05a23cd153b9f05c740a52";
     private String fromActivity;
 
     private static final int SET_COUNT_TIME = 0;
@@ -79,7 +84,8 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
     private MediaRecord mMediaRecord = null;
     private volatile boolean mRecording = false;
     private DateFormat formatter_file_name = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
-
+    //选择相册
+    private ArrayList<ImageItem> headicon;
 
     Handler mHandler=new Handler(){
         @Override
@@ -143,6 +149,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
          mTakePhotoHead = findViewById(R.id.rl_takephoto_head);//顶部一栏
          //mTakePhotofilter = findViewById(R.id.ll_takephoto_filter);//滤镜
          mTakePhotoAlbum = findViewById(R.id.ll_takephoto_album);//相册
+         mTakePhotoAlbum.setOnClickListener(this);
          mTakePhotoSecond = findViewById(R.id.rl_takephoto_sc_bg);//读秒
          mTakePhotoBtn = (ImageView)findViewById(R.id.iv_takephoto_btn);//拍照
          mTakePhotoBtn.setOnClickListener(this);
@@ -206,6 +213,12 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                     videoPath.delete();
                 }
                 videoFiles= new ArrayList<>();
+                break;
+            case  R.id.ll_takephoto_album://相册
+                ImagePicker.getInstance().setMultiMode(false);
+                Intent intentPerview = new Intent(this, ImageGridActivity.class);
+                intentPerview.putExtra(ImageGridActivity.EXTRAS_IMAGES, headicon);
+                startActivityForResult(intentPerview, 100);
                 break;
         }
     }
@@ -601,8 +614,9 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                         showToast("视频处理已完成");
                         break;
                 }
-                if (fromActivity.equals("ApplyLiveActivity")){
+                if (fromActivity!=null&&fromActivity.equals("ApplyLiveActivity")){
                     resultApplyLive();
+                    finish();
                 }else {
                     startUploadActivity();
                 }
@@ -616,10 +630,10 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         intent.putExtra("videoPath",outPutVideoPath);
         setResult(APPLY_LIVE,intent);
     }
-
+    private Intent intentVideoReleaseActivity;
     private void startUploadActivity() {
         if (outPutVideoPath!=null){
-        Intent intentVideoReleaseActivity = new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);
+            intentVideoReleaseActivity = new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);
         intentVideoReleaseActivity.putExtra("ShortCameraActivity",outPutVideoPath);
         startActivity(intentVideoReleaseActivity);
         finish();
@@ -634,7 +648,6 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         }
         String path = FileUtil.getPath(this, data.getData());
         switch (requestCode){
-
             case ShortVideoProcess_CHOOSE:      //混音文件
                 String substring = path.substring(path.length() - 4);
                 if (substring.equals(".mp3")||substring.equals(".m4a")){
@@ -650,6 +663,17 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                     showToast("请选择音乐文件");
                 }
                 break;
+            case ImagePicker.RESULT_CODE_ITEMS:
+                //传照片到上传页面
+                if (data != null && requestCode == 100) {
+                    headicon = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                    String bitmapToString = ImageUtils.bitmapToString(headicon.get(0).path);
+                    intentVideoReleaseActivity.putExtra("ShortCameraActivityAlbum",bitmapToString);
+                } else {
+                    Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
             default:
                 break;
         }

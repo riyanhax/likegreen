@@ -85,6 +85,11 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         mTvPersonalPhone.setText(MyApplication.user.getUserPhone());
         //个性签名
         tv_signature.setText(MyApplication.user.getSignature());
+        mTvPersonalName.setText(MyApplication.user.getUserName());
+        if (MyApplication.user.getHeadPortrait()!=null){
+            Glide.with(this).load(MyApplication.user.getHeadPortrait()).into(mIvPersonalHead);
+        }
+
     }
 
     @Override

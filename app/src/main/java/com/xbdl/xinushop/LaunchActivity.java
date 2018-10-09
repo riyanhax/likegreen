@@ -50,10 +50,12 @@ public class LaunchActivity extends AppCompatActivity {
                                 JSONObject login = new JSONObject(body);
                                 int code = login.getInt("code");
                                 if (code==100){
+                                    String object = login.getString("object");
                                     Gson gson = new Gson();
-                                    PersonBean personBean = gson.fromJson(user, PersonBean.class);
+                                    PersonBean personBean = gson.fromJson(object, PersonBean.class);
                                     MyApplication application = (MyApplication)getApplication();
                                     application.setUer(personBean);
+                                    SharedPreferencesUtil.putString(LaunchActivity.this,MyConstants.User,object);
                                     Intent intent = new Intent();
                                     intent.setClass(LaunchActivity.this, MainActivity.class);
                                     startActivity(intent);

@@ -1,6 +1,9 @@
 package com.xbdl.xinushop.activity.mian;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.request.RequestOptions;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -16,10 +23,15 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.ShortCameraActivity;
+import com.xbdl.xinushop.activity.VideoReleaseActivity;
 import com.xbdl.xinushop.activity.mine.AdMsgInputActivity;
 import com.xbdl.xinushop.activity.mine.LivePreViewActivity;
 
+import java.io.File;
+import java.security.MessageDigest;
 import java.util.ArrayList;
+
+import static com.bumptech.glide.load.resource.bitmap.VideoDecoder.FRAME_OPTION;
 
 
 public class ApplyLiveActivity extends AppCompatActivity implements View.OnClickListener {
@@ -77,10 +89,10 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
                 startActivity(intentLivePreViewActivity);
                 finish();
                 break;
-            case R.id.rl_addliveshop:
+            case R.id.rl_addliveshop://商品链接
                 Intent AdMsgInputintent = new Intent(this, AdMsgInputActivity.class);
                 startActivity(AdMsgInputintent);
-                finish();
+
                 break;
         }
     }
@@ -95,14 +107,39 @@ public class ApplyLiveActivity extends AppCompatActivity implements View.OnClick
             } else {
                 Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
             }
-        }
-        if (resultCode==ShortCameraActivity.APPLY_LIVE){
+        }else if (resultCode==ShortCameraActivity.APPLY_LIVE){
             if (data!=null&&requestCode==200){
                 String shortCameraActivity = data.getStringExtra("videoPath");
                 Log.v("nihaoma",shortCameraActivity);
+                setVideoImg(shortCameraActivity);
             }
         }
 
+    }
+
+
+    private File mFile;
+    private void setVideoImg(String path) {
+        mFile = new File(path);
+        if (mFile!=null) {
+            RequestOptions requestOptions = RequestOptions.frameOf(5);//选择第几贞做封面
+            requestOptions.set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST);
+            requestOptions.transform(new BitmapTransformation() {
+                @Override
+                protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+                    return toTransform;
+                }
+                @Override
+                public void updateDiskCacheKey(MessageDigest messageDigest) {
+                    try {
+                        messageDigest.update((ApplyLiveActivity.this.getPackageName() + "RotateTransform").getBytes("utf-8"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            Glide.with(ApplyLiveActivity.this).load(mFile).apply(requestOptions).into(mshortVideo);
+        }
     }
     private void setImages(ArrayList<ImageItem> list){
         if (list!=null){

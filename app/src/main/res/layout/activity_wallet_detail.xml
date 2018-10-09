@@ -10,6 +10,7 @@
     <RelativeLayout
         style="@style/head">
         <ImageView
+            android:id="@+id/iv_return"
             android:layout_centerVertical="true"
             android:src="@drawable/wode_return"
             style="@style/paddinglift"
@@ -30,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/ll__detail_empty"
             android:layout_centerInParent="true"
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -48,8 +50,8 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <com.github.jdsjlzx.recyclerview.LRecyclerView
+            android:id="@+id/recyclerView"
             android:visibility="gone"
-            android:layout_marginTop="@dimen/dp_20"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>

@@ -46,6 +46,12 @@ public class ShoppingAddressActivity extends BaseActivity {
 
 
     private void initView() {
+        findViewById(R.id.iv_return).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         recyclerView= (LRecyclerView)findViewById(R.id.addresslist);
         //添加收货地址
         findViewById(R.id.ll_add_address).setOnClickListener(new View.OnClickListener() {
@@ -64,7 +70,6 @@ public class ShoppingAddressActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         recyclerView.setPullRefreshEnabled(false);
         addressListAdapter = new AddressListAdapter(this);
-
         LRecyclerViewAdapter lRecyclerViewAdapter = new LRecyclerViewAdapter(addressListAdapter);
         recyclerView.setAdapter(lRecyclerViewAdapter);
         DividerDecoration divider = new DividerDecoration.Builder(this)

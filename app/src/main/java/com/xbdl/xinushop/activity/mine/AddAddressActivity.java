@@ -111,6 +111,7 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initView() {
+        findViewById(R.id.iv_return).setOnClickListener(this);
         etname=(EditText) findViewById(R.id.etname);
         etphone=(EditText) findViewById(R.id.etphone);
        // etemscode=(EditText) findViewById(R.id.etemscode);
@@ -135,6 +136,9 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.iv_return:
+                finish();
+                break;
             case R.id.save:
                 consignee = etname.getText().toString().trim();
                 mobile = etphone.getText().toString().trim();

@@ -2,6 +2,7 @@ package com.xbdl.xinushop.activity.mine.wallet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;

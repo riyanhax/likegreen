@@ -324,6 +324,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case com.xbdl.xinushop.R.id.ll_add_shortvideo://短视频
                 Intent intentShortCameraActivity = new Intent(MainActivity.this, ShortCameraActivity.class);
+
                 startActivity(intentShortCameraActivity);
                 popupWindow.dismiss();
                 break;

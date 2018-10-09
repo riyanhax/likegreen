@@ -8,7 +8,10 @@ android {
             storePassword '1234567'
             keyAlias 'key0'
             keyPassword '1234567'
-
+          /*  keyAlias 'xbdlcommon'
+            keyPassword 'xbdl0318'
+            storeFile file('D:/xbdljhnormal.jks')
+            storePassword 'xbdl2016'*/
         }
     }
     compileSdkVersion 27

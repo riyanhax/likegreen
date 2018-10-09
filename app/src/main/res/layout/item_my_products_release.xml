@@ -42,32 +42,34 @@
             android:layout_toRightOf="@id/iv_products_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-
+       <!--     <TextView
+                android:id="@+id/tv_browsing_volume"
                 android:layout_gravity="bottom"
                 android:text="浏览:    100"
                 android:textColor="#c8c8c8"
                 android:textSize="11sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" />-->
             <TextView
-                android:layout_marginLeft="@dimen/dp_30"
+                android:id="@+id/tv_sales_volume"
                 android:layout_gravity="bottom"
                 android:text="已售：   1"
                 android:textColor="#c8c8c8"
                 android:textSize="11sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
+          <!--  <TextView
+                android:id="@+id/tv_inventory"
                 android:layout_marginLeft="@dimen/dp_30"
                 android:layout_gravity="bottom"
                 android:text="剩余库存       1"
                 android:textColor="#c8c8c8"
                 android:textSize="11sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" />-->
         </LinearLayout>
         <TextView
+            android:id="@+id/tv_sales_state"
             android:textSize="9sp"
             android:gravity="center"
             android:background="@drawable/bg_products_salein"
@@ -91,6 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <TextView
+            android:id="@+id/tv_created_date"
             android:text="发布时间： 8-18 16:40"
             android:textSize="9sp"
             android:textColor="#afafaf"
@@ -103,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <LinearLayout
-            android:id="@+id/ll_prodict_share"
+            android:id="@+id/ll_prodict_edit"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -121,6 +124,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_prodict_delete"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -137,7 +141,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-            <LinearLayout
+           <!-- <LinearLayout
+                android:id="@+id/ll_prodict_share"
                android:layout_marginLeft="@dimen/dp_20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -153,7 +158,7 @@
                     android:textColor="#696969"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </LinearLayout>
+            </LinearLayout>-->
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
