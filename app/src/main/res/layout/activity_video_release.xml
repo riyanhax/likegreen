@@ -10,6 +10,7 @@
         <RelativeLayout
             style="@style/head">
             <ImageView
+                android:id="@+id/iv_return"
                 android:layout_centerVertical="true"
                 android:src="@drawable/wode_return"
                 style="@style/paddinglift"
@@ -32,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:textColor="@color/actionbar_sel_color"
                 android:textColorHint="#cccccc"
                 android:hint="   说点什么吧..."
                 android:layout_width="wrap_content"

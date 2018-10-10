@@ -8,18 +8,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_emptylayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/enptyviewbackground">
 
         <LinearLayout
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="31dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -54,12 +55,14 @@
 
         <RelativeLayout
             android:id="@+id/rl_my_garden_add"
+            android:layout_marginTop="@dimen/sp_10"
             android:layout_width="118dp"
             android:layout_height="118dp"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/dialog_to_promote_circular">
 
             <ImageView
+                android:id="@+id/iv_plant"
                 android:layout_width="37dp"
                 android:layout_height="37dp"
                 android:layout_centerInParent="true"
@@ -70,17 +73,15 @@
             android:id="@+id/iv_my_graden_basin"
             android:layout_width="@dimen/dp_39"
             android:layout_height="@dimen/dp_33"
-            android:layout_below="@id/rl_my_garden_add"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:src="@drawable/basin" />
 
         <TextView
             android:id="@+id/tv_my_gradem_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_my_graden_basin"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
             android:text="小花园已经收拾好了"
             android:textColor="#a2a2a2" />
 
@@ -88,13 +89,12 @@
             android:id="@+id/tv_my_gradem_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_my_gradem_one"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/dp_20"
             android:layout_marginTop="8dp"
             android:text="点+创建你的第一棵植物"
             android:textColor="#a2a2a2" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <com.cjj.MaterialRefreshLayout
         android:id="@+id/refresh"

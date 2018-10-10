@@ -47,7 +47,7 @@ public class MyGardenFragment extends Fragment {
 
     public static final int lOAD_DADA = 1;
     public static final int UP_DADA = lOAD_DADA + 1;
-    RelativeLayout rlEmpty;
+    View rlEmpty;
     MaterialRefreshLayout refreshLayout;
     PlantingDiaryMyGrardenAdapter plantingDiaryMyGrardenAdapter;
 

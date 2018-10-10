@@ -1,6 +1,8 @@
 package com.xbdl.xinushop.bean;
 
-public class PersonBean {
+import java.io.Serializable;
+
+public class PersonBean implements Serializable{
 
     /**
      * userId : 9
@@ -18,6 +20,7 @@ public class PersonBean {
      * accountBalance : 0
      * clientId : null
      * realName : null
+     *
      */
 
     private int userId;
@@ -154,5 +157,26 @@ public class PersonBean {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonBean{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", password='" + password + '\'' +
+                ", xlId='" + xlId + '\'' +
+                ", headPortrait='" + headPortrait + '\'' +
+                ", sex='" + sex + '\'' +
+                ", signature='" + signature + '\'' +
+                ", registerTime='" + registerTime + '\'' +
+                ", backgroundImg=" + backgroundImg +
+                ", wechat='" + wechat + '\'' +
+                ", loginToken='" + loginToken + '\'' +
+                ", accountBalance=" + accountBalance +
+                ", clientId=" + clientId +
+                ", realName='" + realName + '\'' +
+                '}';
     }
 }

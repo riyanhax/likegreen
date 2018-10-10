@@ -16,13 +16,21 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.xbdl.xinushop.LaunchActivity;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.JsonRootBean;
+import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.constant.UrlConstant2;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.ImageUtils;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
+import com.xbdl.xinushop.utils.ToastUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -81,15 +89,63 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initData() {
-        //设置手机号
-        mTvPersonalPhone.setText(MyApplication.user.getUserPhone());
-        //个性签名
-        tv_signature.setText(MyApplication.user.getSignature());
-        mTvPersonalName.setText(MyApplication.user.getUserName());
-        if (MyApplication.user.getHeadPortrait()!=null){
-            Glide.with(this).load(MyApplication.user.getHeadPortrait()).into(mIvPersonalHead);
-        }
+        getUserInfo();
 
+
+    }
+
+    private void getUserInfo() {
+        HttpUtils2.getUserInfoById(MyApplication.user.getLoginToken(),MyApplication.user.getUserId(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Log.v("nihaoma",response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    if (jsonObject.getInt("code")==1){
+                        String object = jsonObject.getString("user");
+                        Gson gson = new Gson();
+                        PersonBean personBean = gson.fromJson(object, PersonBean.class);
+                        Log.v("nihaoma",personBean.toString());
+                        MyApplication application = (MyApplication)getApplication();
+                        application.setUer(personBean);
+                        SharedPreferencesUtil.putString(getActivity(),MyConstants.User,object);
+                        //设置手机号
+                        mTvPersonalPhone.setText(personBean.getUserPhone());
+                        //个性签名
+                        tv_signature.setText(personBean.getSignature());
+                        mTvPersonalName.setText(personBean.getUserName());
+                        if (MyApplication.user.getHeadPortrait()!=null){
+                            Glide.with(getActivity()).load(personBean.getHeadPortrait()).into(mIvPersonalHead);
+                        }
+                        Intent intent = getIntent();
+                        intent.putExtra("data",personBean);
+                        setResult(3, intent);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                dismissLoading();
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                showLoading();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoading();
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dismissLoading();
+            }
+        });
     }
 
     @Override
@@ -141,6 +197,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
             if (data != null && requestCode == 100) {
                 headicon = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 String bitmapToString = ImageUtils.bitmapToString(headicon.get(0).path);
+                Log.v("nihaoma",bitmapToString);
                 sendMsg("headPortrait", bitmapToString);
                 Glide.with(this).load(headicon.get(0).path).into(mIvPersonalHead);
             } else {
@@ -177,6 +234,12 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                 Gson gson = new Gson();
                 JsonRootBean jsonRootBean = gson.fromJson(response.body(), JsonRootBean.class);
                 Log.v("nihaoma", jsonRootBean.toString());
+                if (jsonRootBean.getCode()==100){
+                    getUserInfo();
+                }else {
+                    ToastUtil.shortToast(getActivity(),jsonRootBean.getMsg());
+                }
+
                 dismissLoading();
             }
 

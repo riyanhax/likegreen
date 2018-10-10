@@ -53,6 +53,7 @@ public class LaunchActivity extends AppCompatActivity {
                                     String object = login.getString("object");
                                     Gson gson = new Gson();
                                     PersonBean personBean = gson.fromJson(object, PersonBean.class);
+                                    Log.v("nihaoma",personBean.toString());
                                     MyApplication application = (MyApplication)getApplication();
                                     application.setUer(personBean);
                                     SharedPreferencesUtil.putString(LaunchActivity.this,MyConstants.User,object);

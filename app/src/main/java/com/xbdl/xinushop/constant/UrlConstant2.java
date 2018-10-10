@@ -51,5 +51,9 @@ public interface UrlConstant2 {
      * 交易明细
      */
     String getWalletDetailByInfo=UrlConstant.baseUrl+"walletdetail/getWalletDetailByInfo";
+    /**
+     * 查询用户信息
+     */
+    String getUserInfoById=UrlConstant.baseUrl+"user/getUserInfoByIdApi";
 
 }

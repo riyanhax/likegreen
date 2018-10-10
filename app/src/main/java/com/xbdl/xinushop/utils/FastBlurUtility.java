@@ -2,6 +2,7 @@ package com.xbdl.xinushop.utils;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -9,6 +10,11 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
 import android.view.View;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import static cn.jpush.im.android.api.jmrtc.JMRTCInternalUse.getApplicationContext;
 
@@ -292,6 +298,7 @@ public class FastBlurUtility {
 
         return (bitmap);
     }
+    //背景虚化
     public static Bitmap blurBitmap(Bitmap bitmap){
 
         //Let's create an empty bitmap with the same size of the bitmap we want to blur

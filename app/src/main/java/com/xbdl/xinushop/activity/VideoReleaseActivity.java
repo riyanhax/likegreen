@@ -123,6 +123,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
         mVideoType = (RadioGroup)findViewById(R.id.rg_video_type);
         mSelsctVideo =(ImageView) findViewById(R.id.iv_select_video);
         mSelsctVideo.setOnClickListener(this);
+        findViewById(R.id.iv_return).setOnClickListener(this);
     }
 
     private void initData() {
@@ -164,6 +165,9 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.iv_return:
+                finish();
+                break;
             case R.id.rl_nextstep_btn://下一步
                 try {
                         acceleratorConf.setConnectionTimeout(Integer.parseInt("30") * 1000);

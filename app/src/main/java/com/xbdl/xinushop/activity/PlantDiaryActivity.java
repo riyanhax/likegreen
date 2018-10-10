@@ -87,7 +87,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
         tvdynamic = findViewById(R.id.tv_dynamic);
         //findViewById(R.id.tv_plant_wancheng).setOnClickListener(this);
         tvlocation.setOnClickListener(this);
-
+        findViewById(R.id.iv_return).setOnClickListener(this);
 
         //添加商品图片
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.images);
@@ -171,8 +171,9 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_plant_location:
-
-
+                break;
+            case R.id.iv_return:
+                finish();
                 break;
 //            case R.id.tv_plant_wancheng:
 ////                Intent intentShareLiftActivity = new Intent(PlantDiaryActivity.this, ShareLiftActivity.class);

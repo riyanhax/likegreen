@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,11 +21,19 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.AuditAndLiveActivity;
 import com.xbdl.xinushop.activity.mine.MyFansActivity;
@@ -38,15 +45,37 @@ import com.xbdl.xinushop.activity.mine.SystemSettingsActivity;
 import com.xbdl.xinushop.activity.mine.wallet.MyWalletActivity;
 import com.xbdl.xinushop.base.BaseFragment;
 
+import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.fragment.mine.MyGardenFragment;
 import com.xbdl.xinushop.fragment.mine.MyLiveFragment;
 import com.xbdl.xinushop.fragment.mine.MyVideoFragment;
 import com.xbdl.xinushop.fragment.mine.MyWeddingCardFragment;
-import com.xbdl.xinushop.utils.FastBlurUtility;
 
+import com.xbdl.xinushop.utils.FastBlurUtility;
+import com.xbdl.xinushop.utils.HttpUtils2;
+
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
+
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * Created by theWind on 2018/8/1.
@@ -62,6 +91,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
     private TextView mMyfocuse,mMyfans;
     private CircleImageView headIcon;//头像
     private ImageView iv_top_icon;
+    private TextView username,tv_my_word;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,20 +118,111 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         mMyfans.setOnClickListener(this);
         headIcon.setOnClickListener(this);
         iv_top_icon= (ImageView)v.findViewById(R.id.iv_top_icon);//模糊背景
+         username = v.findViewById(R.id.tv_my_username);
+         tv_my_word = v.findViewById(R.id.tv_my_word);
     }
 
     private void initData() {
+        getUserInfo();
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new MyVideoFragment());
         fragments.add(new MyLiveFragment());
         fragments.add(new MyGardenFragment());
         fragments.add(new MyWeddingCardFragment());
         mStMy.setViewPager(mViewpagerMy, items, (FragmentActivity) getActivity(), fragments);
-        //模糊效果
-        Bitmap bmp= BitmapFactory.decodeResource(getResources(), R.drawable.xilvfriends);
-        Bitmap bitmap = FastBlurUtility.blurBitmap(bmp);
-        iv_top_icon.setImageBitmap(bitmap);
+
+
     }
+    private void getUserInfo() {
+        HttpUtils2.getUserInfoById(MyApplication.user.getLoginToken(),MyApplication.user.getUserId(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Log.v("nihaoma",response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    if (jsonObject.getInt("code")==1){
+                        String object = jsonObject.getString("user");
+                        Gson gson = new Gson();
+                        PersonBean personBean = gson.fromJson(object, PersonBean.class);
+                        Log.v("nihaoma",personBean.toString());
+                        MyApplication application = (MyApplication) getActivity().getApplication();
+                        application.setUer(personBean);
+                        SharedPreferencesUtil.putString(getActivity(), MyConstants.User,object);
+                        //设置用户信息
+                        username.setText(personBean.getUserName());
+                        tv_my_word.setText(personBean.getSignature());
+                        if (MyApplication.user.getHeadPortrait()!=null){
+                            Glide.with(getActivity()).load(personBean.getHeadPortrait()).into(headIcon);
+                            //模糊效果
+                            String headPortrait = personBean.getHeadPortrait();
+                            //Bitmap bmp= BitmapFactory.decodeResource(getResources(), R.drawable.xilvfriends);
+                            returnBitMap(headPortrait);
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+                dismissLoading();
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                showLoading();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoading();
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dismissLoading();
+            }
+        });
+    }
+    //模糊效果处理
+    private  Bitmap  bitMBitmap;
+    public void returnBitMap(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                URL imageurl = null;
+
+                try {
+                    imageurl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    HttpURLConnection conn = (HttpURLConnection)imageurl.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    bitMBitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Bitmap bitmap = FastBlurUtility.blurBitmap(bitMBitmap);
+                            iv_top_icon.setImageBitmap(bitmap);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
+
 
     @Override
     public void onClick(View view) {
@@ -149,7 +270,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.iv_my_head://头像
                 Intent intentPersonalDataActivity = new Intent(getActivity(), PersonalDataActivity.class);
-                startActivity(intentPersonalDataActivity);
+                startActivityForResult(intentPersonalDataActivity,100);
                 break;
             case R.id.pop_mywallet://钱包
                 Intent intentMyWalletActivity = new Intent(getActivity(), MyWalletActivity.class);
@@ -323,5 +444,25 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         popupWindow.showAsDropDown(mMyMore, -80, 5);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==3){
+            if (data != null&&requestCode==100){
+                PersonBean personBean = (PersonBean) data.getSerializableExtra("data");
+                //设置用户信息
+                username.setText(personBean.getUserName());
+                tv_my_word.setText(personBean.getSignature());
+                if (MyApplication.user.getHeadPortrait()!=null){
+                    Glide.with(getActivity()).load(personBean.getHeadPortrait()).into(headIcon);
+                    //模糊效果
+                    String headPortrait = personBean.getHeadPortrait();
+                    //Bitmap bmp= BitmapFactory.decodeResource(getResources(), R.drawable.xilvfriends);
+                    returnBitMap(headPortrait);
+
+                }
+            }
+        }
+    }
 }
 
