@@ -21,10 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
-import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.netease.transcoding.TranscodingAPI;
 import com.netease.transcoding.TranscodingNative;
 import com.netease.transcoding.record.MediaRecord;
@@ -33,7 +31,6 @@ import com.netease.vcloud.video.effect.VideoEffect;
 import com.netease.vcloud.video.render.NeteaseView;
 import com.netease.vcloudnosupload.util.FileUtil;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.utils.ImageUtils;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -63,7 +60,8 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
     private String fromActivity;
 
     private static final int SET_COUNT_TIME = 0;
-    private static final int ShortVideoProcess_CHOOSE = 100;
+    private static final int Music_CHOOSE = 100;
+    private static final int ShortVideo_CHOOSE = 200;
     private  View mTakePhotoHead,mTakePhotofilter,mTakePhotoAlbum, mTakePhotoSecond,
             mTakePhotoStr,mTakePhotoCancel,mTakePhotoChoose, musicChoose, voiceBtn;//顶部一栏,滤镜,拍照按钮,相册,读秒，音乐,声音
    private  ImageView mTakePhotoBtn,switchCamera,flashBtn;//录像按钮，切换前后摄像头
@@ -199,7 +197,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                 flashCamera();
                 break;
             case R.id.iv_music_svideo://音乐
-                openFileChoose(ShortVideoProcess_CHOOSE);
+                openFileChoose(Music_CHOOSE);
                 break;
             case R.id.takephote_close://关闭按钮
                 finish();
@@ -215,10 +213,12 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                 videoFiles= new ArrayList<>();
                 break;
             case  R.id.ll_takephoto_album://相册
-                ImagePicker.getInstance().setMultiMode(false);
+                /*ImagePicker.getInstance().setMultiMode(false);
                 Intent intentPerview = new Intent(this, ImageGridActivity.class);
                 intentPerview.putExtra(ImageGridActivity.EXTRAS_IMAGES, headicon);
-                startActivityForResult(intentPerview, 100);
+                startActivityForResult(intentPerview, 100);*/
+                openFileChoose(ShortVideo_CHOOSE);
+
                 break;
         }
     }
@@ -538,6 +538,9 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         transcodePara.setTimeCut(tranTimeCut);//媒体文件时长剪辑，需要时添加，否则不用设置
         transcodePara.setMixAudio(tranMixAudio);//混音，需要时添加，否则不用设置
         transcodePara.setFilter(tranFilter);//转码滤镜，需要时添加，否则不用设置*/
+        TranscodingAPI.TranTimeCut tranTimeCut = new TranscodingAPI.TranTimeCut();
+        tranTimeCut.setDuration(15000);
+        transcodePara.setTimeCut(tranTimeCut);//媒体文件时长剪辑，需要时添加，否则不用设置
         mShortVideoProcessTask = new AsyncTask<TranscodingAPI.TranscodePara,Integer,Integer>(){
 
             ProgressDialog dialog;
@@ -615,6 +618,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                         break;
                 }
                 if (fromActivity!=null&&fromActivity.equals("ApplyLiveActivity")){
+                    //从商品编辑界面跳进来
                     resultApplyLive();
                     finish();
                 }else {
@@ -648,7 +652,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         }
         String path = FileUtil.getPath(this, data.getData());
         switch (requestCode){
-            case ShortVideoProcess_CHOOSE:      //混音文件
+            case Music_CHOOSE:      //混音文件
                 String substring = path.substring(path.length() - 4);
                 if (substring.equals(".mp3")||substring.equals(".m4a")){
                     mAudioMerge_file=path;
@@ -663,14 +667,23 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                     showToast("请选择音乐文件");
                 }
                 break;
-            case ImagePicker.RESULT_CODE_ITEMS:
-                //传照片到上传页面
-                if (data != null && requestCode == 100) {
+            case ShortVideo_CHOOSE:
+                //从相册中选取视频
+              /*  if (data != null && requestCode == 100) {
                     headicon = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                     String bitmapToString = ImageUtils.bitmapToString(headicon.get(0).path);
                     intentVideoReleaseActivity.putExtra("ShortCameraActivityAlbum",bitmapToString);
                 } else {
                     Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
+                }*/
+                String videoPath = path.substring(path.length() - 4);
+                if (videoPath.equals(".mp4")){
+                    //合成视频
+                    videoFiles.add(path);
+                    syntheticVideo(videoFiles);
+
+                }else {
+                    showToast("请选择mp4格式视频文件");
                 }
                 break;
 

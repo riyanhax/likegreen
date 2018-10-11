@@ -33,11 +33,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:background="@null"
                 android:textColor="@color/actionbar_sel_color"
                 android:textColorHint="#cccccc"
                 android:hint="   说点什么吧..."
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
             <ImageView
                 android:id="@+id/iv_select_video"
                 android:scaleType="fitXY"

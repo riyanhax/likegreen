@@ -10,6 +10,7 @@
     <RelativeLayout
         style="@style/head">
         <ImageView
+            android:id="@+id/iv_return"
             android:layout_centerVertical="true"
             android:src="@drawable/wode_return"
             style="@style/paddinglift"
@@ -27,12 +28,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <RelativeLayout
+        android:id="@+id/rl_plantmachine"
         android:layout_marginTop="@dimen/dp_25"
         android:layout_marginRight="@dimen/dp_20"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_150">
         <ImageView
+
             android:src="@drawable/zhongzhiji"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
@@ -47,6 +50,7 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/rl_plantlight"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
         android:layout_marginLeft="@dimen/dp_20"

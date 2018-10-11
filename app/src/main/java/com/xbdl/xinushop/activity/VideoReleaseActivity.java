@@ -57,7 +57,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
 
 
     private String mNosToken, mBucket, mObject;
-    private String album;//相册
+    //private String album;//相册
     private File mFile;
 
     private static class HandleMsg {
@@ -121,7 +121,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
         mNextStep = findViewById(R.id.rl_nextstep_btn);//下一步
         mNextStep.setOnClickListener(this);
         mVideoType = (RadioGroup)findViewById(R.id.rg_video_type);
-        mSelsctVideo =(ImageView) findViewById(R.id.iv_select_video);
+        mSelsctVideo =(ImageView) findViewById(R.id.iv_select_video);//封面
         mSelsctVideo.setOnClickListener(this);
         findViewById(R.id.iv_return).setOnClickListener(this);
     }
@@ -129,10 +129,9 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     private void initData() {
         Intent intent = getIntent();
         mVideoPath = intent.getStringExtra("ShortCameraActivity");
-        album = intent.getStringExtra("ShortCameraActivityAlbum");
-        if (album!=null){
-            setVideoImg(album);
-        }else {
+       // album = intent.getStringExtra("ShortCameraActivityAlbum");
+        if (mVideoPath!=null){
+            //setVideoImg(album);
             setVideoImg(mVideoPath);
         }
 
@@ -141,7 +140,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     private void setVideoImg(String path) {
         mFile = new File(path);
         if (mFile!=null) {
-            RequestOptions requestOptions = RequestOptions.frameOf(3);//选择第几贞做封面
+            RequestOptions requestOptions = RequestOptions.frameOf(1);//选择第几贞做封面
             requestOptions.set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST);
             requestOptions.transform(new BitmapTransformation() {
                 @Override
@@ -205,7 +204,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
                     startActivity(intentAdMsgInputActivity);
                 }
                 break;
-            case R.id.iv_select_video://点击图片选取视频
+            case R.id.iv_select_video://点击图片选取封面
                 Intent intent = new Intent();
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
                     intent.setAction(Intent.ACTION_OPEN_DOCUMENT);

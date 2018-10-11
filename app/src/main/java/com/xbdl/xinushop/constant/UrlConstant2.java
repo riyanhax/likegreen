@@ -55,5 +55,13 @@ public interface UrlConstant2 {
      * 查询用户信息
      */
     String getUserInfoById=UrlConstant.baseUrl+"user/getUserInfoByIdApi";
+    /**
+     * 查询用户视频
+     */
+    String myvideolist=UrlConstant.baseUrl+"xilv/myvideolist";
+    /**
+     * 查询天气
+     */
+    String getweather="https://way.jd.com/he/freeweather";
 
 }

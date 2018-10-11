@@ -14,4 +14,9 @@ public class MyConstants {
     public static final String APPIDWC = "wx3283ad5062a19c73";
     public static final String WCPAYID = "1401955602";//wcpay 商户号
     public static final String WCPAYKEY = "845332c98a6c0692cf3e28d65dae9ce4";//wcpay 商户密钥
+
+    //天气key
+    public static final String WEARTHERKEY = "a507a1e4491f1c26d68eea9088730e2d";
+    public static final String wearther = "weather";
+    public static final String city = "city";
 }

@@ -335,8 +335,10 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
             //以下只列举部分获取地址相关的结果信息
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
             addr = location.getAddrStr();    //获取详细地址信息
-            if (!Judge.getBoolean_isNull(addr)) {
-                tvlocation.setText(addr);
+            String city = location.getCity();
+            String province = location.getProvince();
+            if (!Judge.getBoolean_isNull(city)&&!Judge.getBoolean_isNull(province)) {
+                tvlocation.setText(province+"."+city);
             }
 
         }

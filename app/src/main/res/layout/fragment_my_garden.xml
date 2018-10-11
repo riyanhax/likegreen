@@ -24,11 +24,13 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_weather_icon"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:src="@drawable/drip" />
 
             <TextView
+                android:id="@+id/tv_tmp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
@@ -37,6 +39,7 @@
                 android:textSize="@dimen/sp_18" />
 
             <TextView
+                android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
@@ -45,6 +48,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_feel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
