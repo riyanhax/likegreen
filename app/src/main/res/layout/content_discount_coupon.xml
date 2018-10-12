@@ -65,8 +65,11 @@
             android:textColor="@color/color_353535"
             android:textSize="@dimen/sp_16" />
     </RelativeLayout>
-
-    <com.cjj.MaterialRefreshLayout
+        <com.github.jdsjlzx.recyclerview.LRecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+<!--    <com.cjj.MaterialRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -81,5 +84,5 @@
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </com.cjj.MaterialRefreshLayout>
+    </com.cjj.MaterialRefreshLayout>-->
 </LinearLayout>

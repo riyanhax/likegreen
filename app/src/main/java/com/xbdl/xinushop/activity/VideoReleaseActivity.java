@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
@@ -8,6 +9,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +20,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.netease.cloud.nos.android.core.CallRet;
 import com.netease.cloud.nos.android.exception.InvalidChunkSizeException;
 import com.netease.cloud.nos.android.exception.InvalidParameterException;
@@ -29,10 +34,15 @@ import com.netease.vcloudnosupload.NOSUploadHandler;
 import com.xbdl.xinushop.MainActivity;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.AdMsgInputActivity;
+import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.utils.HttpUtils2;
+import com.xbdl.xinushop.utils.ToastUtil;
 import com.xbdl.xinushop.utils.VideoFileUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.security.MessageDigest;
@@ -44,14 +54,14 @@ import static com.bumptech.glide.load.resource.bitmap.VideoBitmapDecoder.FRAME_O
 /*
 * 拍摄完视频后下一步上传
 * */
-public class VideoReleaseActivity extends AppCompatActivity implements View.OnClickListener {
+public class VideoReleaseActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "VideoReleaseActivity";
     private View mNextStep;//下一步
     private RadioGroup mVideoType;
     private ImageView   mSelsctVideo;
     private String mVideoPath;
-    private AcceleratorConfig acceleratorConf = new AcceleratorConfig();
+    private AcceleratorConfig acceleratorConf = new AcceleratorConfig();//上传设置的参数
     private NOSUpload nosUpload = NOSUpload.getInstace(VideoReleaseActivity.this);
     private NOSUpload.UploadExecutor executor = null;
 
@@ -60,7 +70,12 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     //private String album;//相册
     private File mFile;
 
-    private static class HandleMsg {
+    @Override
+    protected Activity getActivity() {
+        return this;
+    }
+
+    public static class HandleMsg {
         public static final int MSG_INIT_SUCCESS = 0;
         public static final int MSG_INIT_FAIL = 1;
         public static final int MSG_QUERYVIDEO_SUCCESS = 2;
@@ -108,12 +123,53 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
         initData();
         loadDefaultAcceleratorConf();
         if (nosUpload != null) {
+            final NOSUpload.Config config = new NOSUpload.Config();
+            HttpUtils2.getAccid(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        Log.v("nihaoma",response.body());
+                        if (jsonObject.getInt("code")==200){
 
-            NOSUpload.Config config = new NOSUpload.Config();
-            config.appKey = "35aaca97cc05a23cd153b9f05c740a52";
+                            Log.v("nihaoma", jsonObject.getString("appkay")+"   accid  "+jsonObject.getString("accid")
+                            +"  token  "+jsonObject.getString("token"));
+                            config.appKey =jsonObject.getString("appkay");;
+                            config.accid = jsonObject.getString("accid");;
+                            config.token = jsonObject.getString("token");
+                            nosUpload.setConfig(config);
+                        }else {
+                            ToastUtil.shortToast(getActivity(),"数据解析错误请返回再试");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    dismissLoading();
+                }
+
+                @Override
+                public void onStart(Request<String, ? extends Request> request) {
+                    super.onStart(request);
+                    showLoading();
+                }
+
+                @Override
+                public void onError(Response<String> response) {
+                    super.onError(response);
+                    Log.v("nihaoma","222222222");
+                    dismissLoading();
+                }
+
+                @Override
+                public void onFinish() {
+                    super.onFinish();
+                    dismissLoading();
+                }
+            });
+    /*        config.appKey = "35aaca97cc05a23cd153b9f05c740a52";
             config.accid = "a01";
-            config.token = "95c7b8398c3692616ec6211947bfeba9b00c6f38";
-            nosUpload.setConfig(config);
+            config.token = "95c7b8398c3692616ec6211947bfeba9b00c6f38";*/
+            //nosUpload.setConfig(config);
         }
     }
 
@@ -140,7 +196,7 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
     private void setVideoImg(String path) {
         mFile = new File(path);
         if (mFile!=null) {
-            RequestOptions requestOptions = RequestOptions.frameOf(1);//选择第几贞做封面
+            RequestOptions requestOptions = RequestOptions.frameOf(2);//选择第几贞做封面
             requestOptions.set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST);
             requestOptions.transform(new BitmapTransformation() {
                 @Override
@@ -224,9 +280,15 @@ public class VideoReleaseActivity extends AppCompatActivity implements View.OnCl
             return;
         }
         String path = VideoFileUtil.getPath(VideoReleaseActivity.this, data.getData());
-        setVideoImg(path);
-    }
+        String substring = path.substring(path.length() - 4);
+        if (substring.equals(".jpg")||substring.equals(".png")||substring.equals(".gif")||substring.equals(".tif")){
+                 Glide.with(this).load(path).into(mSelsctVideo);
 
+        }else {
+            ToastUtil.shortToast(this,"请选择图片文件");
+        }
+       // setVideoImg(path);
+    }
 
     private void loadDefaultAcceleratorConf() {
         try {

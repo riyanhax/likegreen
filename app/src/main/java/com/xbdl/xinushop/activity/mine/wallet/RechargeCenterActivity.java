@@ -159,7 +159,7 @@ public class RechargeCenterActivity extends BaseActivity implements View.OnClick
     }
 
     private void pay(final String money, final int payWay) {
-        HttpUtils2.balanceRecharge(MyApplication.user.getUserId(), payWay, Float.parseFloat(money), new StringCallback() {
+        HttpUtils2.balanceRecharge(MyApplication.user.getLoginToken(),MyApplication.user.getUserId(), payWay, Float.parseFloat(money), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {

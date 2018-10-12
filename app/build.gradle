@@ -149,7 +149,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
 
     //数据库
-    implementation 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+/*    implementation 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'*/
     implementation files('libs/universal-image-loader-1.9.5.jar')
 
     //必须使用
@@ -217,7 +217,6 @@ dependencies {
     //微信支付
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     implementation files('libs/alipaySdk-20180601.jar')
-
 
 
 }

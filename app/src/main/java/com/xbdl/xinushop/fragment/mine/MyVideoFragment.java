@@ -48,7 +48,7 @@ public class MyVideoFragment extends BaseFragment {
    }
 
     private void initData(){
-       // getVideoList();
+        getVideoList();
         list=new ArrayList<>();
         VideoBean videoBean1 = new VideoBean();
         videoBean1.setVideoUrl("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/1BrIAtvV_1818587477_shd.mp4");
@@ -80,7 +80,7 @@ public class MyVideoFragment extends BaseFragment {
 
 
     public void getVideoList() {
-        HttpUtils2.myvideolist(MyApplication.user.getLoginToken(), "0", new StringCallback() {
+        HttpUtils2.myvideoAlllist(MyApplication.user.getLoginToken(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Log.v("nihaoma",response.body());

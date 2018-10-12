@@ -110,6 +110,7 @@ public class MyGardenFragment extends BaseFragment {
                     tvTmp.setText(tmp + "℃");
                     tv_location.setText(spCity + "   " + txt);
                     tv_feel.setText(comf.getBrf());
+                    setWeatherIcon(cond);
                 }
 
             }
@@ -117,6 +118,56 @@ public class MyGardenFragment extends BaseFragment {
             setLocation();
         }
 
+    }
+
+    private void setWeatherIcon(WeatherBean.ResultBean.HeWeather5Bean.NowBean.CondBean cond) {
+        String code = cond.getCode();
+
+        switch (code){
+            case "100":
+                weatherIcon.setImageResource(R.drawable.qing);
+                break;
+
+            case "213":
+            case "300":
+            case "301":
+            case "302":
+            case "303":
+            case "304":
+            case "305":
+            case "306":
+            case "307":
+            case "308":
+            case "309":
+            case "310":
+            case "311":
+            case "312":
+            case "313":
+            case "314":
+            case "315":
+            case "316":
+            case "317":
+            case "318":
+                weatherIcon.setImageResource(R.drawable.drip);
+                break;
+            case "400":
+            case "401":
+            case "402":
+            case "403":
+            case "404":
+            case "405":
+            case "407":
+            case "408":
+            case "409":
+            case "410":
+            case "406":
+            case "499":
+                weatherIcon.setImageResource(R.drawable.xiaxue);
+                break;
+            default:
+                weatherIcon.setImageResource(R.drawable.duoyun);
+                break;
+        }
     }
 
     //位置
@@ -152,7 +203,8 @@ public class MyGardenFragment extends BaseFragment {
                                     WeatherBean.ResultBean.HeWeather5Bean.SuggestionBean.ComfBean comf = suggestion.getComf();
                                     tvTmp.setText(tmp+"℃");
                                     tv_location.setText(city+"   "+txt);
-                                    tv_feel.setText(comf.getTxt());
+                                    tv_feel.setText(comf.getBrf());
+                                    setWeatherIcon(cond);
                                 }
                             }else {
                                 ToastUtil.shortToast(getActivity(),"天气获取失败");

@@ -55,17 +55,22 @@ public class AddressListAdapter extends ListBaseAdapter<AddressBean.AddressListB
 
             int isDefaultAddress = bean.getIsDefaultAddress();
             if (isDefaultAddress==1){
-                viewHolder.lldefault.setChecked(true);
+                viewHolder.ivdefault.setChecked(true);
             }else {
-                viewHolder.lldefault.setChecked(false);
+                viewHolder.ivdefault.setChecked(false);
             }
-            viewHolder.lldefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+          /*  viewHolder.ivdefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     click.checkboxClick(bean.getUserAddressID());
                 }
+            });*/
+            viewHolder.lldefault.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    click.checkboxClick(bean.getUserAddressID());
+                }
             });
-
             viewHolder.lledit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,14 +93,15 @@ public class AddressListAdapter extends ListBaseAdapter<AddressBean.AddressListB
        private  TextView tname;
        private  TextView tphone;
        private  TextView tdetail;
-       private CheckBox lldefault;
-       private View lledit,lldelete;
+       private CheckBox ivdefault;
+       private View lledit,lldelete,lldefault;
         public ViewHolder(View itemView) {
             super(itemView);
             tname= itemView.findViewById(R.id.tname);
             tphone= itemView.findViewById(R.id.tphone);
             tdetail= itemView.findViewById(R.id.tdetail);
-            lldefault= itemView.findViewById(R.id.ivdefault);
+            ivdefault= itemView.findViewById(R.id.ivdefault);
+            lldefault= itemView.findViewById(R.id.lldefault);
             lledit= itemView.findViewById(R.id.lledit);
             lldelete= itemView.findViewById(R.id.lldelete);
         }

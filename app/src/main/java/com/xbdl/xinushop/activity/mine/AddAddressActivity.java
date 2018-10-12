@@ -156,8 +156,8 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
                     ToastUtil.shortToast(this,"收货邮编为空，请填写");
                     return;
                 }*/
-                if(cname==null||"".equals(cname)){
-                    ToastUtil.shortToast(this,"收货市区为空，请填写");
+                if(region==null||"".equals(region)){
+                    ToastUtil.shortToast(this,"收货省市区为空，请填写");
                     return;
                 }
                 if(address==null||"".equals(address)){
@@ -188,13 +188,13 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
 
     private void updataAddress() {
         if (addressBean!=null){
-            HttpUtils2.updateAddress(addressBean.getUserAddressID(),addressBean.getUserId(),consignee, mobile, province, city,
+            HttpUtils2.updateAddress(MyApplication.user.getLoginToken(),addressBean.getUserAddressID(),addressBean.getUserId(),consignee, mobile, province, city,
                     district, address, isDefaultAddress,addAdressStringCallback );
         }
     }
 
     private void addAdress() {
-        HttpUtils2.adduserAddress(MyApplication.user.getUserId(), consignee, mobile, province, city,
+        HttpUtils2.adduserAddress(MyApplication.user.getLoginToken(),MyApplication.user.getUserId(), consignee, mobile, province, city,
                 district, address, isDefaultAddress,addAdressStringCallback);
     }
 

@@ -36,6 +36,7 @@ import com.umeng.socialize.media.UMWeb;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.AuditAndLiveActivity;
+import com.xbdl.xinushop.activity.mine.DiscountCouponActivity;
 import com.xbdl.xinushop.activity.mine.MyFansActivity;
 import com.xbdl.xinushop.activity.mine.MyFocuseActivity;
 import com.xbdl.xinushop.activity.mine.MyMessageAndDirectActivity;
@@ -317,7 +318,10 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                         .share();
                 popShare.dismiss();
                 break;
-
+            case R.id.pop_coupon://优惠券
+                Intent intentDiscountCouponActivity = new Intent(getActivity(), DiscountCouponActivity.class);
+                startActivity(intentDiscountCouponActivity);
+                break;
         }
     }
     private UMShareListener umShareListener= new UMShareListener() {
@@ -418,8 +422,11 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         //我发布的商品
         LinearLayout pop_goods = contentView.findViewById(R.id.pop_mygoods);
         pop_goods.setOnClickListener(this);
+
         //我的钱包
         contentView.findViewById(R.id.pop_mywallet).setOnClickListener(this);
+        //优惠券
+        contentView.findViewById(R.id.pop_coupon).setOnClickListener(this);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);

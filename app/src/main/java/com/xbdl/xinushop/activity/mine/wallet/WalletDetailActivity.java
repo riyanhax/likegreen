@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.github.jdsjlzx.ItemDecoration.DividerDecoration;
@@ -81,7 +82,7 @@ public class WalletDetailActivity extends BaseActivity {
     }
 
     private void getListPn(int pn) {
-        HttpUtils2.getWalletDetailByInfo(pn, MyApplication.user.getUserId(), new StringCallback() {
+        HttpUtils2.getWalletDetailByInfo(MyApplication.user.getLoginToken(),pn, MyApplication.user.getUserId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {
@@ -126,6 +127,7 @@ public class WalletDetailActivity extends BaseActivity {
             public void onError(Response<String> response) {
                 super.onError(response);
                 dismissLoading();
+                Log.v("nihaoma","222222");
             }
 
             @Override

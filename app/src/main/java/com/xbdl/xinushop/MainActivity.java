@@ -439,6 +439,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_sharelife).setOnClickListener(this);//分享生活
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_live).setOnClickListener(this);//直播
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_jiontheme).setOnClickListener(this);//参与话题
+
         ImageView img = (ImageView) contentView.findViewById(R.id.iv_pop_bg);//背景
         //虚化背景
         Bitmap blurBackgroundDrawer = FastBlurUtility.getBlurBackgroundDrawer(this);

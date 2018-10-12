@@ -81,7 +81,7 @@ public class MyProductsReleaseActivity extends BaseActivity {
     }
 
     private void getListPn(int pn) {
-        HttpUtils2.getCommodityByUserId(pn, MyApplication.user.getUserId(), new StringCallback() {
+        HttpUtils2.getCommodityByUserId(MyApplication.user.getLoginToken(),pn, MyApplication.user.getUserId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {

@@ -37,9 +37,10 @@ public class HttpUtils2 {
     /**
      * 增加收货地址
      */
-    public static void adduserAddress(int userId,String consignee,String contactWay,String province,
+    public static void adduserAddress(String token,int userId,String consignee,String contactWay,String province,
                                       String city,String district,String contactAddress,int isDefaultAddress,StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.adduserAddress)// 请求方式和请求url
+                .params("token",token)
                 .params("userId",userId)
                 .params("consignee",consignee)
                 .params("contactWay",contactWay)
@@ -56,8 +57,9 @@ public class HttpUtils2 {
     /**
      * 查询用户的收货地址
      */
-    public static void getAddressList(int userId, StringCallback stringCallback) {
+    public static void getAddressList(String token,int userId, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.getAddressList)// 请求方式和请求url
+                .params("token",token)
                 .params("userId",userId)
                 .tag("getAddressList")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
@@ -67,8 +69,9 @@ public class HttpUtils2 {
     /**
      * 设置默认收货地址
      */
-    public static void setAddressDefault(int UserAddressID, StringCallback stringCallback) {
+    public static void setAddressDefault(String token,int UserAddressID, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.setAddressDefault)// 请求方式和请求url
+                .params("token",token)
                 .params("UserAddressID",UserAddressID)
                 .tag("setAddressDefault")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
@@ -78,8 +81,9 @@ public class HttpUtils2 {
     /**
      * 删除收货地址
      */
-    public static void delAddress(int UserAddressID, StringCallback stringCallback) {
+    public static void delAddress(String token,int UserAddressID, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.delAddress)// 请求方式和请求url
+                .params("token",token)
                 .params("UserAddressID",UserAddressID)
                 .tag("delAddress")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
@@ -89,9 +93,10 @@ public class HttpUtils2 {
     /**
      * 修改收货地址
      */
-    public static void updateAddress(int UserAddressID,int userId,String consignee,String contactWay,String province,
+    public static void updateAddress(String token,int UserAddressID,int userId,String consignee,String contactWay,String province,
                                       String city,String district,String contactAddress,int isDefaultAddress,StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.updateAddress)// 请求方式和请求url
+                .params("token",token)
                 .params("UserAddressID",UserAddressID)
                 .params("userId",userId)
                 .params("consignee",consignee)
@@ -109,8 +114,9 @@ public class HttpUtils2 {
     /**
      * 帐户余额充值
      */
-    public static void balanceRecharge(int userId,int rechargeWay,float rechargePrice, StringCallback stringCallback) {
+    public static void balanceRecharge(String token,int userId,int rechargeWay,float rechargePrice, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.balanceRecharge)// 请求方式和请求url
+                .params("token",token)
                 .params("userId",userId)
                 .params("rechargeWay",rechargeWay)
                 .params("rechargePrice",rechargePrice)
@@ -122,8 +128,9 @@ public class HttpUtils2 {
     /**
      * 帐户余额提现
      */
-    public static void tixian(int userId,int withdrawalWay,float withdrawalPrice,String key,String val, StringCallback stringCallback) {
+    public static void tixian(String token,int userId,int withdrawalWay,float withdrawalPrice,String key,String val, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.tixian)// 请求方式和请求url
+                .params("token",token)
                 .params("userId",userId)
                 .params("withdrawalWay",withdrawalWay)
                 .params("withdrawalPrice",withdrawalPrice)
@@ -136,8 +143,9 @@ public class HttpUtils2 {
     /**
      * 我发布的商品
      */
-    public static void getCommodityByUserId(int pn,int userId, StringCallback stringCallback) {
+    public static void getCommodityByUserId(String token,int pn,int userId, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.getCommodityByUserId)// 请求方式和请求url
+                .params("token",token)
                 .params("pn",pn)
                 .params("userId",userId)
                 .tag("getCommodityByUserId")                       // 请求的 tag, 主要用于取消对应的请求
@@ -148,8 +156,9 @@ public class HttpUtils2 {
     /**
      * 交易明细
      */
-    public static void getWalletDetailByInfo(int pn,int userId, StringCallback stringCallback) {
+    public static void getWalletDetailByInfo(String token,int pn,int userId, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.getWalletDetailByInfo)// 请求方式和请求url
+                .params("token",token)
                 .params("pn",pn)
                 .params("userId",userId)
                 .tag("getWalletDetailByInfo")                       // 请求的 tag, 主要用于取消对应的请求
@@ -172,10 +181,21 @@ public class HttpUtils2 {
     /**
      * 查询用户视频
      */
-    public static void myvideolist(String token,String appkey, StringCallback stringCallback) {
+    public static void myvideolist(String token,String status, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.myvideolist)// 请求方式和请求url
                 .params("token", token)
-                .params("appkey",appkey)
+                .params("status",status)
+                .tag("myvideolist")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 查询用户视频
+     */
+    public static void myvideoAlllist(String token, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.myvideolist)// 请求方式和请求url
+                .params("token", token)
                 .tag("myvideolist")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
@@ -189,6 +209,16 @@ public class HttpUtils2 {
                 .params("city", city)
                 .params("appkey",appkey)
                 .tag("getweather")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 查询网易accid
+     */
+    public static void getAccid(StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.getaccid)// 请求方式和请求url
+                .tag("getaccid")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);

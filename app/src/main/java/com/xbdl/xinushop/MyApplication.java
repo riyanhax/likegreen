@@ -5,7 +5,7 @@ import android.app.Application;
 import android.content.Context;
 
 
-import com.activeandroid.ActiveAndroid;
+
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
@@ -187,7 +187,7 @@ public class MyApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        ActiveAndroid.dispose();
+
     }
 
     protected void attachBaseContext(Context base) {
