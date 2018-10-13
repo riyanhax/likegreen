@@ -28,6 +28,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.PlantDiaryActivity;
 import com.xbdl.xinushop.activity.mine.PlantDetailActivity;
 import com.xbdl.xinushop.adapter.PlantingDiaryMyGrardenAdapter;
 import com.xbdl.xinushop.adapter.baseadapter.BaseAdapter;
@@ -90,6 +91,14 @@ public class MyGardenFragment extends BaseFragment {
         tvTmp = v.findViewById(R.id.tv_tmp);
         tv_location = v.findViewById(R.id.tv_location);
         tv_feel = v.findViewById(R.id.tv_feel);
+        //创建植物
+        v.findViewById(R.id.rl_my_garden_add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PlantDiaryActivity.class);
+                startActivity(intent);
+            }
+        });
         //设置天气
         String weather = SharedPreferencesUtil.getString(getActivity(), MyConstants.wearther, "key");
         String spCity = SharedPreferencesUtil.getString(getActivity(), MyConstants.city, "key");

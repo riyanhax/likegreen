@@ -321,6 +321,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
             case R.id.pop_coupon://优惠券
                 Intent intentDiscountCouponActivity = new Intent(getActivity(), DiscountCouponActivity.class);
                 startActivity(intentDiscountCouponActivity);
+                popupWindow.dismiss();
                 break;
         }
     }

@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/enptyviewbackground"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity.mine.DiscountCouponActivity">
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10">
-
         <ImageView
             android:id="@+id/iv_back"
             style="@style/paddinglift"
@@ -40,6 +40,14 @@
             android:src="@drawable/icon_adddiscountcoupon" />
     </RelativeLayout>
 
+
+        <com.github.jdsjlzx.recyclerview.LRecyclerView
+            android:layout_marginTop="@dimen/dp_5"
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
     <RelativeLayout
         android:id="@+id/rl_emptylayout"
         android:layout_width="match_parent"
@@ -65,10 +73,6 @@
             android:textColor="@color/color_353535"
             android:textSize="@dimen/sp_16" />
     </RelativeLayout>
-        <com.github.jdsjlzx.recyclerview.LRecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 <!--    <com.cjj.MaterialRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"

@@ -283,16 +283,16 @@ public class DiscountCouponBean {
              * user_name : xl_94969118
              * forCommodity : 0
              * couponsId : 2
-             * discount :
+             * discount :        折扣
              * updatedDate : 2018-10-12 15:38:51
              * userId : 11
              * couponsName : 全场满200减100
              * useForType : 2
              * UserCouponsID : 18
-             * reduceMoney : 100
+             * reduceMoney : 100  优惠金额
              * useDate : null
              * createdDate : 2018-10-12 15:38:49
-             * restrictCount : 1
+             * restrictCount : 1   限制数量
              * startTime : 2018-08-09
              * fullMoney : 200
              * endTime : 2018-09-08

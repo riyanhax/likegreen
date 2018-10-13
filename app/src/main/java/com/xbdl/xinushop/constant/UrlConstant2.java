@@ -71,5 +71,9 @@ public interface UrlConstant2 {
      * 查询用户优惠卷
      */
     String getUserCouponsListApi=UrlConstant.baseUrl+"usercoupons/getUserCouponsListApi";
+    /**
+     * 领取优惠券
+     */
+    String collectionOfCouponsApi=UrlConstant.baseUrl+"usercoupons/collectionOfCouponsApi";
 
 }

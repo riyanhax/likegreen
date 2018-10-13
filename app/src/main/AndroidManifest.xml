@@ -276,6 +276,7 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.mine.AddShareLifeActivity" />
         <activity android:name=".activity.mine.AddSubjectActivity" />
+        <activity android:name=".activity.mine.AddDiscountCouponActivity" />
         <activity
             android:name=".activity.mine.DiscountCouponActivity"
             android:label="@string/title_activity_discount_coupon"

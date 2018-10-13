@@ -62,16 +62,16 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/ivdefault"
-                    android:layout_width="@dimen/dp_20"
+                    android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_20"
                     android:paddingRight="10dp"
-                    android:button="@null"
-                    android:background="@drawable/checkbox_admsginput" />
+                    android:src="@drawable/weixuanzhong"
+                     android:scaleType="fitXY"/>
 
               <TextView
-                    android:layout_marginLeft="@dimen/dp_5"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="默认地址"

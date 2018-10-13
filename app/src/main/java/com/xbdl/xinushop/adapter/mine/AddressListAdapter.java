@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xbdl.xinushop.R;
@@ -44,7 +45,7 @@ public class AddressListAdapter extends ListBaseAdapter<AddressBean.AddressListB
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (mDataList!=null){
             final AddressBean.AddressListBean bean = mDataList.get(position);
             ViewHolder viewHolder= (ViewHolder) holder;
@@ -55,9 +56,9 @@ public class AddressListAdapter extends ListBaseAdapter<AddressBean.AddressListB
 
             int isDefaultAddress = bean.getIsDefaultAddress();
             if (isDefaultAddress==1){
-                viewHolder.ivdefault.setChecked(true);
+                viewHolder.ivdefault.setImageResource(R.drawable.xuanzhong);
             }else {
-                viewHolder.ivdefault.setChecked(false);
+                viewHolder.ivdefault.setImageResource(R.drawable.weixuanzhong);
             }
           /*  viewHolder.ivdefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -68,6 +69,7 @@ public class AddressListAdapter extends ListBaseAdapter<AddressBean.AddressListB
             viewHolder.lldefault.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.v("nihaoma","position"+position+"  adapter地址"+bean.toString());
                     click.checkboxClick(bean.getUserAddressID());
                 }
             });
@@ -93,7 +95,7 @@ public class AddressListAdapter extends ListBaseAdapter<AddressBean.AddressListB
        private  TextView tname;
        private  TextView tphone;
        private  TextView tdetail;
-       private CheckBox ivdefault;
+       private ImageView ivdefault;
        private View lledit,lldelete,lldefault;
         public ViewHolder(View itemView) {
             super(itemView);

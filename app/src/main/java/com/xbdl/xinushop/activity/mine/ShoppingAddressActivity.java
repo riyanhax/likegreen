@@ -35,6 +35,7 @@ public class ShoppingAddressActivity extends BaseActivity {
     private LRecyclerView recyclerView;
     private int add=0;
     private int update=1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,26 +83,25 @@ public class ShoppingAddressActivity extends BaseActivity {
         addressListAdapter.setAddressClick(new AddressListAdapter.AddressClick() {
             @Override
             public void checkboxClick(int addressId) {
+
                 HttpUtils2.setAddressDefault(MyApplication.user.getLoginToken(),addressId, myStringCallback);
-                Log.v("nihaoma","修改默认地址");
-                getListNetWord();
+                Log.v("nihaoma","修改默认地址ID  "+addressId);
             }
 
             @Override
             public void editClick(AddressBean.AddressListBean bean) {
-                Intent intent = new Intent(ShoppingAddressActivity.this, AddAddressActivity.class);
                 Log.v("nihaoma","编辑地址");
+                Intent intent = new Intent(ShoppingAddressActivity.this, AddAddressActivity.class);
                 intent.putExtra("ShoppingAddressActivity",update);
                 intent.putExtra("addressBean",bean);
-                startActivity(intent);
-                addressListAdapter.notifyDataSetChanged();
+                startActivityForResult(intent,100);
             }
 
             @Override
             public void deleteClick(int addressId) {
                 Log.v("nihaoma","删除地址");
                 HttpUtils2.delAddress(MyApplication.user.getLoginToken(),addressId,myStringCallback);
-                getListNetWord();
+
             }
         });
     }
@@ -111,13 +111,14 @@ public class ShoppingAddressActivity extends BaseActivity {
         HttpUtils2.getAddressList(MyApplication.user.getLoginToken(),MyApplication.user.getUserId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                Log.v("nihaoma","4444444444"+response.body());
+                Log.v("nihaoma", "3333" + response.body());
                 Gson gson = new Gson();
                 AddressBean addressBean = gson.fromJson(response.body(), AddressBean.class);
-                addressList= addressBean.getAddressList();
-                Log.v("nihaoma", addressList.toString());
-                if (addressList!=null)
-                    addressListAdapter.setDataList(addressList);
+                List<AddressBean.AddressListBean> addressList = addressBean.getAddressList();
+                if (addressList != null){
+                    //Log.v("nihaoma", "4444444444" + addressList);
+                addressListAdapter.setDataList(addressList);
+            }
                 dismissLoading();
 
             }
@@ -155,6 +156,7 @@ public class ShoppingAddressActivity extends BaseActivity {
                 JSONObject jsonObject = new JSONObject(response.body());
                 int code = jsonObject.getInt("code");
                 if (code==1){
+                    getListNetWord();
                     ToastUtil.shortToast(ShoppingAddressActivity.this,jsonObject.getString("msg"));
                 }else {
                     ToastUtil.shortToast(ShoppingAddressActivity.this,jsonObject.getString("msg"));
@@ -188,7 +190,12 @@ public class ShoppingAddressActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        int a=requestCode;
+        int b=resultCode;
+        Log.v("nihaoma","requestCode"+a+"    resultCode"+b);
+        if (resultCode==100&&requestCode==100){
+            getListNetWord();
+        }
     }
 
     @Override

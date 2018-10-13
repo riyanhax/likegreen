@@ -186,5 +186,23 @@ public class AddressBean {
         public void setUserId(int userId) {
             this.userId = userId;
         }
+
+        @Override
+        public String toString() {
+            return "AddressListBean{" +
+                    "consignee='" + consignee + '\'' +
+                    ", createdDate='" + createdDate + '\'' +
+                    ", province='" + province + '\'' +
+                    ", city='" + city + '\'' +
+                    ", user_name='" + user_name + '\'' +
+                    ", district='" + district + '\'' +
+                    ", contactWay='" + contactWay + '\'' +
+                    ", contactAddress='" + contactAddress + '\'' +
+                    ", isDefaultAddress=" + isDefaultAddress +
+                    ", updatedDate='" + updatedDate + '\'' +
+                    ", UserAddressID=" + UserAddressID +
+                    ", userId=" + userId +
+                    '}';
+        }
     }
 }

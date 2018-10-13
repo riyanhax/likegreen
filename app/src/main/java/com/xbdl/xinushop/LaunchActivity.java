@@ -18,6 +18,7 @@ import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.utils.HttpUtils;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
+import com.xbdl.xinushop.utils.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +49,9 @@ public class LaunchActivity extends AppCompatActivity {
                             String body = response.body();
                             try {
                                 JSONObject login = new JSONObject(body);
+
                                 int code = login.getInt("code");
+                                Log.v("nihaoma","code"+code);
                                 if (code==100){
                                     String object = login.getString("object");
                                     Gson gson = new Gson();
@@ -70,6 +73,13 @@ public class LaunchActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            ToastUtil.shortToast(LaunchActivity.this,"网络数据错误");
                         }
                     });
                 } catch (JSONException e) {

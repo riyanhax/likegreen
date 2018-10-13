@@ -33,19 +33,24 @@ public class MyLiveFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        Intent intentLivePreViewActivity = new Intent(getContext(), LivePreViewActivity.class);
         switch (view.getId()){
             case R.id.rl_my_trailer:
-                Intent intentLivePreViewActivity = new Intent(getContext(), LivePreViewActivity.class);
-                startActivity(intentLivePreViewActivity);
+
+                intentLivePreViewActivity.putExtra("MyLiveFragment",1);
+
                 break;
             case R.id.rl_my_playback:
-                Intent intentLivePlayBackActivity = new Intent(getContext(), LivePlayBackActivity.class);
-                startActivity(intentLivePlayBackActivity);
+                intentLivePreViewActivity.putExtra("MyLiveFragment",2);
+              /*  Intent intentLivePlayBackActivity = new Intent(getContext(), LivePlayBackActivity.class);
+                startActivity(intentLivePlayBackActivity);*/
                 break;
             case R.id.rl_my_air_on:
-                Intent intentLiveNowActivity = new Intent(getContext(), LiveNowActivity.class);
-                startActivity(intentLiveNowActivity);
+                intentLivePreViewActivity.putExtra("MyLiveFragment",3);
+               /* Intent intentLiveNowActivity = new Intent(getContext(), LiveNowActivity.class);
+                startActivity(intentLiveNowActivity);*/
                 break;
         }
+        startActivity(intentLivePreViewActivity);
     }
 }

@@ -16,6 +16,8 @@ import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.utils.Judge;
 import com.xbdl.xinushop.view.LoadingDialog;
 
+import butterknife.ButterKnife;
+
 
 /**
  * Created by theWind on 2018/8/3.
@@ -37,6 +39,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         context = (BaseActivity) getActivity();
+        //绑定初始化ButterKnife
+        //ButterKnife.bind(this);
     }
 
     //在onResume()方法注册

@@ -222,7 +222,10 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
                 JSONObject jsonObject = new JSONObject(body);
                 int code = jsonObject.getInt("code");
                 if (code==1){
+                    Intent intent = new Intent();
+                    setResult(100);
                     if (shoppingAddressActivity==0){
+
                         ToastUtil.shortToast(AddAddressActivity.this,"添加成功");
                     }else {
                         ToastUtil.shortToast(AddAddressActivity.this,"修改成功");
