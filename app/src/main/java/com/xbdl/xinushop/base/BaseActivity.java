@@ -39,8 +39,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         context = (BaseActivity) getActivity();
-        //绑定初始化ButterKnife
-        //ButterKnife.bind(this);
     }
 
     //在onResume()方法注册
@@ -48,6 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         if (netWorkStateReceiver == null) {
             netWorkStateReceiver = new NetWorkStateReceiver();
+
         }
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);

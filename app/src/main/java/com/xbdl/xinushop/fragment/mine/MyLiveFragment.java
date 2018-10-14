@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.activity.mine.LiveNowActivity;
-import com.xbdl.xinushop.activity.mine.LivePlayBackActivity;
 import com.xbdl.xinushop.activity.mine.LivePreViewActivity;
 
 /**
