@@ -10,13 +10,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.xbdl.xinushop.BroadcastReceiver.NetWorkStateReceiver;
-import com.xbdl.xinushop.MyApplication;
+import com.xbdl.xinushop.broadcastReceiver.NetWorkStateReceiver;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.utils.Judge;
 import com.xbdl.xinushop.view.LoadingDialog;
-
-import butterknife.ButterKnife;
 
 
 /**
@@ -44,13 +41,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     //在onResume()方法注册
     @Override
     protected void onResume() {
-        if (netWorkStateReceiver == null) {
+       /* if (netWorkStateReceiver == null) {
             netWorkStateReceiver = new NetWorkStateReceiver();
 
         }
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(netWorkStateReceiver, filter);
+        registerReceiver(netWorkStateReceiver, filter);*/
 
         super.onResume();
     }
@@ -58,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     //onPause()方法注销
     @Override
     protected void onPause() {
-        unregisterReceiver(netWorkStateReceiver);
+      //  unregisterReceiver(netWorkStateReceiver);
 
         super.onPause();
     }

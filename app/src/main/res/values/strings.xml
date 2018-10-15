@@ -46,6 +46,8 @@
     <string name="payee">收款人：</string>
     <string name="payeenumber">收款账号：</string>
     <string name="payeemoney">收款金额：</string>
+    <string name="transactionmsg">交易消息</string>
+    <string name="aftersalemsg">售后消息</string>
 
 
     <string name="personaldata">个人资料</string>

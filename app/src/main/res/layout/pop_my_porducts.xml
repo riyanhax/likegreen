@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_150"
+    android:background="@drawable/kuangproduct"
+    android:orientation="vertical"
+    android:layout_height="110dp">
+
+
+    <LinearLayout
+        android:id="@+id/ll_transactionmsg"
+        android:layout_marginLeft="@dimen/dp_23"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/transaction"
+            android:layout_width="@dimen/dp_29"
+            android:layout_height="@dimen/dp_29" />
+        <TextView
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:text="@string/transactionmsg"
+            android:textColor="@color/actionbar_sel_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="#e5e5e5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"/>
+    <LinearLayout
+        android:id="@+id/ll_aftersalemsg"
+        android:layout_marginLeft="@dimen/dp_23"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/aftersale"
+            android:layout_width="@dimen/dp_29"
+            android:layout_height="@dimen/dp_29" />
+        <TextView
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:text="@string/aftersalemsg"
+            android:textColor="@color/actionbar_sel_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

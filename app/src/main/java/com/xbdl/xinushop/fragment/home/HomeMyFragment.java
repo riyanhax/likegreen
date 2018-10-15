@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -35,6 +36,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.WebViewActivity;
 import com.xbdl.xinushop.activity.mine.AuditAndLiveActivity;
 import com.xbdl.xinushop.activity.mine.DiscountCouponActivity;
 import com.xbdl.xinushop.activity.mine.MyFansActivity;
@@ -323,6 +325,18 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 startActivity(intentDiscountCouponActivity);
                 popupWindow.dismiss();
                 break;
+            case R.id.pop_shoppingcar://购物车
+                Intent intentWebView = new Intent(getActivity(), WebViewActivity.class);
+                intentWebView.putExtra("webview",0);
+                startActivity(intentWebView);
+                popupWindow.dismiss();
+                break;
+            case R.id.pop_order://订单
+                Intent intentWebView2 = new Intent(getActivity(), WebViewActivity.class);
+                intentWebView2.putExtra("webview",1);
+                startActivity(intentWebView2);
+                popupWindow.dismiss();
+                break;
         }
     }
     private UMShareListener umShareListener= new UMShareListener() {
@@ -426,6 +440,10 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
 
         //我的钱包
         contentView.findViewById(R.id.pop_mywallet).setOnClickListener(this);
+        //购物车
+        contentView.findViewById(R.id.pop_shoppingcar).setOnClickListener(this);
+        //订单
+        contentView.findViewById(R.id.pop_order).setOnClickListener(this);
         //优惠券
         contentView.findViewById(R.id.pop_coupon).setOnClickListener(this);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

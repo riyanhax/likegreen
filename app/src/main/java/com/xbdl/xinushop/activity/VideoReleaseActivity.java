@@ -88,6 +88,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
             switch (msg.what) {
                 case HandleMsg.MSG_INIT_SUCCESS: {
                     Toast.makeText(VideoReleaseActivity.this, "init success", Toast.LENGTH_SHORT).show();
+
                     //txtNetUrl.setText("http://nos.netease.com/" + mBucket + "/" + mObject);
                     break;
                 }
@@ -95,6 +96,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                     int code = msg.arg1;
                     String m = (String) msg.obj;
                     Toast.makeText(VideoReleaseActivity.this, "init fail, code: " + code + ", msg: " + m, Toast.LENGTH_SHORT).show();
+                    Log.v("nihaoma","code"+code+"   msg   "+m);
                     break;
                 }
                 case HandleMsg.MSG_QUERYVIDEO_SUCCESS: {

@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.MyConstants;
@@ -39,7 +40,7 @@ ProgressBar pb;
         View view = inflater.inflate(R.layout.fragment_home_find, container, false);
         view.findViewById(R.id.view_line).setVisibility(View.GONE);
         String userjson = SharedPreferencesUtil.getString(getActivity(), MyConstants.User, "");
-
+        
         PersonBean personBean = new Gson().fromJson(userjson, PersonBean.class);
         token = personBean.getLoginToken();
         initView(view);
@@ -61,6 +62,7 @@ ProgressBar pb;
 
 //String urls="file:///android_asset/index.html";
       String urls = "file:///android_asset/index.html";
+      //String urls = "file:///android_asset/index.html#/shoppingCart";
      //   String urls = "http://www.baidu.com";
 //String urls="http://mall.depforlive.com/test/hybrid.php";
         myWebView.loadUrl(urls);
@@ -138,9 +140,10 @@ ProgressBar pb;
     private class FamilyPowerRank {
         @JavascriptInterface
         public String getSession() {
+
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("token", token);
+                jsonObject.put("token", MyApplication.user.getLoginToken());
             } catch (JSONException e) {
 
             }
