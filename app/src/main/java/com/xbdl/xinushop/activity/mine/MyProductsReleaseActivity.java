@@ -1,4 +1,4 @@
-package com.xbdl.xinushop.activity;
+package com.xbdl.xinushop.activity.mine;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.activity.mine.MyProductsDetailActivity;
 import com.xbdl.xinushop.adapter.mine.MyProductsReleaseAdapter;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.MyProductsReleaseBean;
@@ -39,9 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-我发布的商品
-* */
-public class MyProductsReleaseActivity extends BaseActivity implements View.OnClickListener {
+        我发布的商品
+        * */
+public  class MyProductsReleaseActivity extends BaseActivity implements View.OnClickListener {
     private LRecyclerView mRecyclerView;
     private int pageNumber=1;
     private List<MyProductsReleaseBean.ListBean> dataList;
@@ -65,6 +63,7 @@ public class MyProductsReleaseActivity extends BaseActivity implements View.OnCl
         findViewById(R.id.iv_products_return).setOnClickListener(this);
         news = findViewById(R.id.iv_products_news);
         news.setOnClickListener(this);
+
     }
     private PopupWindow huoZanPop;
     private void showPop() {
@@ -102,7 +101,7 @@ public class MyProductsReleaseActivity extends BaseActivity implements View.OnCl
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         LRecyclerViewAdapter lRecyclerViewAdapter = new LRecyclerViewAdapter(myProductsReleaseAdapter);
         mRecyclerView.setAdapter(lRecyclerViewAdapter);
-       DividerDecoration divider = new DividerDecoration.Builder(this)
+        DividerDecoration divider = new DividerDecoration.Builder(this)
                 .setHeight(R.dimen.dp_5)
                 .setColorResource(R.color.enptyviewbackground)
                 .build();
@@ -192,13 +191,13 @@ public class MyProductsReleaseActivity extends BaseActivity implements View.OnCl
                 showPop();
                 break;
             case R.id.ll_transactionmsg:
-                Intent intent = new Intent(this, MyProductsDetailActivity.class);
+                Intent intent = new Intent(this, MySellerOrderListActivity.class);
                 intent.putExtra("activity",0);
                 startActivity(intent);
                 huoZanPop.dismiss();
                 break;
             case R.id.ll_aftersalemsg:
-                Intent intent1 = new Intent(this, MyProductsDetailActivity.class);
+                Intent intent1 = new Intent(this, MySellerOrderListActivity.class);
                 intent1.putExtra("activity",1);
                 startActivity(intent1);
                 huoZanPop.dismiss();

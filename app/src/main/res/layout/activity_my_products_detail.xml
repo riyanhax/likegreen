@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/enptyviewbackground"
-    tools:context=".activity.mine.MyProductsDetailActivity">
+    android:orientation="vertical"
+    tools:context=".activity.mine.MySellerOrderListActivity">
     <RelativeLayout
         style="@style/head">
         <ImageView
@@ -30,7 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"/>
     <com.github.jdsjlzx.recyclerview.LRecyclerView
+        android:layout_marginTop="@dimen/dp_5"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-</RelativeLayout>
+</LinearLayout>

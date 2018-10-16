@@ -20,7 +20,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheEntity;
+import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpHeaders;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.netease.cloud.nos.android.core.CallRet;
@@ -32,10 +37,12 @@ import com.netease.vcloudnosupload.NOSUploadHandler;
 
 
 import com.xbdl.xinushop.MainActivity;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.AdMsgInputActivity;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.constant.UrlConstant2;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.ToastUtil;
 import com.xbdl.xinushop.utils.VideoFileUtil;
@@ -121,28 +128,35 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_release);
+
         initView();
         initData();
         loadDefaultAcceleratorConf();
         if (nosUpload != null) {
             final NOSUpload.Config config = new NOSUpload.Config();
-            HttpUtils2.getAccid(new StringCallback() {
+            HttpUtils2.getAccid(MyApplication.user.getLoginToken(),new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body());
                         Log.v("nihaoma",response.body());
-                        if (jsonObject.getInt("code")==200){
+                        String curTime = jsonObject.getString("curTime");
+                        String checkSum = jsonObject.getString("checkSum");
+                        //String curTime = "1539573128";
+                       // String checkSum = "8e83d60a0e273726bf976377300a49aeb9f9c6b6";
+                        String accid = jsonObject.getString("accid");
 
-                            Log.v("nihaoma", jsonObject.getString("appkay")+"   accid  "+jsonObject.getString("accid")
-                            +"  token  "+jsonObject.getString("token"));
-                            config.appKey =jsonObject.getString("appkay");;
-                            config.accid = jsonObject.getString("accid");;
-                            config.token = jsonObject.getString("token");
-                            nosUpload.setConfig(config);
+                        String appKey = jsonObject.getString("appKey");
+                        String nonce = jsonObject.getString("nonce");
+                        int type = jsonObject.getInt("type");
+                        if (type==1){
+                            //申请网易账号
+                            getNetID(curTime, checkSum, accid, nonce, appKey,config);
                         }else {
-                            ToastUtil.shortToast(getActivity(),"数据解析错误请返回再试");
+
                         }
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -174,6 +188,75 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
             //nosUpload.setConfig(config);
         }
     }
+    //申请网易账号
+    private void getNetID(String curTime, String checkSum, String accid, String nonce, final String appKey, final NOSUpload.Config config) {
+        initOkgo(appKey,nonce,curTime,checkSum);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("accid",accid);
+            jsonObject.put("type",1);
+            okGo.<String>post(UrlConstant2.getNetUser)// 请求方式和请求url
+                    .upJson(jsonObject)
+                    .tag("getNetUser")                       // 请求的 tag, 主要用于取消对应的请求
+                    .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                    .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            Log.v("nihaoma","网易返回"+response.body());
+                            JSONObject netObject = new JSONObject();
+                            config.appKey = appKey;
+                            try {
+                                config.accid = netObject.getString("accid");
+                                config.token = netObject.getString("token");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            nosUpload.setConfig(config);
+
+                        }
+
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            super.onStart(request);
+                            Log.v("nihaoma","网易返回onStart");
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            Log.v("nihaoma","网易返回onError");
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            super.onFinish();
+                            Log.v("nihaoma","网易返回onFinish");
+                        }
+                    });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private OkGo okGo;
+    private void initOkgo(String AppKey,String Nonce,String CurTime,String CheckSum) {
+        //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("AppKey", AppKey);    //header不支持中文，不允许有特殊字符
+        headers.put("Content-Type", "application/json");
+        headers.put("Nonce", Nonce);
+        headers.put("CurTime", CurTime);
+        headers.put("CheckSum", CheckSum);
+
+        // 详细说明看GitHub文档：https://github.com/jeasonlzy/
+        okGo = OkGo.getInstance().init(getApplication())                           //必须调用初始化
+                .addCommonHeaders(headers);//全局公共头
+
+    }
 
     private void initView() {
         mNextStep = findViewById(R.id.rl_nextstep_btn);//下一步
@@ -191,6 +274,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
         if (mVideoPath!=null){
             //setVideoImg(album);
             setVideoImg(mVideoPath);
+            Log.v("nihaoma","mVideoPath  "+mVideoPath);
         }
 
     }
@@ -420,7 +504,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
         nosUpload.videoQuery(list, new NOSUploadHandler.VideoQueryCallback() {
             @Override
             public void onSuccess(List<QueryResItem> list) {
-                Log.e(TAG, "list: " + list.toString());
+                Log.v("nihaoma", "list: " + list.toString());
                 Message msg = Message.obtain(mHandler, HandleMsg.MSG_QUERYVIDEO_SUCCESS);
                 msg.obj = list;
                 mHandler.sendMessage(msg);
@@ -428,7 +512,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFail(int code, String msg) {
-                Log.e(TAG, "videoQuery fail: " + msg);
+                Log.v("nihaoma", "videoQuery fail: " + msg);
                 Message m = Message.obtain(mHandler, HandleMsg.MSG_QUERYVIDEO_FAIL);
                 m.arg1 = code;
                 m.obj = msg;

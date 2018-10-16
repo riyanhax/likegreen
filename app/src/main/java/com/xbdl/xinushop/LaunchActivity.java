@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.activity.LoginActivity;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
@@ -74,6 +75,12 @@ public class LaunchActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
+                        }
+
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            super.onStart(request);
+                            Log.v("nihaoma","onStart  "+"launch请求开始");
                         }
 
                         @Override

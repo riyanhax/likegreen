@@ -48,6 +48,15 @@
     <string name="payeemoney">收款金额：</string>
     <string name="transactionmsg">交易消息</string>
     <string name="aftersalemsg">售后消息</string>
+    <string name="sendgoods">发货</string>
+    <string name="orderclose">订单关闭</string>
+    <string name="waitsend">待发货</string>
+    <string name="waitgoods">待收货</string>
+    <string name="waitevaluate">待评价</string>
+    <string name="applyforaftersale">申请售后</string>
+    <string name="waitpay">待付款</string>
+    <string name="payed">已付款</string>
+    <string name="Refunded">已退款</string>
 
 
     <string name="personaldata">个人资料</string>

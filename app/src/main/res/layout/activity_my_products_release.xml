@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/enptyviewbackground"
-    tools:context=".activity.MyProductsReleaseActivity">
+    tools:context=".activity.mine.ShareLiftActivity$MyProductsReleaseActivity">
     <RelativeLayout
         style="@style/head">
         <ImageView

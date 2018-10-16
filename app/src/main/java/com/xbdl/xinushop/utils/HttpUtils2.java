@@ -216,8 +216,9 @@ public class HttpUtils2 {
     /**
      * 查询网易accid
      */
-    public static void getAccid(StringCallback stringCallback) {
+    public static void getAccid(String token,StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.getaccid)// 请求方式和请求url
+                .params("token", token)
                 .tag("getaccid")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
@@ -232,6 +233,19 @@ public class HttpUtils2 {
                 .params("userId", userId)
                 .params("couponsId", couponsId)
                 .tag("collectionOfCouponsApi")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 获取我出售商品的交易详情
+     */
+    public static void getSellerOrdersByUserIdApi(String token,int pn,int userId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.getSellerOrdersByUserIdApi)// 请求方式和请求url
+                .params("token", token)
+                .params("pn", pn)
+                .params("userId", userId)
+                .tag("getSellerOrdersByUserIdApi")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);

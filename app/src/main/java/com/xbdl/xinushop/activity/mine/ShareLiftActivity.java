@@ -1,26 +1,46 @@
 package com.xbdl.xinushop.activity.mine;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.jdsjlzx.ItemDecoration.DividerDecoration;
+import com.github.jdsjlzx.interfaces.OnItemClickListener;
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.ShareLiveListAdapter;
+import com.xbdl.xinushop.adapter.mine.MyProductsReleaseAdapter;
+import com.xbdl.xinushop.base.BaseActivity;
+import com.xbdl.xinushop.bean.MyProductsReleaseBean;
 import com.xbdl.xinushop.bean.ShareLifeListBean;
 import com.xbdl.xinushop.dialogfragment.ShareLifeDialogFragment;
 import com.xbdl.xinushop.listener.OnShareLiveItemListener;
 import com.xbdl.xinushop.utils.HttpUtils;
+import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.Judge;
+import com.xbdl.xinushop.utils.ToastUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -134,4 +154,6 @@ public class ShareLiftActivity extends AppCompatActivity {
         super.onDestroy();
         OkGo.getInstance().cancelTag("shareyourlife");
     }
+
+
 }

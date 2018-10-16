@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -26,7 +25,6 @@ import com.bumptech.glide.Glide;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
@@ -42,8 +40,9 @@ import com.xbdl.xinushop.activity.mine.DiscountCouponActivity;
 import com.xbdl.xinushop.activity.mine.MyFansActivity;
 import com.xbdl.xinushop.activity.mine.MyFocuseActivity;
 import com.xbdl.xinushop.activity.mine.MyMessageAndDirectActivity;
-import com.xbdl.xinushop.activity.MyProductsReleaseActivity;
+import com.xbdl.xinushop.activity.mine.MyProductsReleaseActivity;
 import com.xbdl.xinushop.activity.mine.PersonalDataActivity;
+import com.xbdl.xinushop.activity.mine.ShareLiftActivity;
 import com.xbdl.xinushop.activity.mine.SystemSettingsActivity;
 import com.xbdl.xinushop.activity.mine.wallet.MyWalletActivity;
 import com.xbdl.xinushop.base.BaseFragment;
@@ -64,20 +63,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -332,10 +326,10 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 popupWindow.dismiss();
                 break;
             case R.id.pop_order://订单
-                Intent intentWebView2 = new Intent(getActivity(), WebViewActivity.class);
+               /* Intent intentWebView2 = new Intent(getActivity(), WebViewActivity.class);
                 intentWebView2.putExtra("webview",1);
                 startActivity(intentWebView2);
-                popupWindow.dismiss();
+                popupWindow.dismiss();*/
                 break;
         }
     }

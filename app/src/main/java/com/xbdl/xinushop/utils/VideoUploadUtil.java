@@ -15,6 +15,7 @@ import com.netease.cloud.nos.android.exception.InvalidParameterException;
 import com.netease.vcloudnosupload.AcceleratorConfig;
 import com.netease.vcloudnosupload.NOSUpload;
 import com.netease.vcloudnosupload.NOSUploadHandler;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.activity.VideoReleaseActivity;
 import com.xbdl.xinushop.base.BaseActivity;
 
@@ -60,7 +61,7 @@ public class VideoUploadUtil {
      }
     private void getAccid() {
         final NOSUpload.Config config = new NOSUpload.Config();
-        HttpUtils2.getAccid(new StringCallback() {
+        HttpUtils2.getAccid(MyApplication.user.getLoginToken(),new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {

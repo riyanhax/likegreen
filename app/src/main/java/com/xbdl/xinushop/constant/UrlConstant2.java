@@ -75,5 +75,13 @@ public interface UrlConstant2 {
      * 领取优惠券
      */
     String collectionOfCouponsApi=UrlConstant.baseUrl+"usercoupons/collectionOfCouponsApi";
+    /**
+     * 申请网易子账号
+     */
+    String getNetUser="https://vcloud.163.com/app/vod/thirdpart/user/create";
+    /**
+     * 获取我出售商品的交易详情
+     */
+    String getSellerOrdersByUserIdApi=UrlConstant.baseUrl+"sellerorders/getSellerOrdersByUserIdApi";
 
 }
