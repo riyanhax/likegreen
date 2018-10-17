@@ -634,10 +634,10 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         intent.putExtra("videoPath",outPutVideoPath);
         setResult(APPLY_LIVE,intent);
     }
-    private Intent intentVideoReleaseActivity;
+    private Intent intentVideoReleaseActivity= new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);;
     private void startUploadActivity() {
         if (outPutVideoPath!=null){
-            intentVideoReleaseActivity = new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);
+
         intentVideoReleaseActivity.putExtra("ShortCameraActivity",outPutVideoPath);
         startActivity(intentVideoReleaseActivity);
         finish();
@@ -661,6 +661,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
                     if(start!=-1 && end!=-1){
                         String substring1 = path.substring(start+1, end);
                         showToast("选择了音乐："+substring1);
+                        intentVideoReleaseActivity.putExtra("music",substring1);
                     }
 
                 }else {

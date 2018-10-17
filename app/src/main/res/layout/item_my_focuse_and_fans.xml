@@ -8,6 +8,7 @@
         android:id="@+id/ci_focuse_head"
         android:layout_marginLeft="@dimen/dp_20"
        android:layout_centerVertical="true"
+        android:src="@drawable/xilvfriends"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40" />
     <LinearLayout

@@ -1,10 +1,15 @@
 package com.xbdl.xinushop.utils;
 
+import android.util.Log;
+
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
 import com.xbdl.xinushop.constant.UrlConstant;
 import com.xbdl.xinushop.constant.UrlConstant2;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -225,6 +230,33 @@ public class HttpUtils2 {
                 .execute(stringCallback);
     }
     /**
+     * 设置网易accid到后台
+     */
+    public static void setuseraccid(int userid,String accid,String token,StringCallback stringCallback) {
+        /*JSONObject json = new JSONObject();
+        JSONObject user = new JSONObject();
+        try {
+            json.put("userid", userid);
+            json.put("accid", accid);
+            json.put("token", token);
+            user.put("user",json);
+            Log.v("nihaoma",user.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+        OkGo.<String>post(UrlConstant2.setuseraccid)// 请求方式和请求url
+                .params("userid", userid)
+                .params("accid", accid)
+                .params("token", token)
+                .tag("setuseraccid")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /*  .params("userid", userid)
+                .params("accid", accid)
+                .params("token", token)*/
+    /**
      * 领取优惠券
      */
     public static void collectionOfCouponsApi(String token,int userId,int couponsId,StringCallback stringCallback) {
@@ -246,6 +278,64 @@ public class HttpUtils2 {
                 .params("pn", pn)
                 .params("userId", userId)
                 .tag("getSellerOrdersByUserIdApi")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 上传账号视频到后台 有音乐  有商品
+     */
+    public static void appPostVideo(String token,int type,String url,String headline,String music,String commodityId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appPostVideo)// 请求方式和请求url
+                .params("token", token)
+                .params("type", type)
+                .params("url", url)
+                .params("headline", headline)
+                .params("music", music)
+                .params("commodityId", commodityId)
+                .tag("appPostVideo")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 上传账号视频到后台 音乐商品有1
+     */
+    public static void appPostVideo1(String token,int type,String url,String headline,String key,String val,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appPostVideo)// 请求方式和请求url
+                .params("token", token)
+                .params("type", type)
+                .params("url", url)
+                .params("headline", headline)
+                .params(key, val)
+                .tag("appPostVideo")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 上传账号视频到后台 普通视频，没有音乐
+     */
+    public static void appPostVideo2(String token,int type,String url,String headline,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appPostVideo)// 请求方式和请求url
+                .params("token", token)
+                .params("type", type)
+                .params("url", url)
+                .params("headline", headline)
+                .tag("appPostVideo")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 查询我的粉丝，我的关注列表
+     */
+    public static void myFansLsit(String token,int page,int followType,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.myFansLsit)// 请求方式和请求url
+                .params("token", token)
+                .params("page", page)
+                .params("followType", followType)
+                .tag("myFansLsit")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);

@@ -15,7 +15,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.adapter.NoteListAdapter;
+import com.xbdl.xinushop.adapter.note.NoteListAdapter;
 import com.xbdl.xinushop.bean.NoteListBean;
 import com.xbdl.xinushop.utils.HttpUtils;
 import com.xbdl.xinushop.utils.Judge;

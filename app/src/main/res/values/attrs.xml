@@ -149,4 +149,11 @@
         <attr name="maxProgress" format="integer"/>
         <attr name="progres" format="integer"/>
     </declare-styleable>
+
+    <!--修改版-->
+    <declare-styleable name="RectImageView">
+        <attr name="ctype" format="integer" />
+        <attr name="pdw" format="boolean" />
+    </declare-styleable>
+
 </resources>

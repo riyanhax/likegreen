@@ -80,8 +80,20 @@ public interface UrlConstant2 {
      */
     String getNetUser="https://vcloud.163.com/app/vod/thirdpart/user/create";
     /**
+     * 设置网易子账号
+     */
+    String setuseraccid=UrlConstant.baseUrl+"setuseraccid";
+    /**
      * 获取我出售商品的交易详情
      */
     String getSellerOrdersByUserIdApi=UrlConstant.baseUrl+"sellerorders/getSellerOrdersByUserIdApi";
+    /**
+     * 上传账号视频到后台
+     */
+    String appPostVideo=UrlConstant.baseUrl+"appPostVideo";
+    /**
+     * 查询我的粉丝，我的关注列表
+     */
+    String myFansLsit=UrlConstant.baseUrl+"follow/appFindFollowList";
 
 }

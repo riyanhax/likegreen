@@ -2,7 +2,6 @@ package com.xbdl.xinushop.fragment.note;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,16 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.github.jdsjlzx.ItemDecoration.DividerDecoration;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.adapter.NoteHotAdapter;
-import com.xbdl.xinushop.adapter.NoteListAdapter;
+import com.xbdl.xinushop.adapter.note.NoteListAdapter;
+import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.NoteListBean;
 import com.xbdl.xinushop.utils.HttpUtils;
 import com.xbdl.xinushop.utils.Judge;
@@ -37,7 +33,7 @@ import java.util.List;
  */
 
 
-public class NoteHotFragment extends  Fragment {
+public class NoteHotFragment extends BaseFragment {
     ProgressBar progressBar;
     NoteListAdapter noteListAdapter = null;
 

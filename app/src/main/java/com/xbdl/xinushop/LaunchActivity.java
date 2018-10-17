@@ -52,7 +52,7 @@ public class LaunchActivity extends AppCompatActivity {
                                 JSONObject login = new JSONObject(body);
 
                                 int code = login.getInt("code");
-                                Log.v("nihaoma","code"+code);
+                                Log.v("nihaoma","body"+body);
                                 if (code==100){
                                     String object = login.getString("object");
                                     Gson gson = new Gson();

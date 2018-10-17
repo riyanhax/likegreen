@@ -239,6 +239,7 @@ public class VideoUploadUtil {
                 Message msg = Message.obtain(mHandler, VideoReleaseActivity.HandleMsg.MSG_QUERYVIDEO_SUCCESS);
                 msg.obj = list;
                 mHandler.sendMessage(msg);
+
             }
 
             @Override

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lay2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/enptyviewbackground"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:paddingTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/iv_pic"
+            android:layout_marginTop="@dimen/sp_10"
+            android:layout_width="118dp"
+            android:layout_height="118dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/dialog_to_promote_circular">
+
+            <ImageView
+                android:id="@+id/iv_plant"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/found" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="多肉名称"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text4" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="更新时间"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text6" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/baseline" />
+
+        <ImageView
+            android:id="@+id/iv_pot"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/basin" />
+    </RelativeLayout>
+
+</LinearLayout>

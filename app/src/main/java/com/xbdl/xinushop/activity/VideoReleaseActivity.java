@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -42,6 +44,7 @@ import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.AdMsgInputActivity;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.bean.NetBean;
 import com.xbdl.xinushop.constant.UrlConstant2;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.ToastUtil;
@@ -76,7 +79,8 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
     private String mNosToken, mBucket, mObject;
     //private String album;//相册
     private File mFile;
-
+    private EditText videoTitle,musicTitle;
+    private View text_music;
     @Override
     protected Activity getActivity() {
         return this;
@@ -107,8 +111,10 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                     break;
                 }
                 case HandleMsg.MSG_QUERYVIDEO_SUCCESS: {
+                    //查询成功
                     List<NOSUploadHandler.VideoQueryCallback.QueryResItem> list = (List< NOSUploadHandler.VideoQueryCallback.QueryResItem> ) msg.obj;
-                    Toast.makeText(VideoReleaseActivity.this, "query video success: " + list.toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(VideoReleaseActivity.this, "query video success: " + list.toString(), Toast.LENGTH_SHORT).show();
+
                     break;
                 }
                 case HandleMsg.MSG_QUERYVIDEO_FAIL: {
@@ -142,10 +148,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                         Log.v("nihaoma",response.body());
                         String curTime = jsonObject.getString("curTime");
                         String checkSum = jsonObject.getString("checkSum");
-                        //String curTime = "1539573128";
-                       // String checkSum = "8e83d60a0e273726bf976377300a49aeb9f9c6b6";
                         String accid = jsonObject.getString("accid");
-
                         String appKey = jsonObject.getString("appKey");
                         String nonce = jsonObject.getString("nonce");
                         int type = jsonObject.getInt("type");
@@ -153,6 +156,12 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                             //申请网易账号
                             getNetID(curTime, checkSum, accid, nonce, appKey,config);
                         }else {
+                            //已经申请过了
+                            String token = jsonObject.getString("token");
+
+                            config.appKey = appKey;
+                            config.accid = accid;
+                            config.token = token;
 
                         }
 
@@ -188,8 +197,31 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
             //nosUpload.setConfig(config);
         }
     }
+
+    private void setAccid(String accid, String token) {
+        HttpUtils2.setuseraccid(MyApplication.user.getUserId(), accid, token, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Log.v("nihaoma","setAccid   "+response.body());
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                Log.v("nihaoma","setAccid  onStart ");
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Log.v("nihaoma","setAccid  onError "+response.body()+response);
+            }
+        });
+    }
+
     //申请网易账号
     private void getNetID(String curTime, String checkSum, String accid, String nonce, final String appKey, final NOSUpload.Config config) {
+
         initOkgo(appKey,nonce,curTime,checkSum);
         JSONObject jsonObject = new JSONObject();
         try {
@@ -204,15 +236,16 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                         @Override
                         public void onSuccess(Response<String> response) {
                             Log.v("nihaoma","网易返回"+response.body());
-                            JSONObject netObject = new JSONObject();
+                            Gson gson = new Gson();
+                            NetBean netBean = gson.fromJson(response.body(), NetBean.class);
+                            NetBean.RetBean ret = netBean.getRet();
+                            String accid1 = ret.getAccid();
+                            String token = ret.getToken();
                             config.appKey = appKey;
-                            try {
-                                config.accid = netObject.getString("accid");
-                                config.token = netObject.getString("token");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
+                            config.accid = accid1;
+                            config.token = token;
+                            //返回accid给后台
+                            setAccid(accid1,token);
                             nosUpload.setConfig(config);
 
                         }
@@ -265,6 +298,10 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
         mSelsctVideo =(ImageView) findViewById(R.id.iv_select_video);//封面
         mSelsctVideo.setOnClickListener(this);
         findViewById(R.id.iv_return).setOnClickListener(this);
+        videoTitle= findViewById(R.id.et_video_title);
+        musicTitle= findViewById(R.id.et_music_title);
+        text_music= findViewById(R.id.text_music);
+
     }
 
     private void initData() {
@@ -276,7 +313,14 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
             setVideoImg(mVideoPath);
             Log.v("nihaoma","mVideoPath  "+mVideoPath);
         }
+        String music = intent.getStringExtra("music");
+        if (music!=null){
 
+            musicTitle.setText(music);
+        }else {
+            text_music.setVisibility(View.GONE);
+            musicTitle.setVisibility(View.GONE);
+        }
     }
 
     private void setVideoImg(String path) {
@@ -310,6 +354,10 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.rl_nextstep_btn://下一步
+                if (TextUtils.isEmpty(videoTitle.getText())){
+                    ToastUtil.shortToast(getActivity(),"说点什么吧");
+                    return;
+                }
                 try {
                         acceleratorConf.setConnectionTimeout(Integer.parseInt("30") * 1000);
                         acceleratorConf.setRefreshInterval(Integer.parseInt("1") * 1000);
@@ -497,7 +545,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
             executor.cancel();
         }
     }
-
+    private String url="http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/";
     private void queryVideo() {
         List<String> list = new ArrayList<>();
         list.add(mObject);
@@ -505,6 +553,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onSuccess(List<QueryResItem> list) {
                 Log.v("nihaoma", "list: " + list.toString());
+                sendVideo(list);
                 Message msg = Message.obtain(mHandler, HandleMsg.MSG_QUERYVIDEO_SUCCESS);
                 msg.obj = list;
                 mHandler.sendMessage(msg);
@@ -517,6 +566,34 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                 m.arg1 = code;
                 m.obj = msg;
                 mHandler.sendMessage(m);
+            }
+        });
+    }
+
+    private void sendVideo(List<NOSUploadHandler.VideoQueryCallback.QueryResItem> list) {
+        HttpUtils2.appPostVideo2(MyApplication.user.getLoginToken(), 1, url + list.get(0).objectName, videoTitle.getText().toString(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+                Log.v("nihaoma","传送到后台onSuccess"+response.body());
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                Log.v("nihaoma","传送到后台onStart");
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Log.v("nihaoma","传送到后台onError");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Log.v("nihaoma","传送到后台onFinish");
             }
         });
     }
@@ -572,7 +649,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                                          *  上传已经完成, 清除该文件对应的uploadcontext
                                          */
                                         nosUpload.setUploadContext(mFile, "");
-                                        Toast.makeText(VideoReleaseActivity.this, "upload success", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(VideoReleaseActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
                                         queryVideo();//返回结果
                                     }
 

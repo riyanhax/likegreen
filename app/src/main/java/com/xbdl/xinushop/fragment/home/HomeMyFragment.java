@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
@@ -85,7 +86,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
     private View mMyMore, mSystemSetting, mMsgDriect;
     private String[] items = new String[]{"视频", "直播", "花园", "喜帖"};
     private PopupWindow popupWindow;
-    private TextView mMyfocuse,mMyfans;
+    private TextView mMyfocuse,mMyfans,huozanshu;
     private CircleImageView headIcon;//头像
     private ImageView iv_top_icon;
     private TextView username,tv_my_word;
@@ -105,8 +106,9 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         mSystemSetting = v.findViewById(R.id.system_setting);//系统设置
         mMsgDriect = v.findViewById(R.id.msg_driect);//消息私信
         mMyfocuse = (TextView)v.findViewById(R.id.my_home_focuse);//关注
-        mMyfans = (TextView)v.findViewById(R.id.my_home_fans);//关注
-        v.findViewById(R.id.tv_huozanshu).setOnClickListener(this);//获赞数
+        mMyfans = (TextView)v.findViewById(R.id.my_home_fans);//粉丝
+        huozanshu = v.findViewById(R.id.tv_huozanshu);
+        huozanshu.setOnClickListener(this);//获赞数
         headIcon =(CircleImageView) v.findViewById(R.id.iv_my_head);//头像
         mMyMore.setOnClickListener(this);
         mSystemSetting.setOnClickListener(this);
@@ -139,6 +141,14 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                     JSONObject jsonObject = new JSONObject(response.body());
                     if (jsonObject.getInt("code")==1){
                         String object = jsonObject.getString("user");
+                        String followAndLike = jsonObject.getString("followAndLike");
+                        JSONObject jsonObject1 = new JSONObject(followAndLike);
+                        int followCount = jsonObject1.getInt("followCount");
+                        int fansCount = jsonObject1.getInt("fansCount");
+                        int likeCount = jsonObject1.getInt("likeCount");
+                        huozanshu.setText(likeCount+" 获赞");
+                        mMyfocuse.setText(followCount+" 关注");
+                        mMyfans.setText(fansCount+" 粉丝");
                         Gson gson = new Gson();
                         PersonBean personBean = gson.fromJson(object, PersonBean.class);
                         Log.v("nihaoma",personBean.toString());
@@ -251,11 +261,13 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.my_home_focuse://我的关注
                 Intent intentMyFocuseActivity = new Intent(getActivity(), MyFocuseActivity.class);
+                intentMyFocuseActivity.putExtra("type",1);
                 startActivity(intentMyFocuseActivity);
                 break;
             case R.id.my_home_fans://我的粉丝
-                Intent intentMyFansActivity = new Intent(getActivity(), MyFansActivity.class);
-                startActivity(intentMyFansActivity);
+                Intent intentMyFocuseActivity2 = new Intent(getActivity(), MyFocuseActivity.class);
+                intentMyFocuseActivity2.putExtra("type",2);
+                startActivity(intentMyFocuseActivity2);
                 break;
             case R.id.tv_huozanshu://点赞数
                 showDianZanShuPop();
@@ -331,6 +343,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 startActivity(intentWebView2);
                 popupWindow.dismiss();*/
                 break;
+
         }
     }
     private UMShareListener umShareListener= new UMShareListener() {

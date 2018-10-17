@@ -1,4 +1,4 @@
-package com.xbdl.xinushop.adapter;
+package com.xbdl.xinushop.adapter.note;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.PhtotViewActivity;
+import com.xbdl.xinushop.adapter.ListBaseAdapter;
 import com.xbdl.xinushop.view.MultiImageView;
-
-import uk.co.senab.photoview.PhotoView;
 
 public class NoteHotAdapter extends ListBaseAdapter<String> {
     private LayoutInflater mLayoutInflater;

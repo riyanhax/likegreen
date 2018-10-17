@@ -29,17 +29,43 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_2"/>
         <RelativeLayout
+            android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <EditText
-                android:background="@null"
-                android:textColor="@color/actionbar_sel_color"
-                android:textColorHint="#cccccc"
-                android:hint="   说点什么吧..."
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_video_title"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:textColor="@color/actionbar_sel_color"
+                    android:textColorHint="#cccccc"
+                    android:hint="说点什么吧..."
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
+                    />
+                <TextView
+                    android:id="@+id/text_music"
+                    android:text="你选取的音乐是："
+                    android:textColor="#808080"
+                    android:layout_below="@id/et_video_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/et_music_title"
+                    android:layout_below="@id/et_music_title"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:textColor="@color/actionbar_sel_color"
+                    android:textColorHint="#cccccc"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
+                    />
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/iv_select_video"
                 android:scaleType="fitXY"

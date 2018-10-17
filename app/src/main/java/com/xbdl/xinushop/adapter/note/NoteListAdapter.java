@@ -1,7 +1,6 @@
-package com.xbdl.xinushop.adapter;
+package com.xbdl.xinushop.adapter.note;
 
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 

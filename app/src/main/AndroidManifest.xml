@@ -309,6 +309,7 @@
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.mine.MySellerOrderListActivity"></activity>
         <activity android:name=".activity.mine.MyProductsReleaseActivity"/>
+        <activity android:name=".activity.note.UserMainpageActivity" />
     </application>
 
 </manifest>
