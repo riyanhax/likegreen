@@ -82,7 +82,7 @@ public interface UrlConstant2 {
     /**
      * 设置网易子账号
      */
-    String setuseraccid=UrlConstant.baseUrl+"setuseraccid";
+    String setuseraccid=UrlConstant.baseUrl+"setuseraccid1";
     /**
      * 获取我出售商品的交易详情
      */
@@ -95,5 +95,9 @@ public interface UrlConstant2 {
      * 查询我的粉丝，我的关注列表
      */
     String myFansLsit=UrlConstant.baseUrl+"follow/appFindFollowList";
+    /**
+     * 关注谁谁谁
+     */
+    String appAddConcern=UrlConstant.baseUrl+"/concern/appAddConcern";
 
 }

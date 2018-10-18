@@ -9,5 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     />
-
+    <TextView
+        android:id="@+id/tv_video_text"
+        android:text="@string/textvideo"
+        android:textColor="@color/actionbar_sel_color"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

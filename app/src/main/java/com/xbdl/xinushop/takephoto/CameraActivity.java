@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+
 import rx.schedulers.Schedulers;
 
 
@@ -165,7 +165,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(CameraProgressBar progressBar) {
                 mTv_tack.setVisibility(View.GONE);
-                cameraManager.takePhoto(callback);
+               // cameraManager.takePhoto(callback);
             }
 
             @Override
@@ -177,7 +177,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 recorderPath = FileUtils.getUploadVideoFile(mContext);
                 cameraManager.startMediaRecord(recorderPath);
                 isRecording = true;
-                progressSubscription = Observable.interval(100, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).take(max).subscribe(new Subscriber<Long>() {
+   /*             progressSubscription = Observable.interval(100, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).take(max).subscribe(new Subscriber<Long>() {
                     @Override
                     public void onCompleted() {
                         stopRecorder(true);
@@ -192,7 +192,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                     public void onNext(Long aLong) {
                         mProgressbar.setProgress(mProgressbar.getProgress() + 1);
                     }
-                });
+                });*/
             }
 
             @Override
@@ -418,11 +418,11 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         setResult(RequestCode.TAKE_PHOTO, intent);
     }
 
-    private Camera.PictureCallback callback = new Camera.PictureCallback() {
+  /*  private Camera.PictureCallback callback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
             setTakeButtonShow(false);
-            takePhotoSubscription = Observable.create(new Observable.OnSubscribe<Boolean>() {
+           takePhotoSubscription = Observable.create(new Observable.OnSubscribe<Boolean>() {
                 @Override
                 public void call(Subscriber<? super Boolean> subscriber) {
                     if (!subscriber.isUnsubscribed()) {
@@ -456,6 +456,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 }
             });
         }
-    };
+    };*/
 
 }

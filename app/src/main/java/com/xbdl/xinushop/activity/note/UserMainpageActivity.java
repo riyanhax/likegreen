@@ -5,14 +5,18 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.github.jdsjlzx.util.RecyclerViewUtils;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.note.GardenViewAdapter;
 import com.xbdl.xinushop.adapter.note.LifelogAdapter;
@@ -49,12 +53,15 @@ public class UserMainpageActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_mainpage);
         bean= (MyFansBean.PdBean.ListBean) getIntent().getSerializableExtra("data");
+        potData=new ArrayList<String>();
+
         findViews();
         initData();
     }
 
 
     private void findViews() {
+
         recylist = ((LRecyclerView) findViewById(R.id.recyclist));
 //        recylist.useDefaultLoadMore();
         recylist.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -63,9 +70,13 @@ public class UserMainpageActivity extends BaseActivity implements View.OnClickLi
 
             }
         });
-        recylist.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
 
-        View v = getLayoutInflater().inflate(R.layout.headview_mainpage, recylist, false);
+        gardenAdapter=new GardenViewAdapter(potData,getActivity());
+        lifelogAdapter=new LifelogAdapter(potData,getActivity());
+        lRecyclerViewAdapter= new LRecyclerViewAdapter(gardenAdapter);
+        recylist.setAdapter(lRecyclerViewAdapter);
+        recylist.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
+        View v =LayoutInflater.from(this).inflate(R.layout.headview_mainpage,recylist , false);
         ivhead = ((ImageView) v.findViewById(R.id.ivhead));
         tname = ((TextView) v.findViewById(R.id.username));
         tsign = ((TextView) v.findViewById(R.id.usersign));
@@ -78,6 +89,10 @@ public class UserMainpageActivity extends BaseActivity implements View.OnClickLi
         tv_emptyText = ((TextView) findViewById(R.id.tv_emptyText));
         vline1 = v.findViewById(R.id.vline1);
         vline2 = v.findViewById(R.id.vline2);
+
+        //add a HeaderView
+        lRecyclerViewAdapter.addHeaderView(v);
+        lRecyclerViewAdapter.addHeaderView(v);
 
 
         tv_emptyText.setText("要养成写日记的好习惯哦");
@@ -143,15 +158,18 @@ public class UserMainpageActivity extends BaseActivity implements View.OnClickLi
                 break;
 
             case R.id.item1:
-                changeItem(0);
+                //changeItem(0);
                 recylist.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
+                gardenAdapter=new GardenViewAdapter(potData,getActivity());
                 lRecyclerViewAdapter= new LRecyclerViewAdapter(gardenAdapter);
                 recylist.setAdapter(lRecyclerViewAdapter);
                 break;
 
+
             case R.id.item2:
-                changeItem(1);
+                //changeItem(1);
                 recylist.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+                lifelogAdapter=new LifelogAdapter(lifelist,getActivity());
                 lRecyclerViewAdapter = new LRecyclerViewAdapter(lifelogAdapter);
                 recylist.setAdapter(lRecyclerViewAdapter);
 
@@ -213,7 +231,7 @@ public class UserMainpageActivity extends BaseActivity implements View.OnClickLi
         closeDialog();
     }*/
 
-    private void changeItem(int type) {
+  /*  private void changeItem(int type) {
         this.type = type;
 
         tv_emptyText.setText(type == 0 ? "要养成写日记的好习惯哦" : "动动手分享一下你的种植生活！");
@@ -240,7 +258,7 @@ public class UserMainpageActivity extends BaseActivity implements View.OnClickLi
             tlife.setTextColor(getResources().getColor(R.color.cblack));
             vline2.setBackgroundColor(Color.TRANSPARENT);
         }
-    }
+    }*/
 
     private int gardenpage = 1, lifelogpage = 1;
     private HashMap<String, Object> userMap;

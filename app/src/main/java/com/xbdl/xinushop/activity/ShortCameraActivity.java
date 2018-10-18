@@ -116,7 +116,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         //判断哪里开启
         Intent intent = getIntent();
         fromActivity = intent.getStringExtra("ApplyLiveActivity");
-
+        intentVideoReleaseActivity= new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);
         //以下为SDK调用主要步骤，请用户参考使用
         //1、创建录制实例
         MediaRecord.MediaRecordPara mediaRecordPara = new MediaRecord.MediaRecordPara();
@@ -634,7 +634,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         intent.putExtra("videoPath",outPutVideoPath);
         setResult(APPLY_LIVE,intent);
     }
-    private Intent intentVideoReleaseActivity= new Intent(ShortCameraActivity.this, VideoReleaseActivity.class);;
+    private Intent intentVideoReleaseActivity;
     private void startUploadActivity() {
         if (outPutVideoPath!=null){
 

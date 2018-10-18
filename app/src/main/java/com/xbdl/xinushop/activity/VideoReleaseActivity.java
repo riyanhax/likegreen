@@ -158,11 +158,13 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                         }else {
                             //已经申请过了
                             String token = jsonObject.getString("token");
-
                             config.appKey = appKey;
                             config.accid = accid;
                             config.token = token;
-
+                            nosUpload.setConfig(config);
+                          /*  config.appKey = "35aaca97cc05a23cd153b9f05c740a52";
+                            config.accid = "a01";
+                            config.token = "95c7b8398c3692616ec6211947bfeba9b00c6f38"*/
                         }
 
 
@@ -191,15 +193,15 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                     dismissLoading();
                 }
             });
-    /*        config.appKey = "35aaca97cc05a23cd153b9f05c740a52";
-            config.accid = "a01";
-            config.token = "95c7b8398c3692616ec6211947bfeba9b00c6f38";*/
-            //nosUpload.setConfig(config);
+     /*       config.appKey = "35aaca97cc05a23cd153b9f05c740a52";
+            config.accid = "2513533419133";
+            config.token = "8c5c0e0652e8ee2dd098938a3a82e0d3515d65d4";
+            nosUpload.setConfig(config);*/
         }
     }
 
     private void setAccid(String accid, String token) {
-        HttpUtils2.setuseraccid(MyApplication.user.getUserId(), accid, token, new StringCallback() {
+        HttpUtils2.setuseraccid(String.valueOf(MyApplication.user.getUserId()), accid, token, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Log.v("nihaoma","setAccid   "+response.body());
@@ -569,7 +571,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
-
+        //传视频信息到后台
     private void sendVideo(List<NOSUploadHandler.VideoQueryCallback.QueryResItem> list) {
         HttpUtils2.appPostVideo2(MyApplication.user.getLoginToken(), 1, url + list.get(0).objectName, videoTitle.getText().toString(), new StringCallback() {
             @Override
@@ -674,5 +676,12 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                 }
             }
         }).start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    /*    OkGo.getInstance().cancelAll();
+        okGo.cancelAll();*/
     }
 }

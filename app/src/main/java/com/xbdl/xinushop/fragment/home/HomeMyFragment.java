@@ -25,7 +25,7 @@ import com.bumptech.glide.Glide;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
@@ -38,12 +38,12 @@ import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.WebViewActivity;
 import com.xbdl.xinushop.activity.mine.AuditAndLiveActivity;
 import com.xbdl.xinushop.activity.mine.DiscountCouponActivity;
-import com.xbdl.xinushop.activity.mine.MyFansActivity;
+
 import com.xbdl.xinushop.activity.mine.MyFocuseActivity;
 import com.xbdl.xinushop.activity.mine.MyMessageAndDirectActivity;
 import com.xbdl.xinushop.activity.mine.MyProductsReleaseActivity;
 import com.xbdl.xinushop.activity.mine.PersonalDataActivity;
-import com.xbdl.xinushop.activity.mine.ShareLiftActivity;
+
 import com.xbdl.xinushop.activity.mine.SystemSettingsActivity;
 import com.xbdl.xinushop.activity.mine.wallet.MyWalletActivity;
 import com.xbdl.xinushop.base.BaseFragment;

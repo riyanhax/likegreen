@@ -58,6 +58,7 @@
     <string name="waitpay">待付款</string>
     <string name="payed">已付款</string>
     <string name="Refunded">已退款</string>
+    <string name="textvideo">你还没发布过视频哦 ~</string>
 
 
     <string name="personaldata">个人资料</string>

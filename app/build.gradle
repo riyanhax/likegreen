@@ -88,7 +88,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     // compile 'com.github.leibnik:WechatRadioBar:1.2'//底部导航栏
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    //implementation 'com.squareup.retrofit2:retrofit:2.3.0'
 
     //retrofit
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -104,7 +104,7 @@ dependencies {
     //implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
     //转换器，请求结果转换成Model
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    //implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
     //配合Rxjava 使用
 
@@ -118,7 +118,7 @@ dependencies {
     //下拉刷新RecyclerView
 
     //   implementation 'com.android.support:recyclerview-v7:21.0.0'
-    implementation 'com.github.jdsjlzx:LRecyclerView:1.5.0'
+    implementation 'com.github.jdsjlzx:LRecyclerView:1.5.1'
 
     //图片加载
     implementation 'com.github.bumptech.glide:glide:4.8.0'
@@ -128,16 +128,16 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     // 图片压缩
-    implementation 'com.github.XConstantine:Luban:1.1.0'
+    //implementation 'com.github.XConstantine:Luban:1.1.0'
 
     //右滑关闭
-    implementation 'me.imid.swipebacklayout.lib:library:1.0.0'
+    //implementation 'me.imid.swipebacklayout.lib:library:1.0.0'
 
     //rx生命周期管理
-    implementation 'com.trello:rxlifecycle:0.6.1'
+    //implementation 'com.trello:rxlifecycle:0.6.1'
 
     //Popwindow
-    implementation 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
+    //implementation 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
 
     //网易播放端
     api project(path: ':playerkit')
@@ -159,7 +159,7 @@ dependencies {
     implementation 'com.lzy.net:okrx:1.0.2'
 
     //jiecao
-    implementation 'cn.jzvd:jiaozivideoplayer:6.2.12'
+    //implementation 'cn.jzvd:jiaozivideoplayer:6.2.12'
 
     //网易上传sdk
     api project(path: ':vcloudnosupload')

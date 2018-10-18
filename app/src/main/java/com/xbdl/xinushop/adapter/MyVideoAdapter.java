@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.bean.MyVideoBean;
 import com.xbdl.xinushop.bean.VideoBean;
 
 import java.security.MessageDigest;
@@ -38,7 +39,7 @@ import static com.bumptech.glide.load.resource.bitmap.VideoBitmapDecoder.FRAME_O
  * 我的视频adapter
  */
 
-public class MyVideoAdapter extends ListBaseAdapter<VideoBean> {
+public class MyVideoAdapter extends ListBaseAdapter<MyVideoBean> {
     private LayoutInflater mLayoutInflater;
 
     public MyVideoAdapter(Context context) {
@@ -54,7 +55,7 @@ public class MyVideoAdapter extends ListBaseAdapter<VideoBean> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mDataList!=null){
-            VideoBean videoBean = mDataList.get(position);
+            MyVideoBean videoBean = mDataList.get(position);
 
             ViewHolder viewHolder= (ViewHolder) holder;
 
@@ -75,7 +76,7 @@ public class MyVideoAdapter extends ListBaseAdapter<VideoBean> {
                     }
                 }
             });
-            Glide.with(mContext).load(videoBean.getVideoUrl()).apply(requestOptions).into(viewHolder.photoBg);
+            Glide.with(mContext).load(videoBean.getUrl()).apply(requestOptions).into(viewHolder.photoBg);
         }
 
     }

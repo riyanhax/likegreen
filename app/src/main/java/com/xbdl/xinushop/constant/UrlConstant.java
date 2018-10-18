@@ -4,6 +4,7 @@ public interface UrlConstant {
     //String baseUrl="http://192.168.1.5:8080/";
    String baseUrl="http://120.79.173.209:8080/";
     //String baseUrl = "http://192.168.0.120:8080/"; //谢
+    //String baseUrl = "http://22418y6p77.iask.in/xilv/"; //李
 
     /**
      * 喜帖分享生活

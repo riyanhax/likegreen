@@ -1,26 +1,143 @@
 package com.xbdl.xinushop.bean;
 
 /**
- * Created by theWind on 2018/8/3.
+ * 我的页面下视频
  */
 
 public class MyVideoBean {
-    private String imgUrl;//视频图片地址
-    private int count;//播放数
 
-    public String getImgUrl() {
-        return imgUrl;
+
+    /**
+     * create_time : 1539880658000
+     * recommend : null
+     * type : 1
+     * url : http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4
+     * update_time : 1539880658000
+     * music : null
+     * commodity_id : null
+     * user_id : 25
+     * checkstatus : null
+     * information : null
+     * headline : 体来
+     * video_id : 4
+     * status : 0
+     */
+
+    private long create_time;
+    private Object recommend;
+    private int type;
+    private String url;
+    private long update_time;
+    private Object music;
+    private Object commodity_id;
+    private int user_id;
+    private Object checkstatus;
+    private Object information;
+    private String headline;
+    private int video_id;
+    private int status;
+
+    public long getCreate_time() {
+        return create_time;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setCreate_time(long create_time) {
+        this.create_time = create_time;
     }
 
-    public int getCount() {
-        return count;
+    public Object getRecommend() {
+        return recommend;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setRecommend(Object recommend) {
+        this.recommend = recommend;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public long getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(long update_time) {
+        this.update_time = update_time;
+    }
+
+    public Object getMusic() {
+        return music;
+    }
+
+    public void setMusic(Object music) {
+        this.music = music;
+    }
+
+    public Object getCommodity_id() {
+        return commodity_id;
+    }
+
+    public void setCommodity_id(Object commodity_id) {
+        this.commodity_id = commodity_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public Object getCheckstatus() {
+        return checkstatus;
+    }
+
+    public void setCheckstatus(Object checkstatus) {
+        this.checkstatus = checkstatus;
+    }
+
+    public Object getInformation() {
+        return information;
+    }
+
+    public void setInformation(Object information) {
+        this.information = information;
+    }
+
+    public String getHeadline() {
+        return headline;
+    }
+
+    public void setHeadline(String headline) {
+        this.headline = headline;
+    }
+
+    public int getVideo_id() {
+        return video_id;
+    }
+
+    public void setVideo_id(int video_id) {
+        this.video_id = video_id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

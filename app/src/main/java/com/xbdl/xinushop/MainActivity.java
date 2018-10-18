@@ -550,9 +550,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
     }
     @Override
     public void onBackPressed() {
-        if (popupWindow != null) {
+     /*   if (popupWindow != null) {
             popupWindow.dismiss();
-        }
+        }*/
         if (mBackHandedFragment == null || !mBackHandedFragment.onBackPressed()) {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 Log.i("asdf", "1");

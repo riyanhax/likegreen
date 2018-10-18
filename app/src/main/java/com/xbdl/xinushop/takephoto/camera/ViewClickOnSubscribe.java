@@ -9,7 +9,6 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.MainThreadSubscription;
 
 
 /**
@@ -73,7 +72,7 @@ public class ViewClickOnSubscribe implements Observable.OnSubscribe<View> {
         for (View v : clickViews) {
             v.setOnClickListener(listener);
         }
-        subscriber.add(new MainThreadSubscription() {
+      /*  subscriber.add(new MainThreadSubscription() {
             @Override
             protected void onUnsubscribe() {
                 Iterator<View> iterator = clickViews.iterator();
@@ -82,6 +81,6 @@ public class ViewClickOnSubscribe implements Observable.OnSubscribe<View> {
                     iterator.remove();
                 }
             }
-        });
+        });*/
     }
 }

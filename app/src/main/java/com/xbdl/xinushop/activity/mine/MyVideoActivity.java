@@ -9,7 +9,7 @@ import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.widget.PLVideoTextureView;
 import com.xbdl.xinushop.R;
 
-import cn.jzvd.JZVideoPlayer;
+
 
 /*
 * 点播，播放页面
@@ -35,6 +35,7 @@ public class MyVideoActivity extends AppCompatActivity implements View.OnClickLi
         mControlview.setOnClickListener(this);
         mVideoReturn = findViewById(R.id.iv_video_return);
         mVideoReturn.setOnClickListener(this);
+        videoPlayer.setLooping(true);
     }
 
     @Override

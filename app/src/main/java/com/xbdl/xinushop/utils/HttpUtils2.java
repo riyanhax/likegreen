@@ -5,6 +5,7 @@ import android.util.Log;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.constant.UrlConstant;
 import com.xbdl.xinushop.constant.UrlConstant2;
 
@@ -232,22 +233,24 @@ public class HttpUtils2 {
     /**
      * 设置网易accid到后台
      */
-    public static void setuseraccid(int userid,String accid,String token,StringCallback stringCallback) {
-        /*JSONObject json = new JSONObject();
+    public static void setuseraccid(String userid,String accid,String token,StringCallback stringCallback) {
+        JSONObject json = new JSONObject();
         JSONObject user = new JSONObject();
+        String sid = String.valueOf(userid);
         try {
-            json.put("userid", userid);
+
             json.put("accid", accid);
             json.put("token", token);
-            user.put("user",json);
-            Log.v("nihaoma",user.toString());
+            json.put("userId", sid);
+            //Log.v("nihaoma",json.toString());
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
         OkGo.<String>post(UrlConstant2.setuseraccid)// 请求方式和请求url
-                .params("userid", userid)
+               /*.params("userId", userid)
                 .params("accid", accid)
-                .params("token", token)
+                .params("token", token)*/
+                .upJson(json)
                 .tag("setuseraccid")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
@@ -317,11 +320,21 @@ public class HttpUtils2 {
      * 上传账号视频到后台 普通视频，没有音乐
      */
     public static void appPostVideo2(String token,int type,String url,String headline,StringCallback stringCallback) {
-        OkGo.<String>post(UrlConstant2.appPostVideo)// 请求方式和请求url
-                .params("token", token)
-                .params("type", type)
+        JSONObject json = new JSONObject();
+        try {
+
+            json.put("type", type);
+            json.put("url", url);
+            json.put("headline", headline);
+            Log.v("nihaoma",json.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        OkGo.<String>post(UrlConstant2.appPostVideo+"/"+ MyApplication.user.getLoginToken())// 请求方式和请求url
+                /*.params("type", type)
                 .params("url", url)
-                .params("headline", headline)
+                .params("headline", headline)*/
+                .upJson(json)
                 .tag("appPostVideo")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
@@ -336,6 +349,19 @@ public class HttpUtils2 {
                 .params("page", page)
                 .params("followType", followType)
                 .tag("myFansLsit")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 关注谁谁谁
+     */
+    public static void appAddConcern(String token,int userId,int beConcernUserId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appAddConcern)// 请求方式和请求url
+                .params("token", token)
+                .params("userId", userId)
+                .params("beConcernUserId", beConcernUserId)
+                .tag("appAddConcern")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
