@@ -51,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_head_icon"
                 android:src="@drawable/xilv"
                 android:layout_width="@dimen/dp_49"
                 android:layout_height="@dimen/dp_49" />
@@ -63,6 +64,7 @@
                 android:layout_height="20dp" />
         </RelativeLayout>
         <TextView
+            android:id="@+id/tv_works_conut"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_marginTop="2dp"
@@ -73,12 +75,14 @@
             android:layout_width="39dp"
             android:layout_height="15dp" />
         <ImageView
+            android:id="@+id/iv_islike"
             android:src="@drawable/heart"
             android:layout_marginTop="24dp"
             android:layout_gravity="center"
             android:layout_width="31dp"
             android:layout_height="26dp" />
         <TextView
+            android:id="@+id/tv_like_conut"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:textSize="@dimen/sp_10"
@@ -94,6 +98,7 @@
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30" />
         <TextView
+            android:id="@+id/tv_recommended_count"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_gravity="center"
             android:text="130"
@@ -109,6 +114,7 @@
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_27" />
         <TextView
+            android:id="@+id/tv_share_count"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_gravity="center"
             android:text="130"
@@ -117,12 +123,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
+            android:id="@+id/iv_shopping_car"
             android:src="@drawable/shoppingcart_home"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_13"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36" />
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_hrad"
             android:layout_marginTop="@dimen/dp_30"
             android:layout_gravity="center"
             android:layout_width="@dimen/dp_36"
@@ -136,6 +144,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/tv_username"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14"
@@ -143,6 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_video_name"
             android:layout_marginTop="@dimen/dp_7"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14"
@@ -159,6 +169,7 @@
                 android:layout_width="@dimen/dp_9"
                 android:layout_height="@dimen/dp_12" />
             <TextView
+                android:id="@+id/tv_music_name"
                 android:textColor="@color/white"
                 android:layout_marginLeft="@dimen/dp_4"
                 android:text="biubiubiu"

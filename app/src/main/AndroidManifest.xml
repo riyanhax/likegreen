@@ -156,10 +156,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:launchMode="singleTop">
-
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop"></activity>
         <activity android:name=".activity.mine.PersonalDataActivity" />
         <activity android:name=".activity.mine.GuanggaoAndLiveActivity" />
         <activity android:name=".activity.mine.AuditAndLiveActivity" />
@@ -310,9 +309,10 @@
         </receiver>
 
         <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.mine.MySellerOrderListActivity"></activity>
-        <activity android:name=".activity.mine.MyProductsReleaseActivity"/>
+        <activity android:name=".activity.mine.MySellerOrderListActivity" />
+        <activity android:name=".activity.mine.MyProductsReleaseActivity" />
         <activity android:name=".activity.note.UserMainpageActivity" />
+        <activity android:name=".activity.mian.UserDetailActivity"></activity>
     </application>
 
 </manifest>

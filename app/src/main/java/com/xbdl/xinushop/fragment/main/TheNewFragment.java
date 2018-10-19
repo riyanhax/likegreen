@@ -11,39 +11,76 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.RecommendedAdapter;
+import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.bean.MyVideoBean;
+import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
+import com.xbdl.xinushop.utils.HttpUtils2;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by theWind on 2018/8/1.
  */
 //关注
-public class TheNewFragment extends Fragment {
+public class TheNewFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommended, container, false);
-       // EventBus.getDefault().register(this);
-
-     //   initDate();
-     //   initView(view);
+       EventBus.getDefault().register(this);
+        initView(view);
+        initDate();
         return view;
     }
 
-  /*  private void initDate() {
-        mItemList = new ArrayList<>();
-        mItemList.add("http://m9pic.mm999.com/video/201804/20180427092550022.mp4");
+  private void initDate() {
+      HttpUtils2.selectNewest(new StringCallback() {
+          @Override
+          public void onSuccess(Response<String> response) {
+              Type listType = new TypeToken<LinkedList<TheNewVideoBean>>(){}.getType();
+              Gson gson = new Gson();
+              LinkedList<TheNewVideoBean> beans= gson.fromJson(response.body(), listType);
+              mShortVideoListAdapter.setDataList(beans);
+              dismissLoading();
+          }
+
+          @Override
+          public void onStart(Request<String, ? extends Request> request) {
+              super.onStart(request);
+              showLoading();
+          }
+
+          @Override
+          public void onFinish() {
+              super.onFinish();
+              dismissLoading();
+          }
+
+          @Override
+          public void onError(Response<String> response) {
+              super.onError(response);
+              dismissLoading();
+          }
+      });
+     /*   mItemList.add("http://m9pic.mm999.com/video/201804/20180427092550022.mp4");
         mItemList.add("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/FmdVOTqd_1818586962_shd.mp4");
         mItemList.add("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/wq1e35cQ_1818588221_shd.mp4");
-        mItemList.add("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/7eSdPRKt_1818589543_shd.mp4");
+        mItemList.add("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/7eSdPRKt_1818589543_shd.mp4");*/
     }
 
 
@@ -64,7 +101,6 @@ public class TheNewFragment extends Fragment {
     };
     private boolean mShouldPlay=true;
     private RecommendedAdapter mShortVideoListAdapter;
-    private ArrayList<String> mItemList;
     private int mCurrentPosition =  -1;
     private RecyclerView mVideoList;
     private void initView(View v) {
@@ -77,12 +113,11 @@ public class TheNewFragment extends Fragment {
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mVideoList);
 
-        mShortVideoListAdapter = new RecommendedAdapter(getActivity(),mItemList);
-        mShortVideoListAdapter = new RecommendedAdapter(getActivity(),mItemList);
+        mShortVideoListAdapter = new RecommendedAdapter(getActivity());
         mVideoList.setAdapter(mShortVideoListAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
 
-        if (mShouldPlay) {
+       /* if (mShouldPlay) {
             mVideoList.post(new Runnable() {
                 @Override
                 public void run() {
@@ -90,7 +125,7 @@ public class TheNewFragment extends Fragment {
                     mShouldPlay = false;
                 }
             });
-        }
+        }*/
         mShortVideoListAdapter.setMyViewClick(new RecommendedAdapter.MyViewClick() {
             @Override
             public void showCommentPop(View view) {
@@ -101,8 +136,8 @@ public class TheNewFragment extends Fragment {
 //                popupWindow.setTouchable(true);
 //                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 Log.i("asdf","pinglun");
-                RecommentCommentDialogFragment dialogFragment=RecommentCommentDialogFragment.newInstance();
-                dialogFragment.show(getChildFragmentManager(),"");
+              /*  RecommentCommentDialogFragment dialogFragment=RecommentCommentDialogFragment.newInstance();
+                dialogFragment.show(getChildFragmentManager(),"");*/
             }
 
             @Override
@@ -142,7 +177,7 @@ public class TheNewFragment extends Fragment {
         if (isVisibleToUser) {
             //相当于Fragment的onResume
             if (mShortVideoListAdapter != null) {
-                mShortVideoListAdapter.startCurVideoView();
+                //mShortVideoListAdapter.startCurVideoView();
             } else {
                 mShouldPlay = true;
             }
@@ -179,7 +214,7 @@ public class TheNewFragment extends Fragment {
     public void control(CallTab tab) {
         if (tab.equals(CallTab.MAIN)){
             if (mShortVideoListAdapter != null) {
-                mShortVideoListAdapter.startCurVideoView();
+               // mShortVideoListAdapter.startCurVideoView();
             } else {
                 mShouldPlay = true;
             }
@@ -189,5 +224,5 @@ public class TheNewFragment extends Fragment {
                 mShortVideoListAdapter.pauseCurVideoView();
             }
         }
-    }*/
+    }
 }

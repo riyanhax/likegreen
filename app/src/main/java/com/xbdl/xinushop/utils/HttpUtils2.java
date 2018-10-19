@@ -341,6 +341,26 @@ public class HttpUtils2 {
                 .execute(stringCallback);
     }
     /**
+     * 获取推荐视频
+     */
+    public static void suggestedVideos(StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.suggestedVideos)// 请求方式和请求url
+                .tag("suggestedVideos")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 获取最新视频
+     */
+    public static void selectNewest(StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.selectNewest)// 请求方式和请求url
+                .tag("selectNewest")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
      * 查询我的粉丝，我的关注列表
      */
     public static void myFansLsit(String token,int page,int followType,StringCallback stringCallback) {
@@ -361,6 +381,20 @@ public class HttpUtils2 {
                 .params("token", token)
                 .params("userId", userId)
                 .params("beConcernUserId", beConcernUserId)
+                .tag("appAddConcern")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 视频直播评论判断是否已点赞
+     */
+    public static void appCheckClickToPraise(String token,int clickToPraiseUserId,int clickToPraiseType,int clickToPraiseTypeId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appCheckClickToPraise)// 请求方式和请求url
+                .params("clickToPraiseType", clickToPraiseType)
+                .params("clickToPraiseTypeId", clickToPraiseTypeId)
+                .params("clickToPraiseUserId", clickToPraiseUserId)
+                .params("token", token)
                 .tag("appAddConcern")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍

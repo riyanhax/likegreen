@@ -17,7 +17,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/xilvfriends"
-        android:visibility="gone"
+
         tools:visibility="visible" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:text="用户昵称"
         android:textColor="@color/black"
         android:textSize="@dimen/text2"
-        android:visibility="gone"
+
         tools:visibility="visible" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:text="个性签名"
         android:textColor="#9f9f9f"
         android:textSize="@dimen/text5"
-        android:visibility="gone"
+
         tools:visibility="visible" />
 
     <TextView
@@ -50,7 +50,7 @@
         android:text="多肉 0 棵      关注 0 人"
         android:textColor="@color/black1"
         android:textSize="@dimen/text6"
-        android:visibility="gone"
+
         tools:visibility="visible" />
 
     <View
@@ -59,7 +59,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:background="@color/enptyviewbackground"
-        android:visibility="gone"
+
         tools:visibility="visible" />
 
     <LinearLayout

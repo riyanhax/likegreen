@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    android:background="#a5dca5">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <ImageView
+            android:id="@+id/iv_top_icon"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_my_head"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="81dp"
+            android:layout_height="81dp"
+            android:src="@drawable/xilvfriends"
+            tl:civ_border_width="3dp"
+            tl:civ_border_color="#b9b9c0"/>
+        <LinearLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp">
+            <RelativeLayout
+                android:id="@+id/my_more"
+                android:background="@drawable/my_yuanjiao"
+                android:layout_width="42dp"
+                android:layout_marginRight="@dimen/dp_50"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/more_sandian"
+                    android:layout_width="17dp"
+                    android:layout_height="4dp" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_my_username"
+            android:layout_marginTop="124dp"
+            android:layout_alignLeft="@id/iv_my_head"
+            android:textColor="#ffffff"
+            android:textSize="19sp"
+            android:paddingTop="10dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_my_word"
+            android:layout_alignLeft="@id/iv_my_head"
+            android:layout_below="@id/tv_my_username"
+            android:layout_marginTop="10dp"
+            android:textColor="#baffffff"
+            android:textSize="12sp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_my"
+            android:layout_alignLeft="@id/iv_my_head"
+            android:layout_below="@id/tv_my_word"
+            android:layout_marginTop="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_huozanshu"
+                android:textColor="#ffffff"
+                android:text="0 获赞"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/my_home_focuse"
+                android:layout_marginLeft="15dp"
+                android:textColor="#ffffff"
+                android:text="160 关注"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/my_home_fans"
+                android:layout_marginLeft="15dp"
+                android:textColor="#ffffff"
+                android:text="60 粉丝"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/st_my"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        tl:tl_divider_color="#dadada"
+        tl:tl_divider_padding="13dp"
+        tl:tl_divider_width="1dp"
+        tl:tl_indicator_color="#bbe417"
+        tl:tl_indicator_height="2dp"
+        tl:tl_indicator_width="62dp"
+        tl:tl_indicator_width_equal_title="true"
+        tl:tl_tab_padding="5dp"
+        tl:tl_tab_space_equal="true"
+        tl:tl_textSelectColor="#bbe417"
+        tl:tl_textUnselectColor="#dadada"
+
+        />
+    <android.support.v4.view.ViewPager
+        android:layout_below="@id/st_my"
+        android:id="@+id/viewpager_home_my"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <View
+        android:id="@+id/mian_empty"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/linebackground" />
+</LinearLayout>

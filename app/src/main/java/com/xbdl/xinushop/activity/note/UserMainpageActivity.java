@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
@@ -26,11 +28,13 @@ import com.xbdl.xinushop.bean.MyFansBean;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /*
 * 用户日记
 * */
 public class UserMainpageActivity extends BaseActivity implements View.OnClickListener {
-    private ImageView ivhead;
+    private CircleImageView ivhead;
     private RelativeLayout item1, item2;
     private TextView tlog, tlife, tname, tsign, tachive, tv_emptyText;
     private View vline1, vline2;
@@ -63,47 +67,55 @@ public class UserMainpageActivity extends BaseActivity implements View.OnClickLi
     private void findViews() {
 
         recylist = ((LRecyclerView) findViewById(R.id.recyclist));
-//        recylist.useDefaultLoadMore();
+
         recylist.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
 
             }
         });
-
         gardenAdapter=new GardenViewAdapter(potData,getActivity());
         lifelogAdapter=new LifelogAdapter(potData,getActivity());
         lRecyclerViewAdapter= new LRecyclerViewAdapter(gardenAdapter);
         recylist.setAdapter(lRecyclerViewAdapter);
         recylist.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
-        View v =LayoutInflater.from(this).inflate(R.layout.headview_mainpage,recylist , false);
-        ivhead = ((ImageView) v.findViewById(R.id.ivhead));
-        tname = ((TextView) v.findViewById(R.id.username));
-        tsign = ((TextView) v.findViewById(R.id.usersign));
-        tachive = ((TextView) v.findViewById(R.id.userachive));
 
-        item1 = ((RelativeLayout) v.findViewById(R.id.item1));
-        item2 = ((RelativeLayout) v.findViewById(R.id.item2));
-        tlog = ((TextView) v.findViewById(R.id.tvlog));
-        tlife = ((TextView) v.findViewById(R.id.tvlife));
+        ivhead = ((CircleImageView) findViewById(R.id.ivhead));
+        tname = ((TextView) findViewById(R.id.username));
+        tsign = ((TextView) findViewById(R.id.usersign));
+        tachive = ((TextView) findViewById(R.id.userachive));
+
+        item1 = ((RelativeLayout) findViewById(R.id.item1));
+        item2 = ((RelativeLayout) findViewById(R.id.item2));
+        tlog = ((TextView) findViewById(R.id.tvlog));
+        tlife = ((TextView) findViewById(R.id.tvlife));
         tv_emptyText = ((TextView) findViewById(R.id.tv_emptyText));
-        vline1 = v.findViewById(R.id.vline1);
-        vline2 = v.findViewById(R.id.vline2);
-
-        //add a HeaderView
-        lRecyclerViewAdapter.addHeaderView(v);
-        lRecyclerViewAdapter.addHeaderView(v);
-
-
+        vline1 = findViewById(R.id.vline1);
+        vline2 =findViewById(R.id.vline2);
         tv_emptyText.setText("要养成写日记的好习惯哦");
         //标题
         title = findViewById(R.id.tv_title);
+//解决数据加载不完的问题
+        recylist.setNestedScrollingEnabled(false);
+        recylist.setHasFixedSize(true);
+//解决数据加载完成后, 没有停留在顶部的问题
+        recylist.setFocusable(false);
 
     }
 
 
     private void initData() {
         title.setText(bean.getUser_name()+"的主页");
+        if (!TextUtils.isEmpty(bean.getHead_portrait())){
+            Glide.with(getActivity()).load(bean.getHead_portrait()).into(ivhead);
+        }
+        tname.setText(bean.getUser_name());
+        if (!TextUtils.isEmpty(bean.getSignature())){
+            tsign.setText(bean.getSignature());
+        }else {
+            tsign.setText(getResources().getString(R.string.textsign));
+        }
+
         findViewById(R.id.iv_return).setOnClickListener(this);
         findViewById(R.id.tv_focuse).setOnClickListener(this);
         item1.setOnClickListener(this);

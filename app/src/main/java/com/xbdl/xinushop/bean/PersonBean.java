@@ -38,6 +38,33 @@ public class PersonBean implements Serializable{
     private int accountBalance;
     private Object clientId;
     private String realName;
+    private int followCount;
+    private int fansCount;
+    private int likeCount;
+
+    public int getFollowCount() {
+        return followCount;
+    }
+
+    public void setFollowCount(int followCount) {
+        this.followCount = followCount;
+    }
+
+    public int getFansCount() {
+        return fansCount;
+    }
+
+    public void setFansCount(int fansCount) {
+        this.fansCount = fansCount;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
 
     public int getUserId() {
         return userId;

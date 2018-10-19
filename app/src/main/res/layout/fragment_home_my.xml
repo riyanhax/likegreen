@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
+
     android:orientation="vertical"
     android:background="#a5dca5">
     <RelativeLayout
@@ -22,8 +22,10 @@
         android:layout_width="81dp"
         android:layout_height="81dp"
         android:src="@drawable/xilvfriends"
-        app:civ_border_width="3dp"
-        app:civ_border_color="#b9b9c0"/>
+        tl:civ_border_width="3dp"
+        tl:civ_border_color="#b9b9c0"
+       />
+
     <LinearLayout
         android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"

@@ -1,15 +1,16 @@
-package com.xbdl.xinushop.fragment.home;
+package com.xbdl.xinushop.activity.mian;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,10 +25,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
-
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
@@ -40,31 +39,25 @@ import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.WebViewActivity;
 import com.xbdl.xinushop.activity.mine.AuditAndLiveActivity;
 import com.xbdl.xinushop.activity.mine.DiscountCouponActivity;
-
 import com.xbdl.xinushop.activity.mine.MyFocuseActivity;
 import com.xbdl.xinushop.activity.mine.MyMessageAndDirectActivity;
 import com.xbdl.xinushop.activity.mine.MyProductsReleaseActivity;
 import com.xbdl.xinushop.activity.mine.PersonalDataActivity;
-
 import com.xbdl.xinushop.activity.mine.SystemSettingsActivity;
 import com.xbdl.xinushop.activity.mine.wallet.MyWalletActivity;
-import com.xbdl.xinushop.base.BaseFragment;
-
+import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.fragment.mine.MyGardenFragment;
 import com.xbdl.xinushop.fragment.mine.MyLiveFragment;
 import com.xbdl.xinushop.fragment.mine.MyVideoFragment;
 import com.xbdl.xinushop.fragment.mine.MyWeddingCardFragment;
-
 import com.xbdl.xinushop.utils.FastBlurUtility;
 import com.xbdl.xinushop.utils.HttpUtils2;
-
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,16 +66,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-/**
- * Created by theWind on 2018/8/1.
- */
-
-public class HomeMyFragment extends BaseFragment implements View.OnClickListener {
-
+public class UserDetailActivity extends BaseActivity implements View.OnClickListener {
     private SlidingTabLayout mStMy;
     private ViewPager mViewpagerMy;
     private View mMyMore, mSystemSetting, mMsgDriect;
@@ -92,35 +78,34 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
     private CircleImageView headIcon;//头像
     private ImageView iv_top_icon;
     private TextView username,tv_my_word;
-    @Nullable
+    private int userId;
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_my, container, false);
-        initView(view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_detail);
+        userId= getIntent().getIntExtra("id", 0);
+        initView();
         initData();
-        return view;
     }
 
-    private void initView(View v) {
-        mStMy = (SlidingTabLayout) v.findViewById(R.id.st_my);
-        mViewpagerMy = (ViewPager) v.findViewById(R.id.viewpager_home_my);
-        mMyMore = v.findViewById(R.id.my_more);//弹popuwindow
-        mSystemSetting = v.findViewById(R.id.system_setting);//系统设置
-        mMsgDriect = v.findViewById(R.id.msg_driect);//消息私信
-        mMyfocuse = (TextView)v.findViewById(R.id.my_home_focuse);//关注
-        mMyfans = (TextView)v.findViewById(R.id.my_home_fans);//粉丝
-        huozanshu = v.findViewById(R.id.tv_huozanshu);
+    private void initView() {
+        mStMy = (SlidingTabLayout) findViewById(R.id.st_my);
+        mViewpagerMy = (ViewPager) findViewById(R.id.viewpager_home_my);
+        mMyMore = findViewById(R.id.my_more);//弹popuwindow
+        mMyfocuse = (TextView)findViewById(R.id.my_home_focuse);//关注
+        mMyfans = (TextView)findViewById(R.id.my_home_fans);//粉丝
+        huozanshu = findViewById(R.id.tv_huozanshu);
         huozanshu.setOnClickListener(this);//获赞数
-        headIcon =(CircleImageView) v.findViewById(R.id.iv_my_head);//头像
+        headIcon =(CircleImageView) findViewById(R.id.iv_my_head);//头像
         mMyMore.setOnClickListener(this);
-        mSystemSetting.setOnClickListener(this);
-        mMsgDriect.setOnClickListener(this);
+
+
         mMyfocuse.setOnClickListener(this);
         mMyfans.setOnClickListener(this);
         headIcon.setOnClickListener(this);
-        iv_top_icon= (ImageView)v.findViewById(R.id.iv_top_icon);//模糊背景
-         username = v.findViewById(R.id.tv_my_username);
-         tv_my_word = v.findViewById(R.id.tv_my_word);
+        iv_top_icon= (ImageView)findViewById(R.id.iv_top_icon);//模糊背景
+        username = findViewById(R.id.tv_my_username);
+        tv_my_word = findViewById(R.id.tv_my_word);
     }
 
     private void initData() {
@@ -131,8 +116,8 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         MyGardenFragment myGardenFragment = new MyGardenFragment();
         MyWeddingCardFragment myWeddingCardFragment = new MyWeddingCardFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("userId",MyApplication.user.getUserId());
-        bundle.putInt("type",2);
+        bundle.putInt("userId",userId);
+        bundle.putInt("type",1);
         myVideoFragment.setArguments(bundle);
         myLiveFragment.setArguments(bundle);
         myGardenFragment.setArguments(bundle);
@@ -142,12 +127,12 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         fragments.add(myLiveFragment);
         fragments.add(myGardenFragment);
         fragments.add(myWeddingCardFragment);
-        mStMy.setViewPager(mViewpagerMy, items, (FragmentActivity) getActivity(), fragments);
+        mStMy.setViewPager(mViewpagerMy, items, this, fragments);
 
 
     }
     private void getUserInfo() {
-        HttpUtils2.getUserInfoById(MyApplication.user.getLoginToken(),MyApplication.user.getUserId(), new StringCallback() {
+        HttpUtils2.getUserInfoById(MyApplication.user.getLoginToken(),userId, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Log.v("nihaoma",response.body());
@@ -210,7 +195,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         });
     }
     //模糊效果处理
-    private  Bitmap  bitMBitmap;
+    private Bitmap bitMBitmap;
     public void returnBitMap(final String url){
         new Thread(new Runnable() {
             @Override
@@ -254,26 +239,14 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
             case R.id.my_more://点击。。。
                 showPopwindow();
                 break;
-            case R.id.system_setting:
-                Intent intentSystemSetting = new Intent(getActivity(), SystemSettingsActivity.class);
-                startActivity(intentSystemSetting);
-                break;
-            case R.id.msg_driect://点击铃铛
-                Intent intentMyMessageAndDirectActivity = new Intent(getActivity(), MyMessageAndDirectActivity.class);
-                intentMyMessageAndDirectActivity.putExtra("HomeMyFragment",0);
-                startActivity(intentMyMessageAndDirectActivity);
-                break;
+
             case R.id.pop_privateletter://私信
                 Intent intentMyMessageAndDirectActivity2 = new Intent(getActivity(), MyMessageAndDirectActivity.class);
                 intentMyMessageAndDirectActivity2.putExtra("HomeMyFragment",1);
                 startActivity(intentMyMessageAndDirectActivity2);
                 popupWindow.dismiss();
                 break;
-            case R.id.pop_audit://视频审核
-                Intent intentAuditAndLiveActivity = new Intent(getActivity(), AuditAndLiveActivity.class);
-                startActivity(intentAuditAndLiveActivity);
-                popupWindow.dismiss();
-                break;
+
             case R.id.my_home_focuse://我的关注
                 Intent intentMyFocuseActivity = new Intent(getActivity(), MyFocuseActivity.class);
                 intentMyFocuseActivity.putExtra("type",1);
@@ -287,20 +260,7 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
             case R.id.tv_huozanshu://点赞数
                 showDianZanShuPop();
                 break;
-            case R.id.pop_mygoods: //我发布的商品
-                Intent intentMyProductsReleaseActivity = new Intent(getActivity(), MyProductsReleaseActivity.class);
-                startActivity(intentMyProductsReleaseActivity);
-                popupWindow.dismiss();
-                break;
-            case R.id.iv_my_head://头像
-                Intent intentPersonalDataActivity = new Intent(getActivity(), PersonalDataActivity.class);
-                startActivityForResult(intentPersonalDataActivity,100);
-                break;
-            case R.id.pop_mywallet://钱包
-                Intent intentMyWalletActivity = new Intent(getActivity(), MyWalletActivity.class);
-                startActivity(intentMyWalletActivity);
-                popupWindow.dismiss();
-                break;
+
             case R.id.iv_huozan_close://获赞关闭
                 huoZanPop.dismiss();
                 break;
@@ -341,18 +301,8 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                         .share();
                 popShare.dismiss();
                 break;
-            case R.id.pop_coupon://优惠券
-                Intent intentDiscountCouponActivity = new Intent(getActivity(), DiscountCouponActivity.class);
-                startActivity(intentDiscountCouponActivity);
-                popupWindow.dismiss();
-                break;
-            case R.id.pop_shoppingcar://购物车
-                Intent intentWebView = new Intent(getActivity(), WebViewActivity.class);
-                intentWebView.putExtra("webview",0);
-                startActivity(intentWebView);
-                popupWindow.dismiss();
-                break;
-            case R.id.pop_order://订单
+
+            case R.id.pop_report://举报
                /* Intent intentWebView2 = new Intent(getActivity(), WebViewActivity.class);
                 intentWebView2.putExtra("webview",1);
                 startActivity(intentWebView2);
@@ -454,28 +404,14 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
         popShare.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.CENTER, 0, 0);
     }
     private void showPopwindow() {
-        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_menu, null);
-        //钱包
-        LinearLayout pop_mywallet = contentView.findViewById(R.id.pop_mywallet);
-        pop_mywallet.setOnClickListener(this);
+        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_menu2, null);
         //私信
         LinearLayout pop_privateletter = contentView.findViewById(R.id.pop_privateletter);
         pop_privateletter.setOnClickListener(this);
-        //审核
-        LinearLayout pop_audit = contentView.findViewById(R.id.pop_audit);
-        pop_audit.setOnClickListener(this);
-        //我发布的商品
-        LinearLayout pop_goods = contentView.findViewById(R.id.pop_mygoods);
-        pop_goods.setOnClickListener(this);
-
-        //我的钱包
-        contentView.findViewById(R.id.pop_mywallet).setOnClickListener(this);
-        //购物车
-        contentView.findViewById(R.id.pop_shoppingcar).setOnClickListener(this);
-        //订单
-        contentView.findViewById(R.id.pop_order).setOnClickListener(this);
-        //优惠券
-        contentView.findViewById(R.id.pop_coupon).setOnClickListener(this);
+        //举报
+        View pop_report = contentView.findViewById(R.id.pop_report);
+        pop_report.setVisibility(View.VISIBLE);
+        pop_report.setOnClickListener(this);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
@@ -520,5 +456,9 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
             }
         }
     }
-}
 
+    @Override
+    protected Activity getActivity() {
+        return this;
+    }
+}

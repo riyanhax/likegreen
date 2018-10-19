@@ -92,6 +92,18 @@ public interface UrlConstant2 {
      */
     String appPostVideo=UrlConstant.baseUrl+"appPostVideo";
     /**
+     * 获取最新视频
+     */
+    String selectNewest=UrlConstant.baseUrl+"selectNewest";
+    /**
+     * 获取推荐视频
+     */
+    String suggestedVideos=UrlConstant.baseUrl+"suggestedVideos";
+    /**
+     * 视频直播评论判断是否已点赞
+     */
+    String appCheckClickToPraise=UrlConstant.baseUrl+"clickToPraise/appCheckClickToPraise";
+    /**
      * 查询我的粉丝，我的关注列表
      */
     String myFansLsit=UrlConstant.baseUrl+"follow/appFindFollowList";

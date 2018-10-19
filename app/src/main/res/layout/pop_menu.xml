@@ -178,4 +178,10 @@
             android:text="@string/mygoods"
             />
     </LinearLayout>
+    <View
+
+        android:layout_width="115dp"
+        android:layout_height="1dp"
+        android:background="@color/linebackground"/>
+
 </LinearLayout>

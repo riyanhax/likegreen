@@ -43,8 +43,12 @@ public class MyVideoFragment extends BaseFragment {
     private int pageSize;//一页刷新的数量
     private LRecyclerView mRecyclerView;
     private View text;
+    private int userId,type;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_video, container, false);
+        Bundle bundle = getArguments();
+        userId = bundle.getInt("userId");
+        type = bundle.getInt("type");
         initView(view);
         initData();
         return view;
@@ -55,7 +59,7 @@ public class MyVideoFragment extends BaseFragment {
    }
     private MyVideoAdapter myVideoAdapter;
     private void initData(){
-        getVideoList();
+            getVideoList(userId);
 
          myVideoAdapter = new MyVideoAdapter(getContext());
 
@@ -79,7 +83,7 @@ public class MyVideoFragment extends BaseFragment {
     }
 
 
-    public void getVideoList() {
+    public void getVideoList(int id) {
         HttpUtils2.myvideoAlllist(MyApplication.user.getLoginToken(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

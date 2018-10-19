@@ -17,6 +17,7 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.mian.UserDetailActivity;
 import com.xbdl.xinushop.activity.note.UserMainpageActivity;
 import com.xbdl.xinushop.adapter.MyFocuseAdapter;
 import com.xbdl.xinushop.base.BaseActivity;
@@ -97,8 +98,8 @@ public class MyFocuseActivity extends BaseActivity {
         myFocuseAdapter.setClick(new MyFocuseAdapter.MyClick() {
             @Override
             public void itemClick(MyFansBean.PdBean.ListBean bean) {
-                Intent intent = new Intent(getActivity(), UserMainpageActivity.class);
-                intent.putExtra("data",bean);
+                Intent intent = new Intent(getActivity(), UserDetailActivity.class);
+                intent.putExtra("id",bean.getUser_id());
                 startActivity(intent);
             }
 

@@ -76,8 +76,8 @@ public class ReviewFragment extends Fragment {
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mVideoList);
 
-        mShortVideoListAdapter = new RecommendedAdapter(getActivity(),mItemList);
-        mShortVideoListAdapter = new RecommendedAdapter(getActivity(),mItemList);
+        mShortVideoListAdapter = new RecommendedAdapter(getActivity());
+        //mShortVideoListAdapter.setDataList(mVideoList);
         mVideoList.setAdapter(mShortVideoListAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
 

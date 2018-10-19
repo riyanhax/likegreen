@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.xbdl.xinushop.R;
@@ -36,5 +37,11 @@ public class AuditAndLiveActivity extends AppCompatActivity {
     private void initView() {
         mStAuditLive=(SlidingTabLayout)findViewById(R.id.st_audit_live);
         mViewPager=(ViewPager) findViewById(R.id.viewpager_my);
+        findViewById(R.id.iv_return).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

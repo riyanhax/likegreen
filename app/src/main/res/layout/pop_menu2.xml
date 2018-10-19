@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="150dp"
+              android:layout_height="@dimen/dp_90"
+              android:background="@drawable/bj"
+              android:padding="10dp"
+    >
+
+  <LinearLayout
+      android:layout_marginTop="10dp"
+      android:id="@+id/pop_privateletter"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:clickable="true"
+      android:layout_marginBottom="@dimen/dp_5"
+      >
+      <ImageView
+            style="@style/popiv"
+          android:src="@drawable/privateletter"
+          />
+      <TextView
+          style="@style/poptv"
+          android:text="@string/privateletter"
+
+          />
+  </LinearLayout>
+    <View
+        android:layout_width="115dp"
+        android:layout_height="1dp"
+        android:background="@color/linebackground"/>
+
+    <LinearLayout
+        android:id="@+id/pop_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:layout_marginTop="10dp"
+        >
+        <ImageView
+            style="@style/popiv"
+            android:src="@drawable/jubao"
+            />
+        <TextView
+            style="@style/poptv"
+            android:text="@string/report"
+            />
+    </LinearLayout>
+    <View
+
+        android:layout_width="115dp"
+        android:layout_height="1dp"
+        android:background="@color/linebackground"/>
+
+</LinearLayout>

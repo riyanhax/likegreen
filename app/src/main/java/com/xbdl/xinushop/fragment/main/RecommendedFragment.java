@@ -18,18 +18,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.RecommendedAdapter;
 import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
+import com.xbdl.xinushop.utils.HttpUtils2;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import cn.jpush.im.android.api.event.MessageEvent;
 
@@ -41,23 +52,48 @@ import cn.jpush.im.android.api.event.MessageEvent;
 
 public class RecommendedFragment extends BaseFragment implements View.OnClickListener {
     private String TAG = "ShortVideoActivity";
+    private boolean isWifi;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommended, container, false);
         EventBus.getDefault().register(this);
-
-        initDate();
+        isWifi = SharedPreferencesUtil.getBoolean(getActivity(), MyConstants.WIFI_AND_MOBILE, true);
         initView(view);
+        initDate();
         return view;
     }
 
     private void initDate() {
-        mItemList = new ArrayList<>();
-        mItemList.add("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/1BrIAtvV_1818587477_shd.mp4");
-        mItemList.add("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/FmdVOTqd_1818586962_shd.mp4");
-        mItemList.add("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/wq1e35cQ_1818588221_shd.mp4");
-        mItemList.add("http://vodhj5bqn44.vod.126.net/vodhj5bqn44/7eSdPRKt_1818589543_shd.mp4");
+        HttpUtils2.selectNewest(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Log.v("nihaoma",response.body());
+                Type listType = new TypeToken<LinkedList<TheNewVideoBean>>(){}.getType();
+                Gson gson = new Gson();
+                LinkedList<TheNewVideoBean> beans= gson.fromJson(response.body(), listType);
+                mShortVideoListAdapter.setDataList(beans);
+                dismissLoading();
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                showLoading();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoading();
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dismissLoading();
+            }
+        });
     }
 
     @Override
@@ -98,8 +134,7 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mVideoList);
 
-        mShortVideoListAdapter = new RecommendedAdapter(getActivity(),mItemList);
-        mShortVideoListAdapter = new RecommendedAdapter(getActivity(),mItemList);
+        mShortVideoListAdapter = new RecommendedAdapter(getActivity());
         mVideoList.setAdapter(mShortVideoListAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
 
@@ -163,7 +198,7 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
         if (isVisibleToUser) {
             //相当于Fragment的onResume
             if (mShortVideoListAdapter != null) {
-                mShortVideoListAdapter.startCurVideoView();
+               // mShortVideoListAdapter.startCurVideoView();
             } else {
                 mShouldPlay = true;
             }

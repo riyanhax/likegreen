@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.xbdl.xinushop.R;
@@ -44,6 +45,12 @@ public class MyMessageAndDirectActivity extends AppCompatActivity {
     private void initView() {
         mStAuditLive=(SlidingTabLayout)findViewById(R.id.st_message_direct);
         mViewPager=(ViewPager) findViewById(R.id.viewpager_message_direct);
+        findViewById(R.id.iv_return).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     @Override
     protected void onPause() {

@@ -3,6 +3,7 @@ package com.xbdl.xinushop.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
@@ -12,28 +13,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.widget.PLVideoTextureView;
 
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
+import com.xbdl.xinushop.activity.mian.UserDetailActivity;
+import com.xbdl.xinushop.bean.TheNewVideoBean;
+import com.xbdl.xinushop.utils.HttpUtils2;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.ViewHolder> implements View.OnClickListener {
-    private ArrayList<String> mItemList;
+
     private ViewHolder mCurViewHolder;
     private DisplayImageOptions mDisplayImageOptions;
     private Activity mContext;
-    public RecommendedAdapter(Activity comtext, ArrayList<String> arrayList) {
-        mItemList = arrayList;
+    public RecommendedAdapter(Activity comtext) {
+
         mContext=comtext;
         mDisplayImageOptions = new DisplayImageOptions.Builder()
                 /*.showImageOnLoading(R.drawable.defualt_bg)            //加载图片时的图片
@@ -44,6 +56,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                 .considerExifParams(true)                          //启用EXIF和JPEG图像格式
                 .build();
     }
+
 
     @Override
     public void onClick(View view) {
@@ -96,6 +109,11 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
             case R.id.iv_recommended_comment:
                 myclick.showCommentPop(view);
                 //showCommentPop(view);
+                break;
+            case R.id.civ_head_icon:
+                Intent intentUserDetailActivity = new Intent(mContext, UserDetailActivity.class);
+                intentUserDetailActivity.putExtra("id",  bean.getUser_id());
+                mContext.startActivity(intentUserDetailActivity);
                 break;
         }
     }
@@ -155,7 +173,10 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         View holderRootView;
         View topView;
         View pausePlayImage;
-        View mShare,comment;
+        View mShare,comment,head_add,shopping_car;//加关注
+        CircleImageView head_icon,user_hrad;//上面头像  下面头像
+        TextView works_conut,like_conut,recommended_count,share_count,username,video_name,music_name;//作品数  点赞数 评论数 分享数
+        ImageView iv_islike;//是否已经点赞
         public ViewHolder(View itemView) {
             super(itemView);
             holderRootView = itemView;
@@ -180,6 +201,18 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
             });
             mShare=itemView.findViewById(R.id.iv_recommend_share);//分享
             comment=itemView.findViewById(R.id.iv_recommended_comment);//评论
+            head_icon= itemView.findViewById(R.id.civ_head_icon);
+            user_hrad= itemView.findViewById(R.id.user_hrad);
+            head_add= itemView.findViewById(R.id.iv_live_head_add);
+            works_conut= itemView.findViewById(R.id.tv_works_conut);
+            iv_islike= itemView.findViewById(R.id.iv_islike);
+            like_conut= itemView.findViewById(R.id.tv_like_conut);
+            recommended_count= itemView.findViewById(R.id.tv_recommended_count);
+            share_count= itemView.findViewById(R.id.tv_share_count);
+            shopping_car= itemView.findViewById(R.id.iv_shopping_car);
+            username= itemView.findViewById(R.id.tv_username);
+            video_name= itemView.findViewById(R.id.tv_video_name);
+            music_name= itemView.findViewById(R.id.tv_music_name);
         }
     }
 
@@ -191,15 +224,28 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
-
+    TheNewVideoBean bean;
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String videoItem = mItemList.get(position);
-        holder.videoPath = videoItem;
+        bean= mItemList.get(position);
+        holder.videoPath = bean.getUrl();
         holder.holderRootView.setTag(position);
         holder.videoView.setLooping(true);
         holder.mShare.setOnClickListener(this);
         holder.comment.setOnClickListener(this);
+        holder.head_icon.setOnClickListener(this);
+   /*     HttpUtils2.appCheckClickToPraise(MyApplication.user.getLoginToken(), MyApplication.user.getUserId(), 1, bean.getVideo_id(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Log.v("nihaoma",response.body());
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Log.v("nihaoma","获取是否点赞onError");
+            }
+        });*/
     }
 
     @Override
@@ -265,5 +311,29 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     private MyViewClick myclick;
     public void setMyViewClick(MyViewClick click){
         myclick=click;
+    }
+
+
+
+
+
+    protected ArrayList<TheNewVideoBean> mItemList = new ArrayList<>();
+
+    public void setDataList(Collection<TheNewVideoBean> list) {
+        this.mItemList.clear();
+        this.mItemList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void addAll(Collection<TheNewVideoBean> list) {
+        int lastIndex = this.mItemList.size();
+        if (this.mItemList.addAll(list)) {
+            notifyItemRangeInserted(lastIndex, list.size());
+        }
+    }
+
+    public void clear() {
+        mItemList.clear();
+        notifyDataSetChanged();
     }
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/ll_view"
+    android:background="@color/enptyviewbackground"
     android:orientation="vertical"
    >
     <RelativeLayout
@@ -41,25 +42,34 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
-
-    <com.github.jdsjlzx.recyclerview.LRecyclerView
-        android:id="@+id/recyclist"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/white"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/headview_mainpage"/>
+            <com.github.jdsjlzx.recyclerview.LRecyclerView
+                android:id="@+id/recyclist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/white"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
 
-    <TextView
-        android:id="@+id/tv_emptyText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center"
-        android:padding="8dp"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/recyclist"
-        tools:text="你还没有关注任何大神" />
+            <TextView
+                android:id="@+id/tv_emptyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textSize="12sp"
+            />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
 
 </LinearLayout>
