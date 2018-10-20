@@ -104,12 +104,20 @@ public interface UrlConstant2 {
      */
     String appCheckClickToPraise=UrlConstant.baseUrl+"clickToPraise/appCheckClickToPraise";
     /**
+     * 谁关注了当前用户列表
+     */
+    String appGetWhoWatchingMe=UrlConstant.baseUrl+"concern/appGetWhoWatchingMe";
+    /**
      * 查询我的粉丝，我的关注列表
      */
-    String myFansLsit=UrlConstant.baseUrl+"follow/appFindFollowList";
+    String appGetMyAttention=UrlConstant.baseUrl+"concern/appGetMyAttention";
     /**
      * 关注谁谁谁
      */
-    String appAddConcern=UrlConstant.baseUrl+"/concern/appAddConcern";
+    String appAddConcern=UrlConstant.baseUrl+"concern/appAddConcern";
+    /**
+     * 取消关注
+     */
+    String appCancelYourAttention=UrlConstant.baseUrl+"concern/appCancelYourAttention";
 
 }

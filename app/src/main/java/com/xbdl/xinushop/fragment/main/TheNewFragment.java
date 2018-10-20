@@ -43,8 +43,8 @@ public class TheNewFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommended, container, false);
        EventBus.getDefault().register(this);
-        initView(view);
-        initDate();
+       // initView(view);
+       // initDate();
         return view;
     }
 

@@ -361,13 +361,28 @@ public class HttpUtils2 {
                 .execute(stringCallback);
     }
     /**
-     * 查询我的粉丝，我的关注列表
+     * ，获取当前用户关注列表
      */
-    public static void myFansLsit(String token,int page,int followType,StringCallback stringCallback) {
-        OkGo.<String>post(UrlConstant2.myFansLsit)// 请求方式和请求url
+    public static void appGetMyAttention(String token,int page,int userId,StringCallback stringCallback) {
+
+
+        OkGo.<String>post(UrlConstant2.appGetMyAttention)// 请求方式和请求url
+                .params("pn", page)
+                .params("userId", userId)
                 .params("token", token)
-                .params("page", page)
-                .params("followType", followType)
+                .tag("myFansLsit")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * ，关注我的列表
+     */
+    public static void appGetWhoWatchingMe(String token,int page,int userId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appGetWhoWatchingMe)// 请求方式和请求url
+                .params("pn", page)
+                .params("userId", userId)
+                .params("token", token)
                 .tag("myFansLsit")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
@@ -378,10 +393,23 @@ public class HttpUtils2 {
      */
     public static void appAddConcern(String token,int userId,int beConcernUserId,StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.appAddConcern)// 请求方式和请求url
-                .params("token", token)
                 .params("userId", userId)
                 .params("beConcernUserId", beConcernUserId)
+                .params("token", token)
                 .tag("appAddConcern")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 取消关注
+     */
+    public static void appCancelYourAttention(String token,int userId,int beConcernUserId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appCancelYourAttention)// 请求方式和请求url
+                .params("userId", userId)
+                .params("beConcernUserId", beConcernUserId)
+                .params("token", token)
+                .tag("appCancelYourAttention")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
@@ -389,7 +417,7 @@ public class HttpUtils2 {
     /**
      * 视频直播评论判断是否已点赞
      */
-    public static void appCheckClickToPraise(String token,int clickToPraiseUserId,int clickToPraiseType,int clickToPraiseTypeId,StringCallback stringCallback) {
+    public static void appCheckClickToPraise(int clickToPraiseType,int clickToPraiseTypeId,int clickToPraiseUserId,String token,StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.appCheckClickToPraise)// 请求方式和请求url
                 .params("clickToPraiseType", clickToPraiseType)
                 .params("clickToPraiseTypeId", clickToPraiseTypeId)

@@ -63,16 +63,17 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
         initDate();
         return view;
     }
-
+    LinkedList<TheNewVideoBean> beans;
     private void initDate() {
-        HttpUtils2.selectNewest(new StringCallback() {
+        HttpUtils2.suggestedVideos(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                Log.v("nihaoma",response.body());
+                Log.v("nihaoma","视频信息"+response.body());
                 Type listType = new TypeToken<LinkedList<TheNewVideoBean>>(){}.getType();
                 Gson gson = new Gson();
-                LinkedList<TheNewVideoBean> beans= gson.fromJson(response.body(), listType);
-                mShortVideoListAdapter.setDataList(beans);
+                beans= gson.fromJson(response.body(), listType);
+                initRecyclerView(beans);
+
                 dismissLoading();
             }
 
@@ -92,6 +93,7 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
             public void onError(Response<String> response) {
                 super.onError(response);
                 dismissLoading();
+                Log.v("nihaoma","视频信息onError"+response.body());
             }
         });
     }
@@ -127,6 +129,10 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
     private void initView(View v) {
 
         mVideoList = v.findViewById(R.id.video_list);
+
+    }
+
+    private void initRecyclerView(LinkedList<TheNewVideoBean> beans) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mVideoList.setLayoutManager(layoutManager);
         mVideoList.setHasFixedSize(true);
@@ -135,6 +141,7 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
         snapHelper.attachToRecyclerView(mVideoList);
 
         mShortVideoListAdapter = new RecommendedAdapter(getActivity());
+        mShortVideoListAdapter.setDataList(beans);
         mVideoList.setAdapter(mShortVideoListAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
 
@@ -167,6 +174,7 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
             }
         });
     }
+
     @Override
     public void onPause() {
         super.onPause();

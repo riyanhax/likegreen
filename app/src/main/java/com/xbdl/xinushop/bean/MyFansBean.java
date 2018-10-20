@@ -1,27 +1,20 @@
 package com.xbdl.xinushop.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class MyFansBean {
 
     /**
-     * msg : 查询成功
      * code : 100
-     * pd : {"pageNum":1,"pageSize":1,"size":1,"startRow":0,"endRow":0,"total":1,"pages":1,"list":[{"clientId":null,"signature":"也做了","user_name":"静鸡鸡","sex":null,"background_img":null,"wechat":null,"xl_id":"29538429","register_time":"2018-09-25 16:27:44","realName":null,"password":"12345678","user_id":11,"user_phone":"13533419133","accid":null,"login_token":"f0caa16f9d1640bcba2872026dcca32f","toekn":null,"accountBalance":0,"head_portrait":"20181010221410723.jpg"}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}
+     * msg : 处理成功！
+     * extend : {"concernList":{"pageNum":1,"pageSize":10,"size":3,"startRow":1,"endRow":3,"total":3,"pages":1,"list":[{"concernId":28,"concernUserId":25,"beConcernUserId":24,"creationTime":null,"whetherToBeConcerned":0,"user":{"userId":24,"userName":"xl_28912798","userPhone":"17796653539","password":"123456","xlId":"28912798","headPortrait":null,"sex":null,"signature":null,"registerTime":"2018-10-16 16:33:07","backgroundImg":null,"wechat":null,"loginToken":"9a07a3680f294b03a1099506c7512bb4","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":"","token":""}},{"concernId":29,"concernUserId":25,"beConcernUserId":1,"creationTime":null,"whetherToBeConcerned":1,"user":{"userId":1,"userName":"123456","userPhone":"18373892212","password":"123456","xlId":null,"headPortrait":null,"sex":null,"signature":null,"registerTime":null,"backgroundImg":null,"wechat":null,"loginToken":"902ed5926e3d4b29a9d48ea888fa4a4f","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":null,"token":null}},{"concernId":30,"concernUserId":25,"beConcernUserId":2,"creationTime":null,"whetherToBeConcerned":1,"user":{"userId":2,"userName":"2","userPhone":"2","password":"2","xlId":"2","headPortrait":"2","sex":"2","signature":"2","registerTime":"2","backgroundImg":"2","wechat":"2","loginToken":"2","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":null,"token":null}}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":5,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"lastPage":1,"firstPage":1}}
+     * object : null
      */
 
-    private String msg;
     private int code;
-    private PdBean pd;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+    private String msg;
+    private ExtendBean extend;
+    private Object object;
 
     public int getCode() {
         return code;
@@ -31,392 +24,500 @@ public class MyFansBean {
         this.code = code;
     }
 
-    public PdBean getPd() {
-        return pd;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setPd(PdBean pd) {
-        this.pd = pd;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public static class PdBean {
+    public ExtendBean getExtend() {
+        return extend;
+    }
+
+    public void setExtend(ExtendBean extend) {
+        this.extend = extend;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
+    public static class ExtendBean {
         /**
-         * pageNum : 1
-         * pageSize : 1
-         * size : 1
-         * startRow : 0
-         * endRow : 0
-         * total : 1
-         * pages : 1
-         * list : [{"clientId":null,"signature":"也做了","user_name":"静鸡鸡","sex":null,"background_img":null,"wechat":null,"xl_id":"29538429","register_time":"2018-09-25 16:27:44","realName":null,"password":"12345678","user_id":11,"user_phone":"13533419133","accid":null,"login_token":"f0caa16f9d1640bcba2872026dcca32f","toekn":null,"accountBalance":0,"head_portrait":"20181010221410723.jpg"}]
-         * prePage : 0
-         * nextPage : 0
-         * isFirstPage : true
-         * isLastPage : true
-         * hasPreviousPage : false
-         * hasNextPage : false
-         * navigatePages : 8
-         * navigatepageNums : [1]
-         * navigateFirstPage : 1
-         * navigateLastPage : 1
-         * firstPage : 1
-         * lastPage : 1
+         * concernList : {"pageNum":1,"pageSize":10,"size":3,"startRow":1,"endRow":3,"total":3,"pages":1,"list":[{"concernId":28,"concernUserId":25,"beConcernUserId":24,"creationTime":null,"whetherToBeConcerned":0,"user":{"userId":24,"userName":"xl_28912798","userPhone":"17796653539","password":"123456","xlId":"28912798","headPortrait":null,"sex":null,"signature":null,"registerTime":"2018-10-16 16:33:07","backgroundImg":null,"wechat":null,"loginToken":"9a07a3680f294b03a1099506c7512bb4","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":"","token":""}},{"concernId":29,"concernUserId":25,"beConcernUserId":1,"creationTime":null,"whetherToBeConcerned":1,"user":{"userId":1,"userName":"123456","userPhone":"18373892212","password":"123456","xlId":null,"headPortrait":null,"sex":null,"signature":null,"registerTime":null,"backgroundImg":null,"wechat":null,"loginToken":"902ed5926e3d4b29a9d48ea888fa4a4f","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":null,"token":null}},{"concernId":30,"concernUserId":25,"beConcernUserId":2,"creationTime":null,"whetherToBeConcerned":1,"user":{"userId":2,"userName":"2","userPhone":"2","password":"2","xlId":"2","headPortrait":"2","sex":"2","signature":"2","registerTime":"2","backgroundImg":"2","wechat":"2","loginToken":"2","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":null,"token":null}}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":5,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"lastPage":1,"firstPage":1}
          */
 
-        private int pageNum;
-        private int pageSize;
-        private int size;
-        private int startRow;
-        private int endRow;
-        private int total;
-        private int pages;
-        private int prePage;
-        private int nextPage;
-        private boolean isFirstPage;
-        private boolean isLastPage;
-        private boolean hasPreviousPage;
-        private boolean hasNextPage;
-        private int navigatePages;
-        private int navigateFirstPage;
-        private int navigateLastPage;
-        private int firstPage;
-        private int lastPage;
-        private List<ListBean> list;
-        private List<Integer> navigatepageNums;
+        private ConcernListBean concernList;
 
-        public int getPageNum() {
-            return pageNum;
+        public ConcernListBean getConcernList() {
+            return concernList;
         }
 
-        public void setPageNum(int pageNum) {
-            this.pageNum = pageNum;
+        public void setConcernList(ConcernListBean concernList) {
+            this.concernList = concernList;
         }
 
-        public int getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public void setSize(int size) {
-            this.size = size;
-        }
-
-        public int getStartRow() {
-            return startRow;
-        }
-
-        public void setStartRow(int startRow) {
-            this.startRow = startRow;
-        }
-
-        public int getEndRow() {
-            return endRow;
-        }
-
-        public void setEndRow(int endRow) {
-            this.endRow = endRow;
-        }
-
-        public int getTotal() {
-            return total;
-        }
-
-        public void setTotal(int total) {
-            this.total = total;
-        }
-
-        public int getPages() {
-            return pages;
-        }
-
-        public void setPages(int pages) {
-            this.pages = pages;
-        }
-
-        public int getPrePage() {
-            return prePage;
-        }
-
-        public void setPrePage(int prePage) {
-            this.prePage = prePage;
-        }
-
-        public int getNextPage() {
-            return nextPage;
-        }
-
-        public void setNextPage(int nextPage) {
-            this.nextPage = nextPage;
-        }
-
-        public boolean isIsFirstPage() {
-            return isFirstPage;
-        }
-
-        public void setIsFirstPage(boolean isFirstPage) {
-            this.isFirstPage = isFirstPage;
-        }
-
-        public boolean isIsLastPage() {
-            return isLastPage;
-        }
-
-        public void setIsLastPage(boolean isLastPage) {
-            this.isLastPage = isLastPage;
-        }
-
-        public boolean isHasPreviousPage() {
-            return hasPreviousPage;
-        }
-
-        public void setHasPreviousPage(boolean hasPreviousPage) {
-            this.hasPreviousPage = hasPreviousPage;
-        }
-
-        public boolean isHasNextPage() {
-            return hasNextPage;
-        }
-
-        public void setHasNextPage(boolean hasNextPage) {
-            this.hasNextPage = hasNextPage;
-        }
-
-        public int getNavigatePages() {
-            return navigatePages;
-        }
-
-        public void setNavigatePages(int navigatePages) {
-            this.navigatePages = navigatePages;
-        }
-
-        public int getNavigateFirstPage() {
-            return navigateFirstPage;
-        }
-
-        public void setNavigateFirstPage(int navigateFirstPage) {
-            this.navigateFirstPage = navigateFirstPage;
-        }
-
-        public int getNavigateLastPage() {
-            return navigateLastPage;
-        }
-
-        public void setNavigateLastPage(int navigateLastPage) {
-            this.navigateLastPage = navigateLastPage;
-        }
-
-        public int getFirstPage() {
-            return firstPage;
-        }
-
-        public void setFirstPage(int firstPage) {
-            this.firstPage = firstPage;
-        }
-
-        public int getLastPage() {
-            return lastPage;
-        }
-
-        public void setLastPage(int lastPage) {
-            this.lastPage = lastPage;
-        }
-
-        public List<ListBean> getList() {
-            return list;
-        }
-
-        public void setList(List<ListBean> list) {
-            this.list = list;
-        }
-
-        public List<Integer> getNavigatepageNums() {
-            return navigatepageNums;
-        }
-
-        public void setNavigatepageNums(List<Integer> navigatepageNums) {
-            this.navigatepageNums = navigatepageNums;
-        }
-
-        public static class ListBean implements Serializable{
+        public static class ConcernListBean {
             /**
-             * clientId : null
-             * signature : 也做了
-             * user_name : 静鸡鸡
-             * sex : null
-             * background_img : null
-             * wechat : null
-             * xl_id : 29538429
-             * register_time : 2018-09-25 16:27:44
-             * realName : null
-             * password : 12345678
-             * user_id : 11
-             * user_phone : 13533419133
-             * accid : null
-             * login_token : f0caa16f9d1640bcba2872026dcca32f
-             * toekn : null
-             * accountBalance : 0
-             * head_portrait : 20181010221410723.jpg
+             * pageNum : 1
+             * pageSize : 10
+             * size : 3
+             * startRow : 1
+             * endRow : 3
+             * total : 3
+             * pages : 1
+             * list : [{"concernId":28,"concernUserId":25,"beConcernUserId":24,"creationTime":null,"whetherToBeConcerned":0,"user":{"userId":24,"userName":"xl_28912798","userPhone":"17796653539","password":"123456","xlId":"28912798","headPortrait":null,"sex":null,"signature":null,"registerTime":"2018-10-16 16:33:07","backgroundImg":null,"wechat":null,"loginToken":"9a07a3680f294b03a1099506c7512bb4","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":"","token":""}},{"concernId":29,"concernUserId":25,"beConcernUserId":1,"creationTime":null,"whetherToBeConcerned":1,"user":{"userId":1,"userName":"123456","userPhone":"18373892212","password":"123456","xlId":null,"headPortrait":null,"sex":null,"signature":null,"registerTime":null,"backgroundImg":null,"wechat":null,"loginToken":"902ed5926e3d4b29a9d48ea888fa4a4f","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":null,"token":null}},{"concernId":30,"concernUserId":25,"beConcernUserId":2,"creationTime":null,"whetherToBeConcerned":1,"user":{"userId":2,"userName":"2","userPhone":"2","password":"2","xlId":"2","headPortrait":"2","sex":"2","signature":"2","registerTime":"2","backgroundImg":"2","wechat":"2","loginToken":"2","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":null,"token":null}}]
+             * prePage : 0
+             * nextPage : 0
+             * isFirstPage : true
+             * isLastPage : true
+             * hasPreviousPage : false
+             * hasNextPage : false
+             * navigatePages : 5
+             * navigatepageNums : [1]
+             * navigateFirstPage : 1
+             * navigateLastPage : 1
+             * lastPage : 1
+             * firstPage : 1
              */
 
-            private Object clientId;
-            private String signature;
-            private String user_name;
-            private Object sex;
-            private Object background_img;
-            private Object wechat;
-            private String xl_id;
-            private String register_time;
-            private Object realName;
-            private String password;
-            private int user_id;
-            private String user_phone;
-            private Object accid;
-            private String login_token;
-            private Object toekn;
-            private int accountBalance;
-            private String head_portrait;
+            private int pageNum;
+            private int pageSize;
+            private int size;
+            private int startRow;
+            private int endRow;
+            private int total;
+            private int pages;
+            private int prePage;
+            private int nextPage;
+            private boolean isFirstPage;
+            private boolean isLastPage;
+            private boolean hasPreviousPage;
+            private boolean hasNextPage;
+            private int navigatePages;
+            private int navigateFirstPage;
+            private int navigateLastPage;
+            private int lastPage;
+            private int firstPage;
+            private List<ListBean> list;
+            private List<Integer> navigatepageNums;
 
-            public Object getClientId() {
-                return clientId;
+            public int getPageNum() {
+                return pageNum;
             }
 
-            public void setClientId(Object clientId) {
-                this.clientId = clientId;
+            public void setPageNum(int pageNum) {
+                this.pageNum = pageNum;
             }
 
-            public String getSignature() {
-                return signature;
+            public int getPageSize() {
+                return pageSize;
             }
 
-            public void setSignature(String signature) {
-                this.signature = signature;
+            public void setPageSize(int pageSize) {
+                this.pageSize = pageSize;
             }
 
-            public String getUser_name() {
-                return user_name;
+            public int getSize() {
+                return size;
             }
 
-            public void setUser_name(String user_name) {
-                this.user_name = user_name;
+            public void setSize(int size) {
+                this.size = size;
             }
 
-            public Object getSex() {
-                return sex;
+            public int getStartRow() {
+                return startRow;
             }
 
-            public void setSex(Object sex) {
-                this.sex = sex;
+            public void setStartRow(int startRow) {
+                this.startRow = startRow;
             }
 
-            public Object getBackground_img() {
-                return background_img;
+            public int getEndRow() {
+                return endRow;
             }
 
-            public void setBackground_img(Object background_img) {
-                this.background_img = background_img;
+            public void setEndRow(int endRow) {
+                this.endRow = endRow;
             }
 
-            public Object getWechat() {
-                return wechat;
+            public int getTotal() {
+                return total;
             }
 
-            public void setWechat(Object wechat) {
-                this.wechat = wechat;
+            public void setTotal(int total) {
+                this.total = total;
             }
 
-            public String getXl_id() {
-                return xl_id;
+            public int getPages() {
+                return pages;
             }
 
-            public void setXl_id(String xl_id) {
-                this.xl_id = xl_id;
+            public void setPages(int pages) {
+                this.pages = pages;
             }
 
-            public String getRegister_time() {
-                return register_time;
+            public int getPrePage() {
+                return prePage;
             }
 
-            public void setRegister_time(String register_time) {
-                this.register_time = register_time;
+            public void setPrePage(int prePage) {
+                this.prePage = prePage;
             }
 
-            public Object getRealName() {
-                return realName;
+            public int getNextPage() {
+                return nextPage;
             }
 
-            public void setRealName(Object realName) {
-                this.realName = realName;
+            public void setNextPage(int nextPage) {
+                this.nextPage = nextPage;
             }
 
-            public String getPassword() {
-                return password;
+            public boolean isIsFirstPage() {
+                return isFirstPage;
             }
 
-            public void setPassword(String password) {
-                this.password = password;
+            public void setIsFirstPage(boolean isFirstPage) {
+                this.isFirstPage = isFirstPage;
             }
 
-            public int getUser_id() {
-                return user_id;
+            public boolean isIsLastPage() {
+                return isLastPage;
             }
 
-            public void setUser_id(int user_id) {
-                this.user_id = user_id;
+            public void setIsLastPage(boolean isLastPage) {
+                this.isLastPage = isLastPage;
             }
 
-            public String getUser_phone() {
-                return user_phone;
+            public boolean isHasPreviousPage() {
+                return hasPreviousPage;
             }
 
-            public void setUser_phone(String user_phone) {
-                this.user_phone = user_phone;
+            public void setHasPreviousPage(boolean hasPreviousPage) {
+                this.hasPreviousPage = hasPreviousPage;
             }
 
-            public Object getAccid() {
-                return accid;
+            public boolean isHasNextPage() {
+                return hasNextPage;
             }
 
-            public void setAccid(Object accid) {
-                this.accid = accid;
+            public void setHasNextPage(boolean hasNextPage) {
+                this.hasNextPage = hasNextPage;
             }
 
-            public String getLogin_token() {
-                return login_token;
+            public int getNavigatePages() {
+                return navigatePages;
             }
 
-            public void setLogin_token(String login_token) {
-                this.login_token = login_token;
+            public void setNavigatePages(int navigatePages) {
+                this.navigatePages = navigatePages;
             }
 
-            public Object getToekn() {
-                return toekn;
+            public int getNavigateFirstPage() {
+                return navigateFirstPage;
             }
 
-            public void setToekn(Object toekn) {
-                this.toekn = toekn;
+            public void setNavigateFirstPage(int navigateFirstPage) {
+                this.navigateFirstPage = navigateFirstPage;
             }
 
-            public int getAccountBalance() {
-                return accountBalance;
+            public int getNavigateLastPage() {
+                return navigateLastPage;
             }
 
-            public void setAccountBalance(int accountBalance) {
-                this.accountBalance = accountBalance;
+            public void setNavigateLastPage(int navigateLastPage) {
+                this.navigateLastPage = navigateLastPage;
             }
 
-            public String getHead_portrait() {
-                return head_portrait;
+            public int getLastPage() {
+                return lastPage;
             }
 
-            public void setHead_portrait(String head_portrait) {
-                this.head_portrait = head_portrait;
+            public void setLastPage(int lastPage) {
+                this.lastPage = lastPage;
+            }
+
+            public int getFirstPage() {
+                return firstPage;
+            }
+
+            public void setFirstPage(int firstPage) {
+                this.firstPage = firstPage;
+            }
+
+            public List<ListBean> getList() {
+                return list;
+            }
+
+            public void setList(List<ListBean> list) {
+                this.list = list;
+            }
+
+            public List<Integer> getNavigatepageNums() {
+                return navigatepageNums;
+            }
+
+            public void setNavigatepageNums(List<Integer> navigatepageNums) {
+                this.navigatepageNums = navigatepageNums;
+            }
+
+            public static class ListBean {
+                /**
+                 * concernId : 28
+                 * concernUserId : 25
+                 * beConcernUserId : 24
+                 * creationTime : null
+                 * whetherToBeConcerned : 0
+                 * user : {"userId":24,"userName":"xl_28912798","userPhone":"17796653539","password":"123456","xlId":"28912798","headPortrait":null,"sex":null,"signature":null,"registerTime":"2018-10-16 16:33:07","backgroundImg":null,"wechat":null,"loginToken":"9a07a3680f294b03a1099506c7512bb4","accountBalance":0,"clientId":null,"realName":null,"video":null,"accid":"","token":""}
+                 */
+
+                private int concernId;
+                private int concernUserId;
+                private int beConcernUserId;
+                private Object creationTime;
+                private int whetherToBeConcerned;
+                private UserBean user;
+
+                public int getConcernId() {
+                    return concernId;
+                }
+
+                public void setConcernId(int concernId) {
+                    this.concernId = concernId;
+                }
+
+                public int getConcernUserId() {
+                    return concernUserId;
+                }
+
+                public void setConcernUserId(int concernUserId) {
+                    this.concernUserId = concernUserId;
+                }
+
+                public int getBeConcernUserId() {
+                    return beConcernUserId;
+                }
+
+                public void setBeConcernUserId(int beConcernUserId) {
+                    this.beConcernUserId = beConcernUserId;
+                }
+
+                public Object getCreationTime() {
+                    return creationTime;
+                }
+
+                public void setCreationTime(Object creationTime) {
+                    this.creationTime = creationTime;
+                }
+
+                public int getWhetherToBeConcerned() {
+                    return whetherToBeConcerned;
+                }
+
+                public void setWhetherToBeConcerned(int whetherToBeConcerned) {
+                    this.whetherToBeConcerned = whetherToBeConcerned;
+                }
+
+                public UserBean getUser() {
+                    return user;
+                }
+
+                public void setUser(UserBean user) {
+                    this.user = user;
+                }
+
+                public static class UserBean {
+                    /**
+                     * userId : 24
+                     * userName : xl_28912798
+                     * userPhone : 17796653539
+                     * password : 123456
+                     * xlId : 28912798
+                     * headPortrait : null
+                     * sex : null
+                     * signature : null
+                     * registerTime : 2018-10-16 16:33:07
+                     * backgroundImg : null
+                     * wechat : null
+                     * loginToken : 9a07a3680f294b03a1099506c7512bb4
+                     * accountBalance : 0.0
+                     * clientId : null
+                     * realName : null
+                     * video : null
+                     * accid :
+                     * token :
+                     */
+
+                    private int userId;
+                    private String userName;
+                    private String userPhone;
+                    private String password;
+                    private String xlId;
+                    private String headPortrait;
+                    private Object sex;
+                    private String signature;
+                    private String registerTime;
+                    private String backgroundImg;
+                    private String wechat;
+                    private String loginToken;
+                    private double accountBalance;
+                    private Object clientId;
+                    private String realName;
+                    private String video;
+                    private String accid;
+                    private String token;
+
+                    public int getUserId() {
+                        return userId;
+                    }
+
+                    public void setUserId(int userId) {
+                        this.userId = userId;
+                    }
+
+                    public String getUserName() {
+                        return userName;
+                    }
+
+                    public void setUserName(String userName) {
+                        this.userName = userName;
+                    }
+
+                    public String getUserPhone() {
+                        return userPhone;
+                    }
+
+                    public void setUserPhone(String userPhone) {
+                        this.userPhone = userPhone;
+                    }
+
+                    public String getPassword() {
+                        return password;
+                    }
+
+                    public void setPassword(String password) {
+                        this.password = password;
+                    }
+
+                    public String getXlId() {
+                        return xlId;
+                    }
+
+                    public void setXlId(String xlId) {
+                        this.xlId = xlId;
+                    }
+
+                    public String getHeadPortrait() {
+                        return headPortrait;
+                    }
+
+                    public void setHeadPortrait(String headPortrait) {
+                        this.headPortrait = headPortrait;
+                    }
+
+                    public Object getSex() {
+                        return sex;
+                    }
+
+                    public void setSex(Object sex) {
+                        this.sex = sex;
+                    }
+
+                    public String getSignature() {
+                        return signature;
+                    }
+
+                    public void setSignature(String signature) {
+                        this.signature = signature;
+                    }
+
+                    public String getRegisterTime() {
+                        return registerTime;
+                    }
+
+                    public void setRegisterTime(String registerTime) {
+                        this.registerTime = registerTime;
+                    }
+
+                    public String getBackgroundImg() {
+                        return backgroundImg;
+                    }
+
+                    public void setBackgroundImg(String backgroundImg) {
+                        this.backgroundImg = backgroundImg;
+                    }
+
+                    public String getWechat() {
+                        return wechat;
+                    }
+
+                    public void setWechat(String wechat) {
+                        this.wechat = wechat;
+                    }
+
+                    public String getLoginToken() {
+                        return loginToken;
+                    }
+
+                    public void setLoginToken(String loginToken) {
+                        this.loginToken = loginToken;
+                    }
+
+                    public double getAccountBalance() {
+                        return accountBalance;
+                    }
+
+                    public void setAccountBalance(double accountBalance) {
+                        this.accountBalance = accountBalance;
+                    }
+
+                    public Object getClientId() {
+                        return clientId;
+                    }
+
+                    public void setClientId(Object clientId) {
+                        this.clientId = clientId;
+                    }
+
+                    public String getRealName() {
+                        return realName;
+                    }
+
+                    public void setRealName(String realName) {
+                        this.realName = realName;
+                    }
+
+                    public String getVideo() {
+                        return video;
+                    }
+
+                    public void setVideo(String video) {
+                        this.video = video;
+                    }
+
+                    public String getAccid() {
+                        return accid;
+                    }
+
+                    public void setAccid(String accid) {
+                        this.accid = accid;
+                    }
+
+                    public String getToken() {
+                        return token;
+                    }
+
+                    public void setToken(String token) {
+                        this.token = token;
+                    }
+                }
             }
         }
     }

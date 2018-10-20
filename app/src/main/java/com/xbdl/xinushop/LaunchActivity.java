@@ -43,7 +43,7 @@ public class LaunchActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(user);
                     String loginToken = jsonObject.getString("loginToken");
-                    Log.v("nihaoma",loginToken);
+                    Log.v("nihaoma","登录token  "+loginToken);
                     HttpUtils2.autoLogin(loginToken, new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {

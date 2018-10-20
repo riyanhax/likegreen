@@ -17,13 +17,13 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:textColor="@color/actionbar_sel_color"
             android:layout_gravity="center_vertical"
-            android:text="@string/aliplay"
+            android:text="订单号"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_pay_state"
             android:layout_alignParentRight="true"
-            android:text="@string/aliplay"
+            android:text="订单状态"
             android:textColor="@color/tint_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -38,10 +38,24 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>
     <RelativeLayout
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_count"
+            android:text="共计商品xx元"
+            android:textColor="#afafaf"
+            android:textSize="10sp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="@dimen/dp_40">
+
         <TextView
             android:id="@+id/tv_created_date"
             android:text="发布时间： 8-18 16:40"

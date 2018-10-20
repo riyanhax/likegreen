@@ -59,7 +59,9 @@
     <string name="payed">已付款</string>
     <string name="Refunded">已退款</string>
     <string name="textvideo">你还没发布过视频哦 ~</string>
-    <string name="textsign">这人很懒没有留下什么~</string>
+    <string name="textsign">本宝宝还没有想到个性签名</string>
+    <string name="focustogether">相互关注</string>
+    <string name="focused">已关注</string>
 
 
     <string name="personaldata">个人资料</string>

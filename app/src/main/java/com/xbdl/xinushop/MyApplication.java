@@ -159,8 +159,8 @@ public class MyApplication extends Application {
                 "99d7736e3d082f22eb2186d50014ed4b");
         UMConfigure.setLogEnabled(true);
         initImgPicker();
-        OkGo.getInstance().init(this);
-        //initOkGo();
+        //OkGo.getInstance().init(this);
+        initOkGo();
     }
 
 
@@ -200,6 +200,7 @@ public class MyApplication extends Application {
         //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
         HttpHeaders headers = new HttpHeaders();
         headers.put("Content-Type", "multipart/form-data");    //header不支持中文，不允许有特殊字符
+        //headers.put("Content-Type", "application/json");    //header不支持中文，不允许有特殊字符
 
      /*   HttpParams params = new HttpParams();
         params.put("commonParamsKey1", "commonParamsValue1");     //param支持中文,直接传,不要自己编码

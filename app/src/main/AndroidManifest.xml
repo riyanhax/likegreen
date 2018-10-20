@@ -158,7 +158,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity android:name=".activity.mine.PersonalDataActivity" />
         <activity android:name=".activity.mine.GuanggaoAndLiveActivity" />
         <activity android:name=".activity.mine.AuditAndLiveActivity" />
@@ -311,8 +311,8 @@
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.mine.MySellerOrderListActivity" />
         <activity android:name=".activity.mine.MyProductsReleaseActivity" />
-        <activity android:name=".activity.note.UserMainpageActivity" />
-        <activity android:name=".activity.mian.UserDetailActivity"></activity>
+        <activity android:name=".activity.mian.UserDetailActivity" />
+        <activity android:name=".activity.note.NoteDetailActivity"></activity>
     </application>
 
 </manifest>

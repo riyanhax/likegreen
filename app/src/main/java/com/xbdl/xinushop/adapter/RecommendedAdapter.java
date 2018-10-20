@@ -33,6 +33,9 @@ import com.xbdl.xinushop.activity.mian.UserDetailActivity;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -226,26 +229,53 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     }
     TheNewVideoBean bean;
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        bean= mItemList.get(position);
-        holder.videoPath = bean.getUrl();
-        holder.holderRootView.setTag(position);
-        holder.videoView.setLooping(true);
-        holder.mShare.setOnClickListener(this);
-        holder.comment.setOnClickListener(this);
-        holder.head_icon.setOnClickListener(this);
-   /*     HttpUtils2.appCheckClickToPraise(MyApplication.user.getLoginToken(), MyApplication.user.getUserId(), 1, bean.getVideo_id(), new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Log.v("nihaoma",response.body());
-            }
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        if (mItemList!=null){
+            bean= mItemList.get(position);
+            Log.v("nihaoma",bean.toString());
 
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                Log.v("nihaoma","获取是否点赞onError");
-            }
-        });*/
+            holder.videoPath = bean.getUrl();
+            holder.holderRootView.setTag(position);
+            holder.videoView.setLooping(true);
+            holder.mShare.setOnClickListener(this);
+            holder.comment.setOnClickListener(this);
+            holder.head_icon.setOnClickListener(this);
+            //判断是否点赞
+            isLike(holder);
+        }
+    }
+    //判断是否点赞
+    private void isLike(final ViewHolder holder) {
+        HttpUtils2.appCheckClickToPraise( 1, 1, MyApplication.user.getUserId(),MyApplication.user.getLoginToken(), new StringCallback() {
+             @Override
+             public void onSuccess(Response<String> response) {
+                 Log.v("nihaoma","是否点赞"+response.body());
+                 try {
+                     JSONObject jsonObject = new JSONObject(response.body());
+                     int code = jsonObject.getInt("code");
+                     if (code==100){
+                         String extend = jsonObject.getString("extend");
+                         JSONObject jsonextend= new JSONObject(extend);
+                         int isClickToPraise = jsonextend.getInt("isClickToPraise");
+                         if (isClickToPraise==1){
+                             //没有点赞
+                             holder.iv_islike.setImageResource(R.drawable.heart_weixuanzhong);
+                         }else {
+                             //点赞了
+                             holder.iv_islike.setImageResource(R.drawable.heart_zhibodianzan);
+                         }
+                     }
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+             }
+
+             @Override
+             public void onError(Response<String> response) {
+                 super.onError(response);
+                 Log.v("nihaoma","获取是否点赞onError");
+             }
+         });
     }
 
     @Override

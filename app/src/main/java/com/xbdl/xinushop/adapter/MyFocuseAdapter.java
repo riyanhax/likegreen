@@ -18,7 +18,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 我的关注和粉丝adapter
  */
 
-public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.PdBean.ListBean> {
+public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.ExtendBean.ConcernListBean.ListBean> {
     private LayoutInflater mLayoutInflater;
     public MyFocuseAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
@@ -34,21 +34,40 @@ public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.PdBean.ListBean>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         if (mDataList!=null){
-            final MyFansBean.PdBean.ListBean bean = mDataList.get(position);
-            MyHolder viewHolder = (MyHolder) holder;
-            viewHolder.username.setText(bean.getUser_name());
-            if (TextUtils.isEmpty(bean.getSignature())){
-                viewHolder.word.setText("个性签名：这人很懒没有留下什么");
+            final MyFansBean.ExtendBean.ConcernListBean.ListBean bean = mDataList.get(position);
+            final MyHolder viewHolder = (MyHolder) holder;
+            viewHolder.username.setText(bean.getUser().getUserName());
+
+
+            if (bean.getWhetherToBeConcerned()==0){
+                //相互关注
+                viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focustogether));
+                viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
+                viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
+            }else if (bean.getWhetherToBeConcerned()==1){
+                //已关注
+                viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focused));
+                viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
+                viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
             }else {
-                viewHolder.word.setText("个性签名："+bean.getSignature());
+                //未关注
+                viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focus));
+                viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.white));
+                viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse));
             }
-            if (!TextUtils.isEmpty(bean.getHead_portrait())){
-                Glide.with(mContext).load(bean.getHead_portrait()).into(viewHolder.focuseHead);
+            if (TextUtils.isEmpty(bean.getUser().getSignature())){
+                viewHolder.word.setText(mContext.getResources().getString(R.string.textsign));
+            }else {
+                viewHolder.word.setText("个性签名："+bean.getUser().getSignature());
+            }
+            if (!TextUtils.isEmpty(bean.getUser().getHeadPortrait())){
+                Glide.with(mContext).load(bean.getUser().getHeadPortrait()).into(viewHolder.focuseHead);
             }
             viewHolder.focuseBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myClick.focuseClick(bean);
+                    myClick.focuseClick(bean,viewHolder);
+
                 }
             });
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
@@ -57,13 +76,16 @@ public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.PdBean.ListBean>
                     myClick.itemClick(bean);
                 }
             });
+
+
+
         }
 
     }
     public class MyHolder extends RecyclerView.ViewHolder{
-        private CircleImageView focuseHead;
-        private TextView username,word,focuseBtn;
-        private View view;
+         CircleImageView focuseHead;
+         TextView username,word,focuseBtn;
+         View view;
         public MyHolder(View itemView) {
             super(itemView);
             view=itemView;
@@ -78,7 +100,7 @@ public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.PdBean.ListBean>
         this.myClick=myClick;
     }
     public interface MyClick{
-        void itemClick( MyFansBean.PdBean.ListBean bean);
-        void focuseClick( MyFansBean.PdBean.ListBean bean);
+        void itemClick(  MyFansBean.ExtendBean.ConcernListBean.ListBean bean);
+        void focuseClick( MyFansBean.ExtendBean.ConcernListBean.ListBean bean,MyHolder holder);
     }
 }

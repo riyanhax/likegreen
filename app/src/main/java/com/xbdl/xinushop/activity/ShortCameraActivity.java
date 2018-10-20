@@ -31,6 +31,7 @@ import com.netease.vcloud.video.effect.VideoEffect;
 import com.netease.vcloud.video.render.NeteaseView;
 import com.netease.vcloudnosupload.util.FileUtil;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.utils.VideoFileUtil;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -650,7 +651,7 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         if (resultCode != RESULT_OK || data.getData() == null) {
             return;
         }
-        String path = FileUtil.getPath(this, data.getData());
+        String path = VideoFileUtil.getPath(this, data.getData());
         switch (requestCode){
             case Music_CHOOSE:      //混音文件
                 String substring = path.substring(path.length() - 4);

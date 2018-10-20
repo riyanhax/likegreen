@@ -277,11 +277,13 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
             case R.id.my_home_focuse://我的关注
                 Intent intentMyFocuseActivity = new Intent(getActivity(), MyFocuseActivity.class);
                 intentMyFocuseActivity.putExtra("type",1);
+                intentMyFocuseActivity.putExtra("userid",MyApplication.user.getUserId());
                 startActivity(intentMyFocuseActivity);
                 break;
             case R.id.my_home_fans://我的粉丝
                 Intent intentMyFocuseActivity2 = new Intent(getActivity(), MyFocuseActivity.class);
                 intentMyFocuseActivity2.putExtra("type",2);
+                intentMyFocuseActivity2.putExtra("userid",MyApplication.user.getUserId());
                 startActivity(intentMyFocuseActivity2);
                 break;
             case R.id.tv_huozanshu://点赞数

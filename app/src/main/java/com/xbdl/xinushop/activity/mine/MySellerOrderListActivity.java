@@ -78,6 +78,7 @@ public class MySellerOrderListActivity extends BaseActivity implements View.OnCl
         }else {
             //售后消息
             title.setText(getResources().getString(R.string.aftersalemsg));
+
         }
     }
 

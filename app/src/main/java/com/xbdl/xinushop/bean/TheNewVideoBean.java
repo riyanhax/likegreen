@@ -126,4 +126,22 @@ public class TheNewVideoBean {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "TheNewVideoBean{" +
+                "update_time=" + update_time +
+                ", music=" + music +
+                ", commodity_id=" + commodity_id +
+                ", create_time=" + create_time +
+                ", user_id=" + user_id +
+                ", clickNum=" + clickNum +
+                ", recommend=" + recommend +
+                ", type=" + type +
+                ", headline='" + headline + '\'' +
+                ", url='" + url + '\'' +
+                ", video_id=" + video_id +
+                ", status=" + status +
+                '}';
+    }
 }
