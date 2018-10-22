@@ -16,13 +16,19 @@ import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.adapter.RecommendedAdapter;
+import com.xbdl.xinushop.adapter.FocusVideoAdapter;
+import com.xbdl.xinushop.adapter.FocusVideoAdapter;
 import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.bean.FocusVideoBean;
+import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
+import com.xbdl.xinushop.dialogfragment.RecommentDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils2;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,32 +37,42 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by theWind on 2018/8/1.
  */
 //关注
 public class FocuFragment extends BaseFragment {
-
+    private int page=1;
     private String TAG = "ShortVideoActivity";
+    private boolean isWifi;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommended, container, false);
         EventBus.getDefault().register(this);
-       // initView(view);
-       // initDate();
+        isWifi = SharedPreferencesUtil.getBoolean(getActivity(), MyConstants.WIFI_AND_MOBILE, true);
+        initView(view);
+        //initDate();
         return view;
     }
-
+   
     private void initDate() {
-        HttpUtils2.selectNewest(new StringCallback() {
+        HttpUtils2.appGetUserFocusedVideos(MyApplication.user.getLoginToken(),MyApplication.user.getUserId(),page,new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                Log.v("nihaoma","我关注的视频信息"+response.body());
                 Type listType = new TypeToken<LinkedList<TheNewVideoBean>>(){}.getType();
                 Gson gson = new Gson();
-                LinkedList<TheNewVideoBean> beans= gson.fromJson(response.body(), listType);
-                mShortVideoListAdapter.setDataList(beans);
+                FocusVideoBean focusVideoBean = gson.fromJson(response.body(), FocusVideoBean.class);
+                if (focusVideoBean.getCode()==100){
+                    FocusVideoBean.ExtendBean.PageBean page = focusVideoBean.getExtend().getPage();
+                    List<FocusVideoBean.ExtendBean.PageBean.ListBean> beans = page.getList();
+                    initRecyclerView(beans);
+                }
+                
+
                 dismissLoading();
             }
 
@@ -76,11 +92,10 @@ public class FocuFragment extends BaseFragment {
             public void onError(Response<String> response) {
                 super.onError(response);
                 dismissLoading();
+                Log.v("nihaoma","视频信息onError"+response.body());
             }
         });
     }
-
-
 
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
         @Override
@@ -97,13 +112,17 @@ public class FocuFragment extends BaseFragment {
         }
     };
     private boolean mShouldPlay=true;
-    private RecommendedAdapter mShortVideoListAdapter;
+    private FocusVideoAdapter mShortVideoListAdapter;
     private ArrayList<String> mItemList;
     private int mCurrentPosition =  -1;
     private RecyclerView mVideoList;
     private void initView(View v) {
 
         mVideoList = v.findViewById(R.id.video_list);
+
+    }
+
+    private void initRecyclerView(List<FocusVideoBean.ExtendBean.PageBean.ListBean> beans) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mVideoList.setLayoutManager(layoutManager);
         mVideoList.setHasFixedSize(true);
@@ -111,7 +130,8 @@ public class FocuFragment extends BaseFragment {
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mVideoList);
 
-        mShortVideoListAdapter = new RecommendedAdapter(getActivity());
+        mShortVideoListAdapter = new FocusVideoAdapter(getActivity());
+        mShortVideoListAdapter.setDataList(beans);
         mVideoList.setAdapter(mShortVideoListAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
 
@@ -124,19 +144,16 @@ public class FocuFragment extends BaseFragment {
                 }
             });
         }
-        mShortVideoListAdapter.setMyViewClick(new RecommendedAdapter.MyViewClick() {
+        mShortVideoListAdapter.setMyViewClick(new FocusVideoAdapter.MyViewClick() {
             @Override
-            public void showCommentPop(View view) {
-//                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_comment, null);
-//                PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,getActivity().getWindowManager().getDefaultDisplay().getHeight()*4/5);
-//                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                popupWindow.setOutsideTouchable(true);
-//                popupWindow.setTouchable(true);
-//                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                Log.i("asdf","pinglun");
-//                RecommentCommentDialogFragment dialogFragment=RecommentCommentDialogFragment.newInstance();
-//                dialogFragment.show(getChildFragmentManager(),"");
+            public void showCommentPop(View view, FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
+                //弹出评论
+                RecommentDialogFragment fragment = RecommentDialogFragment.newInstance(1, bean.getVideo().getVideoId(),bean.getUserId());
+                fragment.show(getFragmentManager(),fragment.getClass().getName());
+
             }
+
+           
 
             @Override
             public void showSharePop() {
@@ -144,6 +161,7 @@ public class FocuFragment extends BaseFragment {
             }
         });
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -151,15 +169,22 @@ public class FocuFragment extends BaseFragment {
             mShortVideoListAdapter.pauseCurVideoView();
         }
     }
-
+    Boolean star=true;
     @Override
     public void onResume() {
         super.onResume();
-        if (mShortVideoListAdapter != null) {
-            mShortVideoListAdapter.startCurVideoView();
-        } else {
-            mShouldPlay = true;
+        if (star){
+            //第一次进入
+           // initDate();
+            star=false;
+        }else {
+            if (mShortVideoListAdapter != null) {
+                mShortVideoListAdapter.startCurVideoView();
+            } else {
+                mShouldPlay = true;
+            }
         }
+
     }
     @Override
     public void onStop() {
@@ -175,7 +200,7 @@ public class FocuFragment extends BaseFragment {
         if (isVisibleToUser) {
             //相当于Fragment的onResume
             if (mShortVideoListAdapter != null) {
-              //  mShortVideoListAdapter.startCurVideoView();
+                // mShortVideoListAdapter.startCurVideoView();
             } else {
                 mShouldPlay = true;
             }
@@ -202,7 +227,7 @@ public class FocuFragment extends BaseFragment {
             mCurrentPosition = visibleItemPosition;
             View holderView = mVideoList.findViewWithTag(mCurrentPosition);
             if (holderView != null) {
-                RecommendedAdapter.ViewHolder viewHolder = (RecommendedAdapter.ViewHolder) mVideoList.getChildViewHolder(holderView);
+                FocusVideoAdapter.ViewHolder viewHolder = (FocusVideoAdapter.ViewHolder) mVideoList.getChildViewHolder(holderView);
                 mShortVideoListAdapter.setCurViewHolder(viewHolder);
                 mShortVideoListAdapter.startCurVideoView();
             }

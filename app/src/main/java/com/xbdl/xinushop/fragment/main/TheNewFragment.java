@@ -128,7 +128,7 @@ public class TheNewFragment extends BaseFragment {
         }*/
         mShortVideoListAdapter.setMyViewClick(new RecommendedAdapter.MyViewClick() {
             @Override
-            public void showCommentPop(View view) {
+            public void showCommentPop(View view, TheNewVideoBean bean) {
 //                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_comment, null);
 //                PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,getActivity().getWindowManager().getDefaultDisplay().getHeight()*4/5);
 //                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

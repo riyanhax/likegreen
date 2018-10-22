@@ -99,10 +99,7 @@ public interface UrlConstant2 {
      * 获取推荐视频
      */
     String suggestedVideos=UrlConstant.baseUrl+"suggestedVideos";
-    /**
-     * 视频直播评论判断是否已点赞
-     */
-    String appCheckClickToPraise=UrlConstant.baseUrl+"clickToPraise/appCheckClickToPraise";
+
     /**
      * 谁关注了当前用户列表
      */
@@ -119,5 +116,37 @@ public interface UrlConstant2 {
      * 取消关注
      */
     String appCancelYourAttention=UrlConstant.baseUrl+"concern/appCancelYourAttention";
+    /**
+     * 视频直播评论判断是否已点赞
+     */
+    String appCheckClickToPraise=UrlConstant.baseUrl+"clickToPraise/appCheckClickToPraise";
+    /**
+     * 视频直播评论点赞
+     */
+    String appAddClickToPraise=UrlConstant.baseUrl+"clickToPraise/appAddClickToPraise";
+    /**
+     * 视频直播评论取消点赞
+     */
+    String appCancelClickToPraise=UrlConstant.baseUrl+"clickToPraise/appCancelClickToPraise";
+    /**
+     * 视频直播评论列表
+     */
+    String appGetComments=UrlConstant.baseUrl+"comments/appGetComments";
+    /**
+     * 视频直播添加评论
+     */
+    String appAddComments=UrlConstant.baseUrl+"comments/appAddComments";
+    /**
+     * 视频直播删除评论
+     */
+    String appDeleteComments=UrlConstant.baseUrl+"comments/appDeleteComments";
+    /**
+     * 获取是否点赞，点赞数，评论数
+     */
+    String appGetIcon=UrlConstant.baseUrl+"concern/appGetIcon";
+    /**
+     * 获取当前用户关注的人发布的视频
+     */
+    String appGetUserFocusedVideos=UrlConstant.baseUrl+"concern/appGetUserFocusedVideos";
 
 }

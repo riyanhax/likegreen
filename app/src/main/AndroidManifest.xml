@@ -312,7 +312,8 @@
         <activity android:name=".activity.mine.MySellerOrderListActivity" />
         <activity android:name=".activity.mine.MyProductsReleaseActivity" />
         <activity android:name=".activity.mian.UserDetailActivity" />
-        <activity android:name=".activity.note.NoteDetailActivity"></activity>
+        <activity android:name=".activity.note.NoteDetailActivity" />
+        <activity android:name=".activity.mine.order.MyOrderActivity"></activity>
     </application>
 
 </manifest>

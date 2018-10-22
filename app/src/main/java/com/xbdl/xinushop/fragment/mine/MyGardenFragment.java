@@ -56,7 +56,8 @@ import java.util.List;
  * 花园
  */
 
-public class MyGardenFragment extends BaseFragment {
+public class
+MyGardenFragment extends BaseFragment {
     String token = "";
 
     public static final int lOAD_DADA = 1;

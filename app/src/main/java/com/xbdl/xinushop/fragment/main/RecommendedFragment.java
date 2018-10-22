@@ -29,7 +29,9 @@ import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.CallTab;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
+
 import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
+import com.xbdl.xinushop.dialogfragment.RecommentDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
@@ -42,7 +44,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import cn.jpush.im.android.api.event.MessageEvent;
+
 
 
 /**
@@ -156,16 +158,11 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
         }
         mShortVideoListAdapter.setMyViewClick(new RecommendedAdapter.MyViewClick() {
             @Override
-            public void showCommentPop(View view) {
-//                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_comment, null);
-//                PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,getActivity().getWindowManager().getDefaultDisplay().getHeight()*4/5);
-//                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                popupWindow.setOutsideTouchable(true);
-//                popupWindow.setTouchable(true);
-//                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                Log.i("asdf","pinglun");
-//                RecommentCommentDialogFragment dialogFragment=RecommentCommentDialogFragment.newInstance();
-//                dialogFragment.show(getChildFragmentManager(),"");
+            public void showCommentPop(View view, TheNewVideoBean bean) {
+
+                RecommentDialogFragment fragment = RecommentDialogFragment.newInstance(1, bean.getVideo_id(),bean.getUser_id());
+                fragment.show(getFragmentManager(),fragment.getClass().getName());
+
             }
 
             @Override

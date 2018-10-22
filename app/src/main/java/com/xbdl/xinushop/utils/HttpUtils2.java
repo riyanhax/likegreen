@@ -428,4 +428,102 @@ public class HttpUtils2 {
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
+    /**
+     * 视频直播评论点赞
+     */
+    public static void appAddClickToPraise(int clickToPraiseType,int clickToPraiseTypeId,int clickToPraiseUserId,String token,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appAddClickToPraise)// 请求方式和请求url
+                .params("clickToPraiseType", clickToPraiseType)
+                .params("clickToPraiseTypeId", clickToPraiseTypeId)
+                .params("clickToPraiseUserId", clickToPraiseUserId)
+                .params("token", token)
+                .tag("appAddClickToPraise")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 视频直播评论取消点赞
+     */
+    public static void appCancelClickToPraise(int clickToPraiseType,int clickToPraiseTypeId,int clickToPraiseUserId,String token,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appCancelClickToPraise)// 请求方式和请求url
+                .params("clickToPraiseType", clickToPraiseType)
+                .params("clickToPraiseTypeId", clickToPraiseTypeId)
+                .params("clickToPraiseUserId", clickToPraiseUserId)
+                .params("token", token)
+                .tag("appCancelClickToPraise")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 视频直播评论列表
+     */
+    public static void appGetComments(int commentsType,int commentsTypeId,String token,int userId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appGetComments)// 请求方式和请求url
+                .params("commentsType", commentsType)
+                .params("commentsTypeId", commentsTypeId)
+                .params("token", token)
+                .params("userId", userId)
+                .tag("appGetComments")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 视频直播添加评论
+     */
+    public static void appAddComments(int commentsType,int commentsTypeId,int userId,int commentsBeCommentedUserId,
+                                      String commentsContent,String token,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appAddComments)// 请求方式和请求url
+                .params("commentsType", commentsType)
+                .params("commentsTypeId", commentsTypeId)
+                .params("userId", userId)
+                .params("commentsBeCommentedUserId", commentsBeCommentedUserId)
+                .params("commentsContent", commentsContent)
+                .params("token", token)
+                .tag("appAddComments")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 视频直播删除评论
+     */
+    public static void appDeleteComments(int commentsId,int userId,String token,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appDeleteComments)// 请求方式和请求url
+                .params("commentsId", commentsId)
+                .params("userId", userId)
+                .params("token", token)
+                .tag("appDeleteComments")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 获取是否点赞，点赞数，评论数
+     */
+    public static void appGetIcon(String token,int userId,int videoId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appGetIcon)// 请求方式和请求url
+                .params("token", token)
+                .params("userId", userId)
+                .params("videoId", videoId)
+                .tag("appGetIcon")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 获取当前用户关注的人发布的视频
+     */
+    public static void appGetUserFocusedVideos(String token,int userId,int pn,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appGetUserFocusedVideos)// 请求方式和请求url
+                .params("token", token)
+                .params("userId", userId)
+                .params("pn", pn)
+                .tag("appGetUserFocusedVideos")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
 }

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.RecommendedAdapter;
 import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -92,7 +93,7 @@ public class ReviewFragment extends Fragment {
         }
         mShortVideoListAdapter.setMyViewClick(new RecommendedAdapter.MyViewClick() {
             @Override
-            public void showCommentPop(View view) {
+            public void showCommentPop(View view , TheNewVideoBean bean) {
 //                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_comment, null);
 //                PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,getActivity().getWindowManager().getDefaultDisplay().getHeight()*4/5);
 //                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">喜绿</string>
     <string name="errrotip">数据解析失败请返回再试</string>
+
     <string name="app_key">cee9f4368174507ce3308bfa</string>
     <string name="appidjiguang">12345678911</string>
     <string name="homepage">首页</string>
@@ -62,6 +63,8 @@
     <string name="textsign">本宝宝还没有想到个性签名</string>
     <string name="focustogether">相互关注</string>
     <string name="focused">已关注</string>
+
+    <string name="myroder">我的订单</string>
 
 
     <string name="personaldata">个人资料</string>

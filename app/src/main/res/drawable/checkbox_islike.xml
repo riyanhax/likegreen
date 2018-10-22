@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/heart_zhibodianzan" android:state_checked="true"/>
+    <item android:drawable="@drawable/heart_xuanzhong_luntan" android:state_checked="true"/>
     <item android:drawable="@drawable/heart_pinglun" android:state_checked="false"/>
     <item android:drawable="@drawable/heart_pinglun"/>
 

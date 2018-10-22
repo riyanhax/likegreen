@@ -47,6 +47,7 @@ import com.xbdl.xinushop.activity.mine.MyProductsReleaseActivity;
 import com.xbdl.xinushop.activity.mine.PersonalDataActivity;
 
 import com.xbdl.xinushop.activity.mine.SystemSettingsActivity;
+import com.xbdl.xinushop.activity.mine.order.MyOrderActivity;
 import com.xbdl.xinushop.activity.mine.wallet.MyWalletActivity;
 import com.xbdl.xinushop.base.BaseFragment;
 
@@ -355,10 +356,9 @@ public class HomeMyFragment extends BaseFragment implements View.OnClickListener
                 popupWindow.dismiss();
                 break;
             case R.id.pop_order://订单
-               /* Intent intentWebView2 = new Intent(getActivity(), WebViewActivity.class);
-                intentWebView2.putExtra("webview",1);
-                startActivity(intentWebView2);
-                popupWindow.dismiss();*/
+                Intent intentMyOrderActivity = new Intent(getActivity(), MyOrderActivity.class);
+                startActivity(intentMyOrderActivity);
+                popupWindow.dismiss();
                 break;
 
         }
