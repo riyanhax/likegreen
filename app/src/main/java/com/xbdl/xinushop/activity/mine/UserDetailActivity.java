@@ -1,4 +1,4 @@
-package com.xbdl.xinushop.activity.mian;
+package com.xbdl.xinushop.activity.mine;
 
 import android.app.Activity;
 import android.content.Intent;

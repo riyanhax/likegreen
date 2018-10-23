@@ -311,9 +311,11 @@
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.mine.MySellerOrderListActivity" />
         <activity android:name=".activity.mine.MyProductsReleaseActivity" />
-        <activity android:name=".activity.mian.UserDetailActivity" />
+        <activity android:name=".activity.mine.UserDetailActivity" />
         <activity android:name=".activity.note.NoteDetailActivity" />
-        <activity android:name=".activity.mine.order.MyOrderActivity"></activity>
+        <activity android:name=".activity.mine.order.MyOrderActivity" />
+        <activity android:name=".activity.mine.order.SaleAfterChooseActivity" />
+        <activity android:name=".activity.mine.order.SaleAfterActivity"></activity>
     </application>
 
 </manifest>

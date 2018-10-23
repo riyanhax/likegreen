@@ -1,14 +1,17 @@
 package com.xbdl.xinushop.adapter.note;
 
+import android.content.Intent;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.mine.UserDetailActivity;
 import com.xbdl.xinushop.bean.NoteListBean;
 
 public class NoteListAdapter extends BaseQuickAdapter<NoteListBean, BaseViewHolder> {
@@ -24,9 +27,17 @@ public class NoteListAdapter extends BaseQuickAdapter<NoteListBean, BaseViewHold
                 .setText(R.id.tv_viewcount, "浏览"+item.getViewcount() + "次");
 
         AppCompatImageView ivUsericon = helper.getView(R.id.iv_usericon);
+
         RequestOptions requestOptions = RequestOptions.circleCropTransform();
         Glide.with(ivUsericon.getContext()).load(item.getUsericon()).apply(requestOptions).into(ivUsericon);
-
+        ivUsericon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), UserDetailActivity.class);
+               // intent.putExtra("id",bean.getUser().getUserId());
+                v.getContext().startActivity(intent);
+            }
+        });
         if (item.getAttention() == 1) {
             helper.setText(R.id.tv_attention, "互相关注");
         } else if (item.getAttention() == 2) {

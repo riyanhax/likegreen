@@ -17,7 +17,6 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.activity.mian.UserDetailActivity;
 import com.xbdl.xinushop.adapter.MyFocuseAdapter;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.MyFansBean;
@@ -106,7 +105,7 @@ public class MyFocuseActivity extends BaseActivity {
 
             @Override
             public void focuseClick(MyFansBean.ExtendBean.ConcernListBean.ListBean bean, final MyFocuseAdapter.MyHolder holder) {
-                int whetherToBeConcerned = bean.getWhetherToBeConcerned();
+              /*  int whetherToBeConcerned = bean.getWhetherToBeConcerned();
                 if (whetherToBeConcerned==0||whetherToBeConcerned==1){
                     //相互关注  已关注
                     HttpUtils2.appCancelYourAttention(MyApplication.user.getLoginToken(),
@@ -127,13 +126,13 @@ public class MyFocuseActivity extends BaseActivity {
                     });
                 }else {
                    HttpUtils2.appAddConcern(MyApplication.user.getLoginToken(),
-                           userid, bean.getUser().getUserId(), new StringCallback() {
-                               @Override
-                               public void onSuccess(Response<String> response) {
-                                   Log.v("nihaoma","点添加关注  "+response.body());
-                               }
-                           });
-                }
+                            userid, bean.getUser().getUserId(), new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Log.v("nihaoma","点添加关注  "+response.body());
+                                }
+                            });
+                }*/
             }
         });
     }

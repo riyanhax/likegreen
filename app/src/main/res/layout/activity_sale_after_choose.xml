@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/enptyviewbackground"
+    tools:context=".activity.mine.order.SaleAfterChooseActivity">
+    <RelativeLayout
+        style="@style/head">
+        <ImageView
+            android:id="@+id/iv_return"
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return"
+            style="@style/paddinglift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/applyforaftersale"
+            android:textColor="@color/colorfocuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <include layout="@layout/layout_line"/>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_10">
+        <RelativeLayout
+            android:id="@+id/rl_return_goods"
+            android:layout_marginTop="@dimen/dp_30"
+            android:background="@drawable/bg_item_white10"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/refund"
+                    android:layout_width="@dimen/dp_55"
+                    android:layout_height="@dimen/dp_55" />
+                <TextView
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="仅退款"
+                    android:textColor="@color/actionbar_sel_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:text="未收到货（包含未签收）或卖家协商同意前提下"
+                    android:textColor="@color/cblack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_refund"
+            android:layout_marginTop="@dimen/dp_40"
+            android:background="@drawable/bg_item_white10"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/refundofrefunds"
+                    android:layout_width="@dimen/dp_55"
+                    android:layout_height="@dimen/dp_55" />
+                <TextView
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="退货退款"
+                    android:textColor="@color/actionbar_sel_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:text="已收到货，需要退还已收到的货物"
+                    android:textColor="@color/cblack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/exchange_goods"
+            android:layout_marginTop="@dimen/dp_40"
+            android:background="@drawable/bg_item_white10"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/barter"
+                    android:layout_width="@dimen/dp_55"
+                    android:layout_height="@dimen/dp_55" />
+                <TextView
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="换货"
+                    android:textColor="@color/actionbar_sel_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:text="商品存在问题或不适合"
+                    android:textColor="@color/cblack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

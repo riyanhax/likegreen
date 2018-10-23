@@ -526,4 +526,56 @@ public class HttpUtils2 {
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
+    /**
+     * 增加转发数
+     */
+    public static void appAddNumberOfForwards(int videoId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appAddNumberOfForwards)// 请求方式和请求url
+                .params("videoId", videoId)
+                .tag("appAddNumberOfForwards")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 判断用户是否被当前用户关注
+     */
+    public static void appJudgeWhetherToPayAttention(int userId,int beConcernUserId,String token,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appJudgeWhetherToPayAttention)// 请求方式和请求url
+                .params("userId", userId)
+                .params("beConcernUserId", beConcernUserId)
+                .params("token", token)
+                .tag("appJudgeWhetherToPayAttention")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 根据用户ID获取用户订单列表
+     */
+    public static void getOrdersByUserIdApiAll(String token,int pn,int userId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.getOrdersByUserIdApi)// 请求方式和请求url
+                .params("token", token)
+                .params("pn", pn)
+                .params("userId", userId)
+
+                .tag("getOrdersByUserIdApi")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 根据用户ID获取用户订单列表
+     */
+    public static void getOrdersByUserIdApi(String token,int pn,int userId,String key,int val,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.getOrdersByUserIdApi)// 请求方式和请求url
+                .params("token", token)
+                .params("pn", pn)
+                .params("userId", userId)
+                .params(key, val)
+                .tag("getOrdersByUserIdApi")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
 }

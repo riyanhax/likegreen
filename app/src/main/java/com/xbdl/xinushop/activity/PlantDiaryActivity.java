@@ -290,14 +290,15 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                                  * 如果实在有所需要，请直接下载源码引用。
                                  */
                                 //打开选择,本次允许选择的数量
-                                ImagePicker.getInstance().setSelectLimit(1 - selImageList.size());
+                                ImagePicker.getInstance().setMultiMode(false);
                                 Intent intent = new Intent(getActivity(), ImageGridActivity.class);
                                 intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
                                 startActivityForResult(intent, ImagePickerConstant.REQUEST_CODE_SELECT);
                                 break;
                             case 1:
                                 //打开选择,本次允许选择的数量
-                                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
+                                //ImagePicker.getInstance().setMultiMode(true);
+                                ImagePicker.getInstance().setSelectLimit(3);
                                 Intent intent1 = new Intent(getActivity(), ImageGridActivity.class);
                                 /* 如果需要进入选择的时候显示已经选中的图片，
                                  * 详情请查看ImagePickerActivity

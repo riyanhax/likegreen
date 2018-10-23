@@ -65,6 +65,21 @@
     <string name="focused">已关注</string>
 
     <string name="myroder">我的订单</string>
+    <string name="pay">付款</string>
+    <string name="cancelroder">取消订单</string>
+    <string name="contactaftersale">联系售后</string>
+    <string name="logistics">查看物流</string>
+    <string name="evaluate">评价</string>
+    <string name="suretakegoods">确认收货</string>
+    <string name="remindsend">提醒发货</string>
+    <string name="deleteroder">删除订单</string>
+    <string name="applyforaftersale2">售后申请</string>
+    <string name="applytype">申请类型</string>
+    <string name="applyreason">原因</string>
+    <string name="applyexplain">情况说明</string>
+    <string name="applyexplaindetail">请您详细填写申请说明。（最多170字）</string>
+    <string name="uploadvoucher">上传凭证</string>
+    <string name="uploadpicture">上传照片</string>
 
 
     <string name="personaldata">个人资料</string>

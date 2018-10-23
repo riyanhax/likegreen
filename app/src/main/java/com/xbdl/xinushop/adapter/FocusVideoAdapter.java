@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,11 +30,11 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.activity.mian.UserDetailActivity;
+import com.xbdl.xinushop.activity.mine.UserDetailActivity;
 import com.xbdl.xinushop.bean.FocusVideoBean;
-import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.bean.VideoIconBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
+import com.xbdl.xinushop.utils.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -233,23 +235,76 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if (mItemList!=null){
             bean= mItemList.get(position);
-            Log.v("nihaoma",bean.toString());
-            FocusVideoBean.ExtendBean.PageBean.ListBean.VideoBean video = bean.getVideo();
-            holder.videoPath = video.getUrl();
+            Log.v("nihaoma",""+bean.toString());
+
+            holder.videoPath =  bean.getUrl();
             holder.holderRootView.setTag(position);
             holder.videoView.setLooping(true);
             holder.mShare.setOnClickListener(this);
             holder.comment.setOnClickListener(this);//评论
             holder.head_icon.setOnClickListener(this);
+            //音乐名
+            holder.music_name.setText(TextUtils.isEmpty(bean.getMusic())?"@"+bean.getUserName()+"的原声创作" :bean.getMusic());
+            //名字
+            holder.username.setText(bean.getUserName());
+            //视频标题
+            holder.video_name.setText(bean.getHeadline());
+            //转发数
+            holder.share_count.setText(String.valueOf(bean.getNumber_of_forwards()));
             //判断是否点赞
            // isLike(holder,bean);
             //	获取是否点赞，点赞数，评论数
             getPagerData(holder,bean);
+            //查询当前用户是否被关注
+            isFocus(holder,bean);
         }
     }
+
+    private void isFocus(final ViewHolder holder, final FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
+        HttpUtils2.appJudgeWhetherToPayAttention(MyApplication.user.getUserId(), bean.getUserId(), MyApplication.user.getLoginToken(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    int code = jsonObject.getInt("code");
+                    if (code==100){
+                        String extend = jsonObject.getString("extend");
+                        JSONObject jsonObject1 = new JSONObject(extend);
+                        int isConcern = jsonObject1.getInt("isConcern");
+                        //isConcern = 1 表示未关注 如果isConcern = 0 表示已关注
+                        if (isConcern==1){
+                            holder.head_add.setVisibility(View.VISIBLE);
+                            holder.head_add.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    addfocus(bean);
+                                }
+                            });
+                        }else {
+                            holder.head_add.setVisibility(View.GONE);
+                        }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    //添加关注
+    private void addfocus(FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
+        HttpUtils2.appAddConcern(MyApplication.user.getLoginToken(),
+                MyApplication.user.getUserId(), bean.getUserId(), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Log.v("nihaoma","点添加关注  "+response.body());
+                    }
+                });
+    }
+
     //	获取是否点赞，点赞数，评论数
     private void getPagerData(final ViewHolder holder, final FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
-        HttpUtils2.appGetIcon(MyApplication.user.getLoginToken(), MyApplication.user.getUserId(), bean.getVideo().getVideoId(), new StringCallback() {
+        HttpUtils2.appGetIcon(MyApplication.user.getLoginToken(), MyApplication.user.getUserId(), bean.getVideo_id(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Log.v("nihaoma","点赞数，评论数"+response.body());
@@ -289,10 +344,28 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
             }
         });
     }
-
-    //判断是否点赞
+    //转发数增加
+    private void addShare(final ViewHolder holder, final FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
+           HttpUtils2.appAddNumberOfForwards(bean.getVideo_id(), new StringCallback() {
+               @Override
+               public void onSuccess(Response<String> response) {
+                   try {
+                       JSONObject jsonObject = new JSONObject(response.body());
+                       int code = jsonObject.getInt("code");
+                       if (code==100){
+                           getPagerData(holder,bean);
+                       }else {
+                           ToastUtil.shortToast(mContext,"转发失败");
+                       }
+                   } catch (JSONException e) {
+                       e.printStackTrace();
+                   }
+               }
+           });
+    }
+  /*  //判断是否点赞
     private void isLike(final ViewHolder holder, final FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
-        HttpUtils2.appCheckClickToPraise( 1,bean.getVideo().getVideoId() , MyApplication.user.getUserId(),MyApplication.user.getLoginToken(), new StringCallback() {
+        HttpUtils2.appCheckClickToPraise( 1,bean.getVideo_id() , MyApplication.user.getUserId(),MyApplication.user.getLoginToken(), new StringCallback() {
              @Override
              public void onSuccess(Response<String> response) {
                  Log.v("nihaoma","是否点赞"+response.body());
@@ -334,10 +407,10 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
                  Log.v("nihaoma","获取是否点赞onError");
              }
          });
-    }
+    }*/
     //点赞
     private void appAddClickToPraise(final ViewHolder holder, final FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
-        HttpUtils2.appAddClickToPraise( 1, bean.getVideo().getVideoId(), MyApplication.user.getUserId(),MyApplication.user.getLoginToken(), new StringCallback() {
+        HttpUtils2.appAddClickToPraise( 1, bean.getVideo_id(), MyApplication.user.getUserId(),MyApplication.user.getLoginToken(), new StringCallback() {
              @Override
              public void onSuccess(Response<String> response) {
                  Log.v("nihaoma","点赞"+response.body());
@@ -345,7 +418,8 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
                      JSONObject jsonObject = new JSONObject(response.body());
                      int code = jsonObject.getInt("code");
                      if (code==100){
-                         isLike(holder,bean);
+                        // isLike(holder,bean);
+                         getPagerData(holder,bean);
                      }
                  } catch (JSONException e) {
                      e.printStackTrace();
@@ -361,7 +435,7 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
     }
     //取消点赞
     private void appCancelClickToPraise(final ViewHolder holder, final FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
-        HttpUtils2.appCancelClickToPraise( 1, bean.getVideo().getVideoId(), MyApplication.user.getUserId(),MyApplication.user.getLoginToken(), new StringCallback() {
+        HttpUtils2.appCancelClickToPraise( 1, bean.getVideo_id(), MyApplication.user.getUserId(),MyApplication.user.getLoginToken(), new StringCallback() {
              @Override
              public void onSuccess(Response<String> response) {
                  Log.v("nihaoma","取消点赞"+response.body());
@@ -370,7 +444,8 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
                      JSONObject jsonObject = new JSONObject(response.body());
                      int code = jsonObject.getInt("code");
                      if (code==100){
-                         isLike(holder,bean);
+                         //isLike(holder,bean);
+                         getPagerData(holder,bean);
                      }
                  } catch (JSONException e) {
                      e.printStackTrace();

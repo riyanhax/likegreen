@@ -1,5 +1,7 @@
 package com.xbdl.xinushop.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class FocusVideoBean {
@@ -8,7 +10,7 @@ public class FocusVideoBean {
     /**
      * code : 100
      * msg : 处理成功！
-     * extend : {"page":{"pageNum":1,"pageSize":2,"size":2,"startRow":0,"endRow":1,"total":2,"pages":1,"list":[{"userId":25,"userName":"xl_52926565","userPhone":"13533419133","password":"12345678","xlId":"52926565","headPortrait":"20181018180311664.jpg","sex":null,"signature":null,"registerTime":"2018-10-18 15:43:00","backgroundImg":null,"wechat":null,"loginToken":"4a9a68b79eed436dad134333dbca1b34","accountBalance":0,"clientId":null,"realName":null,"video":{"videoId":4,"type":1,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4","headline":"体来","music":null,"commodityId":null,"userId":25,"status":0,"createTime":"2018-10-18 16:37:38","updateTime":"2018-10-18 16:37:38","recommend":null,"clickNum":null,"numberOfForwards":null},"accid":null,"token":null}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":5,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}}
+     * extend : {"page":{"pageNum":1,"pageSize":2,"size":2,"startRow":0,"endRow":1,"total":2,"pages":1,"list":[{"create_time":1539880658000,"recommend":null,"userName":"xl_28912798","type":1,"userId":24,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4","update_time":1539880658000,"number_of_forwards":null,"music":null,"commodity_id":null,"user_id":24,"clickNum":null,"headPortrait":null,"headline":"体来","video_id":4,"status":0},{"create_time":1539881595000,"recommend":null,"userName":"xl_52926565","type":1,"userId":25,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/8c760666-d99b-4665-ad43-5b8ad55547bd.mp4","update_time":1539881595000,"number_of_forwards":null,"music":null,"commodity_id":null,"user_id":25,"clickNum":null,"headPortrait":"20181018180311664.jpg","headline":"添加","max(v":{"create_time)":1539884068000},"video_id":5,"status":0}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":5,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}}
      * object : null
      */
 
@@ -51,7 +53,7 @@ public class FocusVideoBean {
 
     public static class ExtendBean {
         /**
-         * page : {"pageNum":1,"pageSize":2,"size":2,"startRow":0,"endRow":1,"total":2,"pages":1,"list":[{"userId":25,"userName":"xl_52926565","userPhone":"13533419133","password":"12345678","xlId":"52926565","headPortrait":"20181018180311664.jpg","sex":null,"signature":null,"registerTime":"2018-10-18 15:43:00","backgroundImg":null,"wechat":null,"loginToken":"4a9a68b79eed436dad134333dbca1b34","accountBalance":0,"clientId":null,"realName":null,"video":{"videoId":4,"type":1,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4","headline":"体来","music":null,"commodityId":null,"userId":25,"status":0,"createTime":"2018-10-18 16:37:38","updateTime":"2018-10-18 16:37:38","recommend":null,"clickNum":null,"numberOfForwards":null},"accid":null,"token":null}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":5,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}
+         * page : {"pageNum":1,"pageSize":2,"size":2,"startRow":0,"endRow":1,"total":2,"pages":1,"list":[{"create_time":1539880658000,"recommend":null,"userName":"xl_28912798","type":1,"userId":24,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4","update_time":1539880658000,"number_of_forwards":null,"music":null,"commodity_id":null,"user_id":24,"clickNum":null,"headPortrait":null,"headline":"体来","video_id":4,"status":0,"max(v":{"create_time)":1539884068000}},{"create_time":1539881595000,"recommend":null,"userName":"xl_52926565","type":1,"userId":25,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/8c760666-d99b-4665-ad43-5b8ad55547bd.mp4","update_time":1539881595000,"number_of_forwards":null,"music":null,"commodity_id":null,"user_id":25,"clickNum":null,"headPortrait":"20181018180311664.jpg","headline":"添加","max(v":{"create_time)":1539884068000},"video_id":5,"status":0}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":5,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}
          */
 
         private PageBean page;
@@ -73,7 +75,7 @@ public class FocusVideoBean {
              * endRow : 1
              * total : 2
              * pages : 1
-             * list : [{"userId":25,"userName":"xl_52926565","userPhone":"13533419133","password":"12345678","xlId":"52926565","headPortrait":"20181018180311664.jpg","sex":null,"signature":null,"registerTime":"2018-10-18 15:43:00","backgroundImg":null,"wechat":null,"loginToken":"4a9a68b79eed436dad134333dbca1b34","accountBalance":0,"clientId":null,"realName":null,"video":{"videoId":4,"type":1,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4","headline":"体来","music":null,"commodityId":null,"userId":25,"status":0,"createTime":"2018-10-18 16:37:38","updateTime":"2018-10-18 16:37:38","recommend":null,"clickNum":null,"numberOfForwards":null},"accid":null,"token":null}]
+             * list : [{"create_time":1539880658000,"recommend":null,"userName":"xl_28912798","type":1,"userId":24,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4","update_time":1539880658000,"number_of_forwards":null,"music":null,"commodity_id":null,"user_id":24,"clickNum":null,"headPortrait":null,"headline":"体来","video_id":4,"status":0},{"create_time":1539881595000,"recommend":null,"userName":"xl_52926565","type":1,"userId":25,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/8c760666-d99b-4665-ad43-5b8ad55547bd.mp4","update_time":1539881595000,"number_of_forwards":null,"music":null,"commodity_id":null,"user_id":25,"clickNum":null,"headPortrait":"20181018180311664.jpg","headline":"添加","max(v":{"create_time)":1539884068000},"video_id":5,"status":0}]
              * prePage : 0
              * nextPage : 0
              * isFirstPage : true
@@ -269,53 +271,59 @@ public class FocusVideoBean {
                 this.navigatepageNums = navigatepageNums;
             }
 
+            // FIXME generate failure  field _$MaxV191
             public static class ListBean {
                 /**
-                 * userId : 25
-                 * userName : xl_52926565
-                 * userPhone : 13533419133
-                 * password : 12345678
-                 * xlId : 52926565
-                 * headPortrait : 20181018180311664.jpg
-                 * sex : null
-                 * signature : null
-                 * registerTime : 2018-10-18 15:43:00
-                 * backgroundImg : null
-                 * wechat : null
-                 * loginToken : 4a9a68b79eed436dad134333dbca1b34
-                 * accountBalance : 0.0
-                 * clientId : null
-                 * realName : null
-                 * video : {"videoId":4,"type":1,"url":"http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4","headline":"体来","music":null,"commodityId":null,"userId":25,"status":0,"createTime":"2018-10-18 16:37:38","updateTime":"2018-10-18 16:37:38","recommend":null,"clickNum":null,"numberOfForwards":null}
-                 * accid : null
-                 * token : null
+                 * create_time : 1539880658000
+                 * recommend : null
+                 * userName : xl_28912798
+                 * type : 1
+                 * userId : 24
+                 * url : http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4
+                 * update_time : 1539880658000
+                 * number_of_forwards : null
+                 * music : null
+                 * commodity_id : null
+                 * user_id : 24
+                 * clickNum : null
+                 * headPortrait : null
+                 * headline : 体来
+                 * video_id : 4
+                 * status : 0
+                 * max(v : {"create_time)":1539884068000}
                  */
 
-                private int userId;
+                private long create_time;
+                private int recommend;
                 private String userName;
-                private String userPhone;
-                private String password;
-                private String xlId;
+                private int type;
+                private int userId;
+                private String url;
+                private long update_time;
+                private int number_of_forwards;  //转发数
+                private String music;
+                private int commodity_id;
+                private int user_id;
+                private int clickNum;
                 private String headPortrait;
-                private Object sex;
-                private Object signature;
-                private String registerTime;
-                private Object backgroundImg;
-                private Object wechat;
-                private String loginToken;
-                private double accountBalance;
-                private Object clientId;
-                private Object realName;
-                private VideoBean video;
-                private Object accid;
-                private Object token;
+                private String headline;
+                private int video_id;
+                private int status;
 
-                public int getUserId() {
-                    return userId;
+                public long getCreate_time() {
+                    return create_time;
                 }
 
-                public void setUserId(int userId) {
-                    this.userId = userId;
+                public void setCreate_time(long create_time) {
+                    this.create_time = create_time;
+                }
+
+                public int getRecommend() {
+                    return recommend;
+                }
+
+                public void setRecommend(int recommend) {
+                    this.recommend = recommend;
                 }
 
                 public String getUserName() {
@@ -326,28 +334,76 @@ public class FocusVideoBean {
                     this.userName = userName;
                 }
 
-                public String getUserPhone() {
-                    return userPhone;
+                public int getType() {
+                    return type;
                 }
 
-                public void setUserPhone(String userPhone) {
-                    this.userPhone = userPhone;
+                public void setType(int type) {
+                    this.type = type;
                 }
 
-                public String getPassword() {
-                    return password;
+                public int getUserId() {
+                    return userId;
                 }
 
-                public void setPassword(String password) {
-                    this.password = password;
+                public void setUserId(int userId) {
+                    this.userId = userId;
                 }
 
-                public String getXlId() {
-                    return xlId;
+                public String getUrl() {
+                    return url;
                 }
 
-                public void setXlId(String xlId) {
-                    this.xlId = xlId;
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+
+                public long getUpdate_time() {
+                    return update_time;
+                }
+
+                public void setUpdate_time(long update_time) {
+                    this.update_time = update_time;
+                }
+
+                public int getNumber_of_forwards() {
+                    return number_of_forwards;
+                }
+
+                public void setNumber_of_forwards(int number_of_forwards) {
+                    this.number_of_forwards = number_of_forwards;
+                }
+
+                public String getMusic() {
+                    return music;
+                }
+
+                public void setMusic(String music) {
+                    this.music = music;
+                }
+
+                public int getCommodity_id() {
+                    return commodity_id;
+                }
+
+                public void setCommodity_id(int commodity_id) {
+                    this.commodity_id = commodity_id;
+                }
+
+                public int getUser_id() {
+                    return user_id;
+                }
+
+                public void setUser_id(int user_id) {
+                    this.user_id = user_id;
+                }
+
+                public int getClickNum() {
+                    return clickNum;
+                }
+
+                public void setClickNum(int clickNum) {
+                    this.clickNum = clickNum;
                 }
 
                 public String getHeadPortrait() {
@@ -358,236 +414,28 @@ public class FocusVideoBean {
                     this.headPortrait = headPortrait;
                 }
 
-                public Object getSex() {
-                    return sex;
+                public String getHeadline() {
+                    return headline;
                 }
 
-                public void setSex(Object sex) {
-                    this.sex = sex;
+                public void setHeadline(String headline) {
+                    this.headline = headline;
                 }
 
-                public Object getSignature() {
-                    return signature;
+                public int getVideo_id() {
+                    return video_id;
                 }
 
-                public void setSignature(Object signature) {
-                    this.signature = signature;
+                public void setVideo_id(int video_id) {
+                    this.video_id = video_id;
                 }
 
-                public String getRegisterTime() {
-                    return registerTime;
+                public int getStatus() {
+                    return status;
                 }
 
-                public void setRegisterTime(String registerTime) {
-                    this.registerTime = registerTime;
-                }
-
-                public Object getBackgroundImg() {
-                    return backgroundImg;
-                }
-
-                public void setBackgroundImg(Object backgroundImg) {
-                    this.backgroundImg = backgroundImg;
-                }
-
-                public Object getWechat() {
-                    return wechat;
-                }
-
-                public void setWechat(Object wechat) {
-                    this.wechat = wechat;
-                }
-
-                public String getLoginToken() {
-                    return loginToken;
-                }
-
-                public void setLoginToken(String loginToken) {
-                    this.loginToken = loginToken;
-                }
-
-                public double getAccountBalance() {
-                    return accountBalance;
-                }
-
-                public void setAccountBalance(double accountBalance) {
-                    this.accountBalance = accountBalance;
-                }
-
-                public Object getClientId() {
-                    return clientId;
-                }
-
-                public void setClientId(Object clientId) {
-                    this.clientId = clientId;
-                }
-
-                public Object getRealName() {
-                    return realName;
-                }
-
-                public void setRealName(Object realName) {
-                    this.realName = realName;
-                }
-
-                public VideoBean getVideo() {
-                    return video;
-                }
-
-                public void setVideo(VideoBean video) {
-                    this.video = video;
-                }
-
-                public Object getAccid() {
-                    return accid;
-                }
-
-                public void setAccid(Object accid) {
-                    this.accid = accid;
-                }
-
-                public Object getToken() {
-                    return token;
-                }
-
-                public void setToken(Object token) {
-                    this.token = token;
-                }
-
-                public static class VideoBean {
-                    /**
-                     * videoId : 4
-                     * type : 1
-                     * url : http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/f56f405f-5b58-4e11-8ce9-b464cde8249c.mp4
-                     * headline : 体来
-                     * music : null
-                     * commodityId : null
-                     * userId : 25
-                     * status : 0
-                     * createTime : 2018-10-18 16:37:38
-                     * updateTime : 2018-10-18 16:37:38
-                     * recommend : null
-                     * clickNum : null
-                     * numberOfForwards : null
-                     */
-
-                    private int videoId;
-                    private int type;
-                    private String url;
-                    private String headline;
-                    private Object music;
-                    private Object commodityId;
-                    private int userId;
-                    private int status;
-                    private String createTime;
-                    private String updateTime;
-                    private Object recommend;
-                    private Object clickNum;
-                    private Object numberOfForwards;
-
-                    public int getVideoId() {
-                        return videoId;
-                    }
-
-                    public void setVideoId(int videoId) {
-                        this.videoId = videoId;
-                    }
-
-                    public int getType() {
-                        return type;
-                    }
-
-                    public void setType(int type) {
-                        this.type = type;
-                    }
-
-                    public String getUrl() {
-                        return url;
-                    }
-
-                    public void setUrl(String url) {
-                        this.url = url;
-                    }
-
-                    public String getHeadline() {
-                        return headline;
-                    }
-
-                    public void setHeadline(String headline) {
-                        this.headline = headline;
-                    }
-
-                    public Object getMusic() {
-                        return music;
-                    }
-
-                    public void setMusic(Object music) {
-                        this.music = music;
-                    }
-
-                    public Object getCommodityId() {
-                        return commodityId;
-                    }
-
-                    public void setCommodityId(Object commodityId) {
-                        this.commodityId = commodityId;
-                    }
-
-                    public int getUserId() {
-                        return userId;
-                    }
-
-                    public void setUserId(int userId) {
-                        this.userId = userId;
-                    }
-
-                    public int getStatus() {
-                        return status;
-                    }
-
-                    public void setStatus(int status) {
-                        this.status = status;
-                    }
-
-                    public String getCreateTime() {
-                        return createTime;
-                    }
-
-                    public void setCreateTime(String createTime) {
-                        this.createTime = createTime;
-                    }
-
-                    public String getUpdateTime() {
-                        return updateTime;
-                    }
-
-                    public void setUpdateTime(String updateTime) {
-                        this.updateTime = updateTime;
-                    }
-
-                    public Object getRecommend() {
-                        return recommend;
-                    }
-
-                    public void setRecommend(Object recommend) {
-                        this.recommend = recommend;
-                    }
-
-                    public Object getClickNum() {
-                        return clickNum;
-                    }
-
-                    public void setClickNum(Object clickNum) {
-                        this.clickNum = clickNum;
-                    }
-
-                    public Object getNumberOfForwards() {
-                        return numberOfForwards;
-                    }
-
-                    public void setNumberOfForwards(Object numberOfForwards) {
-                        this.numberOfForwards = numberOfForwards;
-                    }
+                public void setStatus(int status) {
+                    this.status = status;
                 }
             }
         }

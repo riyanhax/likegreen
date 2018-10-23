@@ -148,5 +148,17 @@ public interface UrlConstant2 {
      * 获取当前用户关注的人发布的视频
      */
     String appGetUserFocusedVideos=UrlConstant.baseUrl+"concern/appGetUserFocusedVideos";
+    /**
+     * 增加转发数
+     */
+    String appAddNumberOfForwards=UrlConstant.baseUrl+"concern/addNumberOfForwards";
+    /**
+     * 判断用户是否被当前用户关注
+     */
+    String appJudgeWhetherToPayAttention=UrlConstant.baseUrl+"concern/appJudgeWhetherToPayAttention";
+    /**
+     * 根据用户ID获取用户订单列表
+     */
+    String getOrdersByUserIdApi=UrlConstant.baseUrl+"orders/getOrdersByUserIdApi";
 
 }

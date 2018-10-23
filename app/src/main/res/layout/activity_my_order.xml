@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         app:tl_divider_color="#dadada"
-        app:tl_divider_padding="13dp"
+        app:tl_divider_padding="19dp"
         app:tl_divider_width="1dp"
         app:tl_indicator_color="#bbe417"
         app:tl_indicator_height="2dp"

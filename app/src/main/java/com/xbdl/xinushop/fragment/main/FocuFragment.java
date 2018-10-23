@@ -148,7 +148,7 @@ public class FocuFragment extends BaseFragment {
             @Override
             public void showCommentPop(View view, FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
                 //弹出评论
-                RecommentDialogFragment fragment = RecommentDialogFragment.newInstance(1, bean.getVideo().getVideoId(),bean.getUserId());
+                RecommentDialogFragment fragment = RecommentDialogFragment.newInstance(1, bean.getVideo_id(),bean.getUserId());
                 fragment.show(getFragmentManager(),fragment.getClass().getName());
 
             }
@@ -175,7 +175,7 @@ public class FocuFragment extends BaseFragment {
         super.onResume();
         if (star){
             //第一次进入
-           // initDate();
+            initDate();
             star=false;
         }else {
             if (mShortVideoListAdapter != null) {

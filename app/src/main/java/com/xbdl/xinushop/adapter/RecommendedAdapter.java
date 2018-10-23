@@ -30,10 +30,9 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
-import com.xbdl.xinushop.activity.mian.UserDetailActivity;
+import com.xbdl.xinushop.activity.mine.UserDetailActivity;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.bean.VideoIconBean;
-import com.xbdl.xinushop.dialogfragment.RecommentDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils2;
 
 import org.json.JSONException;
@@ -43,8 +42,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.xbdl.xinushop.constant.UrlConstant2.appAddClickToPraise;
 
 
 public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.ViewHolder> implements View.OnClickListener {
