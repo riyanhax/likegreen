@@ -315,7 +315,9 @@
         <activity android:name=".activity.note.NoteDetailActivity" />
         <activity android:name=".activity.mine.order.MyOrderActivity" />
         <activity android:name=".activity.mine.order.SaleAfterChooseActivity" />
-        <activity android:name=".activity.mine.order.SaleAfterActivity"></activity>
+        <activity android:name=".activity.mine.order.SaleAfterActivity" />
+        <activity android:name=".activity.mine.order.OrderDetailSaleAfterActivity" />
+        <activity android:name=".activity.mine.order.OrderDetailPayAfterActivity"></activity>
     </application>
 
 </manifest>

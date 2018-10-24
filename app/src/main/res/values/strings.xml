@@ -63,6 +63,11 @@
     <string name="textsign">本宝宝还没有想到个性签名</string>
     <string name="focustogether">相互关注</string>
     <string name="focused">已关注</string>
+    <string name="detail">详情</string>
+    <string name="orderdetail">订单详情</string>
+    <string name="Contactsale">联系商家</string>
+    <string name="call">拨打电话</string>
+
 
     <string name="myroder">我的订单</string>
     <string name="pay">付款</string>
@@ -80,6 +85,8 @@
     <string name="applyexplaindetail">请您详细填写申请说明。（最多170字）</string>
     <string name="uploadvoucher">上传凭证</string>
     <string name="uploadpicture">上传照片</string>
+    <string name="applysubmission">提交申请</string>
+    <string name="refundamount">退款金额</string>
 
 
     <string name="personaldata">个人资料</string>

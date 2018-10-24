@@ -32,6 +32,7 @@ import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.UserDetailActivity;
 import com.xbdl.xinushop.bean.FocusVideoBean;
+import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.VideoIconBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.ToastUtil;
@@ -237,7 +238,7 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
             bean= mItemList.get(position);
             Log.v("nihaoma",""+bean.toString());
 
-            holder.videoPath =  bean.getUrl();
+            holder.videoPath = MyConstants.videoUrl+bean.getUrl();
             holder.holderRootView.setTag(position);
             holder.videoView.setLooping(true);
             holder.mShare.setOnClickListener(this);

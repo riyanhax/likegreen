@@ -193,7 +193,10 @@ public class TheNewFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        mShortVideoListAdapter.stopCurVideoView();
+        if (mShortVideoListAdapter!=null){
+            mShortVideoListAdapter.stopCurVideoView();
+        }
+
     }
     private void startCurVideoView() {
         LinearLayoutManager layoutManager = (LinearLayoutManager) mVideoList.getLayoutManager();

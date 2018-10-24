@@ -25,6 +25,7 @@ import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.MyVideoActivity;
 import com.xbdl.xinushop.adapter.MyVideoAdapter;
 import com.xbdl.xinushop.base.BaseFragment;
+import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.MyVideoBean;
 import com.xbdl.xinushop.bean.VideoBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
@@ -71,7 +72,7 @@ public class MyVideoFragment extends BaseFragment {
             public void onItemClick(View view, int position) {
                 MyVideoBean myVideoBean = beans.get(position);
                 Intent intent = new Intent(getContext(), MyVideoActivity.class);
-                intent.putExtra("MyVideoFragment",myVideoBean.getUrl());
+                intent.putExtra("MyVideoFragment", MyConstants.videoUrl+myVideoBean.getUrl());
                 startActivity(intent);
             }
         });

@@ -19,4 +19,6 @@ public class MyConstants {
     public static final String WEARTHERKEY = "a507a1e4491f1c26d68eea9088730e2d";
     public static final String wearther = "weather";
     public static final String city = "city";
+
+    public static final String videoUrl="http://jdvodrdjw0c4b.vod.126.net/jdvodrdjw0c4b/";
 }

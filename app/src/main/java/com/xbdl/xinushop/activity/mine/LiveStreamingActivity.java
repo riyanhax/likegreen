@@ -67,7 +67,7 @@ public class LiveStreamingActivity extends Activity implements OnClickListener, 
 	private ImageView startPauseResumeBtn;
 	private TextView mFpsView;
 	private final int MSG_FPS = 1000;
-	private String mliveStreamingURL = "rtmp://pee0d5105.live.126.net/live/697e719fa8314e329d27421b7dad681e?wsSecret=20e529c424f3e2c6a793f07b56577ce2&wsTime=1536131135";//直播地址
+	private String mliveStreamingURL = "rtmp://pf4d00d30.live.126.net/live/9e8ff69b9f5042ed97bb382c9aa215cf?wsSecret=ff81d46189651b93ff8585404acfe161&wsTime=1540367340";//直播地址
     private String mMixAudioFilePath = null;
 	private File mMP3AppFileDirectory = null;
 	private Handler mHandler;

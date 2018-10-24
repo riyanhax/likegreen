@@ -573,7 +573,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
     }
         //传视频信息到后台
     private void sendVideo(List<NOSUploadHandler.VideoQueryCallback.QueryResItem> list) {
-        HttpUtils2.appPostVideo2(MyApplication.user.getLoginToken(), 1, url + list.get(0).objectName, videoTitle.getText().toString(), new StringCallback() {
+        HttpUtils2.appPostVideo2(MyApplication.user.getLoginToken(), 1, list.get(0).objectName, videoTitle.getText().toString(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
 

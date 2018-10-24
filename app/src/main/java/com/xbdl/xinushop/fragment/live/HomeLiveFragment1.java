@@ -145,7 +145,7 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
     private LivePlayer player;
     private MediaInfo mediaInfo;
 
-    private String mVideoPath="http://flvee0d5105.live.126.net/live/697e719fa8314e329d27421b7dad681e.flv?netease=flvee0d5105.live.126.net"; //文件路径
+    private String mVideoPath="http://flvf4d00d30.live.126.net/live/9e8ff69b9f5042ed97bb382c9aa215cf.flv?netease=flvf4d00d30.live.126.net"; //文件路径
     private String mVideoPath2="http://vodhj5bqn44.vod.126.net/vodhj5bqn44/1BrIAtvV_1818587477_shd.mp4"; //文件路径
     private String mVideoPath3="http://vodhj5bqn44.vod.126.net/vodhj5bqn44/FmdVOTqd_1818586962_shd.mp4"; //文件路径
     //private String mVideoPath="http://jdvod6w938ryc.vod.126.net/jdvod6w938ryc/ea89570d-7298-47f9-8ea9-030fe1b5eeef.mp4"; //文件路径

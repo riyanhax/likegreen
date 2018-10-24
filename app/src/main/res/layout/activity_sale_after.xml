@@ -42,6 +42,7 @@
                 android:text="@string/applytype"
                style="@style/saleafter"/>
             <TextView
+                android:id="@+id/tv_type"
                 android:text="@string/applytype"
                 android:layout_marginLeft="@dimen/dp_40"
                style="@style/saleafter"/>
@@ -59,18 +60,24 @@
                 android:layout_centerVertical="true"
                 style="@style/saleafter"/>
             <LinearLayout
+                android:id="@+id/ll_apply_choose"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_20"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
-
+                    android:id="@+id/tv_apply_type"
+                    android:textColor="#808080"
                     android:text="@string/applytype"
-
                     style="@style/saleafter"/>
+                <ImageView
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-
         </RelativeLayout>
         <View
             android:background="@color/enptyviewbackground"
@@ -78,5 +85,134 @@
             android:layout_height="@dimen/dp_1"/>
 
 
+        <RelativeLayout
+            android:id="@+id/rl_cash"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45">
+            <TextView
+                android:id="@+id/tv_title_cash"
+                android:text="@string/refundamount"
+                android:layout_centerVertical="true"
+                style="@style/saleafter"/>
+            <EditText
+                android:id="@+id/et_cash"
+                android:textColor="@color/timeline_background_del_color"
+                android:textColorHint="@color/cblack"
+                android:hint="请输入金额"
+                android:background="@null"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_toRightOf="@id/tv_title_cash"
+                android:layout_width="@dimen/dp_150"
+                android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_cash"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="#808080"
+                    android:text="最多：100"
+                    style="@style/saleafter"/>
+
+        </RelativeLayout>
+        <View
+            android:background="@color/enptyviewbackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45">
+            <TextView
+                android:text="@string/applyexplain"
+                style="@style/saleafter"/>
+        </LinearLayout>
+        <TextView
+            android:textColor="@color/cblack"
+            android:text="@string/applyexplaindetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_apply_reason"
+            android:maxLength="170"
+            android:textColor="@color/actionbar_sel_color"
+            android:gravity="top"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_80" />
+        <include layout="@layout/layout_line"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45">
+            <TextView
+                android:text="@string/contcatsphone"
+                style="@style/saleafter"/>
+            <EditText
+                android:id="@+id/et_phone_number"
+                android:inputType="phone"
+                android:background="@null"
+                android:maxLength="11"
+                android:layout_marginLeft="@dimen/dp_40"
+                style="@style/saleafter"/>
+        </LinearLayout>
+        <include layout="@layout/layout_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45">
+            <TextView
+                android:text="@string/uploadvoucher"
+                style="@style/saleafter"/>
+            <TextView
+                android:textColor="@color/cblack"
+                android:text="（最多3张）"
+                android:textSize="@dimen/sp_11"
+                style="@style/saleafter"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_80">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <RelativeLayout
+                android:id="@+id/rl_upload_picture1"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_80">
+                <ImageView
+                    android:src="@drawable/camera_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_marginTop="@dimen/dp_50"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/cblack"
+                    android:text="@string/uploadpicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_commit"
+            android:gravity="center"
+            android:background="@drawable/bg_submission_green"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_alignParentBottom="true"
+            android:text="@string/applysubmission"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+    </RelativeLayout>
+
 </LinearLayout>

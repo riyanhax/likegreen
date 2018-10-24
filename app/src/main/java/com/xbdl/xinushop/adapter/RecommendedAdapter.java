@@ -31,6 +31,7 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
 import com.xbdl.xinushop.activity.mine.UserDetailActivity;
+import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.bean.VideoIconBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
@@ -236,7 +237,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
             bean= mItemList.get(position);
             Log.v("nihaoma",bean.toString());
 
-            holder.videoPath = bean.getUrl();
+            holder.videoPath = MyConstants.videoUrl+ bean.getUrl();
             holder.holderRootView.setTag(position);
             holder.videoView.setLooping(true);
             holder.mShare.setOnClickListener(this);

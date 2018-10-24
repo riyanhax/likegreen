@@ -320,9 +320,9 @@ public class HttpUtils2 {
      * 上传账号视频到后台 普通视频，没有音乐
      */
     public static void appPostVideo2(String token,int type,String url,String headline,StringCallback stringCallback) {
-        JSONObject json = new JSONObject();
+       JSONObject json = new JSONObject();
         try {
-
+            json.put("token",MyApplication.user.getLoginToken());
             json.put("type", type);
             json.put("url", url);
             json.put("headline", headline);
@@ -330,11 +330,12 @@ public class HttpUtils2 {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        OkGo.<String>post(UrlConstant2.appPostVideo+"/"+ MyApplication.user.getLoginToken())// 请求方式和请求url
-                /*.params("type", type)
+        OkGo.<String>post(UrlConstant2.appPostVideo)// 请求方式和请求url
+                .params("token", token)
+                .params("type", type)
                 .params("url", url)
-                .params("headline", headline)*/
-                .upJson(json)
+                .params("headline", headline)
+               /* .upJson(json)*/
                 .tag("appPostVideo")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
