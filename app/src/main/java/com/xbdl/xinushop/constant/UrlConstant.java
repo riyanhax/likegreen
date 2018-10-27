@@ -5,7 +5,7 @@ public interface UrlConstant {
     String baseUrl="120.79.173.209:8080/xilvAPP";
     //String baseUrl = "http://192.168.0.120:8080/"; //谢
    //String baseUrl = "http://22418y6p77.iask.in/xilv/"; //李
-    // String baseUrl = "http://224fj14709.51mypc.cn:18278/xilv/"; //宵
+   // String baseUrl = "http://224fj14709.51mypc.cn:18278/xilv/"; //宵
 
     /**
      * 喜帖分享生活
