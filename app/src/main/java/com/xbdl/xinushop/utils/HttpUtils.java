@@ -129,23 +129,55 @@ public class HttpUtils {
     }
 
     /**
-     * 添加种植日记
+     * 添加种植日记 第一次
      */
-    public static void appAddPlantDiary(String token, String name, String address, String img,
-                                        String plantTime, String desc, StringCallback stringCallback) {
+    public static void appAddPlantDiary1(String token, String diaryRootTitle, String images, String diaryDynamic,
+                                        String diaryAddressTemperatureWeather, String dirayCreateTime,String diaryUserId, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant.appAddPlantDiary)// 请求方式和请求url
                 .params("token", token)
-                .params("name", name)
-                .params("address", address)
-                .params("img", img)
-                .params("plantTime", plantTime)
-                .params("desc", desc)
+                .params("diaryRootTitle", diaryRootTitle)
+                .params("images", images)
+                .params("diaryDynamic", diaryDynamic)
+                .params("diaryAddressTemperatureWeather", diaryAddressTemperatureWeather)
+                .params("dirayCreateTime", dirayCreateTime)
+                .params("diaryUserId", diaryUserId)
+                .tag("appAddPlantDiary")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 添加种植日记 后续
+     */
+    public static void appAddPlantDiary2(String token, String images, String diaryDynamic,
+                                        String diaryAddressTemperatureWeather, String dirayCreateTime,String diaryUserId,String diaryRootId, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant.appAddPlantDiary)// 请求方式和请求url
+                .params("token", token)
+                .params("images", images)
+                .params("diaryDynamic", diaryDynamic)
+                .params("diaryAddressTemperatureWeather", diaryAddressTemperatureWeather)
+                .params("dirayCreateTime", dirayCreateTime)
+                .params("diaryUserId", diaryUserId)
+                .params("diaryRootId", diaryRootId)
                 .tag("appAddPlantDiary")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
 
+    /**
+     * 查询种植日记热门
+     */
+    public static void noteHot(String token, int pn,int userId	, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant.noteHot)// 请求方式和请求url
+                .params("token", token)
+                .params("pn", pn)
+                .params("userId", userId)
+                .tag("noteHot")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
     /**
      * 查询种植日记详情
      */

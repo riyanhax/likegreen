@@ -60,7 +60,7 @@ public class NoteFocusFragment extends Fragment {
                     String data = jsonObject.getString("data");
                     List<NoteListBean> noteListBeans = getNoteList(data);
                     if (noteListBeans != null && noteListBeans.size() > 0) {
-                        noteListAdapter.addData(noteListBeans);
+                        /*noteListAdapter.addData(noteListBeans);*/
                     }
                 } catch (JSONException e) {
                 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/enptyviewbackground"
     tools:context=".activity.note.NoteDetailActivity">
     <RelativeLayout
+        android:id="@+id/rl_top"
         style="@style/head">
         <ImageView
             android:id="@+id/iv_return"
@@ -22,11 +22,35 @@
             android:textColor="@color/colorfocuse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:visibility="gone"
+            android:src="@drawable/delete_fabu"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <com.github.jdsjlzx.recyclerview.LRecyclerView
        android:id="@+id/recyclerView"
+        android:layout_below="@id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_change"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+        <TextView
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="记录他的变化"
+            android:background="#bbe417"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</RelativeLayout>

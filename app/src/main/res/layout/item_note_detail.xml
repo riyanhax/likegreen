@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40">
         <TextView
+            android:id="@+id/tv_first"
             android:layout_centerVertical="true"
             android:textSize="15sp"
             android:textColor="@color/actionbar_sel_color"
@@ -17,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_day"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textSize="11sp"
@@ -26,9 +28,11 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <com.xbdl.xinushop.view.MultiImageView
+        android:id="@+id/mu_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
+        android:id="@+id/tv_work"
         android:layout_marginTop="@dimen/dp_20"
         android:textSize="13sp"
         android:textColor="@color/cblack"
@@ -44,10 +48,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/iv_islike"
                 android:src="@drawable/heart_luntan"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20" />
             <TextView
+                android:id="@+id/tv_islike_count"
                 android:textSize="15sp"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:text="0"
@@ -60,6 +66,7 @@
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20" />
             <TextView
+                android:id="@+id/tv_comment_count"
                 android:textSize="15sp"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:text="0"
@@ -77,6 +84,7 @@
                 android:layout_width="@dimen/dp_10"
                 android:layout_height="@dimen/dp_20" />
             <TextView
+                android:id="@+id/tv_location"
                 android:layout_gravity="center_vertical"
                 android:textSize="11sp"
                 android:layout_marginLeft="@dimen/dp_5"

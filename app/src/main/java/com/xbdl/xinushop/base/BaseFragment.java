@@ -28,7 +28,7 @@ public class BaseFragment extends Fragment {
      */
     public void showLoading() {
         try {
-            showLoading(null, null);
+            showLoading("数据加载中...", null);
         } catch (Exception e) {
             Log.e(TAG, "showProgressDialog  showProgressDialog(null, context.getResources().getString(stringResId));");
         }

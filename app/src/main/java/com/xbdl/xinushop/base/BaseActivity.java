@@ -27,7 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @warn 不能在子类中创建
      */
     protected BaseActivity context = null;
-    private static final String TAG = "asdf";
+    private static final String TAG = "nihaoma";
     protected LoadingDialog loadingDialog;
     public NetWorkStateReceiver netWorkStateReceiver;
     protected abstract Activity getActivity();
@@ -71,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void showLoading() {
         try {
-            showLoading(null, null);
+            showLoading("数据加载中...", null);
         } catch (Exception e) {
             Log.e(TAG, "showProgressDialog  showProgressDialog(null, context.getResources().getString(stringResId));");
         }

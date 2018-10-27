@@ -26,11 +26,13 @@ import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.ImagePickerAdapter;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
+import com.xbdl.xinushop.bean.WeatherBean;
 import com.xbdl.xinushop.constant.ImagePickerConstant;
 import com.xbdl.xinushop.utils.HttpUtils;
 import com.xbdl.xinushop.utils.ImageUtils;
@@ -38,13 +40,16 @@ import com.xbdl.xinushop.utils.Judge;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 import com.xbdl.xinushop.view.SelectDialog;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.xbdl.xinushop.MyApplication.maxImgCount;
 
@@ -70,7 +75,6 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_diary);
-
 
         initView();
         initData();
@@ -192,47 +196,42 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                 } else {
                     showLoading();
                     StringBuilder sb = new StringBuilder();
+                    String[] img=new String[adapter.getImages().size()+1];
+                    //String[] keys=adapter.getImages().toArray(new String[adapter.getImages().size()]);
                     for (int i = 0; i < adapter.getImages().size(); i++) {
                         String path = adapter.getImages().get(i).path;
                         String pathbase64 = ImageUtils.bitmapToString(path);
                         if (adapter.getImages().get(i).mimeType.contains("image/jpeg") || adapter.getImages().get(i).mimeType.contains("image/jpg")) {
-                            if (adapter.getImages().size() == 1) {
-                                sb.append(pathbase64);
-                                sb.append(";");
-                            } else {
-                                sb.append(pathbase64);
-                                sb.append(";");
-                            }
-                        } else {
-                            if (adapter.getImages().size() == 1) {
-                                sb.append(pathbase64);
-                                sb.append(";");
-                            } else {
-                                sb.append(pathbase64);
-                                sb.append(";");
-                            }
+                           img[i]=pathbase64;
+
                         }
 
                     }
-                    String base64images = sb.toString();
 
+                    String base64images = Arrays.toString(img);
+                    //String base64images2 = Arrays.toString(keys);
+                    int size = adapter.getImages().size();
                     String name = etPlantName.getText().toString();
                     String dynamicstate = etDynamicstate.getText().toString();
-                    String time = plantData.getText().toString();
-                    String userjson = SharedPreferencesUtil.getString(getActivity(), MyConstants.User, "");
-                    String token = "";
-                    PersonBean personBean = new Gson().fromJson(userjson, PersonBean.class);
-                    token = personBean.getLoginToken();
-                    HttpUtils.appAddPlantDiary(token, name, addr, base64images, time, dynamicstate, new StringCallback() {
+                    String token = MyApplication.user.getLoginToken();
+                    String weather = getWeather();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
+                    //获取当前时间
+                    Date date = new Date(System.currentTimeMillis());
+                    String time = simpleDateFormat.format(date);
+                    Log.i("nihaoma", "  addr " +weather+"size  "+size+"token "+token+" name "+name+" dynamicstate  "+dynamicstate+" time " +time+" base64images "
+                            +base64images+"  addr " +weather+"size  "+size);
+                  HttpUtils.appAddPlantDiary1(token,name,base64images,dynamicstate,weather,time,String.valueOf(MyApplication.user.getUserId()), new StringCallback() {
                         @Override
                         public void onStart(Request<String, ? extends Request> request) {
                             super.onStart(request);
                             showLoading();
-                            Log.i("asdf", "onStart");
+                            Log.i("nihaoma", "onStart");
                         }
 
                         @Override
                         public void onSuccess(Response<String> response) {
+                            Log.i("nihaoma", "onSuccess"+response.body());
                             String body = response.body();
                             try {
                                 JSONObject jsonObject=new JSONObject(body);
@@ -254,6 +253,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                         @Override
                         public void onError(Response<String> response) {
                             super.onError(response);
+                            Log.i("nihaoma", "onError"+response.body());
                             Toast.makeText(getActivity(),"提交失败",Toast.LENGTH_LONG).show();
                         }
 
@@ -269,7 +269,31 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 
         }
     }
+    private String getWeather() {
+        //设置天气
+        String weather = SharedPreferencesUtil.getString(getActivity(), MyConstants.wearther, "key");
+        String spCity = SharedPreferencesUtil.getString(getActivity(), MyConstants.city, "key");
+        if (weather != null && !weather.equals("key") && spCity != null && !spCity.equals("key")) {
+            Gson gson = new Gson();
+            WeatherBean weatherBean = gson.fromJson(weather, WeatherBean.class);
+            if (weatherBean.getCode().equals("10000")) {
+                WeatherBean.ResultBean result = weatherBean.getResult();
+                List<WeatherBean.ResultBean.HeWeather5Bean> heWeather5 = result.getHeWeather5();
+                for (WeatherBean.ResultBean.HeWeather5Bean bean : heWeather5) {
+                    WeatherBean.ResultBean.HeWeather5Bean.NowBean now = bean.getNow();
+                    String tmp = now.getTmp();
+                    WeatherBean.ResultBean.HeWeather5Bean.NowBean.CondBean cond = now.getCond();
+                    String txt = cond.getTxt();
+                    WeatherBean.ResultBean.HeWeather5Bean.SuggestionBean suggestion = bean.getSuggestion();
+                    //舒适度
+                    WeatherBean.ResultBean.HeWeather5Bean.SuggestionBean.ComfBean comf = suggestion.getComf();
+                    return spCity+"-"+txt+"-"+tmp;
+                }
 
+            }
+        }
+        return "";
+    }
     @Override
     public void onItemClick(View view, int position) {
         switch (position) {
@@ -335,11 +359,12 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
             //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
             //以下只列举部分获取地址相关的结果信息
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-            addr = location.getAddrStr();    //获取详细地址信息
             String city = location.getCity();
             String province = location.getProvince();
+            addr=city;
             if (!Judge.getBoolean_isNull(city)&&!Judge.getBoolean_isNull(province)) {
-                tvlocation.setText(province+"."+city);
+               // tvlocation.setText(province+"."+city);
+                tvlocation.setText(city);
             }
 
         }
@@ -389,4 +414,6 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
             }
         }
     }
+
+
 }

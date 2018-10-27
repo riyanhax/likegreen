@@ -2,7 +2,7 @@ package com.xbdl.xinushop.constant;
 
 public interface UrlConstant {
     //String baseUrl="http://192.168.1.5:8080/";
-     String baseUrl="http://120.79.173.209:80/xilv/";
+    String baseUrl="120.79.173.209:8080/xilvAPP";
     //String baseUrl = "http://192.168.0.120:8080/"; //谢
    //String baseUrl = "http://22418y6p77.iask.in/xilv/"; //李
     // String baseUrl = "http://224fj14709.51mypc.cn:18278/xilv/"; //宵
@@ -41,8 +41,8 @@ public interface UrlConstant {
      */
     String getCategorylist = "commodityclassify/getClassifyByInfo";
 
-    String appAddPlantDiary = baseUrl + "plantDiary/appAddPlantDiary";
-    //kkj000000000000000000
+    String appAddPlantDiary = baseUrl + "diary/appAddDiary";
+
     /**
      * 获取所有tag
      */
@@ -63,4 +63,12 @@ public interface UrlConstant {
      * 种植日记详情
      */
     String findplantDetail = baseUrl + "plantDiary/appFindPlanyDiary";
+    /**
+     * 日记热门
+     */
+    String noteHot = baseUrl + "diary/appGetPopularDiaries";
+    /**
+     * 日记热门
+     */
+    String appGetCurrentGroupDiaries = baseUrl + "diary/appGetCurrentGroupDiaries";
 }
