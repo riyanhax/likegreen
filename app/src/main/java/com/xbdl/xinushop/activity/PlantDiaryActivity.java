@@ -19,6 +19,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -195,21 +196,25 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                     return;
                 } else {
                     showLoading();
-                    StringBuilder sb = new StringBuilder();
+
                     String[] img=new String[adapter.getImages().size()+1];
-                    //String[] keys=adapter.getImages().toArray(new String[adapter.getImages().size()]);
+                    JSONArray jsonObject =new JSONArray();
                     for (int i = 0; i < adapter.getImages().size(); i++) {
                         String path = adapter.getImages().get(i).path;
                         String pathbase64 = ImageUtils.bitmapToString(path);
-                        if (adapter.getImages().get(i).mimeType.contains("image/jpeg") || adapter.getImages().get(i).mimeType.contains("image/jpg")) {
+                        img[i]=pathbase64;
+                        /*if (adapter.getImages().get(i).mimeType.contains("image/jpeg") || adapter.getImages().get(i).mimeType.contains("image/jpg")) {
                            img[i]=pathbase64;
 
-                        }
-
+                        }*/
+                        jsonObject.put(pathbase64);
                     }
 
+
+                    String s = jsonObject.toString();
+
                     String base64images = Arrays.toString(img);
-                    //String base64images2 = Arrays.toString(keys);
+
                     int size = adapter.getImages().size();
                     String name = etPlantName.getText().toString();
                     String dynamicstate = etDynamicstate.getText().toString();
@@ -220,8 +225,8 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                     Date date = new Date(System.currentTimeMillis());
                     String time = simpleDateFormat.format(date);
                     Log.i("nihaoma", "  addr " +weather+"size  "+size+"token "+token+" name "+name+" dynamicstate  "+dynamicstate+" time " +time+" base64images "
-                            +base64images+"  addr " +weather+"size  "+size);
-                  HttpUtils.appAddPlantDiary1(token,name,base64images,dynamicstate,weather,time,String.valueOf(MyApplication.user.getUserId()), new StringCallback() {
+                            +s);
+                  HttpUtils.appAddPlantDiary1(token,name,s,dynamicstate,weather,time,MyApplication.user.getUserId(), new StringCallback() {
                         @Override
                         public void onStart(Request<String, ? extends Request> request) {
                             super.onStart(request);

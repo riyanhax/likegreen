@@ -10,7 +10,8 @@
         android:id="@+id/iv_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
+
+        android:scaleType="fitXY"
         android:src="@mipmap/ic_launcher" />
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_imagetitle"

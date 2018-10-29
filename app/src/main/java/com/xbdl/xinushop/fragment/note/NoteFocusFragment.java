@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -41,12 +42,12 @@ public class NoteFocusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_focus, container, false);
-        progressBar = view.findViewById(R.id.prossbar);
-        RecyclerView recyclerView = view.findViewById(R.id.lr_note_hot);
+      /*  progressBar = view.findViewById(R.id.prossbar);
+        LRecyclerView recyclerView = view.findViewById(R.id.lr_note_hot);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        noteListAdapter = new NoteListAdapter();
+        noteListAdapter = new NoteListAdapter(getActivity());
         recyclerView.setAdapter(noteListAdapter);
-        initData();
+        initData();*/
         return view;
     }
 

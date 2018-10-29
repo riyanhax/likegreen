@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_marginRight="@dimen/dp_20"
         android:layout_marginLeft="@dimen/dp_20"
@@ -23,11 +23,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/tv_username"
                 android:text="园丁 叭叭叭"
                 android:textColor="@color/actionbar_sel_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/tv_day_focus"
                 android:layout_marginTop="@dimen/dp_5"
                 android:textSize="11sp"
                 android:text="天数 3 |关注 2"
@@ -36,6 +38,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <TextView
+            android:id="@+id/tv_focus"
             android:paddingBottom="@dimen/dp_3"
             android:paddingTop="@dimen/dp_3"
             android:paddingRight="@dimen/dp_8"
@@ -68,12 +71,14 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_200">
         <ImageView
+            android:id="@+id/iv_img1"
             android:src="@drawable/penzai"
             android:background="@color/enptyviewbackground"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
         <ImageView
+            android:id="@+id/iv_img2"
             android:src="@drawable/penzai"
             android:background="@color/enptyviewbackground"
             android:layout_marginLeft="@dimen/dp_10"

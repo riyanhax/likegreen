@@ -3,10 +3,13 @@ package com.xbdl.xinushop.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.constant.UrlConstant;
 import com.xbdl.xinushop.constant.UrlConstant2;
 
 public class HttpUtils {
+    private String token= MyApplication.user.getLoginToken();
+    private int userId=MyApplication.user.getUserId();
     /**
      * 分享生活列表
      *
@@ -132,7 +135,7 @@ public class HttpUtils {
      * 添加种植日记 第一次
      */
     public static void appAddPlantDiary1(String token, String diaryRootTitle, String images, String diaryDynamic,
-                                        String diaryAddressTemperatureWeather, String dirayCreateTime,String diaryUserId, StringCallback stringCallback) {
+                                        String diaryAddressTemperatureWeather, String dirayCreateTime,int diaryUserId, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant.appAddPlantDiary)// 请求方式和请求url
                 .params("token", token)
                 .params("diaryRootTitle", diaryRootTitle)
@@ -150,7 +153,7 @@ public class HttpUtils {
      * 添加种植日记 后续
      */
     public static void appAddPlantDiary2(String token, String images, String diaryDynamic,
-                                        String diaryAddressTemperatureWeather, String dirayCreateTime,String diaryUserId,String diaryRootId, StringCallback stringCallback) {
+                                        String diaryAddressTemperatureWeather, String dirayCreateTime,int diaryUserId,String diaryRootId, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant.appAddPlantDiary)// 请求方式和请求url
                 .params("token", token)
                 .params("images", images)

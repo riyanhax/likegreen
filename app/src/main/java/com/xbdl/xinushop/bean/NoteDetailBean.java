@@ -4,10 +4,11 @@ import java.util.List;
 
 public class NoteDetailBean {
 
+
     /**
      * code : 100
      * msg : 处理成功！
-     * extend : {"diary":[{"diaryId":28,"diaryDynamic":"天天 不想 上班","diaryAddressTemperatureWeather":"洛阳-晴天-32","dirayCreateTime":"2018-12-22 15:24:30","dirayToClickTheNumberOfLikes":null,"dirayNumberOfComments":null,"diaryUserId":null,"diaryDay":3,"diaryRootId":16,"isLike":null,"dirayIamge":[]},{"diaryId":25,"diaryDynamic":"天天 不想 上班","diaryAddressTemperatureWeather":"洛阳-晴天-32","dirayCreateTime":"2018-12-20 15:21:34","dirayToClickTheNumberOfLikes":null,"dirayNumberOfComments":null,"diaryUserId":null,"diaryDay":1,"diaryRootId":16,"isLike":null,"dirayIamge":[]}]}
+     * extend : {"diary":[{"diaryId":59,"diaryDynamic":"测试后续发布222","diaryAddressTemperatureWeather":"(null)-(null)","dirayCreateTime":"2018-10-29 16:27:08","dirayToClickTheNumberOfLikes":null,"dirayNumberOfComments":null,"diaryDay":1,"diaryRootId":36,"diaryUserId":30,"isLike":null,"dirayIamge":[{"diaryImageId":null,"diaryId":59,"diaryImageUrl":"/upload/2018-10/2018-10-29/ccb677c8c7984f0caf0c0efad1edf2d5.png","diaryImageHigh":469,"diaryImageWide":495},{"diaryImageId":null,"diaryId":59,"diaryImageUrl":"/upload/2018-10/2018-10-29/ac443346176f4f2b853bee2b12863566.png","diaryImageHigh":471,"diaryImageWide":491}]},{"diaryId":56,"diaryDynamic":"测试动态","diaryAddressTemperatureWeather":"洛阳市","dirayCreateTime":"2018-10-29 13:53:34","dirayToClickTheNumberOfLikes":null,"dirayNumberOfComments":null,"diaryDay":1,"diaryRootId":36,"diaryUserId":null,"isLike":null,"dirayIamge":[{"diaryImageId":null,"diaryId":56,"diaryImageUrl":"/upload/2018-10/2018-10-29/62856f9db6ba4959abd6b0ecd47155d4.png","diaryImageHigh":715,"diaryImageWide":640},{"diaryImageId":null,"diaryId":56,"diaryImageUrl":"/upload/2018-10/2018-10-29/7e52cad7eea3498da12293407937317c.png","diaryImageHigh":1334,"diaryImageWide":1000},{"diaryImageId":null,"diaryId":56,"diaryImageUrl":"/upload/2018-10/2018-10-29/1c79f0fddc364327add32c599ca3de0a.png","diaryImageHigh":1001,"diaryImageWide":1334},{"diaryImageId":null,"diaryId":56,"diaryImageUrl":"/upload/2018-10/2018-10-29/0e42cc74ea5648039828d7279fd5d553.png","diaryImageHigh":1334,"diaryImageWide":1000}]}]}
      * object : null
      */
 
@@ -61,30 +62,30 @@ public class NoteDetailBean {
 
         public static class DiaryBean {
             /**
-             * diaryId : 28
-             * diaryDynamic : 天天 不想 上班
-             * diaryAddressTemperatureWeather : 洛阳-晴天-32
-             * dirayCreateTime : 2018-12-22 15:24:30
+             * diaryId : 59
+             * diaryDynamic : 测试后续发布222
+             * diaryAddressTemperatureWeather : (null)-(null)
+             * dirayCreateTime : 2018-10-29 16:27:08
              * dirayToClickTheNumberOfLikes : null
              * dirayNumberOfComments : null
-             * diaryUserId : null
-             * diaryDay : 3
-             * diaryRootId : 16
+             * diaryDay : 1
+             * diaryRootId : 36
+             * diaryUserId : 30
              * isLike : null
-             * dirayIamge : []
+             * dirayIamge : [{"diaryImageId":null,"diaryId":59,"diaryImageUrl":"/upload/2018-10/2018-10-29/ccb677c8c7984f0caf0c0efad1edf2d5.png","diaryImageHigh":469,"diaryImageWide":495},{"diaryImageId":null,"diaryId":59,"diaryImageUrl":"/upload/2018-10/2018-10-29/ac443346176f4f2b853bee2b12863566.png","diaryImageHigh":471,"diaryImageWide":491}]
              */
 
             private int diaryId;
             private String diaryDynamic;
             private String diaryAddressTemperatureWeather;
             private String dirayCreateTime;
-            private Object dirayToClickTheNumberOfLikes;
-            private Object dirayNumberOfComments;
-            private Object diaryUserId;
+            private int dirayToClickTheNumberOfLikes;
+            private int dirayNumberOfComments;
             private int diaryDay;
             private int diaryRootId;
-            private Object isLike;
-            private List<?> dirayIamge;
+            private int diaryUserId;
+            private boolean isLike;
+            private List<DirayIamgeBean> dirayIamge;
 
             public int getDiaryId() {
                 return diaryId;
@@ -118,28 +119,20 @@ public class NoteDetailBean {
                 this.dirayCreateTime = dirayCreateTime;
             }
 
-            public Object getDirayToClickTheNumberOfLikes() {
+            public int getDirayToClickTheNumberOfLikes() {
                 return dirayToClickTheNumberOfLikes;
             }
 
-            public void setDirayToClickTheNumberOfLikes(Object dirayToClickTheNumberOfLikes) {
+            public void setDirayToClickTheNumberOfLikes(int dirayToClickTheNumberOfLikes) {
                 this.dirayToClickTheNumberOfLikes = dirayToClickTheNumberOfLikes;
             }
 
-            public Object getDirayNumberOfComments() {
+            public int getDirayNumberOfComments() {
                 return dirayNumberOfComments;
             }
 
-            public void setDirayNumberOfComments(Object dirayNumberOfComments) {
+            public void setDirayNumberOfComments(int dirayNumberOfComments) {
                 this.dirayNumberOfComments = dirayNumberOfComments;
-            }
-
-            public Object getDiaryUserId() {
-                return diaryUserId;
-            }
-
-            public void setDiaryUserId(Object diaryUserId) {
-                this.diaryUserId = diaryUserId;
             }
 
             public int getDiaryDay() {
@@ -158,20 +151,84 @@ public class NoteDetailBean {
                 this.diaryRootId = diaryRootId;
             }
 
-            public Object getIsLike() {
+            public int getDiaryUserId() {
+                return diaryUserId;
+            }
+
+            public void setDiaryUserId(int diaryUserId) {
+                this.diaryUserId = diaryUserId;
+            }
+
+            public boolean isLike() {
                 return isLike;
             }
 
-            public void setIsLike(Object isLike) {
-                this.isLike = isLike;
+            public void setLike(boolean like) {
+                isLike = like;
             }
 
-            public List<?> getDirayIamge() {
+            public List<DirayIamgeBean> getDirayIamge() {
                 return dirayIamge;
             }
 
-            public void setDirayIamge(List<?> dirayIamge) {
+            public void setDirayIamge(List<DirayIamgeBean> dirayIamge) {
                 this.dirayIamge = dirayIamge;
+            }
+
+            public static class DirayIamgeBean {
+                /**
+                 * diaryImageId : null
+                 * diaryId : 59
+                 * diaryImageUrl : /upload/2018-10/2018-10-29/ccb677c8c7984f0caf0c0efad1edf2d5.png
+                 * diaryImageHigh : 469.0
+                 * diaryImageWide : 495.0
+                 */
+
+                private int diaryImageId;
+                private int diaryId;
+                private String diaryImageUrl;
+                private double diaryImageHigh;
+                private double diaryImageWide;
+
+                public int getDiaryImageId() {
+                    return diaryImageId;
+                }
+
+                public void setDiaryImageId(int diaryImageId) {
+                    this.diaryImageId = diaryImageId;
+                }
+
+                public int getDiaryId() {
+                    return diaryId;
+                }
+
+                public void setDiaryId(int diaryId) {
+                    this.diaryId = diaryId;
+                }
+
+                public String getDiaryImageUrl() {
+                    return diaryImageUrl;
+                }
+
+                public void setDiaryImageUrl(String diaryImageUrl) {
+                    this.diaryImageUrl = diaryImageUrl;
+                }
+
+                public double getDiaryImageHigh() {
+                    return diaryImageHigh;
+                }
+
+                public void setDiaryImageHigh(double diaryImageHigh) {
+                    this.diaryImageHigh = diaryImageHigh;
+                }
+
+                public double getDiaryImageWide() {
+                    return diaryImageWide;
+                }
+
+                public void setDiaryImageWide(double diaryImageWide) {
+                    this.diaryImageWide = diaryImageWide;
+                }
             }
         }
     }

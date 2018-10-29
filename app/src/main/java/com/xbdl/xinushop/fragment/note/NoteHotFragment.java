@@ -9,7 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -40,31 +45,56 @@ public class NoteHotFragment extends BaseFragment {
     ProgressBar progressBar;
     NoteListAdapter noteListAdapter = null;
     private int page=1;
+    private LRecyclerView recyclerView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_focus, container, false);
         progressBar = view.findViewById(R.id.prossbar);
-        RecyclerView recyclerView = view.findViewById(R.id.lr_note_hot);
+        recyclerView = view.findViewById(R.id.lr_note_hot);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        noteListAdapter = new NoteListAdapter();
-        recyclerView.setAdapter(noteListAdapter);
+        noteListAdapter = new NoteListAdapter(getActivity());
+        LRecyclerViewAdapter lRecyclerViewAdapter = new LRecyclerViewAdapter(noteListAdapter);
+        recyclerView.setAdapter(lRecyclerViewAdapter);
+        recyclerView.setPullRefreshEnabled(false);
+        recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getData(page);
+            }
+        });
         initData();
         return view;
     }
 
     private void initData() {
-        HttpUtils.noteHot(MyApplication.user.getLoginToken(),page,MyApplication.user.getUserId(),new StringCallback() {
+        getData(page);
+    }
+    NoteHotBean.ExtendBean.DiaryRootsBean diaryRoots ;
+    private void getData(int pn) {
+        HttpUtils.noteHot(MyApplication.user.getLoginToken(),pn,MyApplication.user.getUserId(),new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Log.v("nihaoma",response.body());
-                NoteHotBean noteHotBean = new Gson().fromJson(response.body(), NoteHotBean.class);
+               NoteHotBean noteHotBean = new Gson().fromJson(response.body(), NoteHotBean.class);
                 if (noteHotBean.getCode()==100){
-                    NoteHotBean.ExtendBean.DiaryRootsBean diaryRoots = noteHotBean.getExtend().getDiaryRoots();
+                    diaryRoots = noteHotBean.getExtend().getDiaryRoots();
                     List<NoteHotBean.ExtendBean.DiaryRootsBean.ListBean> list = diaryRoots.getList();
-                    noteListAdapter.addData(list);
+
+                    page++;
+                    if (diaryRoots.isHasNextPage()){
+                        recyclerView.setLoadMoreEnabled(true);
+                    }else {
+                        recyclerView.setLoadMoreEnabled(false);
+                    }
+                    if (page==1){
+                        noteListAdapter.setDataList(list);
+                    }else {
+                        noteListAdapter.addAll(list);
+                    }
+
                 }
-               /* try {
+              /* try {
                     JSONObject jsonObject = new JSONObject(response.body());
 
                     String data = jsonObject.getString("data");
@@ -82,8 +112,6 @@ public class NoteHotFragment extends BaseFragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-
-
     }
 
     private List<NoteListBean> getNoteList(String data) {

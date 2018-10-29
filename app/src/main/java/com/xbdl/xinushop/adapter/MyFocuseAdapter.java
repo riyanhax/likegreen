@@ -132,9 +132,10 @@ public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.ExtendBean.Conce
                                     int code = jsonObject.getInt("code");
                                     if (code==100){
                                         //成功
-                                        viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focused));
-                                        viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
-                                        viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
+                                        viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focus));
+                                        viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.white));
+                                        viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse));
+
                                         whetherToBeConcerned=2;
                                     }
                                 } catch (JSONException e) {
@@ -155,9 +156,9 @@ public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.ExtendBean.Conce
                                     int code = jsonObject.getInt("code");
                                     if (code==100){
                                         //成功
-                                        viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focus));
-                                        viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.white));
-                                        viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse));
+                                        viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focused));
+                                        viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
+                                        viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
                                         whetherToBeConcerned=1;
                                     }
                                 } catch (JSONException e) {

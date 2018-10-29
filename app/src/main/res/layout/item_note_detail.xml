@@ -3,9 +3,16 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:layout_marginRight="@dimen/dp_20"
-    android:layout_marginLeft="@dimen/dp_20"
+
     android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40">
@@ -95,4 +102,5 @@
         </LinearLayout>
 
     </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

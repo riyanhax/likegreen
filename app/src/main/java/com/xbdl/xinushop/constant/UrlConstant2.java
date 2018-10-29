@@ -160,5 +160,22 @@ public interface UrlConstant2 {
      * 根据用户ID获取用户订单列表
      */
     String getOrdersByUserIdApi=UrlConstant.baseUrl+"orders/getOrdersByUserIdApi";
+    /**
+     * 日记浏览量
+     */
+    String appAddNumberOfViews=UrlConstant.baseUrl+"diary/appAddNumberOfViews";
+
+    /**
+     * 日记新增评论层（当楼主）
+     */
+    String appAddedDiaryCommentFloor=UrlConstant.baseUrl+"diary/appAddedDiaryCommentFloor";
+    /**
+     * 日记楼中评论
+     */
+    String appCommentDiaryCommentFloor=UrlConstant.baseUrl+"diary/appCommentDiaryCommentFloor";
+    /**
+     * 日记点赞/取消点赞
+     */
+    String appDiaryLikes=UrlConstant.baseUrl+"diary/appDiaryLikes";
 
 }

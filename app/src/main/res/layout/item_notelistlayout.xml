@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_usericon"
                 android:layout_width="@dimen/dp_46"
                 android:layout_height="@dimen/dp_46"
@@ -57,7 +57,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/circle_919191_10"
-                android:padding="@dimen/dp_5"
+               android:paddingLeft="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_3"
+                android:paddingBottom="@dimen/dp_3"
                 android:text="已关注"
                 android:textColor="@color/color_353535" />
         </LinearLayout>
@@ -80,7 +83,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:background="@drawable/circle_fff_10"
-        android:padding="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_3"
         android:text="种草日记.惊天"
         android:textColor="@color/color_353535" />
 
