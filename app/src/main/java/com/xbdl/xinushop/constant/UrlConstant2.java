@@ -177,5 +177,9 @@ public interface UrlConstant2 {
      * 日记点赞/取消点赞
      */
     String appDiaryLikes=UrlConstant.baseUrl+"diary/appDiaryLikes";
+    /**
+     * 获取日记评论
+     */
+    String appViewAllReviews=UrlConstant.baseUrl+"diary/appViewAllReviews";
 
 }

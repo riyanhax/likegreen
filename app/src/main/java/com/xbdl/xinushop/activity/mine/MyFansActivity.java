@@ -7,7 +7,7 @@ import android.view.View;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.adapter.MyFocuseAdapter;
+import com.xbdl.xinushop.adapter.mine.MyFocuseAdapter;
 /*
 * 我的粉丝
 * */

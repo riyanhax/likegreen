@@ -17,14 +17,11 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.adapter.MyFocuseAdapter;
+import com.xbdl.xinushop.adapter.mine.MyFocuseAdapter;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.MyFansBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.ToastUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 

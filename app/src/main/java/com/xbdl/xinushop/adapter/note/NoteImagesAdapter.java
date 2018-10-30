@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.note.NoteDetailActivity;
 import com.xbdl.xinushop.adapter.ListBaseAdapter;
@@ -39,11 +40,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NoteImagesAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.DiaryRootsBean.ListBean.DiarysBean> {
     private LayoutInflater mLayoutInflater;
-    private int usrid;
-    public NoteImagesAdapter(Context context,int userid) {
+    private int usrid,numFans,days,concernState;
+
+    public NoteImagesAdapter(Context context,int userid,int numFans,int days,int concernState) {
         mLayoutInflater = LayoutInflater.from(context);
         mContext = context;
         this.usrid=userid;
+        this.numFans=numFans;
+        this.days=days;
+        this.concernState=concernState;
     }
 
     @Override
@@ -73,14 +78,18 @@ public class NoteImagesAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Di
             }
             viewHolder.iv_image.setLayoutParams(params);
            String url= UrlConstant.baseimgUrl+item.getDirayIamge().get(0).getDiaryImageUrl();
-            Log.v("nihaoma","图片地址"+url);
-            Glide.with(mContext).load(url).into(viewHolder.iv_image);
+           // Log.v("nihaoma","图片地址"+url);
+
+            Glide.with(MyApplication.context).load(url).into(viewHolder.iv_image);
             viewHolder.iv_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, NoteDetailActivity.class);
                     intent.putExtra("diaryRootId",item.getDiaryRootId());
                     intent.putExtra("userId",usrid);
+                    intent.putExtra("numFans",numFans);
+                    intent.putExtra("days",days);
+                    intent.putExtra("concernState",concernState);
                     mContext.startActivity(intent);
                 }
             });

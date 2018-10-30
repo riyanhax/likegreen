@@ -1,4 +1,4 @@
-package com.xbdl.xinushop.adapter;
+package com.xbdl.xinushop.adapter.mine;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +14,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.adapter.ListBaseAdapter;
 import com.xbdl.xinushop.bean.MyFansBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
 

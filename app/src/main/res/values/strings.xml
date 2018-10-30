@@ -67,6 +67,8 @@
     <string name="orderdetail">订单详情</string>
     <string name="Contactsale">联系商家</string>
     <string name="call">拨打电话</string>
+    <string name="dynamic_details">动态详情</string>
+    <string name="comment">评论</string>
 
 
     <string name="myroder">我的订单</string>

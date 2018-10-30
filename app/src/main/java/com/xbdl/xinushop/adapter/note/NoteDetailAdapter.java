@@ -15,10 +15,13 @@ import com.lzy.okgo.model.Response;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.PhtotViewActivity;
+import com.xbdl.xinushop.adapter.FocusVideoAdapter;
 import com.xbdl.xinushop.adapter.ListBaseAdapter;
+import com.xbdl.xinushop.bean.FocusVideoBean;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.NoteDetailBean;
 import com.xbdl.xinushop.constant.UrlConstant;
+import com.xbdl.xinushop.dialogfragment.RecommentDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.ToastUtil;
 import com.xbdl.xinushop.view.MultiImageView;
@@ -48,11 +51,16 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
             final ViewHolder viewHolder= (ViewHolder) holder;
             final NoteDetailBean.ExtendBean.DiaryBean bean = mDataList.get(position);
             viewHolder.tv_first.setText("第"+bean.getDiaryDay()+"天");
-            viewHolder.tv_day.setText(bean.getDirayCreateTime());
+
+            String time = bean.getDirayCreateTime();
+            String tempStr = time.substring(0, 10);
+
+            viewHolder.tv_day.setText(tempStr);
             viewHolder.tv_islike_count.setText(String.valueOf(bean.getDirayToClickTheNumberOfLikes()));
             viewHolder.tv_comment_count.setText(String.valueOf(bean.getDirayNumberOfComments()));
             viewHolder.tv_work.setText("："+bean.getDiaryDynamic());
            viewHolder.tv_location.setText(bean.getDiaryAddressTemperatureWeather()+"℃");
+
            if (bean.isLike()){
                viewHolder.iv_islike.setImageResource(R.drawable.heart_xuanzhong_luntan);
            }else {
@@ -64,13 +72,32 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
                     islike(bean,viewHolder);
                 }
             });
-            ArrayList<String> urls = new ArrayList<>();
+           //是否关注
+
+            final ArrayList<String> urls = new ArrayList<>();
             List<NoteDetailBean.ExtendBean.DiaryBean.DirayIamgeBean> dirayIamge = bean.getDirayIamge();
             for (NoteDetailBean.ExtendBean.DiaryBean.DirayIamgeBean iamgeBean:dirayIamge){
                 urls.add(UrlConstant.baseimgUrl+iamgeBean.getDiaryImageUrl());
             }
             viewHolder.mu_img.setList(urls);
+            viewHolder.mu_img.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Intent intent = new Intent(view.getContext(), PhtotViewActivity.class);
+                    intent.putExtra("url",urls.get(position));
+                    view.getContext().startActivity(intent);
+                }
+            });
+            //评论点击事件
+            viewHolder.iv_comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                   myclick.showCommentPop(v,bean);
+                }
+            });
         }
+
 
     }
 
@@ -104,7 +131,7 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
     private class ViewHolder extends RecyclerView.ViewHolder {
         private MultiImageView mu_img;
         TextView tv_first,tv_day,tv_work,tv_islike_count,tv_comment_count,tv_location;
-        ImageView iv_islike;
+        ImageView iv_islike,iv_comment;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -116,7 +143,16 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
             tv_islike_count = itemView.findViewById(R.id.tv_islike_count);
             tv_comment_count = itemView.findViewById(R.id.tv_comment_count);
             tv_location = itemView.findViewById(R.id.tv_location);
+            iv_comment = itemView.findViewById(R.id.iv_comment);
         }
+    }
+    public interface MyViewClick{
+        public void showCommentPop(View view,NoteDetailBean.ExtendBean.DiaryBean bean);
+
+    }
+    private MyViewClick myclick;
+    public void setMyViewClick(MyViewClick click){
+        myclick=click;
     }
 
 }

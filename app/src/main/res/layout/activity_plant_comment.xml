@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/enptyviewbackground"
+
+    tools:context=".activity.note.PlantCommentActivity">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        style="@style/head">
+        <ImageView
+            android:id="@+id/iv_return"
+            android:layout_centerVertical="true"
+            android:src="@drawable/wode_return"
+            style="@style/paddinglift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/dynamic_details"
+            android:textColor="@color/colorfocuse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_islike"
+                android:src="@drawable/heart_pinglun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_like_conut"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text=" 0"
+                android:textColor="@color/actionbar_sel_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <View
+        android:id="@+id/line"
+        android:layout_below="@id/rl_top"
+        android:background="@color/enptyviewbackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"/>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_below="@id/line"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_marginTop="@dimen/dp_20"
+                android:textColor="@color/actionbar_sel_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textSize="10sp"
+                android:textColor="@color/actionbar_sel_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView2"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_head_icon"
+                    android:src="@drawable/xilvfriends"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30" />
+                <TextView
+                    android:id="@+id/tv_work"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textColor="@color/actionbar_sel_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <TextView
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/comment"
+                android:textSize="15sp"
+                android:textColor="@color/cblack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+                <com.github.jdsjlzx.recyclerview.LRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+    <LinearLayout
+
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+        <LinearLayout
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:background="@drawable/bg_item_empty3"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/et_msg"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_commit"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_item_gray2"
+                android:gravity="center"
+                android:text="发表"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="35dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

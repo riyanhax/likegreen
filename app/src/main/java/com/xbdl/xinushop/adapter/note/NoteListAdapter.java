@@ -2,8 +2,6 @@ package com.xbdl.xinushop.adapter.note;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,13 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.UserDetailActivity;
-import com.xbdl.xinushop.activity.note.NoteDetailActivity;
 import com.xbdl.xinushop.adapter.ListBaseAdapter;
 
 import com.xbdl.xinushop.bean.NoteHotBean;
+import com.xbdl.xinushop.utils.HttpUtils2;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -36,14 +40,43 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(mLayoutInflater.inflate(R.layout.item_notelistlayout, parent, false));
     }
-
+    int concernState;
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (mDataList!=null){
             final NoteHotBean.ExtendBean.DiaryRootsBean.ListBean item = mDataList.get(position);
             List<NoteHotBean.ExtendBean.DiaryRootsBean.ListBean.DiarysBean> diarys = item.getDiarys();
-            ViewHolder viewHolder= (ViewHolder) holder;
-            viewHolder.tv_username.setText(item.getUserName());
+            final ViewHolder viewHolder= (ViewHolder) holder;
+            if (item.getDiaryRootUserId()== MyApplication.user.getUserId()){
+                //自己的
+                viewHolder.tv_username.setText("我的");
+                viewHolder.tv_attention.setVisibility(View.GONE);
+            }else {
+                viewHolder.tv_username.setText(item.getUserName());
+                viewHolder.tv_attention.setVisibility(View.VISIBLE);
+                //0 未关注 1 关注 2相互关注
+                concernState= item.getConcernState();
+                if (item.getConcernState()==0){
+                    viewHolder.tv_attention.setText(mContext.getResources().getString(R.string.focus));
+                    viewHolder.tv_attention.setTextColor(mContext.getResources().getColor(R.color.white));
+                    viewHolder.tv_attention.setBackground(mContext.getDrawable(R.drawable.my_focuse));
+                }else if (item.getConcernState()==1){
+                    viewHolder.tv_attention.setText(mContext.getResources().getString(R.string.focused));
+                    viewHolder.tv_attention.setTextColor(mContext.getResources().getColor(R.color.cblack));
+                    viewHolder.tv_attention.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
+                }else {
+                    viewHolder.tv_attention.setText(mContext.getResources().getString(R.string.focustogether));
+                    viewHolder.tv_attention.setTextColor(mContext.getResources().getColor(R.color.cblack));
+                    viewHolder.tv_attention.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
+                }
+                viewHolder.tv_attention.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        changeState(item,viewHolder);
+                    }
+                });
+            }
+
             viewHolder.tv_topic.setText("植物日记·"+item.getDiaryRootTitle());
             viewHolder.tv_viewcount.setText("浏览"+item.getDiaryRootNumberOfViews() + "次");
             viewHolder.tv_location.setText(item.getDiarys().get(0).getDiaryAddressTemperatureWeather()+"℃");
@@ -55,6 +88,7 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
                     v.getContext().startActivity(intent);
                 }
             });
+
 
             RecyclerView recyclerViewimage = viewHolder.recycler_image;
             if (item.getDiarys().get(0).getDirayIamge().size()!=0){
@@ -69,9 +103,9 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
                 }
                 NoteImagesAdapter imagesAdapter = null;
                 if (item.getDiarys() != null && item.getDiarys().size() > 0) {
-                    imagesAdapter = new NoteImagesAdapter(mContext,item.getDiaryRootUserId());
+                    imagesAdapter = new NoteImagesAdapter(mContext,item.getDiaryRootUserId(),item.getNumberOfFans(),item.getFewDays(),item.getConcernState());
                 } else {
-                    imagesAdapter = new NoteImagesAdapter(mContext,item.getDiaryRootUserId());
+                    imagesAdapter = new NoteImagesAdapter(mContext,item.getDiaryRootUserId(),item.getNumberOfFans(),item.getFewDays(),item.getConcernState());
                 }
                 recyclerViewimage.setAdapter(imagesAdapter);
 
@@ -88,7 +122,7 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_username,tv_location,tv_topic,tv_viewcount;
+        TextView tv_username,tv_location,tv_topic,tv_viewcount,tv_attention;
         CircleImageView iv_usericon;
         RecyclerView recycler_image;
         public ViewHolder(View itemView) {
@@ -97,6 +131,7 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
              tv_location = itemView.findViewById(R.id.tv_location);
              tv_topic = itemView.findViewById(R.id.tv_topic);
             tv_viewcount = itemView.findViewById(R.id.tv_viewcount);
+            tv_attention = itemView.findViewById(R.id.tv_attention);
 
             iv_usericon = itemView.findViewById(R.id.iv_usericon);
 
@@ -104,37 +139,79 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
 
         }
     }
-/*    @Override
-    protected void convert(BaseViewHolder helper, final NoteHotBean.ExtendBean.DiaryRootsBean.ListBean item) {
+    //改变状态
+    private void changeState(NoteHotBean.ExtendBean.DiaryRootsBean.ListBean bean, final NoteListAdapter.ViewHolder viewHolder) {
+        switch (concernState){
+            case 2:
+                //相互关注
+                HttpUtils2.appCancelYourAttention(MyApplication.user.getLoginToken(),
+                        MyApplication.user.getUserId(), bean.getDiaryRootUserId(), new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Log.v("nihaoma","点取消关注"+response.body());
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.body());
+                                    int code = jsonObject.getInt("code");
+                                    if (code==100){
+                                        //成功
+                                        viewHolder.tv_attention.setText(mContext.getResources().getString(R.string.focus));
+                                        viewHolder.tv_attention.setTextColor(mContext.getResources().getColor(R.color.white));
+                                        viewHolder.tv_attention.setBackground(mContext.getDrawable(R.drawable.my_focuse));
+                                        concernState=0;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                break;
+            case 1:
+                //已关注
+                HttpUtils2.appCancelYourAttention(MyApplication.user.getLoginToken(),
+                        MyApplication.user.getUserId(), bean.getDiaryRootUserId(), new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Log.v("nihaoma","点取消关注"+response.body());
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.body());
+                                    int code = jsonObject.getInt("code");
+                                    if (code==100){
+                                        //成功
+                                        viewHolder.tv_attention.setText(mContext.getResources().getString(R.string.focus));
+                                        viewHolder.tv_attention.setTextColor(mContext.getResources().getColor(R.color.white));
+                                        viewHolder.tv_attention.setBackground(mContext.getDrawable(R.drawable.my_focuse));
+                                        concernState=0;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                break;
+            case 0:
+                //未关注
+                HttpUtils2.appAddConcern(MyApplication.user.getLoginToken(),
+                        MyApplication.user.getUserId(), bean.getDiaryRootUserId(), new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Log.v("nihaoma","点添加关注  "+response.body());
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.body());
+                                    int code = jsonObject.getInt("code");
+                                    if (code==100){
+                                        //成功
+                                        viewHolder.tv_attention.setText(mContext.getResources().getString(R.string.focused));
+                                        viewHolder.tv_attention.setTextColor(mContext.getResources().getColor(R.color.cblack));
+                                        viewHolder.tv_attention.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
+                                        concernState=1;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                break;
 
-        helper.setText(R.id.tv_username, item.getUserName())
-                .setText(R.id.tv_location, item.getDiarys().get(0).getDiaryAddressTemperatureWeather()+"℃")
-                .setText(R.id.tv_topic, item.getDiaryRootTitle())
-                .setText(R.id.tv_viewcount, "浏览"+item.getDiaryRootNumberOfViews() + "次");
-
-        AppCompatImageView ivUsericon = helper.getView(R.id.iv_usericon);
-
-        RequestOptions requestOptions = RequestOptions.circleCropTransform();
-        Glide.with(ivUsericon.getContext()).load(item.getAvatar()).apply(requestOptions).into(ivUsericon);
-        ivUsericon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), UserDetailActivity.class);
-                intent.putExtra("id",item.getDiaryRootUserId());
-                v.getContext().startActivity(intent);
-            }
-        });
-      *//*  if (item.getAttention() == 1) {
-            helper.setText(R.id.tv_attention, "互相关注");
-        } else if (item.getAttention() == 2) {
-            helper.setText(R.id.tv_attention, "已关注");
-        } else {
-            helper.setText(R.id.tv_attention, "未关注");
-        }*//*
-
-
-
-
-
-    }*/
+        }
+    }
 }

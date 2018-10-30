@@ -1,8 +1,9 @@
 package com.xbdl.xinushop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class NoteDetailBean {
+public class NoteDetailBean implements Serializable {
 
 
     /**
@@ -60,7 +61,7 @@ public class NoteDetailBean {
             this.diary = diary;
         }
 
-        public static class DiaryBean {
+        public static class DiaryBean implements Serializable{
             /**
              * diaryId : 59
              * diaryDynamic : 测试后续发布222
@@ -175,7 +176,7 @@ public class NoteDetailBean {
                 this.dirayIamge = dirayIamge;
             }
 
-            public static class DirayIamgeBean {
+            public static class DirayIamgeBean implements Serializable{
                 /**
                  * diaryImageId : null
                  * diaryId : 59

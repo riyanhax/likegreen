@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class NoteHotBean {
@@ -269,7 +270,7 @@ public class NoteHotBean {
                 this.navigatepageNums = navigatepageNums;
             }
 
-            public static class ListBean {
+            public static class ListBean implements Serializable{
                 /**
                  * diaryRootId : 36
                  * diaryRootTitle : 测试标题
@@ -373,7 +374,7 @@ public class NoteHotBean {
                     this.diarys = diarys;
                 }
 
-                public static class DiarysBean {
+                public static class DiarysBean implements Serializable{
                     /**
                      * diaryId : 56
                      * diaryDynamic : 测试动态

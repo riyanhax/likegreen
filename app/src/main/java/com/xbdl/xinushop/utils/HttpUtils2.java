@@ -583,10 +583,11 @@ public class HttpUtils2 {
     /**
      * 根据根目录id获取下属的日记
      */
-    public static void appGetCurrentGroupDiaries(String token,int diaryRootId,StringCallback stringCallback) {
+    public static void appGetCurrentGroupDiaries(String token,int diaryRootId,int userId,StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant.appGetCurrentGroupDiaries)// 请求方式和请求url
                 .params("token", token)
                 .params("diaryRootId", diaryRootId)
+                .params("userId", userId)
                 .tag("appGetCurrentGroupDiaries")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
@@ -605,10 +606,10 @@ public class HttpUtils2 {
                 .execute(stringCallback);
     }
     /**
-     * 种植日记浏览量
+     * 日记新增评论层（当楼主）
      */
     public static void appAddedDiaryCommentFloor(String token,int diaryCommentLayerUserId,String diaryCommentLayerContent
-            ,String diaryCommentLayerCreateTime,String diaryId,StringCallback stringCallback) {
+            ,String diaryCommentLayerCreateTime,int diaryId,StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.appAddedDiaryCommentFloor)// 请求方式和请求url
                 .params("token", token)
                 .params("diaryCommentLayerUserId", diaryCommentLayerUserId)
@@ -647,6 +648,20 @@ public class HttpUtils2 {
                 .params("diaryId", diaryId)
 
                 .tag("appDiaryLikes")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     * 获取日记评论
+     */
+    public static void appViewAllReviews(String token,int diaryId,int userId,StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appViewAllReviews)// 请求方式和请求url
+                .params("token", token)
+                .params("diaryId", diaryId)
+                .params("userId", userId)
+
+                .tag("appViewAllReviews")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
