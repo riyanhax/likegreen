@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,10 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.CustomListener;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.lzy.imagepicker.ImagePicker;
@@ -29,7 +35,9 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.mine.ShareLiftActivity;
 import com.xbdl.xinushop.adapter.ImagePickerAdapter;
+import com.xbdl.xinushop.adapter.note.PlantListImgAdapter;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
@@ -48,6 +56,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +68,7 @@ import static com.xbdl.xinushop.MyApplication.maxImgCount;
  * 种植日记
  * */
 public class PlantDiaryActivity extends BaseActivity implements View.OnClickListener, ImagePickerAdapter.OnRecyclerViewItemClickListener {
-
+    private ArrayList<ImageItem> front;
     private TextView tvlocation, plantData;
     String addr;//详细地址
     private RecyclerView rvimages;
@@ -69,9 +78,11 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
     EditText etPlantName;//植物名字
     EditText etDynamicstate;//动态
 
-    TextView tvPlantName;
-    TextView tvdynamic;//动态
-
+    private  TextView tvPlantName;
+    private  TextView tvdynamic;//动态
+    private TextView tv_plant_wancheng;
+    private View iv_add;
+    private RelativeLayout iv_commit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,13 +90,16 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 
         initView();
         initData();
+        initCustomTimePicker();//事件选择器
     }
 
     public LocationClient mLocationClient = null;
-
+    PlantListImgAdapter plantListImgAdapter;
+    RecyclerView recyclerView;
     private void initView() {
         tvlocation = findViewById(R.id.tv_plant_location);
         plantData = findViewById(R.id.tv_plant_data);
+        plantData.setOnClickListener(this);
         etPlantName = findViewById(R.id.et_plantname);
         etDynamicstate = findViewById(R.id.et_dynamicstate);
         tvPlantName = findViewById(R.id.tv_plantname);
@@ -95,19 +109,34 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
         findViewById(R.id.iv_return).setOnClickListener(this);
 
         //添加商品图片
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.images);
-        selImageList = new ArrayList<>();
+        recyclerView= (RecyclerView) findViewById(R.id.images);
+       /* selImageList = new ArrayList<>();
         adapter = new ImagePickerAdapter(this, selImageList, 1);
-        adapter.setOnItemClickListener(this);
+        adapter.setOnItemClickListener(this);*/
+        plantListImgAdapter= new PlantListImgAdapter(getActivity());
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
-        //添加商品图片
+        plantListImgAdapter.setClick(new PlantListImgAdapter.MyClick() {
+            @Override
+            public void click() {
+                ImagePicker imagePicker = ImagePicker.getInstance();
+                imagePicker.setSelectLimit(3);
+                imagePicker.setShowCamera(true);  //显示拍照按钮;
+                Intent intentPerview = new Intent(getActivity(), ImageGridActivity.class);
+                intentPerview.putExtra(ImageGridActivity.EXTRAS_IMAGES,front);
+                startActivityForResult(intentPerview, 100);
+            }
+        });
 
         initListener();
-    }
+       iv_add = findViewById(R.id.iv_add);
+        iv_add.setOnClickListener(this);
+        //提交
+        tv_plant_wancheng= findViewById(R.id.tv_plant_wancheng);
+        iv_commit= findViewById(R.id.iv_commit);
+        iv_commit .setOnClickListener(this);
 
+    }
+    int length1,length2;
     private void initListener() {
         etPlantName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -122,8 +151,9 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int length = editable.toString().length();
-                tvPlantName.setText("植物名字（" + length + "/32）");
+                length1 = editable.toString().length();
+                tvPlantName.setText("植物名字（" + length1 + "/32）");
+                changTextView();
             }
         });
         etDynamicstate.addTextChangedListener(new TextWatcher() {
@@ -139,10 +169,20 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int length = editable.toString().length();
-                tvdynamic.setText("Ta的动态（"+length+"/280）");
+                length2 = editable.toString().length();
+                tvdynamic.setText("Ta的动态（"+length2+"/280）");
+                changTextView();
             }
         });
+    }
+    //改变textVIew状态
+    private void changTextView() {
+        if (length1!=0&&length2!=0&&front != null && front.size() != 0){
+           // tv_plant_wancheng.setTextColor(getResources().getColor(R.color.white));
+            iv_commit.setBackground(getResources().getDrawable(R.drawable.bg_item_green));
+        }else {
+            iv_commit.setBackground(getResources().getDrawable(R.drawable.bg_plant_diary));
+        }
     }
 
     private void initData() {
@@ -168,8 +208,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说
         mLocationClient.start();
 
-        //提交
-        findViewById(R.id.iv_commit).setOnClickListener(this);
+
     }
 
     @Override
@@ -180,12 +219,23 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
             case R.id.iv_return:
                 finish();
                 break;
-//            case R.id.tv_plant_wancheng:
-////                Intent intentShareLiftActivity = new Intent(PlantDiaryActivity.this, ShareLiftActivity.class);
-////                startActivity(intentShareLiftActivity);
-//                break;
+            case R.id.tv_plant_data:
+
+                pvCustomTime.show(); //弹出自定义时间选择器
+                break;
+            case R.id.iv_add:
+                //打开选择,本次允许选择的数量
+                //ImagePicker.getInstance().setMultiMode(true);
+                ImagePicker imagePicker = ImagePicker.getInstance();
+                imagePicker.setSelectLimit(3);
+                imagePicker.setShowCamera(true);  //显示拍照按钮;
+                Intent intentPerview = new Intent(this, ImageGridActivity.class);
+                intentPerview.putExtra(ImageGridActivity.EXTRAS_IMAGES,front);
+                startActivityForResult(intentPerview, 100);
+                break;
             case R.id.iv_commit:
-                if (adapter != null && adapter.getImages().size() == 0) {
+
+                if (adapter != null && adapter.getImages().size() != 0) {
                     Toast.makeText(getActivity(), "请选择图片", Toast.LENGTH_LONG).show();
                     return;
                 } else if (Judge.getBoolean_isNull(etPlantName.getText().toString())) {
@@ -195,27 +245,22 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                     Toast.makeText(getActivity(), "请填写你的动态", Toast.LENGTH_LONG).show();
                     return;
                 } else {
+
+
                     showLoading();
 
-                    String[] img=new String[adapter.getImages().size()+1];
+                    String[] img=new String[front.size()+1];
                     JSONArray jsonObject =new JSONArray();
-                    for (int i = 0; i < adapter.getImages().size(); i++) {
-                        String path = adapter.getImages().get(i).path;
+                    for (int i = 0; i < front.size(); i++) {
+                        String path = front.get(i).path;
                         String pathbase64 = ImageUtils.bitmapToString(path);
                         img[i]=pathbase64;
-                        /*if (adapter.getImages().get(i).mimeType.contains("image/jpeg") || adapter.getImages().get(i).mimeType.contains("image/jpg")) {
-                           img[i]=pathbase64;
-
-                        }*/
                         jsonObject.put(pathbase64);
                     }
 
 
                     String s = jsonObject.toString();
 
-                    String base64images = Arrays.toString(img);
-
-                    int size = adapter.getImages().size();
                     String name = etPlantName.getText().toString();
                     String dynamicstate = etDynamicstate.getText().toString();
                     String token = MyApplication.user.getLoginToken();
@@ -223,10 +268,16 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
                     //获取当前时间
                     Date date = new Date(System.currentTimeMillis());
-                    String time = simpleDateFormat.format(date);
-                    Log.i("nihaoma", "  addr " +weather+"size  "+size+"token "+token+" name "+name+" dynamicstate  "+dynamicstate+" time " +time+" base64images "
+                    String timeNow = simpleDateFormat.format(date);
+                    Log.i("nihaoma", "  addr " +weather+"size  "+"token "+token+" name "+name+" dynamicstate  "+dynamicstate+" time " +time+" base64images "
                             +s);
-                  HttpUtils.appAddPlantDiary1(token,name,s,dynamicstate,weather,time,MyApplication.user.getUserId(), new StringCallback() {
+                    String inputTime=null;
+                    if (time==null){
+                        inputTime=timeNow;
+                    }else {
+                        inputTime=time;
+                    }
+                  HttpUtils.appAddPlantDiary1(token,name,s,dynamicstate,weather,inputTime,MyApplication.user.getUserId(), new StringCallback() {
                         @Override
                         public void onStart(Request<String, ? extends Request> request) {
                             super.onStart(request);
@@ -398,13 +449,16 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+        /*if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             //添加图片返回
             if (data != null && requestCode == ImagePickerConstant.REQUEST_CODE_SELECT) {
                 images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 if (images != null) {
                     selImageList.addAll(images);
                     adapter.setImages(selImageList);
+                    if (length1!=0&&length2!=0&&adapter != null && adapter.getImages().size() != 0){
+                        tv_plant_wancheng.setTextColor(getResources().getColor(R.color.green));
+                    }
                 }
             }
         } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
@@ -417,8 +471,103 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
                     adapter.setImages(selImageList);
                 }
             }
+        }*/
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            if (data != null && requestCode == 100) {
+                front = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                Log.v("nihaoma",front.toString());
+                recyclerView.setVisibility(View.VISIBLE);
+                plantListImgAdapter.setDataList(front);
+                recyclerView.setLayoutManager(new GridLayoutManager(this, front.size()));
+                //recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(plantListImgAdapter);
+                changTextView();
+            } else {
+                Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        Log.d("getTime()", "choice date millis: " + date.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
+    }
+    TimePickerView pvCustomTime;
+    String time;
+    private void initCustomTimePicker() {
+
+        /**
+         * @description
+         *
+         * 注意事项：
+         * 1.自定义布局中，id为 optionspicker 或者 timepicker 的布局以及其子控件必须要有，否则会报空指针.
+         * 具体可参考demo 里面的两个自定义layout布局。
+         * 2.因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
+         * setRangDate方法控制起始终止时间(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
+         */
+        Calendar selectedDate = Calendar.getInstance();//系统当前时间
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(2014, 1, 23);
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(2027, 2, 28);
+        //时间选择器 ，自定义布局
+        pvCustomTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {//选中事件回调
+                String tempStr = getTime(date).substring(0, 10);
+                time= getTime(date);
+                plantData.setText(tempStr);
+            }
+        })
+                /*.setType(TimePickerView.Type.ALL)//default is all
+                .setCancelText("Cancel")
+                .setSubmitText("Sure")
+                .setContentTextSize(18)
+                .setTitleSize(20)
+                .setTitleText("Title")
+                .setTitleColor(Color.BLACK)
+               /*.setDividerColor(Color.WHITE)//设置分割线的颜色
+                .setTextColorCenter(Color.LTGRAY)//设置选中项的颜色
+                .setLineSpacingMultiplier(1.6f)//设置两横线之间的间隔倍数
+                .setTitleBgColor(Color.DKGRAY)//标题背景颜色 Night mode
+                .setBgColor(Color.BLACK)//滚轮背景颜色 Night mode
+                .setSubmitColor(Color.WHITE)
+                .setCancelColor(Color.WHITE)*/
+                /*.animGravity(Gravity.RIGHT)// default is center*/
+                .setDate(selectedDate)
+                .setRangDate(startDate, endDate)
+                .setLayoutRes(R.layout.pickerview_custom_time, new CustomListener() {
+
+                    @Override
+                    public void customLayout(View v) {
+                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
+                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
+                        tvSubmit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                pvCustomTime.returnData();
+                                pvCustomTime.dismiss();
+                            }
+                        });
+                        ivCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                pvCustomTime.dismiss();
+                            }
+                        });
+                    }
+                })
+                .setContentTextSize(18)
+                .setType(new boolean[]{ true, true, true,false, false, false})
+                .setLabel("年", "月", "日", "时", "分", "秒")
+                .setLineSpacingMultiplier(1.2f)
+                .setTextXOffset(0, 0, 0, 40, 0, -40)
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .setDividerColor(0xFF24AD9D)
+                .build();
+
+    }
 
 }

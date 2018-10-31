@@ -47,6 +47,7 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
             final NoteHotBean.ExtendBean.DiaryRootsBean.ListBean item = mDataList.get(position);
             List<NoteHotBean.ExtendBean.DiaryRootsBean.ListBean.DiarysBean> diarys = item.getDiarys();
             final ViewHolder viewHolder= (ViewHolder) holder;
+            Log.v("nihaoma",item.getDiaryRootUserId()+" wode id  "+MyApplication.user.getUserId());
             if (item.getDiaryRootUserId()== MyApplication.user.getUserId()){
                 //自己的
                 viewHolder.tv_username.setText("我的");
@@ -86,6 +87,7 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
                     Intent intent = new Intent(v.getContext(), UserDetailActivity.class);
                     intent.putExtra("id",item.getDiaryRootUserId());
                     v.getContext().startActivity(intent);
+
                 }
             });
 

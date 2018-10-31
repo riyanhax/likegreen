@@ -86,7 +86,9 @@ public class UserDetailActivity extends BaseActivity implements View.OnClickList
         userId= getIntent().getIntExtra("id", 0);
         initView();
         initData();
+
     }
+
 
     private void initView() {
         mStMy = (SlidingTabLayout) findViewById(R.id.st_my);

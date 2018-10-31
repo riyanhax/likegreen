@@ -67,6 +67,16 @@ public class NoteDetailActivity extends BaseActivity implements View.OnClickList
 
         initView();
         initData();
+        addVisableCount();
+    }
+
+    private void addVisableCount() {
+        HttpUtils2.appAddNumberOfViews(MyApplication.user.getLoginToken(), diaryRootId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+            }
+        });
     }
 
     private void initView() {
@@ -111,11 +121,12 @@ public class NoteDetailActivity extends BaseActivity implements View.OnClickList
         lRecyclerViewAdapter.addHeaderView(head);
         noteDetailAdapter.setMyViewClick(new NoteDetailAdapter.MyViewClick() {
             @Override
-            public void showCommentPop(View view, NoteDetailBean.ExtendBean.DiaryBean bean) {
+            public void showCommentPop(View view, NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean bean) {
                 Intent intent = new Intent(getActivity(), PlantCommentActivity.class);
                 intent.putExtra("bean",bean);
                 startActivity(intent);
             }
+
 
         });
         getUserInfo();
@@ -150,7 +161,7 @@ public class NoteDetailActivity extends BaseActivity implements View.OnClickList
             }
         });
     }
-
+    //根据根目录id获取下属的日记
     private void getlist() {
         HttpUtils2.appGetCurrentGroupDiaries(MyApplication.user.getLoginToken(), diaryRootId,MyApplication.user.getUserId(), new StringCallback() {
             @Override
@@ -158,8 +169,8 @@ public class NoteDetailActivity extends BaseActivity implements View.OnClickList
                 Log.v("nihaoma", "onSuccess"+response.body());
                NoteDetailBean noteDetailBean = new Gson().fromJson(response.body(), NoteDetailBean.class);
                 if (noteDetailBean.getCode()==100){
-                    List<NoteDetailBean.ExtendBean.DiaryBean> diary = noteDetailBean.getExtend().getDiary();
-                    noteDetailAdapter.setDataList(diary);
+                    List<NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean> diarys = noteDetailBean.getExtend().getDiaryRoot().getDiarys();
+                    noteDetailAdapter.setDataList(diarys);
 
                 }
                 dismissLoading();

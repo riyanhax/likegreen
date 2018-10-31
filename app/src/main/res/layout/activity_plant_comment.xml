@@ -141,11 +141,13 @@
             <EditText
                 android:id="@+id/et_msg"
                 android:background="@null"
+                android:textColor="@color/actionbar_sel_color"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_send"
             android:layout_width="@dimen/dp_80"
             android:layout_height="match_parent">
             <TextView

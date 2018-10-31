@@ -181,5 +181,9 @@ public interface UrlConstant2 {
      * 获取日记评论
      */
     String appViewAllReviews=UrlConstant.baseUrl+"diary/appViewAllReviews";
+    /**
+     * 获取我关注的人的日记
+     */
+    String appGetMyConcerned=UrlConstant.baseUrl+"diary/appGetMyConcerned";
 
 }

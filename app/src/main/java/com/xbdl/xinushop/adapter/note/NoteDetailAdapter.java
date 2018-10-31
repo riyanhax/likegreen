@@ -32,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean.DiaryBean> {
+public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean> {
     private LayoutInflater mLayoutInflater;
 
     public NoteDetailAdapter(Context context) {
@@ -49,7 +49,7 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mDataList!=null){
             final ViewHolder viewHolder= (ViewHolder) holder;
-            final NoteDetailBean.ExtendBean.DiaryBean bean = mDataList.get(position);
+            final NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean bean = mDataList.get(position);
             viewHolder.tv_first.setText("第"+bean.getDiaryDay()+"天");
 
             String time = bean.getDirayCreateTime();
@@ -61,7 +61,7 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
             viewHolder.tv_work.setText("："+bean.getDiaryDynamic());
            viewHolder.tv_location.setText(bean.getDiaryAddressTemperatureWeather()+"℃");
 
-           if (bean.isLike()){
+           if (bean.isIsLike()){
                viewHolder.iv_islike.setImageResource(R.drawable.heart_xuanzhong_luntan);
            }else {
                viewHolder.iv_islike.setImageResource(R.drawable.heart_luntan);
@@ -75,8 +75,8 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
            //是否关注
 
             final ArrayList<String> urls = new ArrayList<>();
-            List<NoteDetailBean.ExtendBean.DiaryBean.DirayIamgeBean> dirayIamge = bean.getDirayIamge();
-            for (NoteDetailBean.ExtendBean.DiaryBean.DirayIamgeBean iamgeBean:dirayIamge){
+            List<NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean.DirayIamgeBean> dirayIamge = bean.getDirayIamge();
+            for (NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean.DirayIamgeBean iamgeBean:dirayIamge){
                 urls.add(UrlConstant.baseimgUrl+iamgeBean.getDiaryImageUrl());
             }
             viewHolder.mu_img.setList(urls);
@@ -101,7 +101,7 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
 
     }
 
-    private void islike(NoteDetailBean.ExtendBean.DiaryBean bean, final ViewHolder viewHolder) {
+    private void islike(NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean bean, final ViewHolder viewHolder) {
         HttpUtils2.appDiaryLikes(MyApplication.user.getLoginToken(), MyApplication.user.getUserId(), bean.getDiaryId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -147,7 +147,7 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
         }
     }
     public interface MyViewClick{
-        public void showCommentPop(View view,NoteDetailBean.ExtendBean.DiaryBean bean);
+        public void showCommentPop(View view,NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean bean);
 
     }
     private MyViewClick myclick;

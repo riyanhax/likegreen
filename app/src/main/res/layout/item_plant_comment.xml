@@ -8,7 +8,8 @@
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_head_icon"
-            android:layout_centerVertical="true"
+            android:src="@drawable/xilvfriends"
+           android:layout_marginTop="@dimen/dp_5"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30" />
         <LinearLayout
@@ -24,13 +25,12 @@
                    android:id="@+id/tv_username"
                    android:textSize="15sp"
                    android:textColor="@color/actionbar_sel_color"
-                   android:text="15626202636"
+
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content" />
                <TextView
                    android:id="@+id/tv_date"
                    android:layout_marginLeft="@dimen/dp_10"
-                   android:text="@string/jmui_sdk_87x_871311"
                    android:textColor="@color/cblack"
                    android:textSize="@dimen/sp_12"
                    android:layout_width="wrap_content"
@@ -40,13 +40,13 @@
                android:id="@+id/tv_msg"
                android:textSize="15sp"
                android:textColor="@color/actionbar_sel_color"
-               android:text="15626202636"
+
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
         </LinearLayout>
     </RelativeLayout>
     <LinearLayout
-        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_50"
         android:layout_below="@id/rl_top"
         android:background="@color/enptyviewbackground"
         android:layout_width="match_parent"
