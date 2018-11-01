@@ -23,6 +23,7 @@ import com.xbdl.xinushop.bean.NoteDetailBean;
 import com.xbdl.xinushop.constant.UrlConstant;
 import com.xbdl.xinushop.dialogfragment.RecommentDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils2;
+import com.xbdl.xinushop.utils.TimeUtil;
 import com.xbdl.xinushop.utils.ToastUtil;
 import com.xbdl.xinushop.view.MultiImageView;
 
@@ -54,8 +55,8 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
 
             String time = bean.getDirayCreateTime();
             String tempStr = time.substring(0, 10);
-
-            viewHolder.tv_day.setText(tempStr);
+            String s = TimeUtil.formatDisplayTime(time, null);
+            viewHolder.tv_day.setText(s);
             viewHolder.tv_islike_count.setText(String.valueOf(bean.getDirayToClickTheNumberOfLikes()));
             viewHolder.tv_comment_count.setText(String.valueOf(bean.getDirayNumberOfComments()));
             viewHolder.tv_work.setText("："+bean.getDiaryDynamic());

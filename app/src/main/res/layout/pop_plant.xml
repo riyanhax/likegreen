@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_200"
+    android:background="@drawable/bg_item_white10"
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/dp_100"
+    android:layout_marginRight="@dimen/dp_100"
+    android:layout_height="@dimen/dp_100">
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="center_horizontal"
+            android:text="修改植物名称"
+            android:textSize="15sp"
+            android:textColor="@color/actionbar_sel_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/ed_plantname"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:textColorHint="@color/cblack"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="#000000"
+            android:hint="请输入植物名称"
+            android:background="@null"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="wrap_content" />
+        <View
+            android:background="@color/cblack"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+        <LinearLayout
+            android:background="@drawable/bg_item_white10"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30">
+            <TextView
+                android:id="@+id/tv_canscl"
+                android:textColor="@color/actionbar_sel_color"
+                android:text="取消"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/cblack"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/tv_sure"
+                android:textColor="@color/actionbar_sel_color"
+                android:text="确定"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+
+</LinearLayout>

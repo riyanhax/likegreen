@@ -55,40 +55,5 @@
         android:background="@color/enptyviewbackground"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_5"/>
-    <TextView
-        android:textSize="11sp"
-        android:layout_marginTop="@dimen/dp_5"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:textColor="@color/group_small_text_color"
-        android:text="记录多肉超过三次，下面将自动生成对比图"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:layout_marginRight="@dimen/dp_10"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:background="@color/white"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_200">
-        <ImageView
-            android:id="@+id/iv_img1"
-            android:src="@drawable/penzai"
-            android:background="@color/enptyviewbackground"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-        <ImageView
-            android:id="@+id/iv_img2"
-            android:src="@drawable/penzai"
-            android:background="@color/enptyviewbackground"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-    <View
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/enptyviewbackground"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_5"/>
+
 </LinearLayout>

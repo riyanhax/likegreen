@@ -3,7 +3,7 @@ package com.xbdl.xinushop.utils;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class DateTimeUtil {
+public class WeekTimeUtil {
 
     private static String mYear;
     private static String mMonth;

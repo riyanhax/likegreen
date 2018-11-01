@@ -90,7 +90,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 
         initView();
         initData();
-        initCustomTimePicker();//事件选择器
+        initCustomTimePicker();//时间选择器
     }
 
     public LocationClient mLocationClient = null;

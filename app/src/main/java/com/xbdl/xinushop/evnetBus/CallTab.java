@@ -1,4 +1,4 @@
-package com.xbdl.xinushop.bean;
+package com.xbdl.xinushop.evnetBus;
 
 public enum CallTab {
     MAIN,

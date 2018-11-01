@@ -185,5 +185,17 @@ public interface UrlConstant2 {
      * 获取我关注的人的日记
      */
     String appGetMyConcerned=UrlConstant.baseUrl+"diary/appGetMyConcerned";
+    /**
+     * 修改根目录  修改植物名称
+     */
+    String appUpdateDiaryRoot=UrlConstant.baseUrl+"diary/appUpdateDiaryRoot";
+    /**
+     * 	删除日记(如果传分组id删一组，如果传日记id,删单个)
+     */
+    String appdeleteDiary=UrlConstant.baseUrl+"diary/appdeleteDiary";
+    /**
+     * 		修改日记
+     */
+    String appUpdateDiary=UrlConstant.baseUrl+"diary/appUpdateDiary";
 
 }

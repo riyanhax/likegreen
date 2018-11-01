@@ -1,22 +1,17 @@
 package com.xbdl.xinushop.fragment.main;
 
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupWindow;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,11 +21,10 @@ import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.RecommendedAdapter;
 import com.xbdl.xinushop.base.BaseFragment;
-import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.evnetBus.CallTab;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
 
-import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
 import com.xbdl.xinushop.dialogfragment.RecommentDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;

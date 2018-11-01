@@ -2,7 +2,6 @@ package com.xbdl.xinushop.fragment.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -19,10 +18,8 @@ import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.RecommendedAdapter;
 import com.xbdl.xinushop.base.BaseFragment;
-import com.xbdl.xinushop.bean.CallTab;
-import com.xbdl.xinushop.bean.MyVideoBean;
+import com.xbdl.xinushop.evnetBus.CallTab;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
-import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
 import com.xbdl.xinushop.utils.HttpUtils2;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,7 +27,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**

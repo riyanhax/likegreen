@@ -680,5 +680,56 @@ public class HttpUtils2 {
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
+    /**
+     *修改根目录  修改植物名称
+     */
+    public static void appUpdateDiaryRoot(String token, int diaryRootId, String diaryRootTitle, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appUpdateDiaryRoot)// 请求方式和请求url
+                .params("token", token)
+                .params("diaryRootId", diaryRootId)
+                .params("diaryRootTitle", diaryRootTitle)
+                .tag("appUpdateDiaryRoot")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     *	删除日记(如果传分组id删一组，如果传日记id,删单个)
+     */
+    public static void appdeleteDiary1(String token, int diaryId, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appdeleteDiary)// 请求方式和请求url
+                .params("token", token)
+                .params("diaryId", diaryId)
+                .tag("appdeleteDiary")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     *	删除日记2(如果传分组id删一组，如果传日记id,删单个)
+     */
+    public static void appdeleteDiary2(String token, int diaryRootId, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appdeleteDiary)// 请求方式和请求url
+                .params("token", token)
+                .params("diaryRootId", diaryRootId)
+
+                .tag("appdeleteDiary")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     *	修改日记(如果传分组id删一组，如果传日记id,删单个)
+     */
+    public static void appUpdateDiary(String token, String dirayCreateTime, int diaryId, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.appUpdateDiary)// 请求方式和请求url
+                .params("token", token)
+                .params("dirayCreateTime", dirayCreateTime)
+                .params("diaryId", diaryId)
+                .tag("appUpdateDiary")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
 
 }

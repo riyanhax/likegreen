@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
@@ -25,9 +26,13 @@ import com.xbdl.xinushop.adapter.note.NoteListAdapter;
 import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.NoteHotBean;
 import com.xbdl.xinushop.bean.NoteListBean;
+import com.xbdl.xinushop.evnetBus.PlantEvnet;
 import com.xbdl.xinushop.utils.HttpUtils;
 import com.xbdl.xinushop.utils.Judge;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,17 +51,29 @@ public class NoteHotFragment extends BaseFragment {
     NoteListAdapter noteListAdapter = null;
     private int page=1;
     private LRecyclerView recyclerView;
+    LRecyclerViewAdapter lRecyclerViewAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_focus, container, false);
+        EventBus.getDefault().register(this);
         progressBar = view.findViewById(R.id.prossbar);
         recyclerView = view.findViewById(R.id.lr_note_hot);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         noteListAdapter = new NoteListAdapter(getActivity());
-        LRecyclerViewAdapter lRecyclerViewAdapter = new LRecyclerViewAdapter(noteListAdapter);
+        lRecyclerViewAdapter= new LRecyclerViewAdapter(noteListAdapter);
         recyclerView.setAdapter(lRecyclerViewAdapter);
-        recyclerView.setPullRefreshEnabled(false);
+        recyclerView.setPullRefreshEnabled(true);
+        recyclerView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                noteListAdapter.clear();
+                lRecyclerViewAdapter.notifyDataSetChanged();//必须调用此方法
+                page=1;
+                getData(page);
+
+            }
+        });
         recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -92,18 +109,10 @@ public class NoteHotFragment extends BaseFragment {
                     }else {
                         noteListAdapter.addAll(list);
                     }
-
+                    recyclerView.refreshComplete(10);
+                    lRecyclerViewAdapter.notifyDataSetChanged();
                 }
-              /* try {
-                    JSONObject jsonObject = new JSONObject(response.body());
 
-                    String data = jsonObject.getString("data");
-                    List<NoteListBean> noteListBeans = getNoteList(data);
-                    if (noteListBeans != null && noteListBeans.size() > 0) {
-                        noteListAdapter.addData(noteListBeans);
-                    }
-                } catch (JSONException e) {
-                }*/
             }
 
             @Override
@@ -135,5 +144,23 @@ public class NoteHotFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         OkGo.getInstance().cancelTag("noteHot");
+        EventBus.getDefault().unregister(this);
     }
-}
+    //定义处理接收的方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refresh(PlantEvnet userEvent){
+        switch (userEvent){
+            case Refresh:
+                Log.v("nihaoma","日记刷新");
+                recyclerView.forceToRefresh();
+                        noteListAdapter.clear();
+                        lRecyclerViewAdapter.notifyDataSetChanged();//必须调用此方法
+                        page=1;
+                        getData(page);
+                break;
+                }
+
+
+        }
+
+    }

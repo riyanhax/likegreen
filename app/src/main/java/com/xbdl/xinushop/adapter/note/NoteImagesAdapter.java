@@ -27,6 +27,7 @@ import com.xbdl.xinushop.bean.Images;
 import com.xbdl.xinushop.bean.NoteHotBean;
 import com.xbdl.xinushop.constant.UrlConstant;
 import com.xbdl.xinushop.utils.AppPhoneMgr;
+import com.xbdl.xinushop.utils.TimeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,7 +64,10 @@ public class NoteImagesAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Di
             final NoteHotBean.ExtendBean.DiaryRootsBean.ListBean.DiarysBean item = mDataList.get(position);
             String time = item.getDirayCreateTime();
             String tempStr = time.substring(0, 10);
-            viewHolder.tv_imagetime.setText(tempStr);
+            //viewHolder.tv_imagetime.setText(tempStr);
+
+            String s = TimeUtil.formatDisplayTime(time, null);
+            viewHolder.tv_imagetime.setText(s);
             viewHolder.tv_imagetitle.setText("第"+item.getDiaryDay()+"天");
 
             int width = AppPhoneMgr.getInstance().getPhoneWidth(mContext);
@@ -84,7 +88,7 @@ public class NoteImagesAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Di
             viewHolder.iv_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, NoteDetailActivity.class);
+                   Intent intent = new Intent(mContext, NoteDetailActivity.class);
                     intent.putExtra("diaryRootId",item.getDiaryRootId());
                     intent.putExtra("userId",usrid);
                     intent.putExtra("numFans",numFans);
@@ -109,35 +113,4 @@ public class NoteImagesAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Di
             tv_imagetime = itemView.findViewById(R.id.tv_imagetime);
         }
     }
-
-
-
-
-  /*  @Override
-    protected void convert(BaseViewHolder helper, NoteHotBean.ExtendBean.DiaryRootsBean.ListBean.DiarysBean item) {
-        AppCompatImageView iv = helper.getView(R.id.iv_image);
-        int width = AppPhoneMgr.getInstance().getPhoneWidth(iv.getContext());
-        LinearLayout.LayoutParams params = null;
-        if (position == 1) {
-            params = new LinearLayout.LayoutParams(width, width * 2 / 3);
-        } else if (position == 2) {
-            params = new LinearLayout.LayoutParams(width / 2, width * 1 / 2);
-        } else {
-            params = new LinearLayout.LayoutParams(width / 2, width * 1 / 3);
-        }
-        iv.setLayoutParams(params);
-
-        Glide.with(iv.getContext()).load(UrlConstant.baseimgUrl+item.getDirayIamge().get(0)).into(iv);
-        String time = item.getDirayCreateTime();
-        String tempStr = time.substring(0, 10);
-        Log.v("nihoama",tempStr);
-        helper.setText(R.id.tv_imagetitle,item.getDiaryDay())
-                .setText(R.id.tv_imagetime,tempStr);
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });*/
-
 }

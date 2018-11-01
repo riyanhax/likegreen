@@ -13,9 +13,8 @@ import android.view.ViewGroup;
 
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.RecommendedAdapter;
-import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.evnetBus.CallTab;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
-import com.xbdl.xinushop.dialogfragment.RecommentCommentDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

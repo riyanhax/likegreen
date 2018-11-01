@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,7 +40,7 @@ import com.xbdl.xinushop.activity.mian.ApplyLiveActivity;
 import com.xbdl.xinushop.activity.mine.AddShareLifeActivity;
 import com.xbdl.xinushop.activity.mine.AddSubjectActivity;
 import com.xbdl.xinushop.base.BaseActivity;
-import com.xbdl.xinushop.bean.CallTab;
+import com.xbdl.xinushop.evnetBus.CallTab;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.WeatherBean;
 import com.xbdl.xinushop.fragment.home.HomeFindFragment;
@@ -49,7 +48,7 @@ import com.xbdl.xinushop.fragment.home.HomeMyFragment;
 import com.xbdl.xinushop.fragment.home.HomeNoteFragment;
 import com.xbdl.xinushop.fragment.home.HomePageFragment;
 import com.xbdl.xinushop.listener.BackHandledInterface;
-import com.xbdl.xinushop.utils.DateTimeUtil;
+import com.xbdl.xinushop.utils.WeekTimeUtil;
 import com.xbdl.xinushop.utils.FastBlurUtility;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.Judge;
@@ -61,11 +60,7 @@ import com.xbdl.xinushop.view.BackHandledFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
@@ -479,10 +474,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
 
     //设置时间
     private void setDate(View contentView) {
-        String  year= DateTimeUtil.StringData(1);
-        String  month= DateTimeUtil.StringData(2);
-        String  day= DateTimeUtil.StringData(3);
-        String  week= DateTimeUtil.StringData(4);
+        String  year= WeekTimeUtil.StringData(1);
+        String  month= WeekTimeUtil.StringData(2);
+        String  day= WeekTimeUtil.StringData(3);
+        String  week= WeekTimeUtil.StringData(4);
         TextView tvday = (TextView) contentView.findViewById(R.id.tv_add_day);
         TextView tvweek = (TextView) contentView.findViewById(R.id.tv_add_week);
         TextView tvyear = (TextView) contentView.findViewById(R.id.tv_add_year);

@@ -17,6 +17,7 @@ import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mine.UserDetailActivity;
 import com.xbdl.xinushop.adapter.ListBaseAdapter;
 
+import com.xbdl.xinushop.bean.NoteDetailBean;
 import com.xbdl.xinushop.bean.NoteHotBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
 
@@ -84,7 +85,7 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
             viewHolder.iv_usericon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), UserDetailActivity.class);
+                   Intent intent = new Intent(v.getContext(), UserDetailActivity.class);
                     intent.putExtra("id",item.getDiaryRootUserId());
                     v.getContext().startActivity(intent);
 
@@ -113,6 +114,7 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
 
                 if (item.getDiarys() != null && item.getDiarys().size() > 0) {
                     imagesAdapter.setDataList(diarys);
+
                 }
             }
 
@@ -216,4 +218,5 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
 
         }
     }
+
 }
