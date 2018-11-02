@@ -44,25 +44,28 @@ public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.ExtendBean.Conce
         super.onBindViewHolder(holder, position);
         if (mDataList!=null){
             final MyFansBean.ExtendBean.ConcernListBean.ListBean bean = mDataList.get(position);
+            Log.v("nihaoma","我的关注"+bean.toString());
             final MyHolder viewHolder = (MyHolder) holder;
+            Log.v("nihaoma","我的关注user"+bean.getUser().toString());
             viewHolder.username.setText(bean.getUser().getUserName());
 
             whetherToBeConcerned= bean.getWhetherToBeConcerned();
             if (whetherToBeConcerned==0){
-                //相互关注
-                viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focustogether));
-                viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
-                viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
+                //未关注
+                viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focus));
+                viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.white));
+                viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse));
+
             }else if (whetherToBeConcerned==1){
                 //已关注
                 viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focused));
                 viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
                 viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
             }else {
-                //未关注
-                viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focus));
-                viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.white));
-                viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse));
+                //相互关注
+                viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focustogether));
+                viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
+                viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
             }
             if (TextUtils.isEmpty(bean.getUser().getSignature())){
                 viewHolder.word.setText(mContext.getResources().getString(R.string.textsign));
@@ -99,27 +102,28 @@ public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.ExtendBean.Conce
     private void changeState(MyFansBean.ExtendBean.ConcernListBean.ListBean bean, final MyHolder viewHolder) {
         switch (whetherToBeConcerned){
             case 0:
-                //相互关注
-                HttpUtils2.appCancelYourAttention(MyApplication.user.getLoginToken(),
+                //未关注
+                HttpUtils2.appAddConcern(MyApplication.user.getLoginToken(),
                         MyApplication.user.getUserId(), bean.getUser().getUserId(), new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                Log.v("nihaoma","点取消关注"+response.body());
+                                Log.v("nihaoma","点添加关注  "+response.body());
                                 try {
                                     JSONObject jsonObject = new JSONObject(response.body());
                                     int code = jsonObject.getInt("code");
                                     if (code==100){
                                         //成功
-                                        viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focus));
-                                        viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.white));
-                                        viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse));
-                                        whetherToBeConcerned=2;
+                                        viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focused));
+                                        viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
+                                        viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
+                                        whetherToBeConcerned=1;
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         });
+
                 break;
             case 1:
                 //已关注
@@ -146,21 +150,21 @@ public class MyFocuseAdapter extends ListBaseAdapter<MyFansBean.ExtendBean.Conce
                         });
                 break;
             case 2:
-                //未关注
-                HttpUtils2.appAddConcern(MyApplication.user.getLoginToken(),
+                //相互关注
+                HttpUtils2.appCancelYourAttention(MyApplication.user.getLoginToken(),
                         MyApplication.user.getUserId(), bean.getUser().getUserId(), new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                Log.v("nihaoma","点添加关注  "+response.body());
+                                Log.v("nihaoma","点取消关注"+response.body());
                                 try {
                                     JSONObject jsonObject = new JSONObject(response.body());
                                     int code = jsonObject.getInt("code");
                                     if (code==100){
                                         //成功
-                                        viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focused));
-                                        viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.cblack));
-                                        viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse_together));
-                                        whetherToBeConcerned=1;
+                                        viewHolder.focuseBtn.setText(mContext.getResources().getString(R.string.focus));
+                                        viewHolder.focuseBtn.setTextColor(mContext.getResources().getColor(R.color.white));
+                                        viewHolder.focuseBtn.setBackground(mContext.getDrawable(R.drawable.my_focuse));
+                                        whetherToBeConcerned=2;
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

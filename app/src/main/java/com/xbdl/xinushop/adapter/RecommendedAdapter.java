@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.widget.PLVideoTextureView;
@@ -32,9 +35,11 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
 import com.xbdl.xinushop.activity.mine.UserDetailActivity;
 import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.bean.VideoIconBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -198,9 +203,11 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                 public void onClick(View view) {
                     if (videoView.isPlaying()) {
                         videoView.pause();
+
                         pausePlayImage.setVisibility(View.VISIBLE);
                     } else {
-                        videoView.start();
+                       // videoView.start();
+                        myclick.startVideoClick();
                         pausePlayImage.setVisibility(View.GONE);
                     }
                 }
@@ -236,7 +243,10 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         if (mItemList!=null){
             bean= mItemList.get(position);
             Log.v("nihaoma",bean.toString());
+            holder.like_conut.setText(String.valueOf(bean.getClickNum()));
 
+            holder.video_name.setText(bean.getHeadline());
+            getUserInfo(holder,bean.getUser_id(),bean.getMusic());
             holder.videoPath = MyConstants.videoUrl+ bean.getUrl();
             holder.holderRootView.setTag(position);
             holder.videoView.setLooping(true);
@@ -263,6 +273,8 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                     holder.recommended_count.setText(String.valueOf( icon.getNumberOfComments()));
                    //点赞数
                     holder.like_conut.setText(String.valueOf(icon.getThunbUpFor()));
+                    holder.recommended_count.setText(String.valueOf(bean.getRecommend()));
+
                     if (icon.getWhetherSomeParise()==1){
                         //没有点赞
                         holder.iv_islike.setImageResource(R.drawable.heart_weixuanzhong);
@@ -444,7 +456,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     }
     public interface MyViewClick{
         public void showCommentPop(View view, TheNewVideoBean bean);
-        public void showSharePop();
+        public void startVideoClick();
 
     }
     private MyViewClick myclick;
@@ -474,5 +486,38 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     public void clear() {
         mItemList.clear();
         notifyDataSetChanged();
+    }
+    private void getUserInfo(final ViewHolder holder, int userId, final String musicname) {
+        HttpUtils2.getUserInfoById(MyApplication.user.getLoginToken(),userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Log.v("nihaoma",response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    if (jsonObject.getInt("code")==1){
+                        String object = jsonObject.getString("user");
+
+                        Gson gson = new Gson();
+                        PersonBean personBean = gson.fromJson(object, PersonBean.class);
+                        //设置用户信息
+                        holder.username.setText(personBean.getUserName());
+                        // 开始走马灯效果
+
+                        holder.music_name.setText(musicname==null||"".equals(musicname)?personBean.getUserName()+"的原声创作          ":musicname+"        ");
+                        holder.music_name.setSelected(true);
+                        if (MyApplication.user.getHeadPortrait()!=null){
+                            Glide.with(MyApplication.context).load(personBean.getHeadPortrait()).into(holder.head_icon);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+
+
+        });
     }
 }

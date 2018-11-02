@@ -57,8 +57,8 @@ public class KeyMapDailogCommentToComment extends DialogFragment {
         dialog = new Dialog(getActivity(), R.style.inputDialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置Content前设定
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        //View contentview = View.inflate(getActivity(), R.layout.plant_comment, null);
-        View contentview = View.inflate(getActivity(), R.layout.activity_plant_comment, null);
+        View contentview = View.inflate(getActivity(), R.layout.plant_comment, null);
+        //View contentview = View.inflate(getActivity(), R.layout.activity_plant_comment, null);
         dialog.setContentView(contentview);
         dialog.setCanceledOnTouchOutside(true); // 外部点击取消
         // 设置宽度为屏宽, 靠近屏幕底部。

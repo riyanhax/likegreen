@@ -34,6 +34,7 @@ import com.xbdl.xinushop.adapter.note.NoteDetailAdapter;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.bean.NoteDetailBean;
 import com.xbdl.xinushop.bean.PersonBean;
+import com.xbdl.xinushop.constant.UrlConstant;
 import com.xbdl.xinushop.dialogfragment.PlantDailog;
 import com.xbdl.xinushop.evnetBus.PlantEvnet;
 import com.xbdl.xinushop.utils.HttpUtils2;
@@ -173,8 +174,7 @@ public class NoteDetailActivity extends BaseActivity implements View.OnClickList
                         PersonBean personBean = gson.fromJson(object, PersonBean.class);
                         //设置用户信息
                         if (userId==MyApplication.user.getUserId()){
-                            tv_title.setText("我的的主页");
-
+                            tv_title.setText("我的主页");
                         }else {
                             tv_title.setText(personBean.getUserName()+"的主页");
                             tv_username.setText(personBean.getUserName());
@@ -212,7 +212,13 @@ public class NoteDetailActivity extends BaseActivity implements View.OnClickList
                         diaryRootTitle= noteDetailBean.getExtend().getDiaryRoot().getDiaryRootTitle();
                         tv_plantname.setText(diaryRootTitle);
                         tv_fewdays.setText("已养育"+noteDetailBean.getExtend().getDiaryRoot().getFewDays());
-
+                        //设置两张对比图片
+                        if (diaryRoot.getFewDays()>=3){
+                            iv_img1.setScaleType(ImageView.ScaleType.FIT_XY);
+                            iv_img2.setScaleType(ImageView.ScaleType.FIT_XY);
+                            Glide.with(MyApplication.context).load(UrlConstant.baseimgUrl+diarys.get(0).getDirayIamge().get(0).getDiaryImageUrl()).into(iv_img1);
+                            Glide.with(MyApplication.context).load(UrlConstant.baseimgUrl+diarys.get(diarys.size()-1).getDirayIamge().get(0).getDiaryImageUrl()).into(iv_img2);
+                        }
 
                 }
                 dismissLoading();

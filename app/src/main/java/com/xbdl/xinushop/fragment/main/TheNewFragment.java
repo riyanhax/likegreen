@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -18,6 +19,7 @@ import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.RecommendedAdapter;
 import com.xbdl.xinushop.base.BaseFragment;
+import com.xbdl.xinushop.dialogfragment.RecommentDialogFragment;
 import com.xbdl.xinushop.evnetBus.CallTab;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
@@ -39,8 +41,8 @@ public class TheNewFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommended, container, false);
        EventBus.getDefault().register(this);
-       // initView(view);
-       // initDate();
+        initView(view);
+        initDate();
         return view;
     }
 
@@ -48,9 +50,16 @@ public class TheNewFragment extends BaseFragment {
       HttpUtils2.selectNewest(new StringCallback() {
           @Override
           public void onSuccess(Response<String> response) {
+              Log.v("nihaoma","最新视频"+response.body());
               Type listType = new TypeToken<LinkedList<TheNewVideoBean>>(){}.getType();
               Gson gson = new Gson();
               LinkedList<TheNewVideoBean> beans= gson.fromJson(response.body(), listType);
+              if (beans==null){
+                  tv_tip.setVisibility(View.VISIBLE);
+
+              }else {
+                  tv_tip.setVisibility(View.GONE);
+              }
               mShortVideoListAdapter.setDataList(beans);
               dismissLoading();
           }
@@ -70,6 +79,7 @@ public class TheNewFragment extends BaseFragment {
           @Override
           public void onError(Response<String> response) {
               super.onError(response);
+              Log.v("nihaoma","最新视频  onError"+response.body());
               dismissLoading();
           }
       });
@@ -99,8 +109,9 @@ public class TheNewFragment extends BaseFragment {
     private RecommendedAdapter mShortVideoListAdapter;
     private int mCurrentPosition =  -1;
     private RecyclerView mVideoList;
+    private TextView tv_tip;
     private void initView(View v) {
-
+        tv_tip= v.findViewById(R.id.tv_tip);
         mVideoList = v.findViewById(R.id.video_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mVideoList.setLayoutManager(layoutManager);
@@ -125,21 +136,17 @@ public class TheNewFragment extends BaseFragment {
         mShortVideoListAdapter.setMyViewClick(new RecommendedAdapter.MyViewClick() {
             @Override
             public void showCommentPop(View view, TheNewVideoBean bean) {
-//                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_comment, null);
-//                PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,getActivity().getWindowManager().getDefaultDisplay().getHeight()*4/5);
-//                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                popupWindow.setOutsideTouchable(true);
-//                popupWindow.setTouchable(true);
-//                popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                Log.i("asdf","pinglun");
-              /*  RecommentCommentDialogFragment dialogFragment=RecommentCommentDialogFragment.newInstance();
-                dialogFragment.show(getChildFragmentManager(),"");*/
+                //弹出评论
+                RecommentDialogFragment fragment = RecommentDialogFragment.newInstance(1, bean.getVideo_id(),bean.getUser_id());
+                fragment.show(getFragmentManager(),fragment.getClass().getName());
             }
 
             @Override
-            public void showSharePop() {
+            public void startVideoClick() {
 
             }
+
+
         });
     }
     @Override
@@ -149,14 +156,20 @@ public class TheNewFragment extends BaseFragment {
             mShortVideoListAdapter.pauseCurVideoView();
         }
     }
-
+    Boolean star=true;
     @Override
     public void onResume() {
         super.onResume();
-        if (mShortVideoListAdapter != null) {
-            mShortVideoListAdapter.startCurVideoView();
-        } else {
-            mShouldPlay = true;
+        if (star){
+            //第一次进入
+            initDate();
+            star=false;
+        }else {
+            if (mShortVideoListAdapter != null) {
+                //   mShortVideoListAdapter.startCurVideoView();
+            } else {
+                mShouldPlay = true;
+            }
         }
     }
     @Override

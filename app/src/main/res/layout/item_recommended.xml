@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
     <FrameLayout
         android:layout_width="match_parent"
@@ -8,6 +9,7 @@
         <com.pili.pldroid.player.widget.PLVideoTextureView
             android:id="@+id/video_texture_view"
             android:layout_gravity="center"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </FrameLayout>
@@ -173,6 +175,10 @@
                 android:textColor="@color/white"
                 android:layout_marginLeft="@dimen/dp_4"
                 android:text="biubiubiu"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

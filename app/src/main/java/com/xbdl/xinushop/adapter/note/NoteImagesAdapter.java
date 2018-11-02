@@ -64,10 +64,20 @@ public class NoteImagesAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Di
             final NoteHotBean.ExtendBean.DiaryRootsBean.ListBean.DiarysBean item = mDataList.get(position);
             String time = item.getDirayCreateTime();
             String tempStr = time.substring(0, 10);
-            //viewHolder.tv_imagetime.setText(tempStr);
-
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
+            //获取当前时间
+            Date date = new Date(System.currentTimeMillis());
+            String timeNow = simpleDateFormat.format(date);
+            String timeNow2 = timeNow.substring(0, 10);
+            viewHolder.tv_imagetime.setText(tempStr);
+           if (tempStr.equals(timeNow2)){
+                viewHolder.rl_today.setVisibility(View.VISIBLE);
+            }else {
+               viewHolder.rl_today.setVisibility(View.GONE);
+           }
+            /*//设置今天昨天
             String s = TimeUtil.formatDisplayTime(time, null);
-            viewHolder.tv_imagetime.setText(s);
+            viewHolder.tv_imagetime.setText(s);*/
             viewHolder.tv_imagetitle.setText("第"+item.getDiaryDay()+"天");
 
             int width = AppPhoneMgr.getInstance().getPhoneWidth(mContext);
@@ -106,11 +116,13 @@ public class NoteImagesAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Di
     private class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_image;
         TextView tv_imagetitle,tv_imagetime;
+        View rl_today;
         public ViewHolder(View itemView) {
             super(itemView);
              iv_image = itemView.findViewById(R.id.iv_image);
             tv_imagetitle = itemView.findViewById(R.id.tv_imagetitle);
             tv_imagetime = itemView.findViewById(R.id.tv_imagetime);
+            rl_today = itemView.findViewById(R.id.rl_today);
         }
     }
 }

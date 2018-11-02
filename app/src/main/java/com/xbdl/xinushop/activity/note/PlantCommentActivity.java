@@ -120,14 +120,14 @@ public class PlantCommentActivity extends BaseActivity implements View.OnClickLi
                         public void sendBack(String inputText) {
                             //发表评论
                             Log.v("nihaoma","发送打印");
-
                             sendComment(inputText);
                         }
                     });
-
+                   // dialog.show(getSupportFragmentManager(),dialog.getClass().getName());
                 }
 
             }
+
         });
 
     }
@@ -145,6 +145,7 @@ public class PlantCommentActivity extends BaseActivity implements View.OnClickLi
                     if (jsonObject.getInt("code")==100){
                         //刷新页面
                         getCommentList();
+                        et_msg.setText("");
                         ToastUtil.shortToast(getActivity(),"发布成功");
                     }
                 } catch (JSONException e) {
@@ -233,7 +234,7 @@ public class PlantCommentActivity extends BaseActivity implements View.OnClickLi
       tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(et_msg.getText())){
+               if (TextUtils.isEmpty(et_msg.getText())){
                     ToastUtil.shortToast(getActivity(),"请输入内容");
                     return;
                 }
@@ -242,9 +243,10 @@ public class PlantCommentActivity extends BaseActivity implements View.OnClickLi
         });
     }
     //评论中评论
+    KeyMapDailogCommentToComment dialog;
     private void commentToComment(final PlantCommentBean.ExtendBean.DiaryCommentLayersBean bean) {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        KeyMapDailogCommentToComment dialog =new KeyMapDailogCommentToComment("请输入...", new KeyMapDailogCommentToComment.SendBackListener() {
+        dialog=new KeyMapDailogCommentToComment("请输入...", new KeyMapDailogCommentToComment.SendBackListener() {
             @Override
             public void sendBack(String inputText) {
                 HttpUtils2.appCommentDiaryCommentFloor(MyApplication.user.getLoginToken(), bean.getDiaryId(), MyApplication.user.getUserId(),
@@ -256,6 +258,7 @@ public class PlantCommentActivity extends BaseActivity implements View.OnClickLi
                                     if (jsonObject.getInt("code")==100){
                                         //刷新页面
                                         getCommentList();
+                                        dialog.hideProgressdialog();
                                         ToastUtil.shortToast(getActivity(),"发布成功");
                                     }
                                 } catch (JSONException e) {
@@ -265,6 +268,7 @@ public class PlantCommentActivity extends BaseActivity implements View.OnClickLi
                         });
             }
         });
+        dialog.show(getSupportFragmentManager(),dialog.getClass().getName());
     }
 
     //获取评论列表
@@ -404,7 +408,7 @@ public class PlantCommentActivity extends BaseActivity implements View.OnClickLi
         Calendar startDate = Calendar.getInstance();
         startDate.set(2014, 1, 23);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2027, 2, 28);
+        endDate.set(endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH));
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +12,12 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.base.BaseActivity;
 
 
 import java.util.ArrayList;
 
-public class WriteLongPostActivity extends AppCompatActivity implements View.OnClickListener {
+public class WriteLongPostActivity extends BaseActivity implements View.OnClickListener {
     private ArrayList<ImageItem> images = null;
 
     @Override
@@ -63,5 +65,10 @@ public class WriteLongPostActivity extends AppCompatActivity implements View.OnC
                 Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 }

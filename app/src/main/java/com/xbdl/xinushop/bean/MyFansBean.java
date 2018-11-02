@@ -333,6 +333,18 @@ public class MyFansBean {
                     this.user = user;
                 }
 
+                @Override
+                public String toString() {
+                    return "ListBean{" +
+                            "concernId=" + concernId +
+                            ", concernUserId=" + concernUserId +
+                            ", beConcernUserId=" + beConcernUserId +
+                            ", creationTime=" + creationTime +
+                            ", whetherToBeConcerned=" + whetherToBeConcerned +
+                            ", user=" + user +
+                            '}';
+                }
+
                 public static class UserBean {
                     /**
                      * userId : 24
@@ -516,6 +528,30 @@ public class MyFansBean {
 
                     public void setToken(String token) {
                         this.token = token;
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "UserBean{" +
+                                "userId=" + userId +
+                                ", userName='" + userName + '\'' +
+                                ", userPhone='" + userPhone + '\'' +
+                                ", password='" + password + '\'' +
+                                ", xlId='" + xlId + '\'' +
+                                ", headPortrait='" + headPortrait + '\'' +
+                                ", sex=" + sex +
+                                ", signature='" + signature + '\'' +
+                                ", registerTime='" + registerTime + '\'' +
+                                ", backgroundImg='" + backgroundImg + '\'' +
+                                ", wechat='" + wechat + '\'' +
+                                ", loginToken='" + loginToken + '\'' +
+                                ", accountBalance=" + accountBalance +
+                                ", clientId=" + clientId +
+                                ", realName='" + realName + '\'' +
+                                ", video='" + video + '\'' +
+                                ", accid='" + accid + '\'' +
+                                ", token='" + token + '\'' +
+                                '}';
                     }
                 }
             }

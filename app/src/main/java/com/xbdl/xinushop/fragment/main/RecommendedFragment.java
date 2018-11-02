@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,6 +50,7 @@ import java.util.LinkedList;
 public class RecommendedFragment extends BaseFragment implements View.OnClickListener {
     private String TAG = "ShortVideoActivity";
     private boolean isWifi;
+    private boolean isfrist;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,8 +70,13 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
                 Type listType = new TypeToken<LinkedList<TheNewVideoBean>>(){}.getType();
                 Gson gson = new Gson();
                 beans= gson.fromJson(response.body(), listType);
-                initRecyclerView(beans);
+                if (beans==null){
+                    tv_tip.setVisibility(View.VISIBLE);
 
+                }else {
+                    tv_tip.setVisibility(View.GONE);
+                }
+                initRecyclerView(beans);
                 dismissLoading();
             }
 
@@ -122,10 +129,10 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
     private ArrayList<String> mItemList;
     private int mCurrentPosition =  -1;
     private RecyclerView mVideoList;
+    private TextView tv_tip;
     private void initView(View v) {
-
+        tv_tip= v.findViewById(R.id.tv_tip);
         mVideoList = v.findViewById(R.id.video_list);
-
     }
 
     private void initRecyclerView(LinkedList<TheNewVideoBean> beans) {
@@ -160,15 +167,21 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
             }
 
             @Override
-            public void showSharePop() {
-
+            public void startVideoClick() {
+                if (mShortVideoListAdapter != null) {
+                    mShortVideoListAdapter.startCurVideoView();
+                } else {
+                    mShouldPlay = true;
+                }
             }
+
         });
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.v("nihaoma","onPause执行");
         if (mShortVideoListAdapter != null) {
             mShortVideoListAdapter.pauseCurVideoView();
         }
@@ -177,8 +190,9 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        Log.v("nihaoma","onResume执行");
         if (mShortVideoListAdapter != null) {
-            mShortVideoListAdapter.startCurVideoView();
+        //  mShortVideoListAdapter.startCurVideoView();
         } else {
             mShouldPlay = true;
         }
@@ -186,8 +200,10 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onStop() {
         super.onStop();
+        Log.v("nihaoma","onStop执行");
         if (mShortVideoListAdapter != null) {
             mShortVideoListAdapter.stopCurVideoView();
+           // mShortVideoListAdapter.pauseCurVideoView();
         }
     }
 

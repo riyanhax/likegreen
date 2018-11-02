@@ -110,7 +110,7 @@ public class RecommentDialogFragment extends MyDialogFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recomment_comment_dialog, container, false);
+        View view = inflater.inflate(R.layout.fragment_recomment_comment_dialog2, container, false);
         getDialog().setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 设置宽度为屏宽、靠近屏幕底部。

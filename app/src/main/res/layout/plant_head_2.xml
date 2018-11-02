@@ -21,6 +21,7 @@
         <ImageView
             android:id="@+id/iv_img1"
             android:src="@drawable/penzai"
+            android:scaleType="centerInside"
             android:background="@color/enptyviewbackground"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -28,6 +29,7 @@
         <ImageView
             android:id="@+id/iv_img2"
             android:src="@drawable/penzai"
+            android:scaleType="centerInside"
             android:background="@color/enptyviewbackground"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_weight="1"

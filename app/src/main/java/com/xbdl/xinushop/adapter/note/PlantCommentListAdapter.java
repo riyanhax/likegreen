@@ -123,9 +123,14 @@ public class PlantCommentListAdapter extends ListBaseAdapter<PlantCommentBean.Ex
                 final PlantCommentBean.ExtendBean.DiaryCommentLayersBean.DiaryLayerCommentsBean bean = mDataList.get(position);
                 ViewHolder viewHolder= (ViewHolder) holder;
                 if (bean.getDiaryLayerCommentBeUserName()!=null){
-                    viewHolder.ll_top.setOrientation(LinearLayout.VERTICAL);
-                    String str=bean.getDiaryLayerCommentUserName()+"<font color='#FF0000'>回复： </font>" +bean.getDiaryLayerCommentBeUserName();
-                    viewHolder.tv_username.setText(Html.fromHtml(str));
+
+                    if (bean.getDiaryLayerCommentUserName().equals(bean.getDiaryLayerCommentBeUserName())){
+                        viewHolder.tv_username.setText(bean.getDiaryLayerCommentUserName()+"：");
+                    }else {
+                        viewHolder.ll_top.setOrientation(LinearLayout.VERTICAL);
+                        String str=bean.getDiaryLayerCommentUserName()+"<font color='#FF0000'>回复： </font>" +bean.getDiaryLayerCommentBeUserName();
+                        viewHolder.tv_username.setText(Html.fromHtml(str));
+                    }
                    // viewHolder.tv_username.setText(bean.getDiaryLayerCommentUserName()+" 回复："+bean.getDiaryLayerCommentBeUserName());
                 }else {
                     viewHolder.tv_username.setText(bean.getDiaryLayerCommentUserName()+"：");

@@ -146,7 +146,7 @@ public class MyFocuseActivity extends BaseActivity {
     StringCallback myCallback=new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        //Log.v("nihaoma",response.body());
+                        Log.v("nihaoma","我的粉丝"+response.body());
                         Gson gson = new Gson();
                         MyFansBean myFansBean = gson.fromJson(response.body(), MyFansBean.class);
                         if ( myFansBean.getCode()==100){

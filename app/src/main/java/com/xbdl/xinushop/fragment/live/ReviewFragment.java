@@ -105,9 +105,11 @@ public class ReviewFragment extends Fragment {
             }
 
             @Override
-            public void showSharePop() {
+            public void startVideoClick() {
 
             }
+
+
         });
     }
     @Override

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -51,7 +52,7 @@ public class FocuFragment extends BaseFragment {
         EventBus.getDefault().register(this);
         isWifi = SharedPreferencesUtil.getBoolean(getActivity(), MyConstants.WIFI_AND_MOBILE, true);
         initView(view);
-        //initDate();
+       initDate();
         return view;
     }
    
@@ -60,12 +61,19 @@ public class FocuFragment extends BaseFragment {
             @Override
             public void onSuccess(Response<String> response) {
                 Log.v("nihaoma","我关注的视频信息"+response.body());
-                Type listType = new TypeToken<LinkedList<TheNewVideoBean>>(){}.getType();
+               // Type listType = new TypeToken<LinkedList<TheNewVideoBean>>(){}.getType();
                 Gson gson = new Gson();
                 FocusVideoBean focusVideoBean = gson.fromJson(response.body(), FocusVideoBean.class);
                 if (focusVideoBean.getCode()==100){
                     FocusVideoBean.ExtendBean.PageBean page = focusVideoBean.getExtend().getPage();
                     List<FocusVideoBean.ExtendBean.PageBean.ListBean> beans = page.getList();
+                    if (beans.size()==0){
+                        tv_tip.setVisibility(View.VISIBLE);
+                        tv_tip.setText("你还没有关注别人");
+                    }else {
+                        tv_tip.setVisibility(View.GONE);
+                    }
+
                     initRecyclerView(beans);
                 }
                 
@@ -113,13 +121,10 @@ public class FocuFragment extends BaseFragment {
     private ArrayList<String> mItemList;
     private int mCurrentPosition =  -1;
     private RecyclerView mVideoList;
+    private TextView tv_tip;
     private void initView(View v) {
-
+        tv_tip= v.findViewById(R.id.tv_tip);
         mVideoList = v.findViewById(R.id.video_list);
-
-    }
-
-    private void initRecyclerView(List<FocusVideoBean.ExtendBean.PageBean.ListBean> beans) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mVideoList.setLayoutManager(layoutManager);
         mVideoList.setHasFixedSize(true);
@@ -128,6 +133,10 @@ public class FocuFragment extends BaseFragment {
         snapHelper.attachToRecyclerView(mVideoList);
 
         mShortVideoListAdapter = new FocusVideoAdapter(getActivity());
+    }
+
+    private void initRecyclerView(List<FocusVideoBean.ExtendBean.PageBean.ListBean> beans) {
+
         mShortVideoListAdapter.setDataList(beans);
         mVideoList.setAdapter(mShortVideoListAdapter);
         mVideoList.addOnScrollListener(mOnScrollListener);
@@ -150,7 +159,7 @@ public class FocuFragment extends BaseFragment {
 
             }
 
-           
+
 
             @Override
             public void showSharePop() {
@@ -176,7 +185,7 @@ public class FocuFragment extends BaseFragment {
             star=false;
         }else {
             if (mShortVideoListAdapter != null) {
-                mShortVideoListAdapter.startCurVideoView();
+               // mShortVideoListAdapter.startCurVideoView();
             } else {
                 mShouldPlay = true;
             }
@@ -196,7 +205,21 @@ public class FocuFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             //相当于Fragment的onResume
+            if (star){
+                //第一次进入
+                initDate();
+                star=false;
+            }else {
+                if (mShortVideoListAdapter != null) {
+                    // mShortVideoListAdapter.startCurVideoView();
+                } else {
+                    mShouldPlay = true;
+                }
+            }
+
+
             if (mShortVideoListAdapter != null) {
+
                 // mShortVideoListAdapter.startCurVideoView();
             } else {
                 mShouldPlay = true;

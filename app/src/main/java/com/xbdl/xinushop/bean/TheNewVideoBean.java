@@ -19,17 +19,35 @@ public class TheNewVideoBean {
      */
 
     private long update_time;
-    private Object music;
-    private Object commodity_id;
+    private String music;
+    private int commodity_id;  // 商品id
     private long create_time;
     private int user_id;
-    private Object clickNum;
-    private Object recommend;
+    private int clickNum;
+    private int recommend;
     private int type;
     private String headline;
     private String url;
     private int video_id;
     private int status;
+
+    @Override
+    public String toString() {
+        return "TheNewVideoBean{" +
+                "update_time=" + update_time +
+                ", music='" + music + '\'' +
+                ", commodity_id=" + commodity_id +
+                ", create_time=" + create_time +
+                ", user_id=" + user_id +
+                ", clickNum=" + clickNum +
+                ", recommend=" + recommend +
+                ", type=" + type +
+                ", headline='" + headline + '\'' +
+                ", url='" + url + '\'' +
+                ", video_id=" + video_id +
+                ", status=" + status +
+                '}';
+    }
 
     public long getUpdate_time() {
         return update_time;
@@ -39,19 +57,19 @@ public class TheNewVideoBean {
         this.update_time = update_time;
     }
 
-    public Object getMusic() {
+    public String getMusic() {
         return music;
     }
 
-    public void setMusic(Object music) {
+    public void setMusic(String music) {
         this.music = music;
     }
 
-    public Object getCommodity_id() {
+    public int getCommodity_id() {
         return commodity_id;
     }
 
-    public void setCommodity_id(Object commodity_id) {
+    public void setCommodity_id(int commodity_id) {
         this.commodity_id = commodity_id;
     }
 
@@ -71,19 +89,19 @@ public class TheNewVideoBean {
         this.user_id = user_id;
     }
 
-    public Object getClickNum() {
+    public int getClickNum() {
         return clickNum;
     }
 
-    public void setClickNum(Object clickNum) {
+    public void setClickNum(int clickNum) {
         this.clickNum = clickNum;
     }
 
-    public Object getRecommend() {
+    public int getRecommend() {
         return recommend;
     }
 
-    public void setRecommend(Object recommend) {
+    public void setRecommend(int recommend) {
         this.recommend = recommend;
     }
 
@@ -125,23 +143,5 @@ public class TheNewVideoBean {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "TheNewVideoBean{" +
-                "update_time=" + update_time +
-                ", music=" + music +
-                ", commodity_id=" + commodity_id +
-                ", create_time=" + create_time +
-                ", user_id=" + user_id +
-                ", clickNum=" + clickNum +
-                ", recommend=" + recommend +
-                ", type=" + type +
-                ", headline='" + headline + '\'' +
-                ", url='" + url + '\'' +
-                ", video_id=" + video_id +
-                ", status=" + status +
-                '}';
     }
 }
