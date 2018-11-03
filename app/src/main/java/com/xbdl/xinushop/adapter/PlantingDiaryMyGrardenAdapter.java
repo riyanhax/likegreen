@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.activity.mine.PlantDetailActivity;
+import com.xbdl.xinushop.activity.note.PlantDetailActivity;
 import com.xbdl.xinushop.adapter.baseadapter.BaseViewHolder;
 import com.xbdl.xinushop.adapter.baseadapter.SimpleAdapter;
 import com.xbdl.xinushop.bean.PlantingDiaryAdapterBean;

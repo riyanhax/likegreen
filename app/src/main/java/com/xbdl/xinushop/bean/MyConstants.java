@@ -9,6 +9,8 @@ public class MyConstants {
     public static final  String PHONE = "phone";
     public static final  String PASSWORD = "password";
     public static final  String ISLOGIN = "login";
+    public static final  String IDCheck = "IDCheck";
+    public static final  String businessCheck = "businessCheck";
 
     //weichat
     public static final String APPIDWC = "wx3283ad5062a19c73";

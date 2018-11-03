@@ -34,12 +34,14 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
 import com.xbdl.xinushop.activity.mine.UserDetailActivity;
+import com.xbdl.xinushop.bean.FocusVideoBean;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.bean.TheNewVideoBean;
 import com.xbdl.xinushop.bean.VideoIconBean;
 import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
+import com.xbdl.xinushop.view.Love;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -257,6 +259,8 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
            // isLike(holder,bean);
             //	获取是否点赞，点赞数，评论数
             getPagerData(holder,bean);
+            //判断是否关注
+            isFocus(holder,bean.getUser_id());
         }
     }
     //	获取是否点赞，点赞数，评论数
@@ -502,11 +506,12 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
                         //设置用户信息
                         holder.username.setText(personBean.getUserName());
                         // 开始走马灯效果
-
                         holder.music_name.setText(musicname==null||"".equals(musicname)?personBean.getUserName()+"的原声创作          ":musicname+"        ");
                         holder.music_name.setSelected(true);
                         if (MyApplication.user.getHeadPortrait()!=null){
                             Glide.with(MyApplication.context).load(personBean.getHeadPortrait()).into(holder.head_icon);
+                        }else {
+                           holder.head_icon.setImageResource(R.drawable.xilvfriends);
                         }
                     }
 
@@ -519,5 +524,48 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
 
 
         });
+    }
+    private void isFocus(final ViewHolder holder, final int beCommentUserid) {
+        HttpUtils2.appJudgeWhetherToPayAttention(MyApplication.user.getUserId(), beCommentUserid, MyApplication.user.getLoginToken(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    int code = jsonObject.getInt("code");
+                    if (code==100){
+                        String extend = jsonObject.getString("extend");
+                        JSONObject jsonObject1 = new JSONObject(extend);
+                        int isConcern = jsonObject1.getInt("isConcern");
+                        //isConcern = 1 表示未关注 如果isConcern = 0 表示已关注
+                        if (isConcern==1){
+                            holder.head_add.setVisibility(View.VISIBLE);
+                            holder.head_add.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    addfocus(holder,beCommentUserid);
+                                }
+                            });
+                        }else {
+                            holder.head_add.setVisibility(View.GONE);
+                        }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    //添加关注
+    private void addfocus(final ViewHolder holder, final int beCommentUserid) {
+        HttpUtils2.appAddConcern(MyApplication.user.getLoginToken(),
+                MyApplication.user.getUserId(), beCommentUserid, new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Log.v("nihaoma","点添加关注  "+response.body());
+                        isFocus(holder,beCommentUserid);
+                    }
+                });
     }
 }

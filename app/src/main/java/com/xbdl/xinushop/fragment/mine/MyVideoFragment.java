@@ -88,7 +88,7 @@ public class MyVideoFragment extends BaseFragment {
         HttpUtils2.myvideoAlllist(MyApplication.user.getLoginToken(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                Log.v("nihaoma",response.body());
+                Log.v("nihaoma","获取我的视频"+response.body());
                 Type listType = new TypeToken<LinkedList<MyVideoBean>>(){}.getType();
                 Gson gson = new Gson();
                 beans= gson.fromJson(response.body(), listType);
@@ -111,6 +111,7 @@ public class MyVideoFragment extends BaseFragment {
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
+                Log.v("nihaoma","获取我的视频onError"+response.body());
                 dismissLoading();
 
             }

@@ -1,12 +1,17 @@
 package com.xbdl.xinushop.utils;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.netease.cloud.nos.android.core.CallRet;
@@ -15,9 +20,12 @@ import com.netease.cloud.nos.android.exception.InvalidParameterException;
 import com.netease.vcloudnosupload.AcceleratorConfig;
 import com.netease.vcloudnosupload.NOSUpload;
 import com.netease.vcloudnosupload.NOSUploadHandler;
+import com.netease.vcloudnosupload.NOSUploadImpl;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.activity.VideoReleaseActivity;
 import com.xbdl.xinushop.base.BaseActivity;
+import com.xbdl.xinushop.bean.NetBean;
+import com.xbdl.xinushop.constant.UrlConstant2;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +34,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoUploadUtil {
+public class VideoUploadUtil  {
     private static final String TAG = "VideoReleaseActivity";
     private File mFile;
     private AcceleratorConfig acceleratorConf;
@@ -34,23 +42,24 @@ public class VideoUploadUtil {
     private NOSUpload.UploadExecutor executor = null;
     private String mNosToken, mBucket, mObject;
     private static VideoUploadUtil phoneUtil;
-     public static VideoUploadUtil getInstance(BaseActivity context, File mFile, Handler mHandler){
+     public static VideoUploadUtil getInstance(Application context, File mFile, int type){
          if (phoneUtil == null) {
              synchronized (VideoUploadUtil.class) {
                  if (phoneUtil == null) {
-                     phoneUtil = new VideoUploadUtil(context,mFile,mHandler);
+                     phoneUtil = new VideoUploadUtil(context,mFile,type);
                  }
              }
          }
          return phoneUtil;
      }
-     private BaseActivity context;
-     private Handler mHandler;
+     private Application context;
    private NOSUpload nosUpload ;
-     private VideoUploadUtil(BaseActivity context, File mFile, Handler mHandler){
+   private String  videoTitle ;
+   private int  type ;//视频类型 1 普通视频 2 广告视频
+     private VideoUploadUtil(Application context, File mFile,int type){
          this.context=context;
          this.mFile=mFile;
-         this.mHandler=mHandler;
+         this.type=type;
          nosUpload=NOSUpload.getInstace(context);
          acceleratorConf= new AcceleratorConfig();//上传设置的参数
          loadDefaultAcceleratorConf();
@@ -59,6 +68,7 @@ public class VideoUploadUtil {
 
          }
      }
+
     private void getAccid() {
         final NOSUpload.Config config = new NOSUpload.Config();
         HttpUtils2.getAccid(MyApplication.user.getLoginToken(),new StringCallback() {
@@ -67,37 +77,52 @@ public class VideoUploadUtil {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Log.v("nihaoma",response.body());
-                    if (jsonObject.getInt("code")==200){
-                        config.appKey = jsonObject.getString("appkey");
-                        config.accid = jsonObject.getString("accid");
-                        config.token = jsonObject.getString("token");
-                        nosUpload.setConfig(config);
+                    String curTime = jsonObject.getString("curTime");
+                    String checkSum = jsonObject.getString("checkSum");
+                    String accid = jsonObject.getString("accid");
+                    String appKey = jsonObject.getString("appKey");
+                    String nonce = jsonObject.getString("nonce");
+                    int type = jsonObject.getInt("type");
+                    if (type==1){
+                        //申请网易账号
+                        getNetID(curTime, checkSum, accid, nonce, appKey,config);
                     }else {
-                        ToastUtil.shortToast(context,"数据解析错误请返回再试");
+                        //已经申请过了
+                        String token = jsonObject.getString("token");
+                        config.appKey = appKey;
+                        config.accid = accid;
+                        config.token = token;
+                        nosUpload.setConfig(config);
+                        uploadInit();
+                          /*  config.appKey = "35aaca97cc05a23cd153b9f05c740a52";
+                            config.accid = "a01";
+                            config.token = "95c7b8398c3692616ec6211947bfeba9b00c6f38"*/
                     }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                context.dismissLoading();
+
             }
 
             @Override
             public void onStart(Request<String, ? extends Request> request) {
                 super.onStart(request);
-                context. showLoading();
+                Log.v("nihaoma","//申请网易账号onStart 222222222");
             }
 
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
                 Log.v("nihaoma","222222222");
-                context.dismissLoading();
+
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                context.dismissLoading();
+
             }
         });
     }
@@ -137,18 +162,13 @@ public class VideoUploadUtil {
                 mNosToken = nosToken;
                 mBucket = bucket;
                 mObject = object;
-                Message msg = Message.obtain(mHandler, VideoReleaseActivity.HandleMsg.MSG_INIT_SUCCESS);
-                mHandler.sendMessage(msg);
-                Log.v("nihaoma","1111111111111");
+                Log.v("nihaoma","uploadInit  onSuccess1111111111111");
                 httpsUpload();
             }
 
             @Override
             public void onFail(int code, String msg) {
-                Message m = Message.obtain(mHandler, VideoReleaseActivity.HandleMsg.MSG_INIT_FAIL);
-                m.arg1 = code;
-                m.obj = msg;
-                mHandler.sendMessage(m);
+                Log.v("nihaoma","uploadInit  onFail1111111111111");
             }
         });
     }
@@ -228,7 +248,7 @@ public class VideoUploadUtil {
             executor.cancel();
         }
     }
-
+    private String netVideoPath;
     private void queryVideo() {
         List<String> list = new ArrayList<>();
         list.add(mObject);
@@ -236,25 +256,48 @@ public class VideoUploadUtil {
             @Override
             public void onSuccess(List<QueryResItem> list) {
                 Log.e(TAG, "list: " + list.toString());
-                Message msg = Message.obtain(mHandler, VideoReleaseActivity.HandleMsg.MSG_QUERYVIDEO_SUCCESS);
-                msg.obj = list;
-                mHandler.sendMessage(msg);
-
+                String  netVideoPath=list.get(0).objectName;
+                //setNetVideoPath(netVideoPath);
+                uploadSuccess.UploadSuccess(netVideoPath);
+                //sendVideo(list);
             }
 
             @Override
             public void onFail(int code, String msg) {
                 Log.e(TAG, "videoQuery fail: " + msg);
-                Message m = Message.obtain(mHandler, VideoReleaseActivity.HandleMsg.MSG_QUERYVIDEO_FAIL);
-                m.arg1 = code;
-                m.obj = msg;
-                mHandler.sendMessage(m);
+
             }
         });
     }
+    //传视频信息到后台
+    private void sendVideo(List<NOSUploadHandler.VideoQueryCallback.QueryResItem> list) {
+        HttpUtils2.appPostVideo2(MyApplication.user.getLoginToken(), type, list.get(0).objectName, videoTitle, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Log.v("nihaoma","传送到后台onSuccess"+response.body());
+            }
 
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                Log.v("nihaoma","传送到后台onStart");
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Log.v("nihaoma","传送到后台onError");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                Log.v("nihaoma","传送到后台onFinish");
+            }
+        });
+    }
     private void httpsUpload() {
-        Log.v("nihaoma","222222222222222222222");
+        Log.v("nihaoma","httpsUpload 222222222222222222222");
         if(mFile == null){
             Toast.makeText(context, "please select file first!", Toast.LENGTH_SHORT).show();
         }
@@ -298,27 +341,27 @@ public class VideoUploadUtil {
 
                                     @Override
                                     public void onSuccess(CallRet ret) {
-                                        Log.v("nihaoma","5655555555");
+                                        Log.v("nihaoma","上传已经完成onSuccess");
                                         executor = null;
                                         /**
                                          *  上传已经完成, 清除该文件对应的uploadcontext
                                          */
                                         nosUpload.setUploadContext(mFile, "");
-                                        Toast.makeText(context, "upload success", Toast.LENGTH_SHORT).show();
+                                      //  Toast.makeText(context, "upload success", Toast.LENGTH_SHORT).show();
                                         queryVideo();//返回结果
                                     }
 
                                     @Override
                                     public void onFailure(CallRet ret) {
                                         executor = null;
-                                        Toast.makeText(context, "upload fail", Toast.LENGTH_SHORT).show();
+                                        Log.v("nihaoma","上传未完成onFailure"+ret.getCallbackRetMsg());
                                         //progressBar.setProgress(0);
                                     }
 
                                     @Override
                                     public void onCanceled(CallRet ret) {
                                         executor = null;
-                                        Toast.makeText(context, "upload cancel", Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(context, "upload cancel", Toast.LENGTH_SHORT).show();
                                         // progressBar.setProgress(0);
                                     }
                                 });
@@ -329,5 +372,103 @@ public class VideoUploadUtil {
                 }
             }
         }).start();
+    }
+    //申请网易账号
+    private void getNetID(String curTime, String checkSum, String accid, String nonce, final String appKey, final NOSUpload.Config config) {
+
+        initOkgo(appKey,nonce,curTime,checkSum);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("accid",accid);
+            jsonObject.put("type",1);
+            okGo.<String>post(UrlConstant2.getNetUser)// 请求方式和请求url
+                    .upJson(jsonObject)
+                    .tag("getNetUser")                       // 请求的 tag, 主要用于取消对应的请求
+                    .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                    .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            Log.v("nihaoma","网易返回"+response.body());
+                            Gson gson = new Gson();
+                            NetBean netBean = gson.fromJson(response.body(), NetBean.class);
+                            NetBean.RetBean ret = netBean.getRet();
+                            String accid1 = ret.getAccid();
+                            String token = ret.getToken();
+                            config.appKey = appKey;
+                            config.accid = accid1;
+                            config.token = token;
+                            //返回accid给后台
+                            setAccid(accid1,token);
+                            nosUpload.setConfig(config);
+                            uploadInit();
+                        }
+
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            super.onStart(request);
+                            Log.v("nihaoma","网易返回onStart");
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            Log.v("nihaoma","网易返回onError");
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            super.onFinish();
+                            Log.v("nihaoma","网易返回onFinish");
+                        }
+                    });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private OkGo okGo;
+    private void initOkgo(String AppKey,String Nonce,String CurTime,String CheckSum) {
+        //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("AppKey", AppKey);    //header不支持中文，不允许有特殊字符
+        headers.put("Content-Type", "application/json");
+        headers.put("Nonce", Nonce);
+        headers.put("CurTime", CurTime);
+        headers.put("CheckSum", CheckSum);
+
+        // 详细说明看GitHub文档：https://github.com/jeasonlzy/
+        okGo = OkGo.getInstance().init(context)                           //必须调用初始化
+                .addCommonHeaders(headers);//全局公共头
+
+    }
+    private void setAccid(String accid, String token) {
+        HttpUtils2.setuseraccid(String.valueOf(MyApplication.user.getUserId()), accid, token, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Log.v("nihaoma","setAccid   "+response.body());
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                Log.v("nihaoma","setAccid  onStart ");
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Log.v("nihaoma","setAccid  onError "+response.body()+response);
+            }
+        });
+    }
+    private UploadSuccess uploadSuccess;
+    public void setUploadListener(UploadSuccess uploadSuccess){
+        this.uploadSuccess=uploadSuccess;
+    }
+    public interface UploadSuccess{
+        void UploadSuccess(String videoPath);
     }
 }

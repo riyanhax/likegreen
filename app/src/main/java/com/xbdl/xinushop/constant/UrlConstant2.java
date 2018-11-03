@@ -197,5 +197,9 @@ public interface UrlConstant2 {
      * 		修改日记
      */
     String appUpdateDiary=UrlConstant.baseUrl+"diary/appUpdateDiary";
+    /**
+     * 		申请直播
+     */
+    String livestreamingAdd=UrlConstant.baseUrl+"livestreaming/add";
 
 }

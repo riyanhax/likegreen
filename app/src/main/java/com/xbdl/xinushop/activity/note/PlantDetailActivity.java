@@ -1,4 +1,4 @@
-package com.xbdl.xinushop.activity.mine;
+package com.xbdl.xinushop.activity.note;
 
 import android.app.Activity;
 import android.os.Bundle;

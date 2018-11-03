@@ -87,33 +87,28 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_10">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"/>
 
+             <!--   <com.xbdl.xinushop.view.MultiImageView
+                    android:id="@+id/mu_img"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>-->
                 <ImageView
                     android:id="@+id/apply_live_photo_one"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
                     android:src="@drawable/addphotos" />
 
-                <ImageView
-                    android:id="@+id/apply_live_photo_two"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:layout_weight="1"
-                    android:visibility="invisible" />
 
-                <ImageView
-                    android:id="@+id/apply_live_photo_three"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:layout_weight="1"
-                    android:visibility="invisible" />
             </LinearLayout>
 
             <View
@@ -175,6 +170,7 @@
                 android:layout_marginRight="@dimen/dp_20">
 
                 <TextView
+                    android:id="@+id/tv_living_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -196,6 +192,7 @@
                 android:background="#f6f6f6" />
 
             <EditText
+                android:id="@+id/et_contact"
                 android:textColor="@color/actionbar_sel_color"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_42"
@@ -211,6 +208,7 @@
                 android:background="#f6f6f6" />
 
             <EditText
+                android:id="@+id/et_phone_number"
                 android:textColor="@color/actionbar_sel_color"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_42"
@@ -271,27 +269,32 @@
                     android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <CheckBox
+                    <ImageView
                         android:id="@+id/rb_person_authentication"
+                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/bt_video_type"
-                        android:drawablePadding="4dp"
-                        android:text="个人认证"
-                        android:textColor="#404040" />
-
-                    <CheckBox
+                        android:src="@drawable/weixuanzhong"
+                         />
+                    <TextView
+                        android:text="  个人认证"
+                        android:textColor="#404040"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
                         android:id="@+id/rb_business_authentication"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/bt_video_type"
-                        android:drawablePadding="4dp"
-                        android:text="企业认证"
-                        android:textColor="#404040" />
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/weixuanzhong"
+                       />
+                    <TextView
+                        android:text="   企业认证"
+                        android:textColor="#404040"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <TextView
@@ -342,6 +345,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
+                        android:text="  承诺以上信息真实可靠"
+                        android:textColor="#cccccc"
                         android:button="@drawable/bt_video_type"
                          />
 
@@ -350,7 +355,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:text="承诺以上信息真实可靠"
                         android:textColor="#cccccc"
                         android:textSize="10sp" />
                 </LinearLayout>

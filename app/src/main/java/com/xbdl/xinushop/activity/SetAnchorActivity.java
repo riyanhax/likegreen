@@ -25,7 +25,7 @@ import com.netease.LSMediaCapture.lsMediaCapture;
 import com.netease.LSMediaCapture.util.string.StringUtil;
 import com.netease.vcloud.video.effect.VideoEffect;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.activity.mine.LiveStreamingActivity;
+import com.xbdl.xinushop.activity.mian.LiveStreamingActivity;
 
 import java.io.Serializable;
 import java.text.DateFormat;

@@ -278,7 +278,7 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
                             holder.head_add.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    addfocus(bean);
+                                    addfocus(holder,bean);
                                 }
                             });
                         }else {
@@ -293,12 +293,13 @@ public class FocusVideoAdapter extends RecyclerView.Adapter<FocusVideoAdapter.Vi
         });
     }
     //添加关注
-    private void addfocus(FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
+    private void addfocus(final ViewHolder holder, final FocusVideoBean.ExtendBean.PageBean.ListBean bean) {
         HttpUtils2.appAddConcern(MyApplication.user.getLoginToken(),
                 MyApplication.user.getUserId(), bean.getUserId(), new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Log.v("nihaoma","点添加关注  "+response.body());
+                        isFocus(holder,bean);
                     }
                 });
     }
