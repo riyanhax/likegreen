@@ -50,6 +50,10 @@
     <uses-permission android:name="android.permission.SET_DEBUG_APP" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
+
+
+
+
     <!-- 声明程序使用camera和自动对焦功能 -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -205,7 +209,7 @@
         <activity android:name=".activity.mine.LivePreViewActivity" />
         <activity android:name=".activity.mine.LivePlayBackActivity" />
         <activity android:name=".activity.mine.LiveNowActivity" />
-        <activity android:name=".activity.mine.ShareLiftActivity$MyProductsReleaseActivity" />
+        <activity android:name=".activity.mine.ShareLiftActivity" />
         <!-- 友盟 -->
         <!-- 新浪 -->
         <activity

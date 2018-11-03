@@ -37,6 +37,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.Message;
@@ -144,6 +145,8 @@ public class MyApplication extends Application {
         context = getApplicationContext();
         StorageUtil.init(context, null);
 
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
 
 
         JMessageClient.init(getApplicationContext(), true);
