@@ -733,9 +733,18 @@ public class HttpUtils2 {
     }
     /**
      *	申请直播
+     *@param headline 商品名
+     *@param content 商品详情
+     *@param previewVideo 上传完视频返回的videoid
+     *@param OPlayerTime 开播时间"yyyy-MM-dd HH:mm:ss"
+     *@param contact 联系人
+     *@param authenticationType 认证类型(1:个人 2:企业)
+     *@param status 0为待审核 1为审核通过 2为审核不通过
+
      */
-    public static void livestreamingAdd(String headline, String content, String previewVideo,String OPlayerTime,
-                                        String contact,String contactNumber,int authenticationType,String images,String token,StringCallback stringCallback) {
+    public static void livestreamingAdd(String headline, String content, int previewVideo,String OPlayerTime,
+                                        String contact,String contactNumber,int authenticationType,String images,
+                                        String token,int status,StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.livestreamingAdd)// 请求方式和请求url
                 .params("headline", headline)
                 .params("content", content)
@@ -746,10 +755,34 @@ public class HttpUtils2 {
                 .params("authenticationType", authenticationType)
                 .params("images", images)
                 .params("token", token)
+                .params("status", status)
                 .tag("livestreamingAdd")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);
     }
-
+    /**
+     *	是否有直播间
+     */
+    public static void isHaslivingRoom(String token, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.isHaslivingRoom)// 请求方式和请求url
+                .params("token", token)
+                .tag("isHaslivingRoom")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     *	删除直播间
+     *@param id 直播的id videoid
+     *
+     */
+    public static void deletelivingRoom(int  id, StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.deletelivingRoom)// 请求方式和请求url
+                .params("id", id)
+                .tag("deletelivingRoom")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
 }

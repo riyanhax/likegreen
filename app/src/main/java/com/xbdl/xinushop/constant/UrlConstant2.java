@@ -201,5 +201,13 @@ public interface UrlConstant2 {
      * 		申请直播
      */
     String livestreamingAdd=UrlConstant.baseUrl+"livestreaming/add";
+    /**
+     * 	判断该用户是否有直播间
+     */
+    String isHaslivingRoom=UrlConstant.baseUrl+"livestreaming/findbyuserid";
+    /**
+     * 	删除直播间
+     */
+    String deletelivingRoom=UrlConstant.baseUrl+"livestreaming/delete";
 
 }

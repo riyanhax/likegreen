@@ -638,7 +638,6 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
     private Intent intentVideoReleaseActivity;
     private void startUploadActivity() {
         if (outPutVideoPath!=null){
-
         intentVideoReleaseActivity.putExtra("ShortCameraActivity",outPutVideoPath);
         startActivity(intentVideoReleaseActivity);
         finish();

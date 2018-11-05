@@ -10,10 +10,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.broadcastReceiver.MyReceiver;
 import com.xbdl.xinushop.broadcastReceiver.NetWorkStateReceiver;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.utils.Judge;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 import com.xbdl.xinushop.view.LoadingDialog;
+
+import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -30,13 +35,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = "nihaoma";
     protected LoadingDialog loadingDialog;
     public NetWorkStateReceiver netWorkStateReceiver;
+    private MyReceiver myReceiver;
     protected abstract Activity getActivity();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         context = (BaseActivity) getActivity();
+        //registerReceiver();
+
     }
+
+    protected void  registerReceiver(){
+        if (myReceiver == null) {
+            myReceiver = new MyReceiver();
+
+        }
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(myReceiver, filter);
+    }
+
 
     //在onResume()方法注册
     @Override
@@ -56,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
       //  unregisterReceiver(netWorkStateReceiver);
-
+       // unregisterReceiver(myReceiver);
         super.onPause();
     }
 

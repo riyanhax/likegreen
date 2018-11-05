@@ -108,6 +108,7 @@ public class UserDetailActivity extends BaseActivity implements View.OnClickList
         iv_top_icon= (ImageView)findViewById(R.id.iv_top_icon);//模糊背景
         username = findViewById(R.id.tv_my_username);
         tv_my_word = findViewById(R.id.tv_my_word);
+        findViewById(R.id.iv_return).setOnClickListener(this);
     }
 
     private void initData() {
@@ -238,6 +239,9 @@ public class UserDetailActivity extends BaseActivity implements View.OnClickList
         UMWeb web = new UMWeb("https://www.baidu.com");
         web.setTitle("快来加入喜绿吧");//标题
         switch (view.getId()) {
+            case R.id.iv_return:
+                finish();
+                break;
             case R.id.my_more://点击。。。
                 showPopwindow();
                 break;

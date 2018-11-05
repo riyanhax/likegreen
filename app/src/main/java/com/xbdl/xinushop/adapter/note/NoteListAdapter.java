@@ -54,6 +54,15 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
                 viewHolder.tv_username.setText("我的");
                 viewHolder.tv_attention.setVisibility(View.GONE);
             }else {
+                viewHolder.iv_usericon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), UserDetailActivity.class);
+                        intent.putExtra("id",item.getDiaryRootUserId());
+                        v.getContext().startActivity(intent);
+
+                    }
+                });
                 viewHolder.tv_username.setText(item.getUserName());
                 viewHolder.tv_attention.setVisibility(View.VISIBLE);
                 //0 未关注 1 关注 2相互关注
@@ -82,15 +91,8 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
             viewHolder.tv_topic.setText("植物日记·"+item.getDiaryRootTitle());
             viewHolder.tv_viewcount.setText("浏览"+item.getDiaryRootNumberOfViews() + "次");
             viewHolder.tv_location.setText(item.getDiarys().get(0).getDiaryAddressTemperatureWeather()+"℃");
-            viewHolder.iv_usericon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   Intent intent = new Intent(v.getContext(), UserDetailActivity.class);
-                    intent.putExtra("id",item.getDiaryRootUserId());
-                    v.getContext().startActivity(intent);
 
-                }
-            });
+
 
 
             RecyclerView recyclerViewimage = viewHolder.recycler_image;

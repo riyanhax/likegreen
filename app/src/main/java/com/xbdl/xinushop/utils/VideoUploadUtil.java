@@ -258,8 +258,8 @@ public class VideoUploadUtil  {
                 Log.e(TAG, "list: " + list.toString());
                 String  netVideoPath=list.get(0).objectName;
                 //setNetVideoPath(netVideoPath);
-                uploadSuccess.UploadSuccess(netVideoPath);
-                //sendVideo(list);
+
+                sendVideo(list);
             }
 
             @Override
@@ -270,11 +270,22 @@ public class VideoUploadUtil  {
         });
     }
     //传视频信息到后台
-    private void sendVideo(List<NOSUploadHandler.VideoQueryCallback.QueryResItem> list) {
+   private void sendVideo(List<NOSUploadHandler.VideoQueryCallback.QueryResItem> list) {
         HttpUtils2.appPostVideo2(MyApplication.user.getLoginToken(), type, list.get(0).objectName, videoTitle, new StringCallback() {
+
             @Override
             public void onSuccess(Response<String> response) {
                 Log.v("nihaoma","传送到后台onSuccess"+response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    if (jsonObject.getInt("code")==100){
+                        int videoId = jsonObject.getInt("object");
+                        uploadSuccess.UploadSuccess(videoId);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -469,6 +480,6 @@ public class VideoUploadUtil  {
         this.uploadSuccess=uploadSuccess;
     }
     public interface UploadSuccess{
-        void UploadSuccess(String videoPath);
+        void UploadSuccess(int videoId);
     }
 }

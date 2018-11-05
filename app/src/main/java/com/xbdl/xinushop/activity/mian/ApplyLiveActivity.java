@@ -35,6 +35,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.netease.vcloudnosupload.NOSUpload;
+import com.netease.vcloudnosupload.NOSUploadHandler;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.ShortCameraActivity;
@@ -63,6 +64,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static com.bumptech.glide.load.resource.bitmap.VideoDecoder.FRAME_OPTION;
 
@@ -109,8 +111,8 @@ public class ApplyLiveActivity extends BaseActivity implements View.OnClickListe
     private void initData() {
          idcheck = SharedPreferencesUtil.getBoolean(getActivity(), MyConstants.IDCheck, false);
          businessCheck = SharedPreferencesUtil.getBoolean(getActivity(), MyConstants.businessCheck, false);
-         rb_person_authentication.setImageResource(idcheck?R.drawable.weixuanzhong:R.drawable.xuanzhong);
-         rb_business_authentication.setImageResource(businessCheck?R.drawable.weixuanzhong:R.drawable.xuanzhong);
+         rb_person_authentication.setImageResource(!idcheck?R.drawable.weixuanzhong:R.drawable.xuanzhong);
+         rb_business_authentication.setImageResource(!businessCheck?R.drawable.weixuanzhong:R.drawable.xuanzhong);
 
     }
     @Override
@@ -166,18 +168,23 @@ public class ApplyLiveActivity extends BaseActivity implements View.OnClickListe
                     return;
                 }
                 //先上传视频到网易成功再上传到后台
+
+
                 final String pathbase64 = ImageUtils.bitmapToString(images.get(0).path);
+                //传到后台
+
                 VideoUploadUtil uploadUtil = VideoUploadUtil.getInstance(getApplication(), mFile, 2);
                 uploadUtil.setUploadListener(new VideoUploadUtil.UploadSuccess() {
                     @Override
-                    public void UploadSuccess(String videoPath) {
-                        Log.v("nihaoma","网易上传的路径  "+videoPath);
-                        HttpUtils2.livestreamingAdd(goodsname.getText().toString(), goodsdetails.getText().toString(), videoPath, time,
+                    public void UploadSuccess(int videoId) {
+
+                        HttpUtils2.livestreamingAdd(goodsname.getText().toString(), goodsdetails.getText().toString(), videoId, time,
                                 et_contact.getText().toString(), et_phone_number.getText().toString(), 1, pathbase64,
-                                MyApplication.user.getLoginToken(), new StringCallback() {
+                                MyApplication.user.getLoginToken(),0, new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {
-
+                                        Log.v("nihaoma","申请直播返回  "+response.body());
+                                        //返回previewVideo  40   images  String
                                     }
                                 });
                     }

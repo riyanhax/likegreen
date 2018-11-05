@@ -63,6 +63,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
@@ -94,7 +95,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
             }
 
         });
-
+        //设置极光推送别名 只推送到这个用户
+        JPushInterface.setAlias(getActivity(),MyApplication.user.getUserId(),MyApplication.user.getLoginToken());
 
     }
 

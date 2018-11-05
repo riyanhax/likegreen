@@ -27,6 +27,7 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.LoginActivity;
 import com.xbdl.xinushop.activity.RegisterActivity;
@@ -37,6 +38,8 @@ import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 import com.xbdl.xinushop.utils.ToastUtil;
 
 import java.io.File;
+
+import cn.jpush.android.api.JPushInterface;
 
 
 public class SystemSettingsActivity extends BaseActivity implements View.OnClickListener {
@@ -152,6 +155,8 @@ public class SystemSettingsActivity extends BaseActivity implements View.OnClick
                 startActivity(intentAboutUsActivity);
                 break;
             case R.id.rl_exit_logon://退出登录
+                //退出极光推送
+                JPushInterface.deleteAlias(getActivity(), MyApplication.user.getUserId());
                 Intent intentLoginActivity = new Intent(this, LoginActivity.class);
                 startActivity(intentLoginActivity);
                 SharedPreferencesUtil.putBoolean(this,MyConstants.ISLOGIN,false);

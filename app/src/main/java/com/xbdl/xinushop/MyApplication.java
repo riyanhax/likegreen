@@ -3,8 +3,7 @@ package com.xbdl.xinushop;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-
-
+import android.util.Log;
 
 
 import com.lzy.imagepicker.ImagePicker;
@@ -19,10 +18,12 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.netease.LSMediaCapture.util.storage.StorageUtil;
+import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.utils.GildeImageLoader;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -164,6 +165,15 @@ public class MyApplication extends Application {
         initImgPicker();
         //OkGo.getInstance().init(this);
         initOkGo();
+
+        boolean isGetMsg = SharedPreferencesUtil.getBoolean(this, MyConstants.ISPUSH_MSG, false);
+        if (isGetMsg){
+            Log.v("nihaoma","消息接收中");
+            JPushInterface.resumePush(this);
+        }else {
+            JPushInterface.stopPush(this);
+            Log.v("nihaoma","消息停止接收");
+        }
     }
 
 

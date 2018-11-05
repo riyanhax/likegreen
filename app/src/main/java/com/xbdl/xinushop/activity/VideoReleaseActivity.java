@@ -104,7 +104,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                     int code = msg.arg1;
                     String m = (String) msg.obj;
                     Toast.makeText(VideoReleaseActivity.this, "init fail, code: " + code + ", msg: " + m, Toast.LENGTH_SHORT).show();
-                    Log.v("nihaoma","code"+code+"   msg   "+m);
+                    Log.v("videoTag","code"+code+"   msg   "+m);
                     break;
                 }
                 case HandleMsg.MSG_QUERYVIDEO_SUCCESS: {
@@ -142,7 +142,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                 public void onSuccess(Response<String> response) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body());
-                        Log.v("nihaoma",response.body());
+                        Log.v("videoTag",response.body());
                         String curTime = jsonObject.getString("curTime");
                         String checkSum = jsonObject.getString("checkSum");
                         String accid = jsonObject.getString("accid");
@@ -180,7 +180,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                 @Override
                 public void onError(Response<String> response) {
                     super.onError(response);
-                    Log.v("nihaoma","222222222");
+                    Log.v("videoTag","222222222");
                     dismissLoading();
                 }
 
@@ -201,19 +201,19 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
         HttpUtils2.setuseraccid(String.valueOf(MyApplication.user.getUserId()), accid, token, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                Log.v("nihaoma","setAccid   "+response.body());
+                Log.v("videoTag","setAccid   "+response.body());
             }
 
             @Override
             public void onStart(Request<String, ? extends Request> request) {
                 super.onStart(request);
-                Log.v("nihaoma","setAccid  onStart ");
+                Log.v("videoTag","setAccid  onStart ");
             }
 
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
-                Log.v("nihaoma","setAccid  onError "+response.body()+response);
+                Log.v("videoTag","setAccid  onError "+response.body()+response);
             }
         });
     }
@@ -234,7 +234,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            Log.v("nihaoma","网易返回"+response.body());
+                            Log.v("videoTag","网易返回"+response.body());
                             Gson gson = new Gson();
                             NetBean netBean = gson.fromJson(response.body(), NetBean.class);
                             NetBean.RetBean ret = netBean.getRet();
@@ -252,19 +252,19 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                         @Override
                         public void onStart(Request<String, ? extends Request> request) {
                             super.onStart(request);
-                            Log.v("nihaoma","网易返回onStart");
+                            Log.v("videoTag","网易返回onStart");
                         }
 
                         @Override
                         public void onError(Response<String> response) {
                             super.onError(response);
-                            Log.v("nihaoma","网易返回onError");
+                            Log.v("videoTag","网易返回onError");
                         }
 
                         @Override
                         public void onFinish() {
                             super.onFinish();
-                            Log.v("nihaoma","网易返回onFinish");
+                            Log.v("videoTag","网易返回onFinish");
                         }
                     });
         } catch (JSONException e) {
@@ -310,7 +310,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
         if (mVideoPath!=null){
             //setVideoImg(album);
             setVideoImg(mVideoPath);
-            Log.v("nihaoma","mVideoPath  "+mVideoPath);
+            Log.v("videoTag","mVideoPath  "+mVideoPath);
         }
         String music = intent.getStringExtra("music");
         if (music!=null){
@@ -380,7 +380,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
 
 
                 if (mVideoType.getCheckedRadioButtonId()==R.id.rb_putongvideo){
-                    Log.v("nihaoma","普通视频");
+                    Log.v("videoTag","普通视频");
                     Intent intentMain = new Intent(VideoReleaseActivity.this, MainActivity.class);
                     startActivity(intentMain);
                     EventBus.getDefault().post(CallTab.MINE);
@@ -388,7 +388,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
 
                     finish();
                 }else {
-                    Log.v("nihaoma","广告视频");
+                    Log.v("videoTag","广告视频");
                     Intent intentAdMsgInputActivity = new Intent(VideoReleaseActivity.this, AdMsgInputActivity.class);
                     startActivity(intentAdMsgInputActivity);
                 }
@@ -454,8 +454,10 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                 mObject = object;
                 Message msg = Message.obtain(mHandler, HandleMsg.MSG_INIT_SUCCESS);
                 mHandler.sendMessage(msg);
-                Log.v("nihaoma","1111111111111");
+                Log.v("videoTag","uploadInit  onSuccess"+"  nosToken  "+nosToken+
+                        "  bucket  "+bucket+"   object  "+object);
                 httpsUpload();
+
             }
 
             @Override
@@ -464,6 +466,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                 m.arg1 = code;
                 m.obj = msg;
                 mHandler.sendMessage(m);
+                Log.v("videoTag","uploadInit  onFail" );
             }
         });
     }
@@ -551,7 +554,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
         nosUpload.videoQuery(list, new NOSUploadHandler.VideoQueryCallback() {
             @Override
             public void onSuccess(List<QueryResItem> list) {
-                Log.v("nihaoma", "list: " + list.toString());
+                Log.v("videoTag", "list: " + list.toString());
                 sendVideo(list);
                 Message msg = Message.obtain(mHandler, HandleMsg.MSG_QUERYVIDEO_SUCCESS);
                 msg.obj = list;
@@ -560,7 +563,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFail(int code, String msg) {
-                Log.v("nihaoma", "videoQuery fail: " + msg);
+                Log.v("videoTag", "videoQuery fail: " + msg);
                 Message m = Message.obtain(mHandler, HandleMsg.MSG_QUERYVIDEO_FAIL);
                 m.arg1 = code;
                 m.obj = msg;
@@ -574,31 +577,31 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onSuccess(Response<String> response) {
 
-                Log.v("nihaoma","传送到后台onSuccess"+response.body());
+                Log.v("videoTag","传送到后台onSuccess"+response.body());
             }
 
             @Override
             public void onStart(Request<String, ? extends Request> request) {
                 super.onStart(request);
-                Log.v("nihaoma","传送到后台onStart");
+                Log.v("videoTag","传送到后台onStart");
             }
 
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
-                Log.v("nihaoma","传送到后台onError");
+                Log.v("videoTag","传送到后台onError");
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                Log.v("nihaoma","传送到后台onFinish");
+                Log.v("videoTag","传送到后台onFinish");
             }
         });
     }
 
     private void httpsUpload() {
-        Log.v("nihaoma","222222222222222222222");
+
         if(mFile == null){
             Toast.makeText(VideoReleaseActivity.this, "please select file first!", Toast.LENGTH_SHORT).show();
         }
@@ -618,8 +621,10 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                         uploadContext = tmp;
                     }
                     try {
+                        final String finalUploadContext = uploadContext;
                         executor = nosUpload.putFileByHttps(  mFile,
                                 uploadContext, mBucket, mObject, mNosToken, new NOSUploadHandler.UploadCallback() {
+
                                     @Override
                                     public void onUploadContextCreate(
                                             String oldUploadContext,
@@ -627,13 +632,13 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                                         /**
                                          *  将新的uploadcontext保存起来
                                          */
-                                        Log.v("nihaoma","3333333333333");
+                                        Log.v("videoTag","onUploadContextCreate");
                                         nosUpload.setUploadContext(mFile, newUploadContext);
                                     }
 
                                     @Override
                                     public void onProcess(long current, long total) {
-                                        Log.v("nihaoma","4444444444"+total);
+                                        Log.v("videoTag","current"+current);
 //                                        Toast.makeText(MainActivity.this, "onProcess " + current + "/" + total, Toast.LENGTH_SHORT).show();
                                        // int pro = (int)((1.0f* current / total) * progressBar.getMax());
                                        // progressBar.setProgress(pro);
@@ -642,7 +647,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
 
                                     @Override
                                     public void onSuccess(CallRet ret) {
-                                        Log.v("nihaoma","5655555555");
+                                        Log.v("videoTag","onSuccess   "+ret.getCallbackRetMsg());
                                         executor = null;
                                         /**
                                          *  上传已经完成, 清除该文件对应的uploadcontext
@@ -655,6 +660,11 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                                     @Override
                                     public void onFailure(CallRet ret) {
                                         executor = null;
+                                        Log.v("videoTag","上传参数 mFile "+mFile+" mBucket  "+mBucket+" mObject "
+                                                +mObject+" mNosToken "+mNosToken +" uploadContext "+ finalUploadContext);
+
+                                        Log.v("videoTag","上传失败信息"+ret.getCallbackRetMsg()+"  getResponse  "+ret.getResponse()
+                                        +"  getRequestId  "+ret.getRequestId());
                                         Toast.makeText(VideoReleaseActivity.this, "upload fail", Toast.LENGTH_SHORT).show();
                                         //progressBar.setProgress(0);
                                     }
@@ -662,6 +672,7 @@ public class VideoReleaseActivity extends BaseActivity implements View.OnClickLi
                                     @Override
                                     public void onCanceled(CallRet ret) {
                                         executor = null;
+
                                         Toast.makeText(VideoReleaseActivity.this, "upload cancel", Toast.LENGTH_SHORT).show();
                                        // progressBar.setProgress(0);
                                     }
