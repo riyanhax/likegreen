@@ -154,7 +154,6 @@ public class NoteDetailActivity extends BaseActivity implements View.OnClickList
                 startActivityForResult(intent,100);
             }
 
-
         });
         getUserInfo();
         getFocus();
@@ -213,7 +212,7 @@ public class NoteDetailActivity extends BaseActivity implements View.OnClickList
                         tv_plantname.setText(diaryRootTitle);
                         tv_fewdays.setText("已养育"+noteDetailBean.getExtend().getDiaryRoot().getFewDays());
                         //设置两张对比图片
-                        if (diaryRoot.getFewDays()>=3){
+                        if (diarys.size()>=3){
                             iv_img1.setScaleType(ImageView.ScaleType.FIT_XY);
                             iv_img2.setScaleType(ImageView.ScaleType.FIT_XY);
                             Glide.with(MyApplication.context).load(UrlConstant.baseimgUrl+diarys.get(0).getDirayIamge().get(0).getDiaryImageUrl()).into(iv_img1);

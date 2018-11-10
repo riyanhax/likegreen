@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -77,7 +78,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
     private RadioButton main_rbt_home, main_rbt_add, main_rbt_mine, main_rbt_find, main_rbt_note;
     private FragmentTransaction transaction;
     private PopupWindow popupWindow;
-
+    private int mianTab=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +172,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
         hideAllFragment(transaction);
         switch (checkedId) {
             case com.xbdl.xinushop.R.id.main_rbt_home:
+                mianTab=1;
                 if (main_home == null) {
                     main_home = new HomePageFragment();
                     transaction.add(com.xbdl.xinushop.R.id.fragment_container, main_home);
@@ -187,6 +189,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
                 EventBus.getDefault().post(CallTab.MAIN);
                 break;
             case com.xbdl.xinushop.R.id.main_rbt_note:
+                mianTab=2;
                 if (main_note == null) {
                     main_note = new HomeNoteFragment();
                     transaction.add(com.xbdl.xinushop.R.id.fragment_container, main_note);
@@ -220,6 +223,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
                 main_rbt_note.setTextColor(getResources().getColor(R.color.maintextcolor));*/
             // break;
             case com.xbdl.xinushop.R.id.main_rbt_find:
+                mianTab=2;
                 if (main_find == null) {
                     main_find = new HomeFindFragment();
                     transaction.add(com.xbdl.xinushop.R.id.fragment_container, main_find);
@@ -236,6 +240,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
                 EventBus.getDefault().post(CallTab.FIND);
                 break;
             case com.xbdl.xinushop.R.id.main_rbt_mine:
+                mianTab=2;
                 if (main_mine == null) {
                     main_mine = new HomeMyFragment();
                     transaction.add(com.xbdl.xinushop.R.id.fragment_container, main_mine);
@@ -440,9 +445,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
         contentView.findViewById(com.xbdl.xinushop.R.id.ll_add_jiontheme).setOnClickListener(this);//参与话题
 
         ImageView img = (ImageView) contentView.findViewById(R.id.iv_pop_bg);//背景
-        //虚化背景
-        Bitmap blurBackgroundDrawer = FastBlurUtility.getBlurBackgroundDrawer(this);
-        img.setImageBitmap(blurBackgroundDrawer);
+        if (mianTab==1){
+            //虚化背景
+            Bitmap    bmp = BitmapFactory.decodeResource(getResources(),R.drawable.bj_home );
+            Bitmap blurBackgroundDrawer = FastBlurUtility.mianBackground(bmp);
+            img.setImageBitmap(blurBackgroundDrawer);
+        }else {
+            //虚化背景
+            Bitmap blurBackgroundDrawer = FastBlurUtility.getBlurBackgroundDrawer(this);
+            img.setImageBitmap(blurBackgroundDrawer);
+        }
+
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //设置为失去焦点 方便监听返回键的监听
         popupWindow.setFocusable(false);

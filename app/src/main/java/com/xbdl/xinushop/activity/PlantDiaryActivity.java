@@ -47,6 +47,7 @@ import com.xbdl.xinushop.utils.HttpUtils;
 import com.xbdl.xinushop.utils.ImageUtils;
 import com.xbdl.xinushop.utils.Judge;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
+import com.xbdl.xinushop.utils.ToastUtil;
 import com.xbdl.xinushop.view.SelectDialog;
 
 import org.json.JSONArray;
@@ -107,7 +108,7 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
         //findViewById(R.id.tv_plant_wancheng).setOnClickListener(this);
         tvlocation.setOnClickListener(this);
         findViewById(R.id.iv_return).setOnClickListener(this);
-
+        findViewById(R.id.ll_location).setOnClickListener(this);
         //添加商品图片
         recyclerView= (RecyclerView) findViewById(R.id.images);
        /* selImageList = new ArrayList<>();
@@ -206,15 +207,16 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
 //mLocationClient为第二步初始化过的LocationClient对象
 //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
 //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说
-        mLocationClient.start();
 
+        mLocationClient.start();
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_plant_location:
+            case R.id.ll_location:
+
                 break;
             case R.id.iv_return:
                 finish();
@@ -419,9 +421,10 @@ public class PlantDiaryActivity extends BaseActivity implements View.OnClickList
             String province = location.getProvince();
             addr=city;
             if (!Judge.getBoolean_isNull(city)&&!Judge.getBoolean_isNull(province)) {
-               // tvlocation.setText(province+"."+city);
+                // tvlocation.setText(province+"."+city);
                 tvlocation.setText(city);
             }
+            int locType = location.getLocType();
 
         }
     }

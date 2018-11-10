@@ -102,7 +102,7 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
 
     }
 
-    private void islike(NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean bean, final ViewHolder viewHolder) {
+    private void islike(final NoteDetailBean.ExtendBean.DiaryRootBean.DiarysBean bean, final ViewHolder viewHolder) {
         HttpUtils2.appDiaryLikes(MyApplication.user.getLoginToken(), MyApplication.user.getUserId(), bean.getDiaryId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -113,9 +113,12 @@ public class NoteDetailAdapter extends ListBaseAdapter<NoteDetailBean.ExtendBean
                         String extend = jsonObject.getString("extend");
                         JSONObject extendObject = new JSONObject(extend);
                         boolean isLike = extendObject.getBoolean("isLike");
+
                         if (isLike){
+                            viewHolder.tv_comment_count.setText(String.valueOf(bean.getDirayNumberOfComments()+1));
                             viewHolder.iv_islike.setImageResource(R.drawable.heart_xuanzhong_luntan);
                         }else {
+                            viewHolder.tv_comment_count.setText(String.valueOf(bean.getDirayNumberOfComments()-1));
                             viewHolder.iv_islike.setImageResource(R.drawable.heart_luntan);
                         }
                     }else {

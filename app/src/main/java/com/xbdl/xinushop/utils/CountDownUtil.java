@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
-
 /**
  * 倒计时工具
  * Created by weijing on 2017-08-22 11:50.
@@ -161,3 +160,5 @@ public class CountDownUtil {
         return this;
     }
 }
+
+

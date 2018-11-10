@@ -77,7 +77,6 @@ public class PlantDetailActivity extends BaseActivity {
                     int code = jsonObject.getInt("code");
                     String object = jsonObject.getString("object");
                     if (code == 100) {
-
                         List<PlantDetailBean> plantDetailBeans = getPlantDetails(object);
                         if (plantDetailBeans != null && plantDetailBeans.size() > 0) {
                             tvUsername.setText(plantDetailBeans.get(0).getP().getName());
@@ -95,7 +94,7 @@ public class PlantDetailActivity extends BaseActivity {
                             } else {
                                 findViewById(R.id.iv_plantedit).setVisibility(View.GONE);
                             }
-//对比图
+                            //对比图
                             if (plantDetailBeans.size() >= 3) {
                                 RecyclerView recyclerView = findViewById(R.id.rv_comparison);
                                 recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -106,8 +105,8 @@ public class PlantDetailActivity extends BaseActivity {
                                 pBeans.add(plantDetailBeans.get(plantDetailBeans.size() - 1).getP());
                                 plantDetailComparisonAdapter.refreshData(pBeans);
                             }
-                            //对比图
 
+                            //对比图
                             RecyclerView rvPlant = findViewById(R.id.rv_plant);
                             rvPlant.setLayoutManager(new LinearLayoutManager(getActivity()));
                             PlantDetailAdapter plantDetailAdapter = new PlantDetailAdapter(getActivity());

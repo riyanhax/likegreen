@@ -27,6 +27,12 @@ public class FastBlurUtility {
     public static Bitmap setMybacjground(Bitmap sentBitmap, int radius){
       return   fastblur( sentBitmap,  radius);
     }
+    /**
+     * 假的虚化
+     * */
+    public static Bitmap mianBackground(Bitmap bmp) {
+        return startBlurBackground(bmp);
+    }
 
     /**
      * 获得模糊化的背景图片
