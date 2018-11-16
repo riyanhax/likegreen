@@ -34,8 +34,11 @@ import com.xbdl.xinushop.activity.RegisterActivity;
 import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.base.BasePresenter;
 import com.xbdl.xinushop.bean.MyConstants;
+import com.xbdl.xinushop.evnetBus.FinshMain;
 import com.xbdl.xinushop.utils.SharedPreferencesUtil;
 import com.xbdl.xinushop.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -160,6 +163,7 @@ public class SystemSettingsActivity extends BaseActivity implements View.OnClick
                 Intent intentLoginActivity = new Intent(this, LoginActivity.class);
                 startActivity(intentLoginActivity);
                 SharedPreferencesUtil.putBoolean(this,MyConstants.ISLOGIN,false);
+                EventBus.getDefault().post(FinshMain.mian);
                 finish();
                 break;
             case R.id.rl_change_pwd:

@@ -18,6 +18,7 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.netease.LSMediaCapture.util.storage.StorageUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.PersonBean;
 import com.xbdl.xinushop.utils.GildeImageLoader;
@@ -174,6 +175,13 @@ public class MyApplication extends Application {
             JPushInterface.stopPush(this);
             Log.v("nihaoma","消息停止接收");
         }
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
+        //...在这里设置strategy的属性，在bugly初始化时传入
+        strategy.setAppChannel("myChannel");  //设置渠道
+        strategy.setAppVersion("1.0.1");      //App的版本
+        strategy.setAppPackageName("com.xbdl.xinushopx");  //App的包名
+        CrashReport.initCrashReport(getApplicationContext(), "6e13a78714", true,strategy);
+
     }
 
 

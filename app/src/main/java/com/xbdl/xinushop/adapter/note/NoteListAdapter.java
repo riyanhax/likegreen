@@ -25,6 +25,8 @@ import com.xbdl.xinushop.utils.HttpUtils2;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -90,7 +92,7 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
 
             viewHolder.tv_topic.setText("植物日记·"+item.getDiaryRootTitle());
             viewHolder.tv_viewcount.setText("浏览"+item.getDiaryRootNumberOfViews() + "次");
-            viewHolder.tv_location.setText(item.getDiarys().get(0).getDiaryAddressTemperatureWeather()+"℃");
+            viewHolder.tv_location.setText("  "+item.getDiarys().get(0).getDiaryAddressTemperatureWeather()+"℃");
 
 
 
@@ -118,6 +120,26 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
                     imagesAdapter.setDataList(diarys);
 
                 }
+                if (item.getDiarys() != null && item.getDiarys().size() == 1) {
+                    final NoteHotBean.ExtendBean.DiaryRootsBean.ListBean.DiarysBean item2 = diarys.get(0);
+                    String time = item2.getDirayCreateTime();
+                    String tempStr = time.substring(0, 10);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
+                    //获取当前时间
+                    Date date = new Date(System.currentTimeMillis());
+                    String timeNow = simpleDateFormat.format(date);
+                    String timeNow2 = timeNow.substring(0, 10);
+                    viewHolder.tv_imagetime.setText(tempStr);
+                    if (tempStr.equals(timeNow2)){
+                        viewHolder.rl_today.setVisibility(View.VISIBLE);
+                    }else {
+                        viewHolder.rl_today.setVisibility(View.GONE);
+                    }
+            /*//设置今天昨天
+            String s = TimeUtil.formatDisplayTime(time, null);
+            viewHolder.tv_imagetime.setText(s);*/
+                    viewHolder.tv_imagetitle.setText(+item2.getDiaryDay()+"·DAY");
+                }
             }
 
         }
@@ -127,7 +149,8 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
 
 
     private class ViewHolder extends RecyclerView.ViewHolder {
-
+        TextView tv_imagetitle,tv_imagetime;
+        View rl_today,rl_date;
         TextView tv_username,tv_location,tv_topic,tv_viewcount,tv_attention;
         CircleImageView iv_usericon;
         RecyclerView recycler_image;
@@ -143,6 +166,11 @@ public class NoteListAdapter extends ListBaseAdapter<NoteHotBean.ExtendBean.Diar
 
             recycler_image = itemView.findViewById(R.id.recycler_image);
 
+
+            tv_imagetitle = itemView.findViewById(R.id.tv_imagetitle);
+            tv_imagetime = itemView.findViewById(R.id.tv_imagetime);
+            rl_today = itemView.findViewById(R.id.rl_today);
+            rl_date = itemView.findViewById(R.id.rl_date);
         }
     }
     //改变状态

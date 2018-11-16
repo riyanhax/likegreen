@@ -45,6 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_5"
+                    android:drawableLeft="@drawable/location"
                     android:text="topic"
                     android:textColor="@color/color_727272"
                     android:textSize="@dimen/sp_10" />
@@ -76,19 +77,76 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-    <TextView
-        android:id="@+id/tv_topic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp_5"
         android:layout_marginLeft="@dimen/dp_10"
-        android:background="@drawable/circle_fff_10"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_3"
-        android:paddingBottom="@dimen/dp_3"
-        android:text="种草日记.惊天"
-        android:textColor="@color/color_353535" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_fff_10"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_3"
+            android:paddingBottom="@dimen/dp_3"
+            android:text="种草日记.惊天"
+            android:textColor="@color/color_353535" />
+        <RelativeLayout
+            android:id="@+id/rl_date"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35">
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_imagetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9.day"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_353535"
+                android:layout_marginTop="@dimen/dp_8"
+                android:textSize="@dimen/sp_8"
+                android:gravity="center"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_imagetime"
+                android:layout_toRightOf="@id/tv_imagetitle"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="2018"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_919191"
+                android:layout_marginTop="@dimen/dp_8"
+                android:textSize="@dimen/sp_8"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:gravity="center"
+                />
+            <RelativeLayout
+                android:id="@+id/rl_today"
+
+                android:layout_toRightOf="@id/tv_imagetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:textSize="9sp"
+                    android:text="今天"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
 
 
     <android.support.v7.widget.AppCompatTextView
@@ -96,7 +154,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_3"
         android:padding="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10"
         android:text="adfsd"

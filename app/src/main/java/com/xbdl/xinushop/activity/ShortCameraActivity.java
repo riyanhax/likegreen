@@ -133,8 +133,8 @@ public class ShortCameraActivity extends AppCompatActivity implements MessageHan
         //2、 预览参数设置
         MediaRecord.VideoQuality videoQuality = MediaRecord.VideoQuality.SUPER_HIGH; //视频模板（SUPER_HIGH 1280*720、SUPER 960*540、HIGH 640*480、MEDIUM 480*360）
         mMediaRecord.startVideoPreview(videoView, frontCamera, videoQuality, scale_16x9);
-        mMediaRecord.setBeautyLevel(2); //磨皮强度为5,共5档，0为关闭
-        mMediaRecord.setFilterStrength(0.5f); //滤镜强度
+        mMediaRecord.setBeautyLevel(1); //磨皮强度为5,共5档，0为关闭
+       // mMediaRecord.setFilterStrength(0.5f); //滤镜强度
         mMediaRecord.setFilterType(VideoEffect.FilterType.clean);
         //伴音
         audioMixVolumeMsgReceiver = new audioMixVolumeMsgReceiver();

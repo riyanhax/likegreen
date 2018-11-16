@@ -96,6 +96,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+        <!--腾讯bugly-->
+
+        <!-- 配置APP ID -->
+
+        <!--腾讯bugly-->
+
+
+
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="9dP8WSLNKYXFDrM5bfeMPwYOY1M0vYMY" />

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.xbdl.xinushop.R;
@@ -54,8 +55,9 @@ public class EquipmentActivity extends AppCompatActivity implements View.OnClick
                     Intent viewIntent = new
                             Intent("android.intent.action.VIEW", Uri.parse("http://weixin.qq.com/"));
                     startActivity(viewIntent);
-                }
-                break;*/
+                }*/
+
+                break;
         }
     }
 }

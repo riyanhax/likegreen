@@ -14,6 +14,7 @@
 
         android:src="@mipmap/ic_launcher" />
     <RelativeLayout
+        android:id="@+id/rl_date"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

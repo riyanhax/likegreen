@@ -32,6 +32,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.UMShareAPI;
 import com.xbdl.xinushop.activity.EquipmentActivity;
 import com.xbdl.xinushop.activity.PlantDiaryActivity;
@@ -44,6 +45,7 @@ import com.xbdl.xinushop.base.BaseActivity;
 import com.xbdl.xinushop.evnetBus.CallTab;
 import com.xbdl.xinushop.bean.MyConstants;
 import com.xbdl.xinushop.bean.WeatherBean;
+import com.xbdl.xinushop.evnetBus.FinshMain;
 import com.xbdl.xinushop.fragment.home.HomeFindFragment;
 import com.xbdl.xinushop.fragment.home.HomeMyFragment;
 import com.xbdl.xinushop.fragment.home.HomeNoteFragment;
@@ -316,6 +318,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
                 break;
         }*/
     }
+    //接收eventbus事件
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Finshmain(FinshMain event) {
+            switch (event){
+                case mian:
+                    finish();
+                    break;
+            }
+    }
 
     @Override
     protected void onDestroy() {
@@ -526,6 +537,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,B
                 popupWindow.dismiss();
                 break;
             case com.xbdl.xinushop.R.id.ll_add_equipment://应用设备
+                CrashReport.testJavaCrash();
                 Intent intentEquipmentActivity = new Intent(MainActivity.this, EquipmentActivity.class);
                 startActivity(intentEquipmentActivity);
                 popupWindow.dismiss();
