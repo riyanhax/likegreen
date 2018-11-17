@@ -11,14 +11,14 @@ import android.view.View;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.fragment.mine.AuditFragment;
-import com.xbdl.xinushop.fragment.mine.LiveFragment;
+import com.xbdl.xinushop.fragment.mine.OrdinaryFragment;
 
 import java.util.ArrayList;
 
 public class AuditAndLiveActivity extends AppCompatActivity {
     private SlidingTabLayout mStAuditLive;
     private ViewPager mViewPager;
-    private String[] times=new String[]{"广告视频","直播"};
+    private String[] times=new String[]{"广告视频","普通视频"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +30,7 @@ public class AuditAndLiveActivity extends AppCompatActivity {
     private void initData() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new AuditFragment());
-        fragments.add(new LiveFragment());
+        fragments.add(new OrdinaryFragment());
         mStAuditLive.setViewPager(mViewPager,times,this,fragments);
     }
 

@@ -185,6 +185,7 @@ public class ApplyLiveActivity extends BaseActivity implements View.OnClickListe
                                     public void onSuccess(Response<String> response) {
                                         Log.v("nihaoma","申请直播返回  "+response.body());
                                         //返回previewVideo  40   images  String
+                                        ToastUtil.shortToast(getActivity(),"申请直播间成功");
                                     }
                                 });
                     }

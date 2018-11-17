@@ -30,6 +30,8 @@ import android.widget.Toast;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.netease.neliveplayer.playerkit.common.log.LogUtil;
 import com.netease.neliveplayer.playerkit.sdk.LivePlayer;
 import com.netease.neliveplayer.playerkit.sdk.LivePlayerObserver;
@@ -54,6 +56,7 @@ import com.xbdl.xinushop.bean.LivingRoomMsgBean;
 import com.xbdl.xinushop.ne.Observer;
 import com.xbdl.xinushop.ne.PhoneCallStateObserver;
 import com.xbdl.xinushop.service.PlayerService;
+import com.xbdl.xinushop.utils.HttpUtils2;
 import com.xbdl.xinushop.view.VerticalViewPager;
 
 import java.util.ArrayList;
@@ -172,8 +175,8 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
         //livingRoomMsgBean = new LivingRoomMsgBean();
        // intoChatRoom();
         initView(view);
-       // initData();
-        //initPlayer();
+        initData();
+
         return view;
     }
 
@@ -365,7 +368,12 @@ public class HomeLiveFragment1 extends Fragment implements View.OnClickListener,
 
 
     private void initData() {
+        HttpUtils2.livestreamingList(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
 
+            }
+        });
     }
 
 

@@ -20,10 +20,12 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.note.NoteDetailActivity;
 import com.xbdl.xinushop.adapter.note.NoteListAdapter;
+import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.bean.NoteHotBean;
 import com.xbdl.xinushop.bean.NoteListBean;
 import com.xbdl.xinushop.evnetBus.PlantEvnet;
@@ -47,7 +49,7 @@ import java.util.List;
  */
 
 
-public class NoteFocusFragment extends Fragment {
+public class NoteFocusFragment extends BaseFragment {
     ProgressBar progressBar;
     NoteListAdapter noteListAdapter = null;
     private int page=1;
@@ -93,6 +95,7 @@ public class NoteFocusFragment extends Fragment {
         HttpUtils2.appGetMyConcerned(MyApplication.user.getLoginToken(),MyApplication.user.getUserId(),pn,new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                dismissLoading();
                 Log.v("nihaoma","我的关注人的日记"+response.body());
                 NoteHotBean noteHotBean = new Gson().fromJson(response.body(), NoteHotBean.class);
                 if (noteHotBean.getCode()==100){
@@ -116,9 +119,22 @@ public class NoteFocusFragment extends Fragment {
             }
 
             @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                dismissLoading();
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+               showLoading();
+
+            }
+
+            @Override
             public void onFinish() {
                 super.onFinish();
-                progressBar.setVisibility(View.GONE);
+                dismissLoading();
             }
         });
 

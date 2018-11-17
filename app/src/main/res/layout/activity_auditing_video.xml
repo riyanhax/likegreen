@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
-    android:background="@color/enptyviewbackground"
-    tools:context=".activity.mine.order.MyOrderActivity">
+    tools:context=".activity.mine.AuditingVideoActivity">
     <RelativeLayout
         style="@style/head">
         <ImageView
@@ -21,38 +19,27 @@
             android:id="@+id/iv_return"
             android:orientation="vertical"
             android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_48"/>
+            android:layout_height="match_parent"/>
         <TextView
+            android:id="@+id/tv_title"
             android:layout_centerInParent="true"
-            android:text="@string/myroder"
             android:textColor="@color/colorfocuse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <include layout="@layout/layout_line"/>
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/st_my"
-        android:background="@color/white"
-        android:layout_centerHorizontal="true"
+    <TextView
+        android:id="@+id/tv_empty"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_gravity="center_horizontal"
+        android:text="没有更多数据~~"
+        android:textSize="15sp"
+        android:textColor="@color/actionbar_sel_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.github.jdsjlzx.recyclerview.LRecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        app:tl_divider_color="#dadada"
-        app:tl_divider_padding="19dp"
-        app:tl_divider_width="1dp"
-        app:tl_indicator_color="#bbe417"
-        app:tl_indicator_height="2dp"
-        app:tl_indicator_width="62dp"
-        app:tl_indicator_width_equal_title="true"
-        app:tl_tab_padding="5dp"
-        app:tl_tab_space_equal="true"
-        app:tl_textSelectColor="#bbe417"
-        app:tl_textUnselectColor="#dadada"
-
-        />
-    <android.support.v4.view.ViewPager
-        android:layout_below="@id/st_my"
-        android:id="@+id/viewpager_home_my"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="wrap_content"/>
 </LinearLayout>

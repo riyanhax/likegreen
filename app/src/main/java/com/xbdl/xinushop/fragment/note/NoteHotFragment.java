@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.adapter.note.NoteListAdapter;
@@ -93,6 +94,7 @@ public class NoteHotFragment extends BaseFragment {
             @Override
             public void onSuccess(Response<String> response) {
                 Log.v("nihaoma",response.body());
+                dismissLoading();
                NoteHotBean noteHotBean = new Gson().fromJson(response.body(), NoteHotBean.class);
                 if (noteHotBean.getCode()==100){
                     diaryRoots = noteHotBean.getExtend().getDiaryRoots();
@@ -114,10 +116,15 @@ public class NoteHotFragment extends BaseFragment {
                 }
 
             }
-
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                super.onStart(request);
+                showLoading();
+            }
             @Override
             public void onFinish() {
                 super.onFinish();
+                dismissLoading();
                 progressBar.setVisibility(View.GONE);
             }
         });

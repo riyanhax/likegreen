@@ -12,6 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.umeng.commonsdk.debug.I;
+import com.xbdl.xinushop.MyApplication;
 import com.xbdl.xinushop.R;
 import com.xbdl.xinushop.activity.mian.ApplyLiveActivity;
 import com.xbdl.xinushop.activity.mian.LiveStreamingActivity;
@@ -20,8 +25,13 @@ import com.xbdl.xinushop.base.BaseFragment;
 import com.xbdl.xinushop.fragment.main.FocuFragment;
 import com.xbdl.xinushop.fragment.main.RecommendedFragment;
 import com.xbdl.xinushop.fragment.main.TheNewFragment;
+import com.xbdl.xinushop.utils.HttpUtils2;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 /**
@@ -86,8 +96,32 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 //isShow=!isShow;
                 break;
             case R.id.rl_apply_live://申请直播
-                Intent intentApplyLiveActivity = new Intent(getActivity(), ApplyLiveActivity.class);
-                startActivity(intentApplyLiveActivity);
+                HttpUtils2.isHaslivingRoom(MyApplication.user.getLoginToken(), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Log.v("nihaoma","判断是否有直播间"+response.body());
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("code")==1){
+                                //有直播间
+                                Intent intent1 = new Intent(getActivity(), LiveStreamingActivity.class);
+                            }else {
+                                //无直播间
+                                Intent intentApplyLiveActivity = new Intent(getActivity(), ApplyLiveActivity.class);
+                                startActivity(intentApplyLiveActivity);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        Log.v("nihaoma","判断是否有直播间"+response.body());
+                    }
+                });
+
                 showLiveBtn(isShow);
                 break;
             case R.id.rl_gotolive://打开直播

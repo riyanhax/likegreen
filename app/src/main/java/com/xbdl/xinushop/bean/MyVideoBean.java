@@ -31,7 +31,7 @@ public class MyVideoBean {
     private Object music;
     private Object commodity_id;
     private int user_id;
-    private Object checkstatus;
+    private int checkstatus;
     private Object information;
     private String headline;
     private int video_id;
@@ -101,11 +101,11 @@ public class MyVideoBean {
         this.user_id = user_id;
     }
 
-    public Object getCheckstatus() {
+    public int getCheckstatus() {
         return checkstatus;
     }
 
-    public void setCheckstatus(Object checkstatus) {
+    public void setCheckstatus(int checkstatus) {
         this.checkstatus = checkstatus;
     }
 

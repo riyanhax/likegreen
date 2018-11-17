@@ -51,7 +51,7 @@ public class MyFocuseActivity extends BaseActivity {
     private void initView() {
        mList = (LRecyclerView)findViewById(R.id.focuse_list);
         title= findViewById(R.id.tv_title);
-        findViewById(R.id.focuse_return).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.iv_return).setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
               finish();

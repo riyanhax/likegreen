@@ -111,6 +111,10 @@
     <string name="playback">回放</string>
     <string name="airon">即将开播</string>
     <string name="showoff">炫耀一下</string>
+    <string name="auditing_video">审核中视频</string>
+    <string name="auditing_fail_video">审核不通过视频</string>
+
+
     <string name="cashcoupon">全场满200减100</string>
 
 

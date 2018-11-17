@@ -187,8 +187,9 @@ public class HttpUtils2 {
     }
     /**
      * 查询用户视频
+     * 	审核中传0 未通过传2 通过传1
      */
-    public static void myvideolist(String token,String status, StringCallback stringCallback) {
+    public static void myvideolist(String token,int status, StringCallback stringCallback) {
         OkGo.<String>post(UrlConstant2.myvideolist)// 请求方式和请求url
                 .params("token", token)
                 .params("status",status)
@@ -781,6 +782,16 @@ public class HttpUtils2 {
         OkGo.<String>post(UrlConstant2.deletelivingRoom)// 请求方式和请求url
                 .params("id", id)
                 .tag("deletelivingRoom")                       // 请求的 tag, 主要用于取消对应的请求
+                .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
+                .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
+                .execute(stringCallback);
+    }
+    /**
+     *查询所有直播间
+     */
+    public static void livestreamingList( StringCallback stringCallback) {
+        OkGo.<String>post(UrlConstant2.livestreamingList)// 请求方式和请求url
+                .tag("livestreamingList")                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
                 .execute(stringCallback);

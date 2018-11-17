@@ -1,5 +1,6 @@
 package com.xbdl.xinushop.fragment.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xbdl.xinushop.R;
+import com.xbdl.xinushop.activity.mine.AuditingVideoActivity;
 
 /**
  * Created by theWind on 2018/8/1.
@@ -36,12 +38,16 @@ public class AuditFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent(getContext(), AuditingVideoActivity.class);
         switch (view.getId()){
             case R.id.rl_in_audit:
+                intent.putExtra("type",3);
                 break;
             case R.id.rl_unaudit:
+                intent.putExtra("type",4);
                 break;
         }
+        startActivity(intent);
 
     }
 }

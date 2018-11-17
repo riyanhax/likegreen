@@ -25,7 +25,7 @@ public class MyFansActivity extends AppCompatActivity {
 
     private void initView() {
         mList=(LRecyclerView)findViewById(R.id.fans_list);
-        findViewById(R.id.myfans_return).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.iv_return).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

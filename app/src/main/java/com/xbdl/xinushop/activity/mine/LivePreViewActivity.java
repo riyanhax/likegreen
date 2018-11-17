@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 public class LivePreViewActivity extends BaseActivity {
     private int myLiveFragment;
     @BindView(R.id.iv_return)
-    ImageView iv_return ; //绑定button 控件
+    LinearLayout iv_return ; //绑定button 控件
     @BindView(R.id.tv_title)
     TextView title ; //绑定button 控件
     @BindView(R.id.recyclerView)

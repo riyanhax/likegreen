@@ -9,8 +9,6 @@ import android.view.View;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.xbdl.xinushop.R;
-import com.xbdl.xinushop.fragment.mine.AuditFragment;
-import com.xbdl.xinushop.fragment.mine.LiveFragment;
 import com.xbdl.xinushop.fragment.mine.messagedirect.MyDirectFragment;
 import com.xbdl.xinushop.fragment.mine.messagedirect.MyMessageFragment;
 

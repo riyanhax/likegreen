@@ -209,5 +209,9 @@ public interface UrlConstant2 {
      * 	删除直播间
      */
     String deletelivingRoom=UrlConstant.baseUrl+"livestreaming/delete";
+    /**
+     * 	查询所有直播间
+     */
+    String livestreamingList=UrlConstant.baseUrl+"livestreaming/list";
 
 }

@@ -18,12 +18,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48">
         <ImageView
-            android:id="@+id/iv_return"
-            android:layout_marginLeft="@dimen/dp_20"
+
             android:layout_centerVertical="true"
             android:src="@drawable/wode_return"
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_16" />
+            style="@style/paddinglift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/iv_return"
+            android:orientation="vertical"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_48"/>
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/st_message_direct"
             android:layout_centerHorizontal="true"
