@@ -188,7 +188,10 @@ public class RechargeCenterActivity extends BaseActivity implements View.OnClick
                         //支付宝支付
                         JSONObject jsonObject = new JSONObject(result);
                         String body1 = jsonObject.getString("body");
+                        Log.v("nihaoma",body1);
+                        String AA="alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2018111562161520&biz_content=%7B%22body%22%3A%22%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%AF%E4%BB%981.0%E5%85%83%22%2C%22out_trade_no%22%3A%2232%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%AF%E4%BB%98%22%2C%22timeout_express%22%3A%2230m%22%2C%22total_amount%22%3A%221.0%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2F47.92.96.140%2Fauction%2FalipayNotify.do&sign=W7raIz1wB7hc2Fc8UjM%2BeuAjvX6Mr%2FYvT1irRp8AauHS0m37F0E5Pq1HMhePDZ6N8Xu1mOcWzEbExu0Sc04UP9J%2F0Uub2NmBIGWhkaAd%2B5Lc%2BVI0pAmloeyWTuOWGLS9qoJLMWKpnVxuXtRONdRJLEVXuW5XowjlhwdVReB3sPUifEyTrpEKFyBlVr%2FcAMxEbT9cTmdk3DjzO6XGdrwJd%2FD8rtEEbGBm3B3BiJQL481wlzG5PvOaFYXWMAdhkyQVT3yZA3auj%2FokdRaCJe0UL4gLlx%2FuaZOq%2FbLFcGaCAwQz6EAD8EOdw6WyKx%2F7N37qsV1pxHzfO9RAzZOU4DBz6A%3D%3D&sign_type=RSA2&timestamp=2018-11-22+14%3A33%3A23&version=1.0";
                         getAlipay(body1);
+
                     }
 
 
