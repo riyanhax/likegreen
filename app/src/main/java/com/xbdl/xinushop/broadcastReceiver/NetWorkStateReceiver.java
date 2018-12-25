@@ -47,6 +47,8 @@ public class NetWorkStateReceiver extends BroadcastReceiver {
                 NETWORK_STATE=3;
                // Toast.makeText(context, "WIFI已断开,移动数据已断开", Toast.LENGTH_SHORT).show();//没有网络
             }
+
+
          //API大于23时使用下面的方式进行网络监听
         }else {
 
